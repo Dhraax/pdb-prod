@@ -1,0 +1,16 @@
+//::///////////////////////////////////////////////
+//:: FileName tyr_encrucijada3
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 05/07/2014 11:34:53
+//:://////////////////////////////////////////////
+int StartingConditional()
+{
+
+    // Comprobar si el jugador tiene las habilidades requeridas
+    if(GetSkillRank(18, GetPCSpeaker())<8)
+        return FALSE;
+
+    return TRUE;
+}

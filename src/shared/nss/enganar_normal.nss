@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName enganar_normal
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 13/02/2006 14:47:15
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+	// Realizar las pruebas de habilidad
+	if(!(AutoDC(DC_MEDIUM, SKILL_BLUFF, GetPCSpeaker())))
+		return FALSE;
+
+	return TRUE;
+}

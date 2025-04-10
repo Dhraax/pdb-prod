@@ -1,0 +1,111 @@
+//::///////////////////////////////////////////////
+//:: CORROMPER ARMA
+//:: Copyright (c) www.puertadebaldur.net
+//:://////////////////////////////////////////////
+/*
+    Version maligna del conjuro "Bendecir Arma". Solo disponible
+    para guardias negros.
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Monti
+//:: Created On: 29 de Mayo de 2010
+//:://////////////////////////////////////////////
+
+#include "zep_inc_armas"
+#include "x2_inc_spellhook"
+#include "pb_nivellanzador"
+
+//ANTIAPILAMIENTO ESPECIAL: ARMA FEERICA, ARMA MALDITA y BENDECIR ARMA, NO DEBERÍAN PODER COMBINARSE.
+void TienePropiedadesProhibidas(object oPC, object oItem)
+{
+    itemproperty ipLoop = GetFirstItemProperty(oItem);
+    while(GetIsItemPropertyValid(ipLoop))
+    {
+        //Propiedades del ARMA FEERICA
+        if(GetItemPropertyTag(ipLoop) == "Arma_Feerica_CastSpell" || GetItemPropertyTag(ipLoop) == "Arma_Feerica_Visual" || GetItemPropertyTag(ipLoop) == "Arma_Feerica_BonoAtaque"){RemoveItemProperty(oItem,ipLoop);}
+        //Propiedades del ARMA MALDITA
+        //if(GetItemPropertyTag(ipLoop) == "Arma_Maldita_CastSpell" || GetItemPropertyTag(ipLoop) == "Arma_Maldita_Visual" || GetItemPropertyTag(ipLoop) == "Arma_Maldita_BonoAtaque"){RemoveItemProperty(oItem,ipLoop);}
+        //Propiedades del ARMA CAZADORA
+        if(GetItemPropertyTag(ipLoop) == "Arma_Cazadora_CastSpell" || GetItemPropertyTag(ipLoop) == "Arma_Cazadora_Visual" || GetItemPropertyTag(ipLoop) == "Arma_Cazadora_BonoAtaque"){RemoveItemProperty(oItem,ipLoop);}
+        //Propiedades del BENDECIR ARMA
+        if(GetItemPropertyTag(ipLoop) == "Bendecir_Arma_CastSpell" || GetItemPropertyTag(ipLoop) == "Bendecir_Arma_Visual" || GetItemPropertyTag(ipLoop) == "Bendecir_Arma_BonoAtaque"){RemoveItemProperty(oItem,ipLoop);}
+        ipLoop=GetNextItemProperty(oItem);
+    }
+
+}
+
+void AddBlessEffectToWeapon(object oTarget, float fDuration, itemproperty ipBono, itemproperty ipCastSpell, itemproperty ipVisual)
+{
+    IPSafeAddItemProperty(oTarget, ipBono, fDuration, X2_IP_ADDPROP_POLICY_KEEP_EXISTING,FALSE);
+    IPSafeAddItemProperty(oTarget, ipCastSpell, fDuration, X2_IP_ADDPROP_POLICY_REPLACE_EXISTING, FALSE);
+    IPSafeAddItemProperty(oTarget, ipVisual, fDuration,X2_IP_ADDPROP_POLICY_REPLACE_EXISTING,FALSE,TRUE );
+    return;
+}
+
+void main()
+{
+DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
+SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_TRANSMUTATION);
+    /*
+      Spellcast Hook Code
+      Added 2003-07-07 by Georg Zoeller
+      If you want to make changes to all spells,
+      check x2_inc_spellhook.nss to find out more
+
+    */
+
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+    // End of Spell Cast Hook
+
+    //Declare major variables
+    effect eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
+    effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
+    object oTarget = GetSpellTargetObject();
+    int nDuration = 2 * GetTotalCasterLevel(OBJECT_SELF);
+
+    object oMyWeapon = OBJECT_INVALID;
+
+    itemproperty ipBono = ItemPropertyEnhancementBonus(1);
+    itemproperty ipCastSpell = ItemPropertyOnHitCastSpell(144,GetTotalCasterLevel(OBJECT_SELF));
+    itemproperty ipVisual = ItemPropertyVisualEffect(ITEM_VISUAL_EVIL);
+    ipBono = TagItemProperty(ipBono, "Arma_Maldita_BonoAtaque");
+    ipCastSpell = TagItemProperty(ipCastSpell, "Arma_Maldita_CastSpell");
+    ipVisual = TagItemProperty(ipVisual, "Arma_Maldita_Visual");
+
+    if(oMyWeapon == OBJECT_INVALID) {
+        oMyWeapon = ArmaCuerpoACuerpoObjetivoOEquipada();
+        if(oMyWeapon != OBJECT_INVALID) {
+            int nItemBase = GetBaseItemType(oMyWeapon);
+            object oGloves = GetItemInSlot(INVENTORY_SLOT_ARMS, oTarget);
+            if(oGloves != OBJECT_INVALID && GetLevelByClass(CLASS_TYPE_MONK, oTarget) > 0 && (nItemBase == BASE_ITEM_CBLUDGWEAPON || nItemBase == BASE_ITEM_CPIERCWEAPON ||
+                nItemBase == BASE_ITEM_CSLASHWEAPON || nItemBase == BASE_ITEM_CSLSHPRCWEAP) ) {
+                oMyWeapon = oGloves;
+            }
+        } else {
+            object oGloves = GetItemInSlot(INVENTORY_SLOT_ARMS, oTarget);
+            if(oGloves != OBJECT_INVALID && GetLevelByClass(CLASS_TYPE_MONK, oTarget) > 0) {
+                oMyWeapon = oGloves;
+            }
+        }
+    }
+    if(GetIsObjectValid(oMyWeapon))
+    {
+        SignalEvent(GetItemPossessor(oMyWeapon), EventSpellCastAt(OBJECT_SELF, GetSpellId(), FALSE));
+
+        if (nDuration>0)
+        {
+           //Arma Feerica no se acumula con otros conjuros de nivel 1 del Paladín.
+           TienePropiedadesProhibidas(GetItemPossessor(oMyWeapon), oMyWeapon);
+           //Añadimos los efectos y demases.
+           AddBlessEffectToWeapon(oMyWeapon, TurnsToSeconds(nDuration), ipBono, ipCastSpell, ipVisual);
+           ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, GetItemPossessor(oMyWeapon));
+           ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDur, GetItemPossessor(oMyWeapon), TurnsToSeconds(nDuration));
+        }
+    }
+    else FloatingTextStrRefOnCreature(83615, OBJECT_SELF);
+   DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
+}
