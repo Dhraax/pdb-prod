@@ -1,0 +1,43 @@
+version: '3'
+services:
+  pb-server:
+    image: nwnxee/unified:build8193.37
+    hostname: nwnee
+    container_name: nwnee_baldur
+    tty: true
+    stdin_open: true
+    stop_signal: SIGINT
+    env_file:
+        - ${PWD-.}/config/nwserver.env
+    ports:
+    - '5121:5121/udp'
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - ${PWD-.}/logs:/nwn/run/logs.0
+      - ${PWD-.}/:/nwn/home
+      - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
+    restart: unless-stopped
+  influxdb:
+    hostname: influxdb
+    image: influxdb:1.7
+    restart: unless-stopped
+    env_file: ${PWD-.}/config/influxdb.env
+    volumes:
+    - influxdb:/var/lib/influxdb
+
+  grafana:
+    hostname: grafana
+    image: grafana/grafana:6.0.1
+    restart: unless-stopped
+    ports:
+      - 3000:3000/tcp
+    depends_on:
+    - influxdb
+    env_file: ${PWD-.}/config/grafana.env
+    volumes:
+    - ${PWD-.}/config/grafana-provisioning:/etc/grafana/provisioning
+    - grafana:/var/lib/grafana
+volumes:
+  influxdb:
+  grafana:

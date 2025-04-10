@@ -1,0 +1,1 @@
+nwn_tlk -i ./tlk/pb_tlk_v6.tlk -o ./tlk/pb_tlk_v6.tlk.json -p

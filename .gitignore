@@ -1,0 +1,57 @@
+# Ignore everything
+*
+
+!.gitignore
+!.gitattributes
+
+# Whitelist devserver files
+!docker-compose-dev.yml
+!docker-compose.yml
+!config/
+!config/**
+!tools/
+!tools/**
+!templates/
+!templates/**
+
+# Whitelist dummy movie file
+!movies/prelude.wbm
+
+# Whitelist sources and nasher files
+!nasher.cfg
+!src/
+!src/**
+!presets/
+!presets/**
+
+# Whitelist nwn base scripts folder
+!nwn-base-scripts/
+!nwn-base-scripts/**
+
+# Whitelist database files
+#!database/
+#!database/**
+
+# Only keep server template file
+!server/docker-compose.yml
+
+# Whitelist batch and readme files
+!*.bat
+!*.sh
+!*.md
+!nwsync_*
+!nwn_nwsync_*
+
+# Never commit these file types
+*.mod
+*.ncs
+*.erf
+*.hak
+!haks-2da/
+!haks-2da/**
+!tlk/
+!tlk/**
+!*.cmd
+!sqlite3_64.dll
+!nwn_tlk.exe
+!nwn_erf.exe
