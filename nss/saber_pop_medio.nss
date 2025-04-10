@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName saber_pop_medio
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 01/02/2006 20:32:19
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+	// Realizar las pruebas de habilidad
+	if(!(AutoDC(DC_MEDIUM, SKILL_LORE, GetPCSpeaker())))
+		return FALSE;
+
+	return TRUE;
+}

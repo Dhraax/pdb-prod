@@ -1,0 +1,15 @@
+//::///////////////////////////////////////////////
+//:: FileName vgz_cs_ninfasi2
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 22/01/2008 2:04:19
+//:://////////////////////////////////////////////
+#include "mti_libreria"
+int StartingConditional()
+{
+object oPC = GetPCSpeaker();
+if(ObtenerIntPersistente(oPC,"cs_ninfaespejo") == 2)
+return TRUE;
+return FALSE;
+}

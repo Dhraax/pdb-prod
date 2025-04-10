@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName aprcr_pase_cofra
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 20/09/2004 18:12:59
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+// Comprobar si el PJ que habla tiene los objetos en su inventario
+if(!HasItem(GetPCSpeaker(), "pase_cofradia"))
+return TRUE;
+
+return FALSE;
+}

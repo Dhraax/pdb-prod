@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName intimidar_facil
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 20/02/2006 23:23:41
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+	// Realizar las pruebas de habilidad
+	if(!(AutoDC(DC_EASY, SKILL_INTIMIDATE, GetPCSpeaker())))
+		return FALSE;
+
+	return TRUE;
+}

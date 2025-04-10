@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName saber_pop_difici
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 20/02/2006 15:41:57
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+	// Realizar las pruebas de habilidad
+	if(!(AutoDC(DC_HARD, SKILL_LORE, GetPCSpeaker())))
+		return FALSE;
+
+	return TRUE;
+}

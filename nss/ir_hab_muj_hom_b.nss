@@ -1,0 +1,48 @@
+void main()
+{
+object oPC = GetPCSpeaker();
+object oPuta = GetObjectByTag("puta_esmel_bg_2");
+object oPuta_2 = GetObjectByTag("gigolo_esmel_bg_2");
+object oTarget = GetWaypointByTag("bg_p_mujyhomb_entrada");
+object oMod= GetModule();
+DelayCommand(1.0, TakeGoldFromCreature(500, oPC));
+DelayCommand(1.0, SetLocalInt(oMod, "ESTAR_CON_AMBOS", 1));
+DelayCommand(1.5, AssignCommand(oPC, JumpToObject(oTarget)));
+DelayCommand(2.0, SetCommandable(FALSE, oPC));
+DelayCommand(5.0, FloatingTextStringOnCreature("*Entras en la habitación y se cierra la puerta*", oPC));
+DelayCommand(10.0, FloatingTextStringOnCreature("*La mujer y el hombre te miran con cara de seducción y sonríen picarones*", oPC));
+DelayCommand(15.0, FloatingTextStringOnCreature("*Se mete un dedo en la boca y muerde su uña, seductoramente; el hombre te acaricia el rostro*", oPC));
+DelayCommand(20.0, FloatingTextStringOnCreature("*Te quitan la ropa poco a poco*", oPC));
+DelayCommand(21.0, SetCommandable(TRUE, oPC));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CHEST, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_HEAD, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_ARMS, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_ARROWS, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_BELT, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_BOLTS, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_BOOTS, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_BULLETS, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CARMOUR, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CLOAK, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CWEAPON_B, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CWEAPON_L, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_CWEAPON_R, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_LEFTRING, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_NECK, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC))));
+DelayCommand(22.0, AssignCommand(oPC, ActionUnequipItem(GetItemInSlot(INVENTORY_SLOT_RIGHTRING, oPC))));
+DelayCommand(23.0, AssignCommand(oPC, FadeToBlack(oPC, FADE_SPEED_FASTEST)));
+DelayCommand(24.0, AssignCommand(oPuta, SpeakString("*¡¡¡Uiiiiii, siiiiií, siiiiiiiiiiiiií, asiiiiiiii!!!*")));
+DelayCommand(26.0, PlaySound("vs_fseductf_haha"));
+DelayCommand(27.0, AssignCommand(oPuta_2, SpeakString("*¡¡¡Asiiiii siiiu uhhhhhh ahhhhhhh!!!*")));
+DelayCommand(29.0, PlaySound("vs_fx2fighm_haha"));
+DelayCommand(30.0, AssignCommand(oPuta, SpeakString("*¡¡¡Ahoraaa siiiiiií asiiiiiií!!!*")));
+DelayCommand(32.0, PlaySound("vs_fseductf_haha"));
+DelayCommand(33.0, FadeFromBlack(oPC, FADE_SPEED_FASTEST));
+DelayCommand(35.0, PlaySound("vs_fx2fighm_haha"));
+DelayCommand(36.0, AssignCommand(oPuta, PlayAnimation(ANIMATION_LOOPING_TALK_LAUGHING, 2.0)));
+DelayCommand(36.0, AssignCommand(oPuta, SpeakString("Ha estado bien *sonríe*, vuelve cuando quieras*")));
+DelayCommand(36.0, AssignCommand(oPuta_2, PlayAnimation(ANIMATION_LOOPING_TALK_LAUGHING, 2.0)));
+DelayCommand(36.0, AssignCommand(oPuta_2, SpeakString("Sí, vuelve cuando quieras*")));
+}

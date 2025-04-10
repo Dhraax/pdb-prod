@@ -1,0 +1,12 @@
+int StartingConditional()
+{
+  object oPC = GetPCSpeaker();
+
+  int iNivelDruida = GetLevelByClass(CLASS_TYPE_DRUID, oPC);
+  int iNivelExplorador = GetLevelByClass(CLASS_TYPE_RANGER, oPC);
+
+  // Restricción basada en la clase
+  if(iNivelDruida >= 7 || iNivelExplorador >= 15) return TRUE;
+
+  return FALSE;
+}
