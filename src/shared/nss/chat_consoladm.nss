@@ -5,7 +5,7 @@
 #include "pb_constantes"
 #include "nwnx_object"
 #include "lib_disguise"
-
+#include "inc_spells"
 
 //Aplicamos el daño por asalto definido en dm_dañoasalto
 void ApplyRoundDamage(object oObjetivo)
@@ -57,9 +57,9 @@ void main()
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_resetfacciones'</c> para reiniciar las facciones del objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_ayuda'</c> Ver el menú de ayuda de las herramientas de gestión de áreas.</c>");
         //SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ >Usa la función 'dm_dominio' + 'Posicion Dominio (1 o 2)' + 'ID del dominio'</c> para aplicar un dominio a la criatura clérigo objetivo.</c>");
-        SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ >Usa la función 'dm_genero' + 'ID del género'</c> paraaplicar un género al objetivo. 0 = Hombre; 1= Mujer;</c>");
+	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_genero' + ID del género</c> para aplicar un género al objetivo. 0 = Hombre; 1 = Mujer.</c>");
         //SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ >Usa la función 'dm_espmagia' + 'ID de la especialización mágica'</c> para aplicar una especialización mágica al objetivo.</c>");
-        SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función 'dm_tamaño' + 'ID del tamanyo'</c> para aplicar un tamaño al objetivo.</c>");
+	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_tamaño' + 'ID del tamanyo'</c> para aplicar un tamaño al objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_dañoarea' + 'cantidad'</c> Para hacer'd6*cantidad' a todos los miembros del grupo en el mismo area.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_dañoasalto' + 'cantidad'</c> Para hacer esa cantidad de daño por asalto al objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_quitardaño' Para dejar de hacer daño por asalto al objetivo.</c>");
@@ -75,6 +75,7 @@ void main()
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_traer'</c> en un mensaje privado al objetivo para traer al receptor del privado.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> '_dma' + 'texto'</c> Para enviar un grito (en el canal que desees, puedes usar cualquier canal) a los jugadores que estén en tu mismo área.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_ia'</c> Para añadir IA a una criatura.</c>");
+	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_quieto'</c> Para inmovilizar a una criatura (pero que pueda atacar, disparar, usar magias...).</c>");
     }
 
     // Funcion dar dote
@@ -753,6 +754,30 @@ void main()
         SetEventScript(oDMFIObjetivo, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, "nw_c2_defaultd");
         SendMessageToPC(oPC, "Activa y desactiva la IA, lo mismo tienes que ajustarle la facción.");
     }
+
+    //Inmovilizamos a una criatura.
+    else if(GetStringLeft(sTexto, 9) == "dm_quieto")
+    {
+        if(GetObjectType(oDMFIObjetivo) != OBJECT_TYPE_CREATURE)
+        {
+            SendMessageToPC(oPC, "<cþ<<>Solo se puede usar con criaturas.</c>");
+            return;
+        }
+
+        if(PJ_EfectoBuscarTag(oDMFIObjetivo, "DM_INMOVILIZADO"))
+        {
+            PJ_EfectoQuitarTag(oDMFIObjetivo, "DM_INMOVILIZADO");
+        }
+        if(!PJ_EfectoBuscarTag(oDMFIObjetivo, "DM_INMOVILIZADO"))
+        {
+            effect eInmovil = SupernaturalEffect(EffectEntangle());
+            //Siempre antes de meter el efecto, eliminamos el efecto por si se duplica.
+            PJ_EfectoQuitarTag(oDMFIObjetivo, "DM_INMOVILIZADO");
+            eInmovil = TagEffect(eInmovil, "DM_INMOVILIZADO");
+            ApplyEffectToObject(DURATION_TYPE_PERMANENT, eInmovil, oDMFIObjetivo);
+        }
+    }
+
     // No comando
     else SendMessageToPC(oPC, "<cþ<<>Ningún comando DM corresponde a lo que has escrito.</c>");
 }
