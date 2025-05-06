@@ -3036,5 +3036,12 @@ if(sTagDelObjeto == "kitdesollador")
         //Mensajito rolero.
         SendMessageToPC(oPC,ColorTexto("*Al activar el objeto, unas tenues y breves notas procedentes de un arpa que no existe resuenan por el lugar. Una puerta mágica aparece ante ti, espectral. No permanecerá mucho ahí.*",TXT_COLOR_AZUL));
     }
+
+    //Varita de desencadenantes.
+    if(GetTag(oItem) == "item_desen")
+    {
+        SetLocalLocation(oPC, "DM_DESEN_LTARGET", lLocation);
+        AssignCommand(oPC, ActionStartConversation(oPC, "conv_desen", TRUE));
+    }
 }
 

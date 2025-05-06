@@ -1,8 +1,15 @@
+#include "nwnx_object"
+
 void AREA_COMMANDS_ShowHelp(object oPC);
 void AREA_COMMANDS_CopyArea(object oPC, string sTexto, int nCommand);
 void AREA_COMMANDS_CleanArea(object oPC, object oArea, int bDelete = TRUE);
 void AREA_COMMANDS_DeleteArea(object oPC, string sTexto);
 void AREA_COMMANDS_SetName(object oPC, string sTexto);
+void AREA_COMMANDS_SetPlotFlag(object oPC, object oArea);
+void AREA_COMMANDS_SetStatic(object oPC, object oArea);
+void AREA_COMMANDS_ScriptLimpiar(object oPC, object oArea);
+void AREA_COMMANDS_ScriptInterior(object oPC, object oArea);
+void AREA_COMMANDS_ScriptExterior(object oPC, object oArea);
 
 int AREA_UTILS_ShouldDeleteObject(object oObject, int bDelete = TRUE);
 
@@ -15,6 +22,11 @@ void AreaCommandHandler(object oPC, string sTexto)
     else if (GetStringLeft(sTexto, 15) == "dm_area_limpiar") AREA_COMMANDS_CleanArea(oPC, GetArea(oPC), 1);
     else if (GetStringLeft(sTexto, 14) == "dm_area_borrar") AREA_COMMANDS_DeleteArea(oPC, sTexto);
     else if (GetStringLeft(sTexto, 14) == "dm_area_nombre") AREA_COMMANDS_SetName(oPC, sTexto);
+    else if (GetStringLeft(sTexto, 13) == "dm_area_trama") AREA_COMMANDS_SetPlotFlag(oPC, GetArea(oPC));
+    else if (GetStringLeft(sTexto, 16) == "dm_area_estatico") AREA_COMMANDS_SetStatic(oPC, GetArea(oPC));
+    else if (GetStringLeft(sTexto, 23) == "dm_area_scripts_limpiar") AREA_COMMANDS_ScriptLimpiar(oPC, GetArea(oPC));
+    else if (GetStringLeft(sTexto, 24) == "dm_area_scripts_interior") AREA_COMMANDS_ScriptInterior(oPC, GetArea(oPC));
+    else if (GetStringLeft(sTexto, 24) == "dm_area_scripts_exterior") AREA_COMMANDS_ScriptExterior(oPC, GetArea(oPC));
     else SendMessageToPC(oPC, "<cþ<<>Ningún comando DM corresponde a lo que has escrito.</c>");
 }
 
@@ -22,7 +34,8 @@ void AreaCommandHandler(object oPC, string sTexto)
 ////////////////////// COMMANDS //////////////////////
 //////////////////////////////////////////////////////
 
-void AREA_COMMANDS_ShowHelp(object oPC) {
+void AREA_COMMANDS_ShowHelp(object oPC)
+{
     SendMessageToPC(oPC, "<c?þ>Comandos DM - Áreas</c>");
     SendMessageToPC(oPC, "<c´þd>------------------------</c>");
     SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_copiar' + 'Tag del área'</c> para copiar un área existente. Borrado completo de objetos excepto ubicados.</c>");
@@ -31,6 +44,11 @@ void AREA_COMMANDS_ShowHelp(object oPC) {
     SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_limpiar_ubicados'</c> para eliminar los ubicados del área actual.</c>");
     SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_borrar' + 'Tag del área'</c> para eliminar una área creada mediante los comandos de copiado.</c>");
     SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_nombre' + 'Nombre del área'</c> para modificar el nombre del área actual.</c>");
+    SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_trama'</c> para setear todos los ubicados del área como de trama.</c>");
+    SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_estatico'</c> para setear todos los ubicados del área como estáticos.</c>");
+    SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_scripts_limpiar'</c> para eliminar del área los scripts.</c>");
+    SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_scripts_interior'</c> para setear los script del área a los script de interiores.</c>");
+    SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_scripts_exterior'</c> para setear los script del área a los script de exteriores.</c>");
 }
 
 void AREA_COMMANDS_CopyArea(object oPC, string sTexto, int nCommand)
@@ -138,6 +156,102 @@ void AREA_COMMANDS_SetName(object oPC, string sTexto) {
     SendMessageToPC(oPC, "<c?þ>Área renombrada a: '" + sName + "'.</c>");
 }
 
+void AREA_COMMANDS_SetPlotFlag(object oPC, object oArea)
+{
+    int nCreatedArea = GetLocalInt(oArea, "AREA_CREATED");
+    if (!nCreatedArea)
+    {
+        SendMessageToPC(oPC, "<cþ<<>¡No puedes ejecutar este comando en esta área!</c>");
+        return;
+    }
+
+    object oObject = GetFirstObjectInArea(oArea);
+    while(GetIsObjectValid(oObject))
+    {
+        if(GetObjectType(oObject) == OBJECT_TYPE_PLACEABLE)
+        {
+            SetPlotFlag(oObject, 1);
+        }
+        oObject = GetNextObjectInArea(oArea);
+    }
+
+    SendMessageToPC(oPC, "<c?þUbicados hechos de trama.</c>");
+}
+
+void AREA_COMMANDS_SetStatic(object oPC, object oArea)
+{
+    int nCreatedArea = GetLocalInt(oArea, "AREA_CREATED");
+    if (!nCreatedArea)
+    {
+        SendMessageToPC(oPC, "<cþ<<>¡No puedes ejecutar este comando en esta área!</c>");
+        return;
+    }
+
+    object oObject = GetFirstObjectInArea(oArea);
+    while(GetIsObjectValid(oObject))
+    {
+        if(GetObjectType(oObject) == OBJECT_TYPE_PLACEABLE)
+        {
+            NWNX_Object_SetPlaceableIsStatic(oObject, 1);
+        }
+        oObject = GetNextObjectInArea(oArea);
+    }
+
+    SendMessageToPC(oPC, "<c?þUbicados hechos de trama.</c>");
+}
+
+
+void AREA_COMMANDS_ScriptLimpiar(object oPC, object oArea)
+{
+    int nCreatedArea = GetLocalInt(oArea, "AREA_CREATED");
+    if (!nCreatedArea)
+    {
+        SendMessageToPC(oPC, "<cþ<<>¡No puedes ejecutar este comando en esta área!</c>");
+        return;
+    }
+
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_ENTER, "");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_EXIT, "");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_HEARTBEAT, "");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_USER_DEFINED_EVENT, "");
+
+    SendMessageToPC(oPC, "<c?þ>Limpiados scripts del área.</c>");
+}
+
+void AREA_COMMANDS_ScriptInterior(object oPC, object oArea)
+{
+    int nCreatedArea = GetLocalInt(oArea, "AREA_CREATED");
+    if (!nCreatedArea)
+    {
+        SendMessageToPC(oPC, "<cþ<<>¡No puedes ejecutar este comando en esta área!</c>");
+        return;
+    }
+
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_ENTER, "fvex_area_inside");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_EXIT, "z0_area_onexit");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_HEARTBEAT, "");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_USER_DEFINED_EVENT, "");
+
+    SendMessageToPC(oPC, "<c?þ>eteados script del área a interiores.</c>");
+}
+
+void AREA_COMMANDS_ScriptExterior(object oPC, object oArea)
+{
+    int nCreatedArea = GetLocalInt(oArea, "AREA_CREATED");
+    if (!nCreatedArea)
+    {
+        SendMessageToPC(oPC, "<cþ<<>¡No puedes ejecutar este comando en esta área!</c>");
+        return;
+    }
+
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_ENTER, "fvex_area_outsid");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_EXIT, "z0_area_onexit");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_HEARTBEAT, "");
+    SetEventScript(oArea, EVENT_SCRIPT_AREA_ON_USER_DEFINED_EVENT, "");
+
+    SendMessageToPC(oPC, "<c?þ>eteados script del área a exteriores.</c>");
+}
+
 //////////////////////////////////////////////////////
 ///////////////////// UTILIDADES /////////////////////
 //////////////////////////////////////////////////////
@@ -174,3 +288,4 @@ int AREA_UTILS_ShouldDeleteObject(object oObject, int bDelete = 1) {
     return FALSE;
 }
 
+//void main(){}

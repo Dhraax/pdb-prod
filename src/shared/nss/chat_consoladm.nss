@@ -57,9 +57,9 @@ void main()
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_resetfacciones'</c> para reiniciar las facciones del objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_area_ayuda'</c> Ver el menú de ayuda de las herramientas de gestión de áreas.</c>");
         //SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ >Usa la función 'dm_dominio' + 'Posicion Dominio (1 o 2)' + 'ID del dominio'</c> para aplicar un dominio a la criatura clérigo objetivo.</c>");
-	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_genero' + ID del género</c> para aplicar un género al objetivo. 0 = Hombre; 1 = Mujer.</c>");
+           SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_genero' + ID del género</c> para aplicar un género al objetivo. 0 = Hombre; 1 = Mujer.</c>");
         //SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ >Usa la función 'dm_espmagia' + 'ID de la especialización mágica'</c> para aplicar una especialización mágica al objetivo.</c>");
-	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_tamaño' + 'ID del tamanyo'</c> para aplicar un tamaño al objetivo.</c>");
+           SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_tamaño' + 'ID del tamanyo'</c> para aplicar un tamaño al objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_dañoarea' + 'cantidad'</c> Para hacer'd6*cantidad' a todos los miembros del grupo en el mismo area.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_dañoasalto' + 'cantidad'</c> Para hacer esa cantidad de daño por asalto al objetivo.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_quitardaño' Para dejar de hacer daño por asalto al objetivo.</c>");
@@ -75,7 +75,8 @@ void main()
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_traer'</c> en un mensaje privado al objetivo para traer al receptor del privado.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> '_dma' + 'texto'</c> Para enviar un grito (en el canal que desees, puedes usar cualquier canal) a los jugadores que estén en tu mismo área.</c>");
         SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_ia'</c> Para añadir IA a una criatura.</c>");
-	       SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_quieto'</c> Para inmovilizar a una criatura (pero que pueda atacar, disparar, usar magias...).</c>");
+        SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_quieto'</c> Para inmovilizar a una criatura (pero que pueda atacar, disparar, usar magias...).</c>");
+        SendMessageToPC(oPC, "<c´þd><c?þ>-</c> <c ~ > Usa la función<c´þd> 'dm_pnjborrar'</c> Para que el sistema de limpieza borre o no borre un PNJ.</c>");
     }
 
     // Funcion dar dote
@@ -767,6 +768,8 @@ void main()
         if(PJ_EfectoBuscarTag(oDMFIObjetivo, "DM_INMOVILIZADO"))
         {
             PJ_EfectoQuitarTag(oDMFIObjetivo, "DM_INMOVILIZADO");
+            SendMessageToPC(oPC,ColorTexto("La criatura se puede mover.",TXT_COLOR_ROJO));
+            return;
         }
         if(!PJ_EfectoBuscarTag(oDMFIObjetivo, "DM_INMOVILIZADO"))
         {
@@ -775,6 +778,47 @@ void main()
             PJ_EfectoQuitarTag(oDMFIObjetivo, "DM_INMOVILIZADO");
             eInmovil = TagEffect(eInmovil, "DM_INMOVILIZADO");
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, eInmovil, oDMFIObjetivo);
+            SendMessageToPC(oPC,ColorTexto("Inmovilizas a la criatura.",TXT_COLOR_VERDE));
+            return;
+        }
+    }
+
+    // Desencadenantes: Fijar nombre variable
+    else if(GetStringLeft(sTexto, 16) == "dm_desen_intname")
+    {
+        object oTarget = GetLocalObject(oPC, "DM_DESEN_TARGET");
+        if(!GetIsObjectValid(oTarget)) {SendMessageToPC(oPC, "<cþ<<>No has seleccionado un objetivo válido.</c>"); return;}
+
+        string sNombre = GetStringRight(sTexto, GetStringLength(sTexto)-17);
+
+        SetLocalString(oPC, "DM_DESEN_STRING", sNombre);
+    }
+
+    // Desencadenantes: Fijar valor variable
+    else if(GetStringLeft(sTexto, 17) == "dm_desen_intvalor")
+    {
+        object oTarget = GetLocalObject(oPC, "DM_DESEN_TARGET");
+        if(!GetIsObjectValid(oTarget)) {SendMessageToPC(oPC, "<cþ<<>No has seleccionado un objetivo válido.</c>"); return;}
+
+        string sNombre = GetStringRight(sTexto, GetStringLength(sTexto)-18);
+
+        SetLocalString(oPC, "DM_DESEN_VALOR", sNombre);
+    }
+
+    //Los PNJs no se borrarán si son de mapeado.
+    else if(GetStringLeft(sTexto, 12) == "dm_pnjborrar")
+    {
+        if(GetLocalInt(GetArea(oPC), "SEGC_CriaturaSistema") != 1)
+        {
+            SetLocalInt(GetArea(oPC), "SEGC_CriaturaSistema",1);
+            SendMessageToPC(oPC, "El sistema de limpiado de áreas borrará el PNJ.");
+            return;
+        }
+        if(GetLocalInt(GetArea(oPC), "SEGC_CriaturaSistema") == 1)
+        {
+            DeleteLocalInt(GetArea(oPC), "SEGC_CriaturaSistema");
+            SendMessageToPC(oPC, "El sistema limpiado de áreas no borrará el PNJ.");
+            return;
         }
     }
 
