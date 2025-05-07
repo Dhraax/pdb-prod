@@ -81,7 +81,7 @@ void gsC2AdjustSpellEffectiveness(int nSpell, object oCreature, int nEffective =
 //apply eEffect of nSpell to oTarget for fDuration
 void gsSPApplyEffect(object oTarget, effect eEffect, int nSpell, float fDuration = GS_SP_DURATION_INSTANT);
 //remove all effects of nSpell applied by oCaster from oTarget
-void gsSPRemoveEffect(object oTarget, int nSpell, object oCaster = OBJECT_INVALID);
+int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID);
 //execute gs_spellscript and return TRUE if spell is overridden
 //int gsSPGetOverrideSpell();
 //------------------------------------------------------------------------------
@@ -297,26 +297,41 @@ void gsSPApplyEffect(object oTarget, effect eEffect, int nSpell, float fDuration
     //the spell is considered effective
     gsC2AdjustSpellEffectiveness(nSpell, oTarget);
 }
-//----------------------------------------------------------------
-void gsSPRemoveEffect(object oTarget, int nSpell, object oCaster = OBJECT_INVALID)
+//----------------------------------------------------------------------------
+// Removes specific or general magical effects from a target creature.
+//
+// If nSpell >= 0, removes only effects from that specific spell.
+// If nSpell < 0 (default), removes all effects with valid Spell IDs
+// created by the given oCaster (if provided).
+//
+// Returns the number of effects removed.
+//----------------------------------------------------------------------------
+int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID)
 {
-    if (GetHasSpellEffect(nSpell, oTarget))
+    int iRemoved = 0;
+
+    effect eEffect = GetFirstEffect(oTarget);
+    int bAnyCaster = !GetIsObjectValid(oCaster);
+    int bMatchAnySpell = (nSpell < 0);
+
+    while (GetIsEffectValid(eEffect))
     {
-        effect eEffect = GetFirstEffect(oTarget);
-        int nCaster    = ! GetIsObjectValid(oCaster);
+        int iSpellId = GetEffectSpellId(eEffect);
+        object oCreator = GetEffectCreator(eEffect);
 
-        while (GetIsEffectValid(eEffect))
+        if ((bMatchAnySpell || iSpellId == nSpell) &&
+            (bAnyCaster || oCreator == oCaster))
         {
-            if ((nCaster || GetEffectCreator(eEffect) == oCaster) &&
-                GetEffectSpellId(eEffect) == nSpell)
-            {
-                RemoveEffect(oTarget, eEffect);
-            }
-
-            eEffect = GetNextEffect(oTarget);
+            RemoveEffect(oTarget, eEffect);
+            iRemoved++;
         }
+
+        eEffect = GetNextEffect(oTarget);
     }
+
+    return iRemoved;
 }
+
 //----------------------------------------------------------------
 // int gsSPGetOverrideSpell()
 // {
@@ -463,7 +478,7 @@ void CreateNonStackingPersistentAoE(int nDurationType, int nAreaEffectId, locati
     used to create it.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: February 1, 2016
 //:://////////////////////////////////////////////
 int GetAoEId(object oAoE)
@@ -485,7 +500,7 @@ int GetAoEId(object oAoE)
     AoE, if one exists.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 object GetAoEPartner(object oAoE)
@@ -500,7 +515,7 @@ object GetAoEPartner(object oAoE)
     with nAreaEffectId.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: January 30, 2016
 //:://////////////////////////////////////////////
 float GetAoERadius(int nAreaEffectId)
@@ -517,7 +532,7 @@ float GetAoERadius(int nAreaEffectId)
     SHAPE_CUBE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: February 5, 2016
 //:://////////////////////////////////////////////
 int GetAoEShape(int nAreaEffectId)
@@ -540,7 +555,7 @@ int GetAoEShape(int nAreaEffectId)
     existing AoE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 void SetAoECastClass(object oAoE, int nClass)
@@ -556,7 +571,7 @@ void SetAoECastClass(object oAoE, int nClass)
     existing AoE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 void SetAoECasterLevel(object oAoE, int nCasterLevel)
@@ -571,7 +586,7 @@ void SetAoECasterLevel(object oAoE, int nCasterLevel)
     Sets an Id variable on the nonstacking AoE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: February 1, 2016
 //:://////////////////////////////////////////////
 void SetAoEId(object oAoE, int nId)
@@ -589,7 +604,7 @@ void SetAoEId(object oAoE, int nId)
     existing AoE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: July 21, 2016
 //:://////////////////////////////////////////////
 void SetAoEMetaMagic(object oAoE, int nMetaMagic)
@@ -608,7 +623,7 @@ void SetAoEMetaMagic(object oAoE, int nMetaMagic)
     as extraordinary effects.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: February 22, 2016
 //:://////////////////////////////////////////////
 void ApplyTaggedEffectToObject(int nDurationType, effect eEffect, object oTarget, float fDuration = 0.0f, int nEffectTag = EFFECT_TAG_UNDEFINED)
@@ -647,7 +662,7 @@ void ApplyTaggedEffectToObject(int nDurationType, effect eEffect, object oTarget
     glyph of warding).
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 object _CreateStaticVFX(string sName, int nId, location lLocation, float fDuration, string sStaticSourceTemplate, int nVFX1, int nVFX2)
@@ -671,7 +686,7 @@ object _CreateStaticVFX(string sName, int nId, location lLocation, float fDurati
     VFX to one another.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 void _LinkAoEToStaticVFX(object oAoE, object oVFX)
@@ -688,7 +703,7 @@ void _LinkAoEToStaticVFX(object oAoE, object oVFX)
     on the AoE.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 void _SetAoEPartner(object oAoE, object oPartner)
@@ -704,7 +719,7 @@ void _SetAoEPartner(object oAoE, object oPartner)
     the static VFX.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: June 15, 2016
 //:://////////////////////////////////////////////
 void _SetStaticVFXPartner(object oVFX, object oPartner)
@@ -720,7 +735,7 @@ void _SetStaticVFXPartner(object oVFX, object oPartner)
     within 0.1m of the location.
 */
 //:://////////////////////////////////////////////
-//:: Created By: Peppermint
+//:: Created By:
 //:: Created On: February 1, 2016
 //:://////////////////////////////////////////////
 void _UpdateAoEDataAtLocation(location lLocation, int nId, object oStaticVFX, int nCasterLevel, int nCasterClass, float fDuration, int nMetaMagic)

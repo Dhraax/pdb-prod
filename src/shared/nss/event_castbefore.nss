@@ -22,6 +22,8 @@ void HandleImmuneMagicCheck(object oCaster, object oTarget)
 
     if (iImmune == TRUE)
     {
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_GLOBE_USE), oTarget);
+        
         if (GetIsPC(oCaster))
         {
             SendMessageToPC(oCaster, "<c´$$>El hechizo no produce ningún efecto, la criatura parece inmune a la magia.</c>");
