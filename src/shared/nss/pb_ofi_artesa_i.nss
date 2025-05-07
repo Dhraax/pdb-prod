@@ -152,13 +152,14 @@ int ConjurosTerceraEsfera(object oPC)
       if(GetLevelByClass(CLASS_TYPE_CABALLERO_ARCANO, oPC) > 0) iNivelBardo += GetSpecialCasterLevel(CLASS_TYPE_CABALLERO_ARCANO, oPC);
   }
 
-  int iNivelClerigo = GetLevelByClass(CLASS_TYPE_CLERIC, oPC);
-  int iNivelDruida  = GetLevelByClass(CLASS_TYPE_DRUID, oPC);
-  int iNivelExplo   = GetLevelByClass(CLASS_TYPE_RANGER, oPC);
-  int iNivelPaladin = GetLevelByClass(CLASS_TYPE_PALADIN, oPC);
-  int iNivelGNegro  = GetLevelByClass(CLASS_TYPE_BLACKGUARD, oPC);
-  int iNivelAsesino = GetLevelByClass(CLASS_TYPE_ASSASSIN, oPC);
-  int iNivelArpista = GetLevelByClass(CLASS_TYPE_HARPER, oPC);
+  int iNivelClerigo     = GetLevelByClass(CLASS_TYPE_CLERIC, oPC);
+  int iNivelDruida      = GetLevelByClass(CLASS_TYPE_DRUID, oPC);
+  int iNivelExplo       = GetLevelByClass(CLASS_TYPE_RANGER, oPC);
+  int iNivelPaladin     = GetLevelByClass(CLASS_TYPE_PALADIN, oPC);
+  int iNivelGNegro      = GetLevelByClass(CLASS_TYPE_BLACKGUARD, oPC);
+  int iNivelAsesino     = GetLevelByClass(CLASS_TYPE_ASSASSIN, oPC);
+  int iNivelArpista     = GetLevelByClass(CLASS_TYPE_HARPER, oPC);
+  int iNivelIngeniero   = GetLevelByClass(CLASS_TYPE_INGENIERO, oPC);
 
   if(iNivelMago    < 5  && // Int
      iNivelHechi   < 6  && // Car
@@ -169,30 +170,51 @@ int ConjurosTerceraEsfera(object oPC)
      iNivelPaladin < 11 && // Sab
      iNivelGNegro  < 5  && // Sab
      iNivelAsesino < 5  && // Int
+     iNivelIngeniero < 9  && // Int
      iNivelArpista < 5)    // Car
   {
       SendMessageToPC(oPC, "<cþ<<>Debes ser un lanzador de conjuros de 3ª esfera para poder ser artesano urdímbrico.</c>");
       return FALSE;
   }
 
-  // Ya de paso calculamos su caracteristica principal
-  string sCaracteristica = "Sabiduría";
-  int iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_WISDOM, oPC);
+// Ya de paso calculamos su caracteristica principal
+string sCaracteristica = "Sabiduría";
+int iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_WISDOM, oPC);
 
-  if(iNivelMago >= iNivelHechi && iNivelMago >= iNivelBardo   && iNivelMago >= iNivelClerigo && iNivelMago >= iNivelDruida &&
-     iNivelMago >= iNivelExplo && iNivelMago >= iNivelPaladin && iNivelMago >= iNivelGNegro  && iNivelMago >= iNivelArpista) { sCaracteristica = "Inteligencia"; iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_INTELLIGENCE, oPC); }
-
-  else if(iNivelHechi >= iNivelMago    && iNivelHechi >= iNivelClerigo && iNivelHechi >= iNivelDruida && iNivelHechi >= iNivelExplo &&
-          iNivelHechi >= iNivelPaladin && iNivelHechi >= iNivelGNegro  && iNivelHechi >= iNivelAsesino) { sCaracteristica = "Carisma"; iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC); }
-
-  else if(iNivelBardo >= iNivelMago    && iNivelBardo >= iNivelClerigo && iNivelBardo >= iNivelDruida && iNivelBardo >= iNivelExplo &&
-          iNivelBardo >= iNivelPaladin && iNivelBardo >= iNivelGNegro  && iNivelBardo >= iNivelAsesino) { sCaracteristica = "Carisma"; iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC); }
-
-  else if(iNivelAsesino >= iNivelHechi && iNivelAsesino >= iNivelBardo   && iNivelAsesino >= iNivelClerigo && iNivelAsesino >= iNivelDruida &&
-          iNivelAsesino >= iNivelExplo && iNivelAsesino >= iNivelPaladin && iNivelAsesino >= iNivelGNegro  && iNivelAsesino >= iNivelArpista) { sCaracteristica = "Inteligencia"; iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_INTELLIGENCE, oPC); }
-
-  else if(iNivelArpista >= iNivelMago    && iNivelArpista >= iNivelClerigo && iNivelArpista >= iNivelDruida && iNivelArpista >= iNivelExplo &&
-          iNivelArpista >= iNivelPaladin && iNivelArpista >= iNivelGNegro  && iNivelArpista >= iNivelAsesino) { sCaracteristica = "Carisma"; iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC); }
+    if(iNivelMago >= iNivelHechi && iNivelMago >= iNivelBardo   && iNivelMago >= iNivelClerigo && iNivelMago >= iNivelDruida &&
+    iNivelMago >= iNivelExplo && iNivelMago >= iNivelPaladin && iNivelMago >= iNivelGNegro  && iNivelMago >= iNivelArpista &&
+    iNivelMago >= iNivelIngeniero && iNivelMago >= iNivelAsesino) {
+        sCaracteristica = "Inteligencia";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_INTELLIGENCE, oPC);
+    }
+    else if(iNivelIngeniero >= iNivelMago && iNivelIngeniero >= iNivelHechi && iNivelIngeniero >= iNivelBardo &&
+            iNivelIngeniero >= iNivelClerigo && iNivelIngeniero >= iNivelDruida && iNivelIngeniero >= iNivelExplo &&
+            iNivelIngeniero >= iNivelPaladin && iNivelIngeniero >= iNivelGNegro && iNivelIngeniero >= iNivelArpista &&
+            iNivelIngeniero >= iNivelAsesino) {
+        sCaracteristica = "Inteligencia";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_INTELLIGENCE, oPC);
+    }
+    else if(iNivelHechi >= iNivelMago    && iNivelHechi >= iNivelClerigo && iNivelHechi >= iNivelDruida && iNivelHechi >= iNivelExplo &&
+            iNivelHechi >= iNivelPaladin && iNivelHechi >= iNivelGNegro  && iNivelHechi >= iNivelAsesino && iNivelHechi >= iNivelIngeniero) {
+        sCaracteristica = "Carisma";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC);
+    }
+    else if(iNivelBardo >= iNivelMago    && iNivelBardo >= iNivelClerigo && iNivelBardo >= iNivelDruida && iNivelBardo >= iNivelExplo &&
+            iNivelBardo >= iNivelPaladin && iNivelBardo >= iNivelGNegro  && iNivelBardo >= iNivelAsesino && iNivelBardo >= iNivelIngeniero) {
+        sCaracteristica = "Carisma";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC);
+    }
+    else if(iNivelAsesino >= iNivelHechi && iNivelAsesino >= iNivelBardo   && iNivelAsesino >= iNivelClerigo && iNivelAsesino >= iNivelDruida &&
+            iNivelAsesino >= iNivelExplo && iNivelAsesino >= iNivelPaladin && iNivelAsesino >= iNivelGNegro  && iNivelAsesino >= iNivelArpista &&
+            iNivelAsesino >= iNivelIngeniero) {
+        sCaracteristica = "Inteligencia";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_INTELLIGENCE, oPC);
+    }
+    else if(iNivelArpista >= iNivelMago    && iNivelArpista >= iNivelClerigo && iNivelArpista >= iNivelDruida && iNivelArpista >= iNivelExplo &&
+            iNivelArpista >= iNivelPaladin && iNivelArpista >= iNivelGNegro  && iNivelArpista >= iNivelAsesino && iNivelArpista >= iNivelIngeniero) {
+        sCaracteristica = "Carisma";
+        iPuntuacion = bonoRealCaracteristicaPJ(ABILITY_CHARISMA, oPC);
+    }
 
   SetLocalString(oPC, "ARTESA_CARACTERISTICA", sCaracteristica);
   SetLocalInt(oPC, "ARTESA_CARACTERISTICA_PUNT", iPuntuacion);
