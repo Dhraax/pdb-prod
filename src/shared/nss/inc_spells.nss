@@ -81,7 +81,7 @@ void gsC2AdjustSpellEffectiveness(int nSpell, object oCreature, int nEffective =
 //apply eEffect of nSpell to oTarget for fDuration
 void gsSPApplyEffect(object oTarget, effect eEffect, int nSpell, float fDuration = GS_SP_DURATION_INSTANT);
 //remove all effects of nSpell applied by oCaster from oTarget
-int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID);
+int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID, string sTag = "", int bForceRemove = FALSE);
 //execute gs_spellscript and return TRUE if spell is overridden
 //int gsSPGetOverrideSpell();
 //------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ int IntDivisionRounding(int iDividend, int iDivisor, float fThreshold = 0.5);
 //Function to find an effect
 //Returns: a valid effect or effect invalid
 //------------------------------------------------------------------------------
-effect gsSPfindEffect(int nSpellID, object oSource=OBJECT_SELF, object oCreator=OBJECT_SELF);
+effect gsSPfindEffect(int nSpellID, object oSource = OBJECT_SELF, object oCreator = OBJECT_SELF, string sTag = "");
 //----------------------------------------------------------------
 // Returns the Id of the nonstacking AoE. The Id corresponds to the spell or ability
 // used to create it.
@@ -298,29 +298,49 @@ void gsSPApplyEffect(object oTarget, effect eEffect, int nSpell, float fDuration
     gsC2AdjustSpellEffectiveness(nSpell, oTarget);
 }
 //----------------------------------------------------------------------------
-// Removes specific or general magical effects from a target creature.
+// Removes magical effects from a target creature.
 //
-// If nSpell >= 0, removes only effects from that specific spell.
-// If nSpell < 0 (default), removes all effects with valid Spell IDs
+// If nSpell >= 0, removes only effects from that spell ID.
+// If nSpell < 0 (default), removes all effects with valid spell IDs
 // created by the given oCaster (if provided).
+//
+// If sTag is not empty, only effects with that tag will be considered.
+//
+// By default, Supernatural and Unyielding effects are NOT removed.
+// Pass bForceRemove = TRUE to override this behavior.
 //
 // Returns the number of effects removed.
 //----------------------------------------------------------------------------
-int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID)
+int gsSPRemoveEffect(object oTarget, int nSpell = -1, object oCaster = OBJECT_INVALID, string sTag = "", int bForceRemove = FALSE)
 {
+    if (!GetIsObjectValid(oTarget))
+        return 0;
+
     int iRemoved = 0;
 
     effect eEffect = GetFirstEffect(oTarget);
     int bAnyCaster = !GetIsObjectValid(oCaster);
     int bMatchAnySpell = (nSpell < 0);
+    int bUseTagFilter = (sTag != "");
 
     while (GetIsEffectValid(eEffect))
     {
         int iSpellId = GetEffectSpellId(eEffect);
         object oCreator = GetEffectCreator(eEffect);
+        string sEffectTag = GetEffectTag(eEffect);
+        int iSubType = GetEffectSubType(eEffect);
+
+        // Skip Supernatural and Unyielding effects unless forced
+        if (!bForceRemove &&
+            (iSubType == SUBTYPE_SUPERNATURAL || iSubType == SUBTYPE_UNYIELDING))
+        {
+            eEffect = GetNextEffect(oTarget);
+            continue;
+        }
 
         if ((bMatchAnySpell || iSpellId == nSpell) &&
-            (bAnyCaster || oCreator == oCaster))
+            (bAnyCaster || oCreator == oCaster) &&
+            (!bUseTagFilter || sEffectTag == sTag))
         {
             RemoveEffect(oTarget, eEffect);
             iRemoved++;
@@ -376,32 +396,34 @@ int IntDivisionRounding(int iDividend, int iDivisor, float fThreshold = 0.5)
 
     return FloatToInt(fQuotient);
 }
-//------------------------------------------------------------------------------
-//Function to find an effect having sSpellID on oSource created by oCreator
-//Returns: a valid effect or effect invalid
-//------------------------------------------------------------------------------
-effect gsSPfindEffect(int nSpellID, object oSource=OBJECT_SELF, object oCreator=OBJECT_SELF)
+//----------------------------------------------------------------------------
+// Finds an effect on the target with the given Spell ID and caster.
+//
+// If sTag is provided, only effects with that tag are considered.
+//
+// Returns a valid effect if found, or EffectInvalid() otherwise.
+//----------------------------------------------------------------------------
+effect gsSPfindEffect(int nSpellID, object oSource = OBJECT_SELF, object oCreator = OBJECT_SELF, string sTag = "")
 {
-    //Let's find the effect that the player already has
-    effect eExistingEffect = GetFirstEffect(oSource);
+    if (!GetIsObjectValid(oSource) || nSpellID < 0)
+        return GetFirstEffect(OBJECT_INVALID);
 
-    //While the effect is not found, keep on looking
-    while(  GetIsEffectValid(eExistingEffect)
-            &&
-            (
-                GetEffectSpellId(eExistingEffect) != nSpellID
-                ||
-                (
-                    GetEffectSpellId(eExistingEffect) == nSpellID &&
-                    GetEffectCreator(eExistingEffect) != oCreator
-                )
-            )
-        )
+    effect eExistingEffect = GetFirstEffect(oSource);
+    int bUseTagFilter = (sTag != "");
+
+    while (GetIsEffectValid(eExistingEffect))
     {
+        if (GetEffectSpellId(eExistingEffect) == nSpellID &&
+            GetEffectCreator(eExistingEffect) == oCreator &&
+            (!bUseTagFilter || GetEffectTag(eExistingEffect) == sTag))
+        {
+            return eExistingEffect;
+        }
+
         eExistingEffect = GetNextEffect(oSource);
     }
 
-    return eExistingEffect;
+    return GetFirstEffect(OBJECT_INVALID);
 }
 //----------------------------------------------------------------
 /**********************************************************************
