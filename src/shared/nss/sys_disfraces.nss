@@ -58,11 +58,17 @@ void main()
             //Si el PJ no está poliformado de ninguna forma.
             if(Tirada > CD && (ObtenerIntPersistente(OBJECT_SELF, "APA_CAMBIADA") == FALSE && ObtenerIntPersistente(oPC, "APTITUD_POLY_RAZA") == FALSE))
             {
+                if(Tirada - CD >= 0 && Tirada - CD < 10)
+                {
+                    SendMessageToPC(oPC,ColorTexto("*Intentas discenir un posible disfraz en "+sNombreDisfraz+"...*",TXT_COLOR_AZUL));
+                    SendMessageToPC(oPC,ColorTexto("Percibes que la otra persona está usando algún tipo de disfraz.",TXT_COLOR_VERDE));
+                    WriteTimestampedLogEntry("**SISTEMA DE DISFRACES** El personaje: "+GetName(oPC)+", descubre al personaje: "+GetName(oTarget)+", el cual iba disfrazado como "+PB_Disguise_GetNameOverride(oTarget)+".");
+                }
                 if(Tirada - CD > 10)
                 {
                     SendMessageToPC(oPC,ColorTexto("*Intentas discenir un posible disfraz en "+sNombreDisfraz+"...*",TXT_COLOR_AZUL));
                     SendMessageToPC(oPC,ColorTexto("Parece que encuentras manierismos específicos en este disfraz. Acude a un DM (o a Dudas Privadas del foro) para consultar. Realiza capturas del rol, la tirada y la apariencia del objetivo.",TXT_COLOR_VERDE));
-                    WriteTimestampedLogEntry("**SISTEMA DE DISFRACES** El personaje: "+GetName(oPC)+", descubre al personaje: "+GetName(oTarget)+", el cual iba disfrazado como "+PB_Disguise_GetNameOverride(oTarget)+".");
+                    WriteTimestampedLogEntry("**SISTEMA DE DISFRACES** El personaje: "+GetName(oPC)+", descubre al personaje (tirada superior a 10): "+GetName(oTarget)+", el cual iba disfrazado como "+PB_Disguise_GetNameOverride(oTarget)+".");
                 }
                 //Si no se supera...
                 else
