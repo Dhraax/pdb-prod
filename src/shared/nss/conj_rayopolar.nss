@@ -37,8 +37,10 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
   object oTarget = GetSpellTargetObject();
   int nTouch = TouchAttackRanged(oTarget);
   int nMiss;
-  if(!MyResistSpell(oCaster, oTarget) || nTouch)
-  {
+  //if (!MyResistSpell(OBJECT_SELF, oTarget))
+  //{
+    if(nTouch > 0)
+    {
       int nCasterLevel = GetTotalCasterLevel(oCaster);
       if(nCasterLevel > 25)
       {
@@ -66,13 +68,12 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
       ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_FROST_S), oTarget);
       ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_FROST_L), oTarget);
       ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(nDamage, ChangedElementalDamage(OBJECT_SELF, DAMAGE_TYPE_COLD)), oTarget);
-  }
-  else if(!nTouch)
-  {
+    }
+    else if(!nTouch)
+    {
       nMiss = TRUE;
-  }
-
+    }
+  //}
   ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectBeam(VFX_BEAM_LIGHTNING, oCaster, BODY_NODE_HAND, nMiss), oTarget, 1.7);//VFX_BEAM_COLD
   DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
 }
-
