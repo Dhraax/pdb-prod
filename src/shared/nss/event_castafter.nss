@@ -1,19 +1,14 @@
-/////////////////////////////////////////////////////////
-//
-// SYSTEM: NWNX_ON_CAST_SPELL_AFTER
-//
-// Name: event_castafter
-//
-// Desc: 
-//
-// Author: Dhraax - 20250430
-//
-/////////////////////////////////////////////////////////
+/// ----------------------------------------------------------------------------
+/// @system NWNX_ON_CAST_SPELL_AFTER
+/// @file event_castafter.nss
+/// @author Dhraax
+/// @brief Executes post-cast logic: cleans up effects on magic-immune creatures.
+/// ----------------------------------------------------------------------------
 
 void main()
 {
-    /////////////////////////////////////////////////////////
-    //Elimina todos los efectos de criaturas con IMMUNE_MAGIC, si el hechizo fue lanzado por un jugador.
-    /////////////////////////////////////////////////////////
+    // -------------------------------------------------------------------------
+    // Remove spell effects from creatures with IMMUNE_MAGIC if the caster is a PC.
+    // -------------------------------------------------------------------------
     DelayCommand(1.0, ExecuteScript("inmune_cleanup", OBJECT_SELF));
 }
