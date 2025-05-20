@@ -14,9 +14,6 @@ void main()
   // Subrazas: Bonos de los vampiros
   Vampire_Enter(oPC, FALSE);
 
-  // HIPS Explorador
-  UpdateRangerHiPS(oPC);
-
   // Maestro Multiples Formas
   OnEnterLoadPolymorphed(oPC);
 

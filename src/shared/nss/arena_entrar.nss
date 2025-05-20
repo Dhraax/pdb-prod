@@ -13,9 +13,6 @@ void main()
   // VAMPIROS
   Vampire_Enter(oPC, FALSE);
 
-  // HIPS Explorador
-  UpdateRangerHiPS(oPC);
-
   // Maestro Multiples Formas
   OnEnterLoadPolymorphed(oPC);
 

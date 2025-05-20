@@ -31,6 +31,7 @@
 #include "pb_constantes"
 #include "x3_inc_string"
 #include "inc_spells"
+#include "inc_generic"
 
 void DevolverAltura(object oPC, float fAltura)
 {
@@ -2952,19 +2953,32 @@ if(sTagDelObjeto == "kitdesollador")
     }
 
     //OBJETO APTITUD SORTILEGA DEL ARCHIMAGO
-    if(GetTag(oItem) == "ArchmagesFocusofPower")
+    if (GetTag(oItem) == "ArchmagesFocusofPower")
     {
-        if(NWNX_Creature_GetKnowsFeat(oPC, 1432))
+        if (NWNX_Creature_GetKnowsFeat(oPC, 1432))
         {
-            //Comprobamos que el objetivo del conjuro no sea otro si el conjuro no es de uso no personal.
-            string sRango = Get2DAString("spells", "Range", GetLocalInt(oItem,"SPELL_ID"));
-            if(sRango == "P" && oTarget != oPC)
+            int iSpellId = GetLocalInt(oItem, "SPELL_ID");
+            string sRango = Get2DAString("spells", "Range", iSpellId);
+
+            if (sRango == "P" && oTarget != oPC)
             {
-                FloatingTextStringOnCreature("El conjuro que intentas lanzar, es de rango personal, no puedes usar ese conjuro en otros.", oPC, FALSE);
+                FloatingTextStringOnCreature("El conjuro que intentas lanzar es de rango personal, no puedes usar ese conjuro en otros.", oPC, FALSE);
                 return;
             }
-            NWNX_Creature_DoItemCastSpell(oPC, oTarget, lLocation, GetLocalInt(oItem,"SPELL_ID"), GetTotalCasterLevel(oPC, CLASS_TYPE_WIZARD), 1.0);
 
+            // Iniciar animación de conjuro (sin efectos reales)
+            PlayAnimation(ANIMATION_LOOPING_CONJURE1, 1.0);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_DUR_SPELLTURNING), oPC);
+            SendMessageToPC(oPC, ColorTexto("Utilizas tu actitud sortilega.", TXT_COLOR_VERDE));
+
+            // Guardar información temporal del hechizo para ejecutar más tarde si no hay interrupción
+            SetLocalInt(oPC, "APTITUD_CONCENTRATING", TRUE);
+            SetLocalInt(oPC, "APTITUD_SPELL_ID", iSpellId);
+            SetLocalObject(oPC, "APTITUD_SPELL_TARGET", oTarget);
+            SetLocalLocation(oPC, "APTITUD_SPELL_LOC", lLocation); // válido para target en lugar
+
+            // Ejecutar chequeo de concentración tras el retardo
+            DelayCommand(1.0, AssignCommand(oPC, CheckConcentrationAndCastSpell(oPC)));
         }
     }
 

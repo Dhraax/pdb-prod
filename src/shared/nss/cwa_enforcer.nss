@@ -277,6 +277,13 @@ void main()
             if(GetTag(oObjetivo) == "ArchmagesFocusofPower"){SendMessageToPC(oPC, "<c´$$>¡No puedes guardar este conjuro en tu Aptitud Sortílega, con un conjuro proveniente de una dote!</c>");}
             return;
         }
+        if(iConjuro == 185)
+        {
+            SetModuleOverrideSpellScriptFinished();
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(62), oPC);
+            if(GetTag(oObjetivo) == "ArchmagesFocusofPower"){SendMessageToPC(oPC, "<c´$$>Este hechizo no parece funcionar con esta actitud sortílega.</c>");}
+            return;
+        }
         SetLocalInt(oObjetivo,"SPELL_ID",iConjuro);
         if(GetTag(oObjetivo) == "cls_ing_item5"){SendMessageToPC(oPC,ColorTexto("Conjuro guardado correctamente en el Objeto Guardaconjuros.",TXT_COLOR_VERDE));}
         if(GetTag(oObjetivo) == "ArchmagesFocusofPower")
