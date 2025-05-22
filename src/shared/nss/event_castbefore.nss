@@ -34,9 +34,23 @@ void HandleImmuneMagicCheck(object oCaster, object oTarget)
 
         if (GetIsPC(oCaster))
         {
-            SendMessageToPC(oCaster, "<c'$$'>The spell has no effect. The creature seems immune to magic.</c>");
+            SendMessageToPC(oCaster, "<c'$$'>El hechizo no surte efecto. La criatura parece inmune a la magia.</c>");
         }
 
         NWNX_Events_SkipEvent();
     }
+}
+
+void main()
+{
+    
+    string sCurrentEvent = NWNX_Events_GetCurrentEvent();
+    object oCaster = OBJECT_SELF;
+    object oTarget = StringToObject(NWNX_Events_GetEventData("TARGET_OBJECT_ID"));
+    object oItem = StringToObject(NWNX_Events_GetEventData("ITEM_OBJECT_ID"));
+    int iSpell = StringToInt(NWNX_Events_GetEventData("SPELL_ID"));
+
+
+    HandleImmuneMagicCheck(oCaster, oTarget);
+
 }
