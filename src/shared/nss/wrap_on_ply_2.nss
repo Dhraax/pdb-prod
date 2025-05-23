@@ -78,10 +78,12 @@ void main()
   + GetPCPlayerName(oPC) + " ha subido al nivel: " + IntToString(GetHitDice(oPC)) + ".");
 
   // 1. RESTRICCIONES
-  // 1.1 Se eliminan los puntos de habilidad que se puedan ganar.
-  if(NWNX_Creature_GetSkillPointsRemaining(oPC) > 0)
+  // 1.1 No se pueden guardar mas de 4 puntos de habilidad
+  if(NWNX_Creature_GetSkillPointsRemaining(oPC) > 4)
   {
-      NWNX_Creature_SetSkillPointsRemaining(oPC,0);
+      BajarNivelQuedandoseA1XP(oPC);
+      SendMessageToPC(oPC, "<cþ<<>¡No puedes guardar más de 4 puntos de habilidad al subir de nivel!</c>");
+      return;
   }
 
   // 1.2 Requisitos de Estilos de combate activados una vez por PJ

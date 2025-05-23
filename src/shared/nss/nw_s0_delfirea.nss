@@ -76,10 +76,38 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
                         {
                             nDamage = nDamage + (nDamage/2);//Damage/Healing is +50%
                         }
-                        //Change damage according to Reflex, Evasion and Improved Evasion
-                        nDamage = GetReflexAdjustedDamage(nDamage, oTarget, (GetSpellSaveDC()+ GetChangesToSaveDC(OBJECT_SELF)), SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
-                        //Set up the damage effect
-                        eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                        // //Change damage according to Reflex, Evasion and Improved Evasion
+                        // nDamage = GetReflexAdjustedDamage(nDamage, oTarget, (GetSpellSaveDC()+ GetChangesToSaveDC(OBJECT_SELF)), SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
+                        // //Set up the damage effect
+                        // eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                        int iDC = GetSpellSaveDC() + GetChangesToSaveDC(OBJECT_SELF);
+                        int bSaved = MySavingThrow(SAVING_THROW_REFLEX, oTarget, iDC, SAVING_THROW_TYPE_FIRE);
+                        int bImprovedEvasion = GetHasFeat(FEAT_IMPROVED_EVASION, oTarget);
+                        int bEvasion = GetHasFeat(FEAT_EVASION, oTarget);
+
+                        if (!bSaved)
+                        {
+                            if (bImprovedEvasion)
+                            {
+                                eDam = EffectDamage(nDamage / 2, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                            }
+                            else
+                            {
+                                eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                            }
+                        }
+                        else
+                        {
+                            if (bImprovedEvasion || bEvasion)
+                            {
+                                eDam = EffectDamage(0, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                            }
+                            else
+                            {
+                                eDam = EffectDamage(nDamage / 2, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
+                            }
+                        }
+
                         if(nDamage > 0)
                         {
                             //Apply VFX impact and damage effect

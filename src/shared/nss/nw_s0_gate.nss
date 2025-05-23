@@ -111,187 +111,185 @@ void CreateObjectVoid(int nObjectType, string sTemplate, location lLoc, object o
     oCreature = CreateObject(nObjectType, sTemplate, lLoc);
     DestroyObject(oCreature, HoursToSeconds(24));
 
-  //Apariencia
-  if(sTemplate == "conv_balor")
-   {
-    switch(d6())
+    //Apariencia
+    if(sTemplate == "conv_balor")
     {
-        case 1: eApariencia = 38; break;
-        case 2: eApariencia = 461; break;
-        case 3: eApariencia = 392; break;
-        case 4: eApariencia = 471; break;
-        case 5: eApariencia = 2319; break;
-        case 6: eApariencia = 4873; break;
+        switch(d6())
+        {
+            case 1: eApariencia = 38; break;
+            case 2: eApariencia = 461; break;
+            case 3: eApariencia = 392; break;
+            case 4: eApariencia = 471; break;
+            case 5: eApariencia = 2319; break;
+            case 6: eApariencia = 4873; break;
+        }
     }
-   }
     if(sTemplate == "asy_solarconv")
-   {
-       //Efectos para los buenos
-       effect eBuenos = SupernaturalEffect(EffectVisualEffect(553));
-       DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eBuenos, oCreature));
-       SetObjectVisualTransform(oCreature, OBJECT_VISUAL_TRANSFORM_SCALE, 1.5);
-
-    switch(d3())
     {
-        case 1: eApariencia = 313; break;
-        case 2: eApariencia = 190; break;
-        case 3: eApariencia = 4010; break;
+        //Efectos para los buenos
+        effect eBuenos = SupernaturalEffect(EffectVisualEffect(553));
+        DelayCommand(1.0, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eBuenos, oCreature));
+        SetObjectVisualTransform(oCreature, OBJECT_VISUAL_TRANSFORM_SCALE, 1.5);
+
+        switch(d3())
+        {
+            case 1: eApariencia = 313; break;
+            case 2: eApariencia = 190; break;
+            case 3: eApariencia = 4010; break;
+        }
     }
-   }
     if(sTemplate == "con_asecon")
-   {
-    switch(d3())
     {
-        case 1: eApariencia = 4029; break;
-        case 2: eApariencia = 427; break;
-        case 3: eApariencia = 363; break;
+        switch(d3())
+        {
+            case 1: eApariencia = 4029; break;
+            case 2: eApariencia = 427; break;
+            case 3: eApariencia = 363; break;
+        }
     }
-   }
 
-   //Nombre
-     switch(d20(2))
+    //Nombre
+    switch(d20(2))
     {
-      case 1: nName = "Aniel"; break;
-      case 2: nName = "Nuriel"; break;
-      case 3: nName = "Hanael"; break;
-      case 4: nName = "Shamsiel"; break;
-      case 5: nName = "Uriel"; break;
-      case 6: nName = "Azrael"; break;
-      case 7: nName = "Sariel"; break;
-      case 8: nName = "Maalik"; break;
-      case 9: nName = "Kushiel"; break;
-      case 10: nName = "Dumah"; break;
-      case 11: nName = "Apolion"; break;
-      case 12: nName = "Abadon"; break;
-      case 13: nName = "Raguel"; break;
-      case 14: nName = "Abathar" ; break;
-      case 15: nName = "Muzania"; break;
-      case 16: nName = "Lailah"; break;
-      case 17: nName = "Puriel"; break;
-      case 18: nName = "Azariel"; break;
-      case 19: nName = "Arariel"; break;
-      case 20: nName = "Jofiel"; break;
-      case 21: nName = "Adaddon"; break;
-      case 22: nName = "Adadese"; break;
-      case 23: nName = "Akinurb"; break;
-      case 24: nName = "Babzidu"; break;
-      case 25: nName = "Bisrib"; break;
-      case 26: nName = "Damasze"; break;
-      case 27: nName = "Dingidnin"; break;
-      case 28: nName = "Hursag"; break;
-      case 29: nName = "Huszi"; break;
-      case 30: nName = "Iduduamnaa"; break;
-      case 31: nName = "Ibza"; break;
-      case 32: nName = "Ehurtar"; break;
-      case 33: nName = "Elamash"; break;
-      case 34: nName = "Gaszarsir" ; break;
-      case 35: nName = "Imhiakaam"; break;
-      case 36: nName = "Jezirpa"; break;
-      case 37: nName = "Kuninin"; break;
-      case 38: nName = "Nimrisr"; break;
-      case 39: nName = "Sharruk"; break;
-      case 40: nName = "Tumunnu"; break;
+        case 1: nName = "Aniel"; break;
+        case 2: nName = "Nuriel"; break;
+        case 3: nName = "Hanael"; break;
+        case 4: nName = "Shamsiel"; break;
+        case 5: nName = "Uriel"; break;
+        case 6: nName = "Azrael"; break;
+        case 7: nName = "Sariel"; break;
+        case 8: nName = "Maalik"; break;
+        case 9: nName = "Kushiel"; break;
+        case 10: nName = "Dumah"; break;
+        case 11: nName = "Apolion"; break;
+        case 12: nName = "Abadon"; break;
+        case 13: nName = "Raguel"; break;
+        case 14: nName = "Abathar" ; break;
+        case 15: nName = "Muzania"; break;
+        case 16: nName = "Lailah"; break;
+        case 17: nName = "Puriel"; break;
+        case 18: nName = "Azariel"; break;
+        case 19: nName = "Arariel"; break;
+        case 20: nName = "Jofiel"; break;
+        case 21: nName = "Adaddon"; break;
+        case 22: nName = "Adadese"; break;
+        case 23: nName = "Akinurb"; break;
+        case 24: nName = "Babzidu"; break;
+        case 25: nName = "Bisrib"; break;
+        case 26: nName = "Damasze"; break;
+        case 27: nName = "Dingidnin"; break;
+        case 28: nName = "Hursag"; break;
+        case 29: nName = "Huszi"; break;
+        case 30: nName = "Iduduamnaa"; break;
+        case 31: nName = "Ibza"; break;
+        case 32: nName = "Ehurtar"; break;
+        case 33: nName = "Elamash"; break;
+        case 34: nName = "Gaszarsir" ; break;
+        case 35: nName = "Imhiakaam"; break;
+        case 36: nName = "Jezirpa"; break;
+        case 37: nName = "Kuninin"; break;
+        case 38: nName = "Nimrisr"; break;
+        case 39: nName = "Sharruk"; break;
+        case 40: nName = "Tumunnu"; break;
     }
 
     //Asignamos valores a la criatura para subir de nivel y apariencia
-           int nClass;
-           int nPack;
-           switch(d4())
-            {
-            case 1:
-                        {
-                       nClass = CLASS_TYPE_FIGHTER;
-                        nPack = 4;
-                        }
-                     break;
-              case 2:
-                        {
-                      nClass = CLASS_TYPE_CLERIC;
-                        nPack = 22;
-                        }
-                  break;
-              case 3:
-                        {
-                        nClass = CLASS_TYPE_WIZARD;
-                        nPack = 31;
-                        }
-                     break;
-              case 4:
-                        {
-                        nClass = CLASS_TYPE_SORCERER;
-                        nPack = 38;
-                        }
-                     break;
-            }
-       SetLocalInt(oCreature, "X0_L_LEVELRULES", 1);
-       SetLocalInt(oCreature, "X2_JUST_A_DISABLEEQUIP", 1); //Script que hace no poder tocar el inventario de un ayudante.
-       SetName(oCreature, nName);
-       SetCreatureAppearanceType(oCreature, eApariencia);
-       DelayCommand(1.0, LevelHenchmanUpTo(oCreature, 18, nClass, 20, 86, nPack));
-       DelayCommand(2.5, ForceRest(oCreature)); //Descansa para recuperar conjuros
-       DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1109)); //Le quitamos la dote Ausente
-       DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1110)); //Guardar PJ
-       DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1111)); //Controlar Convocados
-       AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_PLEADING, 1.0, 18.0));
-       FloatingTextStringOnCreature("<c´þd>* Comenzando Negociación... *</c>", oPC, FALSE);
-
-     if(GetLocalInt(oPC, "CIRCULOTRUE") == TRUE ) //Esta el circulo correcto.
+    int nClass;
+    int nPack;
+    switch(d4())
+    {
+        case 1:
         {
+            nClass = CLASS_TYPE_FIGHTER;
+            nPack = 4;
+        }
+        break;
+        case 2:
+        {
+            nClass = CLASS_TYPE_CLERIC;
+            nPack = 22;
+        }
+        break;
+        case 3:
+        {
+            nClass = CLASS_TYPE_WIZARD;
+            nPack = 31;
+        }
+        break;
+        case 4:
+        {
+            nClass = CLASS_TYPE_SORCERER;
+            nPack = 38;
+        }
+        break;
+    }
+    SetLocalInt(oCreature, "X0_L_LEVELRULES", 1);
+    SetLocalInt(oCreature, "X2_JUST_A_DISABLEEQUIP", 1); //Script que hace no poder tocar el inventario de un ayudante.
+    SetName(oCreature, nName);
+    SetCreatureAppearanceType(oCreature, eApariencia);
+    DelayCommand(1.0, LevelHenchmanUpTo(oCreature, 18, nClass, 20, 86, nPack));
+    DelayCommand(2.5, ForceRest(oCreature)); //Descansa para recuperar conjuros
+    DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1109)); //Le quitamos la dote Ausente
+    DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1110)); //Guardar PJ
+    DelayCommand(3.0, NWNX_Creature_RemoveFeat(oCreature, 1111)); //Controlar Convocados
+    AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_PLEADING, 1.0, 18.0));
+    FloatingTextStringOnCreature("<c´þd>* Comenzando Negociación... *</c>", oPC, FALSE);
 
-           ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oCreature);
-           SetIsTemporaryFriend(oCreature, oPC);
-           int iNegociacion = Negociacion(oPC, oCreature);
+    if(GetLocalInt(oPC, "CIRCULOTRUE") == TRUE ) //Esta el circulo correcto.
+    {
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oCreature);
+        SetIsTemporaryFriend(oCreature, oPC);
+        int iNegociacion = Negociacion(oPC, oCreature);
 
-         if(iNegociacion == 1)
-             {
-                    DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: éxito *</c>", oPC, FALSE)); // Exito en la negociacion.
-                    DelayCommand(19.0f, RemoveEffect(oCreature, eLink));
-                    DelayCommand(20.0f, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDomi, oCreature));
-                    DelayCommand(21.0f, SetLocalString(oCreature, "AMO", GetName(oPC)));
-                    DelayCommand(21.0f, SetLocalObject(oPC, "LIGADURA", oCreature));
-             }
-         else if (iNegociacion == 0)
-             {
-                    DelayCommand(18.0,FloatingTextStringOnCreature("<c´þd>* Negociación: Fallida *</c>", oPC, FALSE));
-                    DelayCommand(19.0, ApplyEffectToObject(DURATION_TYPE_INSTANT, eUnsummon, oCreature));
-                    DelayCommand(20.0, DestroyObject(oCreature));
-             }
+        if(iNegociacion == 1)
+        {
+            DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: éxito *</c>", oPC, FALSE)); // Exito en la negociacion.
+            DelayCommand(19.0f, RemoveEffect(oCreature, eLink));
+            DelayCommand(20.0f, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDomi, oCreature));
+            DelayCommand(21.0f, SetLocalString(oCreature, "AMO", GetName(oPC)));
+            DelayCommand(21.0f, SetLocalObject(oPC, "LIGADURA", oCreature));
+        }
+        else if (iNegociacion == 0)
+        {
+            DelayCommand(18.0,FloatingTextStringOnCreature("<c´þd>* Negociación: Fallida *</c>", oPC, FALSE));
+            DelayCommand(19.0, ApplyEffectToObject(DURATION_TYPE_INSTANT, eUnsummon, oCreature));
+            DelayCommand(20.0, DestroyObject(oCreature));
+        }
 
-       }
-      //Si el circulo esta mal, tirada...
+    }
+    //Si el circulo esta mal, tirada...
+    else
+    {
+        if(!MySavingThrow(SAVING_THROW_WILL, oCreature, nDC, SAVING_THROW_TYPE_SPELL))
+        {
+            ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oCreature);
+            int iNegociacion = Negociacion(oPC, oCreature);
+
+            if(iNegociacion == 1)
+            {
+                DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: éxito *</c>", oPC, FALSE)); // Exito en la negociacion.
+                DelayCommand(19.0f,RemoveEffect(oCreature, eLink));
+                DelayCommand(20.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDomi, oCreature));
+                DelayCommand(21.0f, SetLocalString(oCreature, "AMO", GetName(oPC)));
+                DelayCommand(21.0f,SetLocalObject(oPC, "LIGADURA", oCreature));
+            }
+            else if (iNegociacion == 0)
+            {
+                DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: Fallida *</c>", oPC, FALSE));
+                DelayCommand(19.0f,RemoveEffect(oCreature, eLink));
+                SetIsTemporaryEnemy(oCreature, oPC);
+                SetIsTemporaryEnemy(oPC, oCreature);
+                AssignCommand(oCreature, ActionAttack(oPC, FALSE));
+            }
+        }
         else
-           {
-           if(!MySavingThrow(SAVING_THROW_WILL, oCreature, nDC, SAVING_THROW_TYPE_SPELL))
-              {
-                 ApplyEffectToObject(DURATION_TYPE_PERMANENT, eLink, oCreature);
-                 int iNegociacion = Negociacion(oPC, oCreature);
-
-                    if(iNegociacion == 1)
-                        {
-                                DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: éxito *</c>", oPC, FALSE)); // Exito en la negociacion.
-                                DelayCommand(19.0f,RemoveEffect(oCreature, eLink));
-                                DelayCommand(20.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT, eDomi, oCreature));
-                                DelayCommand(21.0f, SetLocalString(oCreature, "AMO", GetName(oPC)));
-                                DelayCommand(21.0f,SetLocalObject(oPC, "LIGADURA", oCreature));
-                        }
-                   else if (iNegociacion == 0)
-                        {
-                                DelayCommand(18.0, FloatingTextStringOnCreature("<c´þd>* Negociación: Fallida *</c>", oPC, FALSE));
-                                DelayCommand(19.0f,RemoveEffect(oCreature, eLink));
-                                SetIsTemporaryEnemy(oCreature, oPC);
-                                SetIsTemporaryEnemy(oPC, oCreature);
-                                AssignCommand(oCreature, ActionAttack(oPC, FALSE));
-                        }
-               }
-            else
-                {
-                  FloatingTextStringOnCreature("<c´þd>* ¡La criatura se ha liberado! *</c>", oPC, TRUE);
-                  SetIsTemporaryEnemy(oCreature, oPC);
-                  SetIsTemporaryEnemy(oPC, oCreature);
-                  AssignCommand(oCreature, ActionAttack(oPC, FALSE));
-                }
-          }
-
+        {
+            FloatingTextStringOnCreature("<c´þd>* ¡La criatura se ha liberado! *</c>", oPC, TRUE);
+            SetIsTemporaryEnemy(oCreature, oPC);
+            SetIsTemporaryEnemy(oPC, oCreature);
+            AssignCommand(oCreature, ActionAttack(oPC, FALSE));
+        }
+    }
 }
 void main()
 {
@@ -338,27 +336,27 @@ void main()
     if(sConvocarUmbralMemorizado != "") sResRefConvocacion = sConvocarUmbralMemorizado;
     else
     {
-            int nAlign = GetAlignmentGoodEvil(OBJECT_SELF);
-            switch (nAlign)
+        int nAlign = GetAlignmentGoodEvil(OBJECT_SELF);
+        switch (nAlign)
+        {
+            //Asignamos la criatura segun alineamiento
+            case ALIGNMENT_EVIL:
             {
-                //Asignamos la criatura segun alineamiento
-                case ALIGNMENT_EVIL:
-                    {
-                    sResRefConvocacion = "conv_balor";
-                    }
-                break;
-                case ALIGNMENT_GOOD:
-                    {
-                    sResRefConvocacion = "asy_solarconv";
-                                SetLocalInt(oPC, "EFECTOLIGADURA", 1);
-                    }
-                break;
-                case ALIGNMENT_NEUTRAL:
-                    {
-                    sResRefConvocacion = "con_asecon";
-                    }
-                break;
+                sResRefConvocacion = "conv_balor";
             }
+            break;
+            case ALIGNMENT_GOOD:
+            {
+                sResRefConvocacion = "asy_solarconv";
+                SetLocalInt(oPC, "EFECTOLIGADURA", 1);
+            }
+            break;
+            case ALIGNMENT_NEUTRAL:
+            {
+                sResRefConvocacion = "con_asecon";
+            }
+            break;
+        }
     }
 
     // Convocando una Deva...
@@ -396,15 +394,15 @@ void main()
         eGate = EffectVisualEffect(893);
         eCirc = EffectVisualEffect(945);
     }
-        // Establecer la variable local que indica que se está conjurando
-        SetLocalInt(oPC, "GATE_IS_CASTING", TRUE);
-        //Creamos el circulo y la criatura despues:
-        oCirc = CreateObject(OBJECT_TYPE_PLACEABLE, "invisobj002", GetSpellTargetLocation());
-        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eCirc, oCirc, 40.0);
-        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_CONJURE2, 1.0, 12.0));
-        DelayCommand(11.0, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eGate, GetSpellTargetLocation()));
-        DelayCommand(12.0, CreateObjectVoid(OBJECT_TYPE_CREATURE, sResRefConvocacion, GetSpellTargetLocation(), oPC));
-        DeleteLocalInt(oPC, "X2_L_LAST_SPELLSCHOOL_VAR");
-        // Restablecer la variable local después de terminar de conjurar
-        DelayCommand(35.0f, SetLocalInt(oPC, "GATE_IS_CASTING", FALSE));
+    // Establecer la variable local que indica que se está conjurando
+    SetLocalInt(oPC, "GATE_IS_CASTING", TRUE);
+    //Creamos el circulo y la criatura despues:
+    oCirc = CreateObject(OBJECT_TYPE_PLACEABLE, "invisobj002", GetSpellTargetLocation());
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eCirc, oCirc, 40.0);
+    AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_CONJURE2, 1.0, 12.0));
+    DelayCommand(11.0, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eGate, GetSpellTargetLocation()));
+    DelayCommand(12.0, CreateObjectVoid(OBJECT_TYPE_CREATURE, sResRefConvocacion, GetSpellTargetLocation(), oPC));
+    DeleteLocalInt(oPC, "X2_L_LAST_SPELLSCHOOL_VAR");
+    // Restablecer la variable local después de terminar de conjurar
+    DelayCommand(35.0f, SetLocalInt(oPC, "GATE_IS_CASTING", FALSE));
 }
