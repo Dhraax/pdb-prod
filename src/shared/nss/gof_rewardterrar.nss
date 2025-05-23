@@ -1,0 +1,16 @@
+//::///////////////////////////////////////////////
+//:: FileName gof_rewardterrar
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 02/06/2011 21:29:17
+//:://////////////////////////////////////////////
+void main()
+{
+    // Give the speaker some gold
+    GiveGoldToCreature(GetPCSpeaker(), 500);
+
+    // Give the speaker some XP
+    GiveXPToCreature(GetPCSpeaker(), 50);
+
+}

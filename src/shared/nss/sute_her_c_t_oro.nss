@@ -1,0 +1,17 @@
+//::///////////////////////////////////////////////
+//:: FileName sute_her_c_t_oro
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 07/11/2006 18:55:08
+//:://////////////////////////////////////////////
+#include "NW_I0_PLOT"
+
+int StartingConditional()
+{
+    //Miramos si tiene 200 monedas
+    if (HasGold (200, GetPCSpeaker())){
+       return TRUE;
+    }
+    return FALSE;
+}
