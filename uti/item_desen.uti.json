@@ -10,7 +10,7 @@
   },
   "Charges": {
     "type": "byte",
-    "value": 0
+    "value": 1
   },
   "Comment": {
     "type": "cexostring",
@@ -18,7 +18,7 @@
   },
   "Cost": {
     "type": "dword",
-    "value": 0
+    "value": 3
   },
   "Cursed": {
     "type": "byte",
@@ -27,14 +27,12 @@
   "DescIdentified": {
     "type": "cexolocstring",
     "value": {
-      "0": "Este es el Foco de poder del Archimago. Aqui se almacena tu conjuro para que puedas lanzarlo dos veces al dia con tu Aptitud Sortilega.\n\nMétodo de uso: Conjura sobre el objeto el conjuro que quieras guardar, una vez hecho, no volverás a poder hacerlo (a no ser que se te cambie el item por otro).\n\nEl item permitirá lanzar conjuros, aunque, los conjuros usado directamente sobre el items en el inventario no se aplicará (en resumidas cuentas, que si quieres usar en este objeto un Arma Mágica Mayor, solo funcionará si el objetivo es un PJ).",
-      "8": "Este es el Foco de poder del Archimago. Aqui se almacena tu conjuro para que puedas lanzarlo dos veces al dia con tu Aptitud Sortilega.\n\nMétodo de uso: Conjura sobre el objeto el conjuro que quieras guardar, una vez hecho, no volverás a poder hacerlo (a no ser que se te cambie el item por otro).\n\nEl item permitirá lanzar conjuros, aunque, los conjuros usado directamente sobre el items en el inventario no se aplicará (en resumidas cuentas, que si quieres usar en este objeto un Arma Mágica Mayor, solo funcionará si el objetivo es un PJ)."
+      "8": "Varita creadora de efectos visuales para el DM."
     }
   },
   "Description": {
     "type": "cexolocstring",
     "value": {
-      "0": "",
       "8": ""
     }
   },
@@ -45,12 +43,12 @@
   "LocalizedName": {
     "type": "cexolocstring",
     "value": {
-      "0": "Foco de poder Archimago"
+      "8": "Varita de Desencadenantes"
     }
   },
   "ModelPart1": {
     "type": "byte",
-    "value": 44
+    "value": 136
   },
   "PaletteID": {
     "type": "byte",
@@ -75,7 +73,7 @@
         },
         "CostValue": {
           "type": "word",
-          "value": 9
+          "value": 13
         },
         "Param1": {
           "type": "byte",
@@ -91,7 +89,7 @@
         },
         "Subtype": {
           "type": "word",
-          "value": 513
+          "value": 329
         }
       }
     ]
@@ -102,18 +100,18 @@
   },
   "Stolen": {
     "type": "byte",
-    "value": 0
+    "value": 1
   },
   "Tag": {
     "type": "cexostring",
-    "value": "ArchmagesFocusofPower"
+    "value": "item_desen"
   },
   "TemplateResRef": {
     "type": "resref",
-    "value": "archfocusofpower"
+    "value": "item_desen"
   },
   "xModelPart1": {
     "type": "word",
-    "value": 44
+    "value": 136
   }
 }

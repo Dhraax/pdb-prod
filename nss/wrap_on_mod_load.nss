@@ -92,6 +92,8 @@ void main()
     NWNX_Events_SubscribeEvent("NWNX_ON_DM_SPAWN_OBJECT_AFTER", "event_spawnitem");
     NWNX_Events_SubscribeEvent("NWNX_ON_DM_GIVE_ITEM_AFTER", "event_dmgive");
     NWNX_Events_SubscribeEvent("NWNX_ON_LEVEL_DOWN_AFTER", "event_leveldown");
+    NWNX_Events_SubscribeEvent("NWNX_ON_CAST_SPELL_BEFORE", "event_castbefore");
+    NWNX_Events_SubscribeEvent("NWNX_ON_CAST_SPELL_AFTER", "event_castafter");
     //NWNX_Events_SubscribeEvent("NWNX_ON_HAS_FEAT_BEFORE", "event_has_feat");
     //NWNX_Events_AddIDToWhitelist("NWNX_ON_HAS_FEAT", FEAT_MOMF_PREREQ);
 

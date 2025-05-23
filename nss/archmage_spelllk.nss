@@ -20,6 +20,14 @@ void main()
     /* Tell to not execute the original spell */
     SetModuleOverrideSpellScriptFinished();
 
+    /* Timestop disabled */
+    int iSpellId = GetSpellId();
+    if (iSpellId == 185)
+    {
+        SendMessageToPC(OBJECT_SELF, "<c´$$>Este hechizo no parece funcionar con esta actitud sortilega.</c>");
+        return;
+    }
+
     /* Paranoia -- should never happen */
     if (!GetHasFeat(FEAT_SPELL_LIKE, OBJECT_SELF)) return;
 
