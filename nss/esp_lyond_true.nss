@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName esp_lyond_true
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 02/04/2010 14:07:12
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+    // Realizar las pruebas de habilidad
+    if(!(AutoDC(DC_MEDIUM, SKILL_BLUFF, GetPCSpeaker())))
+        return FALSE;
+
+    return TRUE;
+}

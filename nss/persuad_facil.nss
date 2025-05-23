@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName persuad_facil
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 02/02/2006 22:56:21
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+int StartingConditional()
+{
+
+	// Realizar las pruebas de habilidad
+	if(!(AutoDC(DC_EASY, SKILL_PERSUADE, GetPCSpeaker())))
+		return FALSE;
+
+	return TRUE;
+}
