@@ -22,102 +22,83 @@
 
 void main()
 {
-DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
-SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
-    //Declare major variables
+    DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
+    SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
+
     object oTarget = GetEnteringObject();
     object oCaster = GetAreaOfEffectCreator();
     location lTarget = GetLocation(OBJECT_SELF);
-    int nDamage;
     int nMetaMagic = GetMetaMagicFeat();
     int nCasterLevel = GetTotalCasterLevel(oCaster);
     int nFire = GetLocalInt(OBJECT_SELF, "NW_SPELL_DELAY_BLAST_FIREBALL");
-    //Limit caster level
+
+    // Limit caster level
     if (nCasterLevel > 20)
     {
         nCasterLevel = 20;
     }
-    effect eDam;
+
     effect eExplode = EffectVisualEffect(VFX_FNF_FIREBALL);
     effect eVis = EffectVisualEffect(VFX_IMP_FLAME_M);
-    //Check the faction of the entering object to make sure the entering object is not in the casters faction
+
+    // Check if already fired
     if(nFire == 0)
     {
+        // Mastery of Shaping logic (unchanged)
         if ((GetHasFeat(FEAT_MASTERY_SHAPES, OBJECT_SELF)) && (GetLocalInt(OBJECT_SELF, "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oTarget, OBJECT_SELF) || oTarget == OBJECT_SELF || GetMaster(oTarget) == OBJECT_SELF))
-         {
-        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
-        }
-	else if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
         {
-            SetLocalInt(OBJECT_SELF, "NW_SPELL_DELAY_BLAST_FIREBALL",TRUE);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
+        }
+        else if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
+        {
+            SetLocalInt(OBJECT_SELF, "NW_SPELL_DELAY_BLAST_FIREBALL", TRUE);
             ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eExplode, lTarget);
-            //Cycle through the targets in the explosion area
-            oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_HUGE, lTarget, TRUE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
-            while(GetIsObjectValid(oTarget))
+
+            // Loop through targets in the explosion area
+            object oAoETarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_HUGE, lTarget, TRUE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
+            while (GetIsObjectValid(oAoETarget))
             {
-            if ((GetHasFeat(FEAT_MASTERY_SHAPES, OBJECT_SELF)) && (GetLocalInt(OBJECT_SELF, "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oTarget, OBJECT_SELF) || oTarget == OBJECT_SELF || GetMaster(oTarget) == OBJECT_SELF))
-            {
-             ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
-             }
-	 else if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
+                if ((GetHasFeat(FEAT_MASTERY_SHAPES, OBJECT_SELF)) && (GetLocalInt(OBJECT_SELF, "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oAoETarget, OBJECT_SELF) || oAoETarget == OBJECT_SELF || GetMaster(oAoETarget) == OBJECT_SELF))
                 {
-                    //Fire cast spell at event for the specified target
-                    SignalEvent(oTarget, EventSpellCastAt(oCaster, SPELL_DELAYED_BLAST_FIREBALL));
-                    //Make SR check
-                    if (!MyResistSpell(oCaster, oTarget))
+                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oAoETarget);
+                }
+                else if (spellsIsTarget(oAoETarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
+                {
+                    // Fire cast spell at event for the specified target
+                    SignalEvent(oAoETarget, EventSpellCastAt(oCaster, SPELL_DELAYED_BLAST_FIREBALL));
+
+                    // Spell Resistance
+                    if (!MyResistSpell(oCaster, oAoETarget))
                     {
-                        nDamage = d6(nCasterLevel);
-                        //Enter Metamagic conditions
+                        int nDamage = d6(nCasterLevel);
+
+                        // Metamagic
                         if (nMetaMagic == METAMAGIC_MAXIMIZE)
                         {
-                            nDamage = 6 * nCasterLevel;//Damage is at max
+                            nDamage = 6 * nCasterLevel;
                         }
                         else if (nMetaMagic == METAMAGIC_EMPOWER)
                         {
-                            nDamage = nDamage + (nDamage/2);//Damage/Healing is +50%
-                        }
-                        // //Change damage according to Reflex, Evasion and Improved Evasion
-                        // nDamage = GetReflexAdjustedDamage(nDamage, oTarget, (GetSpellSaveDC()+ GetChangesToSaveDC(OBJECT_SELF)), SAVING_THROW_TYPE_FIRE, GetAreaOfEffectCreator());
-                        // //Set up the damage effect
-                        // eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
-                        int iDC = GetSpellSaveDC() + GetChangesToSaveDC(OBJECT_SELF);
-                        int bSaved = MySavingThrow(SAVING_THROW_REFLEX, oTarget, iDC, SAVING_THROW_TYPE_FIRE);
-                        int bImprovedEvasion = GetHasFeat(FEAT_IMPROVED_EVASION, oTarget);
-                        int bEvasion = GetHasFeat(FEAT_EVASION, oTarget);
-
-                        if (!bSaved)
-                        {
-                            if (bImprovedEvasion)
-                            {
-                                eDam = EffectDamage(nDamage / 2, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
-                            }
-                            else
-                            {
-                                eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
-                            }
-                        }
-                        else
-                        {
-                            if (bImprovedEvasion || bEvasion)
-                            {
-                                eDam = EffectDamage(0, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
-                            }
-                            else
-                            {
-                                eDam = EffectDamage(nDamage / 2, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
-                            }
+                            nDamage = nDamage + (nDamage / 2);
                         }
 
+                        nDamage = GetReflexAdjustedDamage(
+                            nDamage,
+                            oAoETarget,
+                            (GetSpellSaveDC() + GetChangesToSaveDC(OBJECT_SELF)),
+                            SAVING_THROW_TYPE_FIRE
+                        );
+
+                        effect eDam = EffectDamage(nDamage, ChangedElementalDamage(oCaster, DAMAGE_TYPE_FIRE));
                         if(nDamage > 0)
                         {
-                            //Apply VFX impact and damage effect
-                            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-                            DelayCommand(0.01, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
+                            ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oAoETarget);
+                            DelayCommand(0.01, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oAoETarget));
                         }
                     }
                 }
-                //Get next target in the sequence
-                oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_HUGE, lTarget, TRUE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
+                // Next target
+                oAoETarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_HUGE, lTarget, TRUE, OBJECT_TYPE_CREATURE | OBJECT_TYPE_DOOR | OBJECT_TYPE_PLACEABLE);
             }
             DestroyObject(OBJECT_SELF, 1.0);
         }

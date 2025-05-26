@@ -1,19 +1,9 @@
-//::///////////////////////////////////////////////
-//:: Undeath to Death
-//:: X2_S0_Undeath
-//:: Copyright (c) 2001 Bioware Corp.
-//:://////////////////////////////////////////////
-/*
-
-  This spell slays 1d4 HD worth of undead creatures
-  per caster level (maximum 20d4). Creatures with
-  the fewest HD are affected first;
-
-*/
-//:://////////////////////////////////////////////
-//:: Created By: Georg Zoeller
-//:: Created On:  August 13,2003
-//:://////////////////////////////////////////////
+/// ----------------------------------------------------------------------------
+/// @system Spellcasting
+/// @file x2_s0_undeath.nss
+/// @author Dhraax (adapted from Bioware original)
+/// @brief Slays a number of undead with lowest HD first, up to caster's limit.
+/// ----------------------------------------------------------------------------
 
 #include "NW_I0_SPELLS"
 #include "x0_i0_spells"
@@ -21,137 +11,131 @@
 #include "x2_inc_spellhook"
 #include "pb_nivellanzador"
 
+// -----------------------------------------------------------------------------
+//                              Function Prototypes
+// -----------------------------------------------------------------------------
+
+/// @brief Kills an undead creature if it fails saving throw and resists.
+/// @param oCreature The creature to be slain.
+/// @returns Nothing.
+void DoUndeadToDeath(object oCreature);
+
+// -----------------------------------------------------------------------------
+//                             Function Definitions
+// -----------------------------------------------------------------------------
+
 void DoUndeadToDeath(object oCreature)
 {
     SignalEvent(oCreature, EventSpellCastAt(OBJECT_SELF, GetSpellId()));
-    SetLocalInt(oCreature,"X2_EBLIGHT_I_AM_DEAD", TRUE);
 
-    if (!MySavingThrow(SAVING_THROW_WILL,oCreature,(GetSpellSaveDC()+ GetChangesToSaveDC(OBJECT_SELF)),SAVING_THROW_TYPE_NONE,OBJECT_SELF))
+    if (!MySavingThrow(SAVING_THROW_WILL, oCreature, (GetSpellSaveDC() + GetChangesToSaveDC(OBJECT_SELF)), SAVING_THROW_TYPE_NONE, OBJECT_SELF))
     {
-        float fDelay = GetRandomDelay(0.2f,0.4f);
+        float fDelay = GetRandomDelay(0.2f, 0.4f);
         if (!MyResistSpell(OBJECT_SELF, oCreature, fDelay))
         {
-            effect eDeath = EffectDamage(GetCurrentHitPoints(oCreature),DAMAGE_TYPE_DIVINE,DAMAGE_POWER_ENERGY);
+            effect eDeath = EffectDamage(GetCurrentHitPoints(oCreature), DAMAGE_TYPE_DIVINE, DAMAGE_POWER_ENERGY);
             effect eVis = EffectVisualEffect(VFX_IMP_DEATH);
-            DelayCommand(fDelay+0.5f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eDeath,oCreature));
-            DelayCommand(fDelay,ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oCreature));
+
+            DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oCreature));
+            DelayCommand(fDelay + 0.5f, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oCreature));
+
+            // Only apply "finisher" damage to PCs or DMs for robust instant death
+            if (GetIsPC(oCreature) || GetIsDM(oCreature))
+            {
+                DelayCommand(fDelay + 0.6f, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(15, DAMAGE_TYPE_DIVINE, DAMAGE_POWER_ENERGY), oCreature));
+            }
         }
         else
         {
-            DelayCommand(1.0f,DeleteLocalInt(oCreature,"X2_EBLIGHT_I_AM_DEAD"));
+            DelayCommand(1.0f, DeleteLocalInt(oCreature, "X2_EBLIGHT_I_AM_DEAD"));
         }
     }
     else
     {
-        DelayCommand(1.0f,DeleteLocalInt(oCreature,"X2_EBLIGHT_I_AM_DEAD"));
+        DelayCommand(1.0f, DeleteLocalInt(oCreature, "X2_EBLIGHT_I_AM_DEAD"));
     }
 }
+
 
 void main()
 {
     DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
     SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_NECROMANCY);
-    /*
-        Spellcast Hook Code
-        Added 2003-07-07 by Georg Zoeller
-        If you want to make changes to all spells,
-        check x2_inc_spellhook.nss to find out more
-    */
 
+    // Spellcast Hook (custom pre-casting logic)
     if (!X2PreSpellCastCode())
     {
-    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        // PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
         return;
     }
-    int nMetaMagic = GetSpellCastItem()==OBJECT_INVALID?GetMetaMagicFeat():METAMAGIC_NONE;
 
-
-    // End of Spell Cast Hook
+    int iMetaMagic = GetSpellCastItem() == OBJECT_INVALID ? GetMetaMagicFeat() : METAMAGIC_NONE;
 
     // Impact VFX
     location lLoc = GetSpellTargetLocation();
+    ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_STRIKE_HOLY), lLoc);
+    TLVFXPillar(VFX_FNF_LOS_HOLY_20, lLoc, 3, 0.0f);
 
-    ApplyEffectAtLocation(DURATION_TYPE_INSTANT,EffectVisualEffect(VFX_FNF_STRIKE_HOLY),lLoc);
-    TLVFXPillar(VFX_FNF_LOS_HOLY_20, lLoc,3,0.0f);
-
-
-    // build list with affected creatures
-
-    // calculation
-    object oItm = GetSpellCastItem();
-    int nLevel = GetTotalCasterLevel(OBJECT_SELF);
-
-    if (nLevel>20)
+    // Calculation
+    int iLevel = GetTotalCasterLevel(OBJECT_SELF);
+    if (iLevel > 20)
     {
-        nLevel = 20;
+        iLevel = 20;
     }
-    // calculate number of hitdice affected
-    int nLow = 9999;
-    object oLow;
-    int nHDLeft = nLevel *d4();
-    //Enter Metamagic conditions
-    if (nMetaMagic == METAMAGIC_MAXIMIZE)
+    int iHDLeft = iLevel * d4();
+    if (iMetaMagic == METAMAGIC_MAXIMIZE)
     {
-        nHDLeft = 4 * GetTotalCasterLevel(OBJECT_SELF);//Damage is at max
+        iHDLeft = 4 * iLevel; // Damage is at max
     }
-    if (nMetaMagic == METAMAGIC_EMPOWER)
+    if (iMetaMagic == METAMAGIC_EMPOWER)
     {
-        nHDLeft += (nHDLeft/2); //Damage/Healing is +50%
+        iHDLeft += (iHDLeft / 2); // Damage/Healing is +50%
     }
 
-    int nCurHD;
-    object oFirst = GetFirstObjectInShape(SHAPE_SPHERE, 20.0f,lLoc );
-
-    // Only start loop if there is a creature in the area of effect
-    if(GetIsObjectValid(oFirst))
+    // -------------------------------------------------------------------------
+    // Corrected loop: always select the valid undead with the lowest HD.
+    // -------------------------------------------------------------------------
+    while (iHDLeft > 0)
     {
+        int iLowestHD = 9999;
+        object oLowest = OBJECT_INVALID;
+        object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, 20.0f, lLoc);
 
-        object oTarget = oFirst;
-        while (GetIsObjectValid(oTarget) && nHDLeft >0)
+        // Search for the lowest-HD valid undead
+        while (GetIsObjectValid(oTarget))
         {
-
             if (PB_Race_GetIsUndead(oTarget))
             {
-                nCurHD = GetHitDice(oTarget);
-                if (nCurHD <= nHDLeft )
+                int iCurHD = GetHitDice(oTarget);
+                if (iCurHD <= iHDLeft)
                 {
-                    if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
+                    if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
                     {
-                        // ignore creatures already affected
-                        if (GetLocalInt(oTarget,"X2_EBLIGHT_I_AM_DEAD") == 0 && !GetPlotFlag(oTarget) && !GetIsDead(oTarget))
+                        if (GetLocalInt(oTarget, "X2_EBLIGHT_I_AM_DEAD") == 0 && !GetPlotFlag(oTarget) && !GetIsDead(oTarget))
                         {
-                            // store the creature with the lowest HD
-                            if (GetHitDice(oTarget) <= nLow)
+                            if (iCurHD < iLowestHD)
                             {
-                                nLow = GetHitDice(oTarget);
-                                oLow = oTarget;
+                                iLowestHD = iCurHD;
+                                oLowest = oTarget;
                             }
                         }
                     }
                 }
             }
+            oTarget = GetNextObjectInShape(SHAPE_SPHERE, 20.0f, lLoc);
+        }
 
-            // Get next target
-            oTarget = GetNextObjectInShape(SHAPE_SPHERE, 20.0f ,lLoc);
-
-            // End of cycle, time to kill the lowest creature
-            if (!GetIsObjectValid(oTarget))
-            {
-                // we have a valid lowest creature we can affect with the remaining HD
-                if (GetIsObjectValid(oLow) && nHDLeft >= nLow)
-                {
-                    DoUndeadToDeath(oLow);
-                    // decrement remaining HD
-                    nHDLeft -= nLow;
-                    // restart the loop
-                    oTarget = GetFirstObjectInShape(SHAPE_SPHERE, 20.0f, GetSpellTargetLocation());
-
-                }
-                // reset counters
-                oLow = OBJECT_INVALID;
-                nLow = 9999;
-            }
+        // If found, slay and reduce HD pool. If not, exit.
+        if (GetIsObjectValid(oLowest) && iHDLeft >= iLowestHD)
+        {
+            DoUndeadToDeath(oLowest);
+            iHDLeft -= iLowestHD;
+        }
+        else
+        {
+            break; // No more valid targets or can't afford next lowest HD
         }
     }
+
     DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
- }
+}

@@ -34,7 +34,7 @@ void HandleImmuneMagicCheck(object oCaster, object oTarget)
 
         if (GetIsPC(oCaster))
         {
-            SendMessageToPC(oCaster, "<c'$$'>El hechizo no surte efecto. La criatura parece inmune a la magia.</c>");
+            SendMessageToPC(oCaster, "<c´$$>El hechizo no surte efecto. La criatura parece inmune a la magia.</c>");
         }
 
         NWNX_Events_SkipEvent();
