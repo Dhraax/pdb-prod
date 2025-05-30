@@ -27,6 +27,11 @@ const string AA_CREATION_WAY = "w_aacreate";
 //                                PROTOTYPES                                  //
 ////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Destroys all imbued arrows ("wp_arr_imbue_1") in a container, including recursively inside bags/containers.
+/// @param oContainer The object (PC or container) whose inventory is searched.
+/// @returns Nothing. All found imbued arrows are destroyed.
+void DestroyImbuedArrowsInContainer(object oContainer);
+
 //Creates an imbued arrow at AA_CREATION_WAY.  Enchants arrow and copies it to
 //the archer.  Returns the enchanted arrow.
 object AACreateImbuedArrow(object oArrow, int iOnHitSpell, int iSpellLevel, float fDuration, object oArcher = OBJECT_SELF);
@@ -53,6 +58,28 @@ int SpellToOnHitCastSpell(int iSpell);
 ////////////////////////////////////////////////////////////////////////////////
 //                              IMPLEMENTATION                                //
 ////////////////////////////////////////////////////////////////////////////////
+
+/// @brief Destroys all imbued arrows ("wp_arr_imbue_1") in a container, recursively (including inside bags).
+/// @param oContainer The object (PC or container) whose inventory is searched.
+/// @returns Nothing. All found imbued arrows are destroyed.
+void DestroyImbuedArrowsInContainer(object oContainer)
+{
+    object oItem = GetFirstItemInInventory(oContainer);
+
+    while (GetIsObjectValid(oItem))
+    {
+        if (GetResRef(oItem) == AA_IMBUED_ARROW)
+        {
+            DestroyObject(oItem);
+        }
+        else
+        {
+            // Recursive call to check inside containers or any object with inventory.
+            DestroyImbuedArrowsInContainer(oItem);
+        }
+        oItem = GetNextItemInInventory(oContainer);
+    }
+}
 
 object AACreateImbuedArrow(object oArrow, int iOnHitSpell, int iSpellLevel, float fDuration, object oArcher = OBJECT_SELF)
 {

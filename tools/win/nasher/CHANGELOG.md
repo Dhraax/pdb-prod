@@ -1,5 +1,129 @@
 # nasher changelog
 
+## 1.1.1: October 4, 2024
+
+### Fix freezing when running launch commands with 1.88 preview
+
+The 1.88 preview added lots of useful log messages. However, these were filling
+the output buffer when running `nasher test` or `nasher play`, causing the game
+to freeze. These commands now display these messages, just as when running
+`nasher serve`.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/1.1.0...1.1.1
+
+
+## 1.1.0: March 30, 2024
+
+### Skip compilation of broken files [#118](https://github.com/squattingmonk/nasher/pull/118)
+
+Added the new directive `skipCompile` to `[package.sources]` and
+`[target.sources]` sections. This directive can be specified multiple times like
+`filter`. The value should be a glob pattern matching script(s) that should not
+be compiled by nasher. Like `filter`, the pattern should match the script name
+*only* (i.e., no path information should be included). If a target does not
+have its own `skipCompile` values, they will be inherited from the parent or
+package.
+
+The `--skipCompile` option has also been added to allow skipping a broken file
+from the command-line rather than editing the nasher.cfg. This option takes a
+semicolon-delimited list of globs matching the scripts to skip. This option can
+be specified multiple times and can be set with `nasher config`.
+
+This feature is useful for skipping compilation of broken scripts while still
+keeping them in the sources.
+
+### Fixes
+
+- nasher now gives a helpful error message when an incorrect flag is passed to
+`nwn_script_comp` through `--nssFlags`. Previously, compilation would fail
+silently.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/1.0.0...1.1.0
+
+
+
+## 1.0.0: March 15, 2024
+
+### BREAKING CHANGE: use `nwn_script_comp` as the default script compiler
+neverwinter.nim's `nwn_script_comp` is now the default script compiler. Users
+who want to continue using nwnsc must set the `nssCompiler` and `nssFlags`
+configuration values as noted in the [readme](README.md).
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.22.0...1.0.0
+
+
+## 0.22.0: March 3, 2024
+
+### Allow automatically overwriting files
+
+Added two new flags, `--overwritePackedFile` and `--overwriteInstalledFile`,
+which can be used to automatically answer the "Are you sure you wish to
+overwrite?" prompt when an existing packed or installed file of the same name is
+found. Valid values include "ask", "default", "always", and "never". Like other
+nasher flags, these can be set with `nasher config` so you don't have to pass
+them every time.
+
+### Automatically handle multiple source files during unpack
+
+The unpack operation now supports the `--onMultipleSources` flag just like the
+pack operation. The options are:
+  - `choose`: manually choose the file to update (this is the default)
+  - `default`: automatically accept the first file found
+  - `error`: fail if multiple source files are found
+
+### Bug fixes
+
+- `--abortOnCompileError` no longer answers other prompts
+- `--packUnchanged` no longer consumes other args.
+- `--{yes,no,default}` no longer override `--onMultipleSources`.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.21.0...0.22.0
+
+
+## 0.21.0: September 2, 2023
+
+- The `compile` command now returns a non-zero exit code on failure. When
+  multiple targets are being compiled, failure to build one target will abort
+  operations on any remaining targets. Thanks to Ardesco for PR
+  [#111](https://github.com/squattingmonk/nasher/pull/111).
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.2...0.21.0
+
+
+## 0.20.2: August 2, 2023
+
+- The `Orientation` field in gff files no longer flaps sign (0/-0).
+- nasher now requires neverwinter.nim 1.6.3.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.1...0.20.2
+
+
+## 0.20.1: July 8, 2023
+
+### Variables are now resolved after inheritance
+
+Previously, fields inherited from other targets would have their variables
+resolved before inheritance, preventing the child target from supplying their
+own values for the variable. This update causes all targets to have the
+variables resolved after `nasher.cfg `is fully parsed.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.0...0.20.1
+
+
 ## 0.20.0: January 3, 2023
 
 ### Targets can now inherit from other targets

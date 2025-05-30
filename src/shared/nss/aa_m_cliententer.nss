@@ -19,4 +19,5 @@ void main()
 
   //Destroy imbued arrows.
   AADestroyAllImbuedArrows(oPC);
+  DestroyImbuedArrowsInContainer(oPC);
 }

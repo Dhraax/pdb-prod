@@ -1,6 +1,269 @@
 # nasher changelog
 
-## 0.19.0: Auguest 19, 2022
+## 1.1.1: October 4, 2024
+
+### Fix freezing when running launch commands with 1.88 preview
+
+The 1.88 preview added lots of useful log messages. However, these were filling
+the output buffer when running `nasher test` or `nasher play`, causing the game
+to freeze. These commands now display these messages, just as when running
+`nasher serve`.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/1.1.0...1.1.1
+
+
+## 1.1.0: March 30, 2024
+
+### Skip compilation of broken files [#118](https://github.com/squattingmonk/nasher/pull/118)
+
+Added the new directive `skipCompile` to `[package.sources]` and
+`[target.sources]` sections. This directive can be specified multiple times like
+`filter`. The value should be a glob pattern matching script(s) that should not
+be compiled by nasher. Like `filter`, the pattern should match the script name
+*only* (i.e., no path information should be included). If a target does not
+have its own `skipCompile` values, they will be inherited from the parent or
+package.
+
+The `--skipCompile` option has also been added to allow skipping a broken file
+from the command-line rather than editing the nasher.cfg. This option takes a
+semicolon-delimited list of globs matching the scripts to skip. This option can
+be specified multiple times and can be set with `nasher config`.
+
+This feature is useful for skipping compilation of broken scripts while still
+keeping them in the sources.
+
+### Fixes
+
+- nasher now gives a helpful error message when an incorrect flag is passed to
+`nwn_script_comp` through `--nssFlags`. Previously, compilation would fail
+silently.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/1.0.0...1.1.0
+
+
+
+## 1.0.0: March 15, 2024
+
+### BREAKING CHANGE: use `nwn_script_comp` as the default script compiler
+neverwinter.nim's `nwn_script_comp` is now the default script compiler. Users
+who want to continue using nwnsc must set the `nssCompiler` and `nssFlags`
+configuration values as noted in the [readme](README.md).
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.22.0...1.0.0
+
+
+## 0.22.0: March 3, 2024
+
+### Allow automatically overwriting files
+
+Added two new flags, `--overwritePackedFile` and `--overwriteInstalledFile`,
+which can be used to automatically answer the "Are you sure you wish to
+overwrite?" prompt when an existing packed or installed file of the same name is
+found. Valid values include "ask", "default", "always", and "never". Like other
+nasher flags, these can be set with `nasher config` so you don't have to pass
+them every time.
+
+### Automatically handle multiple source files during unpack
+
+The unpack operation now supports the `--onMultipleSources` flag just like the
+pack operation. The options are:
+  - `choose`: manually choose the file to update (this is the default)
+  - `default`: automatically accept the first file found
+  - `error`: fail if multiple source files are found
+
+### Bug fixes
+
+- `--abortOnCompileError` no longer answers other prompts
+- `--packUnchanged` no longer consumes other args.
+- `--{yes,no,default}` no longer override `--onMultipleSources`.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.21.0...0.22.0
+
+
+## 0.21.0: September 2, 2023
+
+- The `compile` command now returns a non-zero exit code on failure. When
+  multiple targets are being compiled, failure to build one target will abort
+  operations on any remaining targets. Thanks to Ardesco for PR
+  [#111](https://github.com/squattingmonk/nasher/pull/111).
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.2...0.21.0
+
+
+## 0.20.2: August 2, 2023
+
+- The `Orientation` field in gff files no longer flaps sign (0/-0).
+- nasher now requires neverwinter.nim 1.6.3.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.1...0.20.2
+
+
+## 0.20.1: July 8, 2023
+
+### Variables are now resolved after inheritance
+
+Previously, fields inherited from other targets would have their variables
+resolved before inheritance, preventing the child target from supplying their
+own values for the variable. This update causes all targets to have the
+variables resolved after `nasher.cfg `is fully parsed.
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.20.0...0.20.1
+
+
+## 0.20.0: January 3, 2023
+
+### Targets can now inherit from other targets
+
+Previously, if a target in `nasher.cfg` did not have a value set, default values
+could be copied from the package level. This change adds the keyword `parent`,
+which can be added at the target level to allow a target to copy these values
+from another target instead; the value assigned to the keyword is the target to
+copy the values from. For example:
+
+```toml
+[target]
+name = "module"
+file = "my_mod.mod"
+
+  [target.sources]
+  include = "src/**/*.{nss,json}"
+
+[target]
+name = "module-slim"
+parent = "module"
+
+  [target.sources]
+  filter = "*.nss"
+```
+
+Inheritance works the same as with inheriting package-level keys: missing keys
+will be copied from the parent; existing keys will not.
+
+Some restrictions:
+1. The keyword can only be specified at the target level.
+2. The parent target must be declared before the child target.
+
+### Specify the default target in `nasher.cfg`
+
+Some nasher commands will operate on a default target if one is not specified.
+Previously, the default target was always the first specified in `nasher.cfg`.
+Now the default target can be set using the new `default` keyword, which can be
+specified at either the package or target level.
+
+At the package level, the value is a string matching the name of the target that
+should be the default target. When this target is found during parsing, it will
+be added to the beginning of the target list, making it the default target.
+
+At the target level, the value is a boolean. If it is `true`, the target will be
+added to the beginning of the target list. It is possible for multiple targets
+to specify this keyword; each will be added to the beginning of the list,
+shifting previous values downward.
+
+This keyword is useful because you can change the default target without having
+to move things around in the nasher.cfg. It also allows the default target to be
+a child of a non-default target, since parents must be declared before children.
+
+This example shows usage at the package level. The target `demo` inherits the
+properties of `demo-nwnx`, excluding those source files that are not desired.
+Because it is marked as `default`, it will be the one acted on by commands such
+as `nasher pack` if no target is specified.
+
+```toml
+[package]
+default = "demo"
+
+[target]
+name = "demo-nwnx"
+description = "A demo module using nwnx"
+file = "demo.mod"
+
+  [target.variables]
+  nwnx = "lib/nwnxee"
+
+  [target.sources]
+  include = "src/**/*.{nss,json}"
+  include = "${nwnx}/Core/NWScript/nwnx.nss"
+  include = "${nwnx}/Plugins/Events/NWScript/nwnx_events.nss"
+
+[target]
+name = "demo"
+parent = "demo-nwnx"
+description = "A demo module without nwnx"
+
+  [target.sources]
+  exclude = "${nwnx}/**"
+```
+
+It is also possible to use the keyword at the target level, but this is
+discouraged in all but the simplest cases since it is less obvious:
+
+```toml
+[target]
+name = "demo-nwnx"
+description = "A demo module using nwnx"
+file = "demo.mod"
+
+  [target.variables]
+  nwnx = "lib/nwnxee"
+
+  [target.sources]
+  include = "src/**/*.{nss,json}"
+  include = "${nwnx}/Core/NWScript/nwnx.nss"
+  include = "${nwnx}/Plugins/Events/NWScript/nwnx_events.nss"
+
+[target]
+name = "demo"
+parent = "demo-nwnx"
+default = true
+description = "A demo module without nwnx"
+
+  [target.sources]
+  exclude = "${nwnx}/**"
+```
+
+### Skip packing if source files are unchanged
+([#103](https://github.com/squattingmonk/nasher/pull/103))
+
+By default, the `pack`, `install`, `serve`, `play`, and `test` commnads will now
+skip packing a file if the source files have not changed since the file was last
+packed. You can override this with the new flag `--packUnchanged`. If you want
+the old behavior to be the default, you can add it as a config setting: `nasher
+config packUnchanged true`.
+
+### Other
+
+- Help messages now include all available options to improve feature discovery.
+- The `convert` command now renames source files to lower case, like the
+  `unpack` command does with output files. This prevents clashes between files
+  based on case. ([#105](https://github.com/squattingmonk/nasher/pull/105))
+- Filenames are shown properly when unpacking
+  ([#106](https://github.com/squattingmonk/nasher/issues/106))
+- Fixed an issue that prevented recompilation of scripts which previously failed
+  to compile. ([#104](https://github.com/squattingmonk/nasher/issues/104))
+- nasher now checks if binaries can be executed before attempting to call them.
+  Should prevent permission errors like that mentioned in
+  [#104](https://github.com/squattingmonk/nasher/issues/104).
+
+---
+
+Details: https://github.com/squattingmonk/nasher/compare/0.19.0...0.20.0
+
+
+## 0.19.0: August 19, 2022
 
 ### Added ability to set module description for module targets
 ([#102](https://github.com/squattingmonk/nasher/pull/102))
