@@ -71,7 +71,7 @@ void main()
                     WriteTimestampedLogEntry("**SISTEMA DE DISFRACES** El personaje: "+GetName(oPC)+", descubre al personaje (tirada superior a 10): "+GetName(oTarget)+", el cual iba disfrazado como "+PB_Disguise_GetNameOverride(oTarget)+".");
                 }
                 //Si no se supera...
-                else
+                if(Tirada - CD < 0)
                 {
                     SendMessageToPC(oPC,ColorTexto("El objetivo no está disfrazado.",TXT_COLOR_ROJO));
                     //SendMessageToPC(oTarget,ColorTexto("¡Han descubierto tu disfraz!",TXT_COLOR_ROJO));
