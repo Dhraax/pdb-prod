@@ -569,6 +569,7 @@ void RemoveMagicSkillBonus(object oPC, int nSkill, int iSpell)
             if(iSpell != 20) RemoveEffectsFromSpell(oPC, 20);   // Clariaudiencia/clarividencia
             if(iSpell != 1020) RemoveEffectsFromSpell(oPC, 1020); // Clariaudiencia/clarividencia (asesino)
             if(iSpell != 1122) RemoveEffectsFromSpell(oPC, 1122); // Clariaudiencia/clarividencia (agente arpista)
+            if(iSpell != 186) RemoveEffectsFromSpell(oPC, 186); // Visión verdadera
         break;
         case 25: // Nadar
             if(iSpell != 1410) RemoveEffectsFromSpell(oPC, 1410); // Ciborg (Artífice)

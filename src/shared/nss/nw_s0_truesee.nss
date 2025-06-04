@@ -14,6 +14,7 @@
 #include "x2_inc_spellhook"
 #include "pb_nivellanzador"
 #include "inc_spells"
+#include "nostack_inc"
 
 void main()
 {
@@ -47,7 +48,7 @@ void main()
     //effect eTS = EffectLinkEffects(EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE), EffectTrueSeeing());
     effect eSight = EffectSeeInvisible();
     effect eUltraVision = EffectUltravision();
-    effect eSpot = EffectLinkEffects(EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE), EffectSkillIncrease(SKILL_SPOT, 5));
+    effect eSpot = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eImmunidadAsesinoFantasmal = EffectSpellImmunity(SPELL_PHANTASMAL_KILLER);
     effect eImmunidadNemesisInexorable = EffectSpellImmunity(SPELL_WEIRD);
     effect eAbsorb = EffectSpellLevelAbsorption(9, 0, SPELL_SCHOOL_ILLUSION);
@@ -65,4 +66,6 @@ void main()
     gsSPApplyEffect(oTarget, eImmunidadAsesinoFantasmal, nSpell, TurnsToSeconds(nTSDur + nDuration));
     gsSPApplyEffect(oTarget, eImmunidadNemesisInexorable, nSpell, TurnsToSeconds(nTSDur + nDuration));
     gsSPApplyEffect(oTarget, eAbsorb, nSpell, TurnsToSeconds(nTSDur + nDuration));
+
+    DoNoStackSkillBonus(OBJECT_SELF, oTarget, 5, SKILL_SPOT, TurnsToSeconds(nTSDur + nDuration),GetSpellId());
 }
