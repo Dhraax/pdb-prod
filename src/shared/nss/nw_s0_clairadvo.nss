@@ -62,8 +62,8 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_DIVINATION);
 
          //Apply linked and VFX effects
          ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nLevel));
-         DoNoStackSkillBonus(OBJECT_SELF, oTarget, 10, SKILL_LISTEN, RoundsToSeconds(nLevel), SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE);
-         DoNoStackSkillBonus(OBJECT_SELF, oTarget, 10, SKILL_SPOT, RoundsToSeconds(nLevel), SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE);
+         DoNoStackSkillBonus(OBJECT_SELF, oTarget, 7, SKILL_LISTEN, RoundsToSeconds(nLevel), SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE);
+         DoNoStackSkillBonus(OBJECT_SELF, oTarget, 7, SKILL_SPOT, RoundsToSeconds(nLevel), SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE);
          DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
     }
 }

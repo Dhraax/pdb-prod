@@ -66,6 +66,5 @@ void main()
     gsSPApplyEffect(oTarget, eImmunidadAsesinoFantasmal, nSpell, TurnsToSeconds(nTSDur + nDuration));
     gsSPApplyEffect(oTarget, eImmunidadNemesisInexorable, nSpell, TurnsToSeconds(nTSDur + nDuration));
     gsSPApplyEffect(oTarget, eAbsorb, nSpell, TurnsToSeconds(nTSDur + nDuration));
-
     DoNoStackSkillBonus(OBJECT_SELF, oTarget, 5, SKILL_SPOT, TurnsToSeconds(nTSDur + nDuration),GetSpellId());
 }

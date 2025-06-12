@@ -51,7 +51,7 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_TRANSMUTATION
     //Apply VFX impact and bonus effects
     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_IMPROVE_ABILITY_SCORE), oTarget);
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE), oTarget, RoundsToSeconds(nDuration));
-    DoNoStackSkillBonus(OBJECT_SELF, oTarget, 20, SKILL_LISTEN, RoundsToSeconds(nDuration),GetSpellId());
+    DoNoStackSkillBonus(OBJECT_SELF, oTarget, 14, SKILL_LISTEN, RoundsToSeconds(nDuration),GetSpellId());
     DeleteLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR");
 
 }
