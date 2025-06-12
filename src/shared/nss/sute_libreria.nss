@@ -260,15 +260,16 @@ void usarPocionHerboristeria(object oPC, string sPocion){
             //Acustica, 2
             eVis = EffectVisualEffect(VFX_IMP_IMPROVE_ABILITY_SCORE);
             eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-            eApp = EffectSkillIncrease(SKILL_LISTEN, 20);
-            eLink = EffectLinkEffects(eApp, eDur);
+            //eApp = EffectSkillIncrease(SKILL_LISTEN, 20);
+            //eLink = EffectLinkEffects(eApp, eDur);
             if(!GetHasSpellEffect(SPELL_AMPLIFY, oPC)) {
                 RemoveEffectsFromSpell(oTarget, 442);
                 SignalEvent(oPC, EventSpellCastAt(oPC, SPELL_AMPLIFY, FALSE));
                 RemoveEffectsFromSpell(oTarget, 186);
                 RemoveEffectsFromSpell(oTarget, 20);
-                ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, eDur, oPC);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC, TurnsToSeconds(iDuracionRestringida));
+                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 14, SKILL_LISTEN, TurnsToSeconds(iDuracionRestringida));
             }
 
             SetLocalInt(oPC, sNumPocion, SQLite_GetTimeStamp() + (iDuracionRestringida * 60));
@@ -997,8 +998,8 @@ void usarPocionHerboristeria(object oPC, string sPocion){
                 RemoveEffectsFromSpell(oTarget, 186);
                 RemoveEffectsFromSpell(oTarget, 442);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, TurnsToSeconds(iDuracionRestringida));
-                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 10, SKILL_SPOT, TurnsToSeconds(iDuracionRestringida));
-                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 10, SKILL_LISTEN, TurnsToSeconds(iDuracionRestringida));
+                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 7, SKILL_SPOT, TurnsToSeconds(iDuracionRestringida));
+                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 7, SKILL_LISTEN, TurnsToSeconds(iDuracionRestringida));
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC, TurnsToSeconds(iDuracionRestringida));
             }
 
@@ -1123,13 +1124,13 @@ void usarPocionHerboristeria(object oPC, string sPocion){
             //de Verdad 8/7/2
             eVis = EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT);
             eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-            eApp = EffectSkillIncrease(SKILL_SPOT, 5);
+            //eApp = EffectSkillIncrease(SKILL_SPOT, 5);
             eApp2 = EffectSeeInvisible();
             eApp3 = EffectUltravision();
             eApp4 = EffectSpellImmunity(SPELL_PHANTASMAL_KILLER);
             eApp5 = EffectSpellImmunity(SPELL_WEIRD);
-            eLink = EffectLinkEffects(eVis, eApp);
-            eLink = EffectLinkEffects(eLink, eApp2);
+            //eLink = EffectLinkEffects(eVis, eApp);
+            eLink = EffectLinkEffects(eVis, eApp2);
             eLink = EffectLinkEffects(eLink, eApp3);
             eLink = EffectLinkEffects(eLink, eApp4);
             eLink = EffectLinkEffects(eLink, eApp5);
@@ -1142,6 +1143,7 @@ void usarPocionHerboristeria(object oPC, string sPocion){
                 RemoveEffectsFromSpell(oTarget, 20);
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
                 ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC, TurnsToSeconds(iDuracionRestringida));
+                DoNoStackSkillBonus(OBJECT_SELF, oTarget, 7, SKILL_SPOT, TurnsToSeconds(iDuracionRestringida));
             }
 
             SetLocalInt(oPC, sNumPocion, SQLite_GetTimeStamp() + (iDuracionRestringida * 60));
