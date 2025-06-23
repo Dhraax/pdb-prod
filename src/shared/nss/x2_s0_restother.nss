@@ -50,6 +50,7 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_CONJURATION);
         //Search for negative effects
         while(GetIsEffectValid(eBad))
         {
+            int nSubType = GetEffectSubType(eBad);
             if (GetEffectType(eBad) == EFFECT_TYPE_ABILITY_DECREASE ||
                 GetEffectType(eBad) == EFFECT_TYPE_AC_DECREASE ||
                 GetEffectType(eBad) == EFFECT_TYPE_ATTACK_DECREASE ||
@@ -64,7 +65,10 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_CONJURATION);
                 GetEffectType(eBad) == EFFECT_TYPE_NEGATIVELEVEL)
                 {
                     //Remove effect if it is negative.
-                    RemoveEffect(oTarget, eBad);
+                    if(nSubType != SUBTYPE_EXTRAORDINARY && nSubType != SUBTYPE_UNYIELDING)
+                    {
+                        RemoveEffect(oTarget, eBad);
+                    }
                 }
             eBad = GetNextEffect(oTarget);
         }

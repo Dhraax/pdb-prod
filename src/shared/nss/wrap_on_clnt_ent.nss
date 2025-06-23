@@ -1,9 +1,9 @@
-//::////////////////////////////////////////////////////////////////////////////
-//:: Nombre del guion:  wrap_on_clnt_ent                                  //:://
-//::////////////////////////////////////////////////////////////////////////////
-//:: GUION ON_CLIENT_ENTER PARA EL SERVIDOR PUERTA DE BALDUR              //:://
-//:: Creado por Monti                                                     //:://
-//::////////////////////////////////////////////////////////////////////////////
+/// ----------------------------------------------------------------------------
+/// @system PB_EE_PROD
+/// @file wrap_on_clnt_ent.nss
+/// @author Dhraax
+/// @brief  OnClientEnter event script. Handles player login logic and persistent effect cleanup.
+/// ----------------------------------------------------------------------------
 
 #include "x0_i0_petrify"
 #include "mti_libreria"
@@ -17,7 +17,55 @@
 #include "pb_constantes"
 #include "lib_disguise"
 #include "lib_dm_vfx"
+#include "inc_spells"
 
+// -----------------------------------------------------------------------------
+//                              Function Prototypes
+// -----------------------------------------------------------------------------
+
+/// @brief Removes stuck darkness effects from a player if not inside a darkness AoE.
+/// @param oPC The player character to check and clean.
+/// @returns void
+void RemoveStuckDarknessEffects(object oPC);
+
+
+// -----------------------------------------------------------------------------
+//                             Function Definitions
+// -----------------------------------------------------------------------------
+
+/// @brief Removes stuck darkness effects from a player if not inside a darkness AoE.
+/// @param oPC The player character to check and clean.
+/// @returns void
+void RemoveStuckDarknessEffects(object oPC)
+{
+    int iSpellDarkness = SPELL_DARKNESS;
+    int iHasDarkness = GetHasSpellEffect(iSpellDarkness, oPC);
+    int iIsInDarkness = FALSE;
+    object oAreaEffect = GetFirstObjectInShape(SHAPE_SPHERE, 6.0, GetLocation(oPC), FALSE, OBJECT_TYPE_AREA_OF_EFFECT);
+
+    while (GetIsObjectValid(oAreaEffect))
+    {
+        if (GetAoEId(oAreaEffect) == iSpellDarkness)
+        {
+            if (GetDistanceBetweenLocations(GetLocation(oPC), GetLocation(oAreaEffect)) <= GetAoERadius(AOE_PER_DARKNESS))
+            {
+                iIsInDarkness = TRUE;
+                break;
+            }
+        }
+        oAreaEffect = GetNextObjectInShape(SHAPE_SPHERE, 6.0, GetLocation(oPC));
+    }
+
+    if (iHasDarkness && !iIsInDarkness)
+    {
+        gsSPRemoveEffect(oPC, iSpellDarkness, OBJECT_INVALID, "", TRUE);
+        SendMessageToPC(oPC, "<c´$$>Stuck darkness effects have been removed.</c>");
+    }
+}
+
+// -----------------------------------------------------------------------------
+//                             Main Function
+// -----------------------------------------------------------------------------
 
 void main()
 {
@@ -314,4 +362,7 @@ void main()
         DelayCommand(5.0, FadeFromBlack(oPC));
         return;
     }
+
+    // Remove stuck darkness effects if not inside a darkness AoE
+    RemoveStuckDarknessEffects(oPC);
 }

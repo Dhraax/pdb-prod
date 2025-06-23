@@ -49,6 +49,7 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_NECROMANCY);
     //Search for negative effects
     while(GetIsEffectValid(eBad))
     {
+        int nSubType = GetEffectSubType(eBad);
         if((GetEffectType(eBad) == EFFECT_TYPE_ABILITY_DECREASE ||
             GetEffectType(eBad) == EFFECT_TYPE_AC_DECREASE ||
             GetEffectType(eBad) == EFFECT_TYPE_ATTACK_DECREASE ||
@@ -74,7 +75,9 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_NECROMANCY);
             GetEffectType(eBad) == EFFECT_TYPE_MOVEMENT_SPEED_DECREASE ||
             GetEffectType(eBad) == EFFECT_TYPE_STUNNED) &&
             GetEffectSpellId(eBad) != 996 &&
-            !GetIsBarbarianRage(eBad))
+            !GetIsBarbarianRage(eBad) &&
+            nSubType != SUBTYPE_EXTRAORDINARY &&
+            nSubType != SUBTYPE_UNYIELDING)
         {
             RemoveEffect(oTarget, eBad);
         }

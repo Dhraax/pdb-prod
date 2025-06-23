@@ -142,26 +142,31 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_CONJURATION);
                     //Search for negative effects
                     while(GetIsEffectValid(eBad))
                     {
-                     if (GetEffectType(eBad) == EFFECT_TYPE_ABILITY_DECREASE ||
-                         GetEffectType(eBad) == EFFECT_TYPE_ATTACK_DECREASE ||
-                         GetEffectType(eBad) == EFFECT_TYPE_DAMAGE_DECREASE ||
-                         GetEffectType(eBad) == EFFECT_TYPE_SKILL_DECREASE ||
-                         GetEffectType(eBad) == EFFECT_TYPE_BLINDNESS ||
-                         GetEffectType(eBad) == EFFECT_TYPE_DEAF ||
-                         GetEffectType(eBad) == EFFECT_TYPE_DISEASE ||
-                         GetEffectType(eBad) == EFFECT_TYPE_POISON ||
-                         GetEffectType(eBad) == EFFECT_TYPE_DAZED ||
-                         GetEffectType(eBad) == EFFECT_TYPE_CONFUSED ||
-                         GetEffectType(eBad) == EFFECT_TYPE_FRIGHTENED ||
-                         GetEffectType(eBad) == EFFECT_TYPE_SLOW ||
-                         GetEffectType(eBad) == EFFECT_TYPE_STUNNED)
-                     {
-                         //Remove effect if it is negative.
-                         if(!GetIsSupernaturalCurse(eBad))
-                         RemoveEffect(oTarget, eBad);
-                     }
-                     eBad = GetNextEffect(oTarget);
-                   }
+                        int nSubType = GetEffectSubType(eBad);
+                        if (GetEffectType(eBad) == EFFECT_TYPE_ABILITY_DECREASE ||
+                            GetEffectType(eBad) == EFFECT_TYPE_ATTACK_DECREASE ||
+                            GetEffectType(eBad) == EFFECT_TYPE_DAMAGE_DECREASE ||
+                            GetEffectType(eBad) == EFFECT_TYPE_SKILL_DECREASE ||
+                            GetEffectType(eBad) == EFFECT_TYPE_BLINDNESS ||
+                            GetEffectType(eBad) == EFFECT_TYPE_DEAF ||
+                            GetEffectType(eBad) == EFFECT_TYPE_DISEASE ||
+                            GetEffectType(eBad) == EFFECT_TYPE_POISON ||
+                            GetEffectType(eBad) == EFFECT_TYPE_DAZED ||
+                            GetEffectType(eBad) == EFFECT_TYPE_CONFUSED ||
+                            GetEffectType(eBad) == EFFECT_TYPE_FRIGHTENED ||
+                            GetEffectType(eBad) == EFFECT_TYPE_SLOW ||
+                            GetEffectType(eBad) == EFFECT_TYPE_STUNNED)
+                        {
+                            //Remove effect if it is negative.
+                            if(!GetIsSupernaturalCurse(eBad)
+                                && nSubType != SUBTYPE_EXTRAORDINARY
+                                && nSubType != SUBTYPE_UNYIELDING)
+                            {
+                                RemoveEffect(oTarget, eBad);
+                            }
+                        }
+                        eBad = GetNextEffect(oTarget);
+                    }
                    // APLICAMOS LOS EFECTOS DE LAS SUBRAZAS, MONTURAS Y ARMADURAS
                    //ReaplicarEfectosPB(oTarget);
                 }

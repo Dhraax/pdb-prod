@@ -18,6 +18,9 @@ if( GetHasFeat(1354, oCaster) && GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR
 if( GetHasFeat(1354, oCaster) && GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR") == SPELL_SCHOOL_EVOCATION || GetHasFeat(1354, oCaster) && GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR") == SPELL_SCHOOL_TRANSMUTATION)
     { nDC -= 1; }
 
+// Bonificador de Spellcraft (Conocimiento de Conjuros): +1 CD por cada 5 rangos completos
+nDC += GetSkillRank(SKILL_SPELLCRAFT, oCaster) / 5;
+
 /*/Defensa Sombria
  if(GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR") == SPELL_SCHOOL_ILLUSION || GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR") == SPELL_SCHOOL_ENCHANTMENT  ||  GetLocalInt(oCaster, "X2_L_LAST_SPELLSCHOOL_VAR") == SPELL_SCHOOL_NECROMANCY)
     {
