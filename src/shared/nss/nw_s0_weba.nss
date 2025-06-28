@@ -18,6 +18,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "lib_disguise"
 
 void main()
 {
@@ -27,6 +28,13 @@ void main()
     effect eVis = EffectVisualEffect(VFX_DUR_WEB);
     effect eLink = EffectLinkEffects(eWeb, eVis);
     object oTarget = GetEnteringObject();
+    //Inmunidad de la forma de Araña Gigante (193) y Araña Gargantuesca (195) del MMF
+    if(ObtenerIntPersistente(oTarget,"POLYMORPHED_FORM")== 193 || ObtenerIntPersistente(oTarget,"POLYMORPHED_FORM")== 195)
+    {
+        SendMessageToPC(oTarget,StringToRGBString(PB_Disguise_GetNameOverride(oTarget)+": inmune a Telaraña.","637"));
+        SendMessageToPC(GetAreaOfEffectCreator(),StringToRGBString(PB_Disguise_GetNameOverride(oTarget)+": inmune a Telaraña.","637"));
+        return;
+    }
     int iSpellid = GetSpellId();
     // * the lower the number the faster you go
     int nSlow = 65 - (GetAbilityScore(oTarget, ABILITY_STRENGTH)*2);

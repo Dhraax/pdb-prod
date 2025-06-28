@@ -18,6 +18,7 @@
 
 #include "X0_I0_SPELLS"
 #include "x2_inc_spellhook"
+#include "lib_disguise"
 
 void main()
 {
@@ -31,7 +32,13 @@ void main()
     oTarget = GetFirstInPersistentObject();
     while(GetIsObjectValid(oTarget))
     {
-
+        //Inmunidad de la forma de Araña Gigante (193) y Araña Gargantuesca (195) del MMF
+        if(ObtenerIntPersistente(oTarget,"POLYMORPHED_FORM")== 193 || ObtenerIntPersistente(oTarget,"POLYMORPHED_FORM")== 195)
+        {
+            SendMessageToPC(oTarget,StringToRGBString(PB_Disguise_GetNameOverride(oTarget)+": inmune a Telaraña de Bebelith.","637"));
+            SendMessageToPC(GetAreaOfEffectCreator(),StringToRGBString(PB_Disguise_GetNameOverride(oTarget)+": inmune a Telaraña de Bebelith.","637"));
+            return;
+        }
        if(!GetHasFeat(FEAT_WOODLAND_STRIDE, oTarget) &&(GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_IS_INCORPOREAL) != TRUE) )
           {
             if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
