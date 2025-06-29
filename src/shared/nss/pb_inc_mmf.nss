@@ -999,7 +999,7 @@ void StoreOriginalData(object oPC, int iConstant)
 
 }
 
-void SaveEquippedItems(object oPC, object oContainer, int iMergeW,/*int SkipPlayerEquipableItems = FALSE,*/ int SkipCreatureItems = FALSE)
+void SaveEquippedItems(object oPC, object oContainer, int iMergeW,int SkipCreatureItems = FALSE)
 {
     object oItem;
     int i;
@@ -1030,23 +1030,14 @@ void SaveEquippedItems(object oPC, object oContainer, int iMergeW,/*int SkipPlay
         }
     }
 
-    /////////
+
     for(i = 14; i < 18; i++)
     {
         oItem = GetItemInSlot(i,oPC);
         if(GetIsObjectValid(oItem)){
             SetLocalInt(oItem,"INVENTORY_SLOT",i);
-            if(i == 4 ) {
-                if(iMergeW == TRUE){
-                    json jProperties = JsonObjectGet(ObjectToJson(oItem),"PropertiesList");
-                    SetLocalJson(oContainer,"MF_OR_WEAPON",jProperties);
-                }
-                else{
-                    continue;
-                }
-            }
-            /*else if (SkipPlayerEquipableItems && i < 14) continue;*/
-            else if (SkipCreatureItems && i >= 14) continue;
+
+            if (SkipCreatureItems && i >= 14) continue;
             jOldEquipment = JsonObjectSet(jOldEquipment,IntToString(i),ObjectToJson(oItem,TRUE));
             DestroyObject(oItem);
         }
@@ -1061,12 +1052,16 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
     object oContainer = GetItemPossessedBy(oPC,CONTENEDOR_VARIABLES);
     object oItem;
     json jOldEquipment;
+    PrintString("Running StoreOriginalEquipment function");
     if(ObtenerIntPersistente(oPC,"POLYMORPHED")){
+        PrintString("Is polymorphed");
         jOldEquipment = GetLocalJson(oContainer,"OLD_EQUIPMENT");
         if(iMergeW == TRUE && JsonGetType(GetLocalJson(oContainer,"ME_OR_WEAPON")) == JSON_TYPE_NULL)
         {
+            PrintString("iMergeW = TRUE and JSON_TYPE_NULL");
             oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
             if(GetIsObjectValid(oItem)){
+                PrintString("Player has valid Weapon");
                 MMF_RemoveIP(oItem);
                 SetLocalInt(oItem,"INVENTORY_SLOT",INVENTORY_SLOT_RIGHTHAND);
                 json jProperties = JsonObjectGet(ObjectToJson(oItem),"PropertiesList");
@@ -1081,6 +1076,7 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
         else if(iMergeW == FALSE)
         {
             oItem = JsonToObject(JsonObjectGet(jOldEquipment,IntToString(INVENTORY_SLOT_RIGHTHAND)),GetLocation(oPC),oPC,TRUE);
+            PrintString("iMergeW = FALSE");
             if(GetIsObjectValid(oItem))
             {
                 DelayCommand(0.2,WrapNWNX_Creature_RunEquip(oPC,oItem,GetLocalInt(oItem,"INVENTORY_SLOT")));
@@ -1095,16 +1091,16 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
             }
         }
 
-        if (!ObtenerIntPersistente(oPC,"MMF_NO_MERGE_ARMOR") && !iMergeA){
+        /*if (!ObtenerIntPersistente(oPC,"MMF_NO_MERGE_ARMOR") && !iMergeA){
             SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
-        }
+        }*/
 
         return;
     }
 
-    if(iMergeA)     SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
-    else            SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
+    SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
 
+    PrintString("End StoreOriginalEquipment function");
 }
 
 void LoadOriginalData(object oPC)
