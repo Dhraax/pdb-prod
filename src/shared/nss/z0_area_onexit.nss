@@ -59,8 +59,8 @@ void main()
         SetLocalInt(oArea,"SEGC_DESTRUC_LANZADA", 1);
     }
 
-    //Áreas de asalto de viaje en caravana, debería tener asalto con cada grupo que entre al área.
-    if(iPCsEnArea == 0 && (GetTag(oArea) == "caravana_enc1" || GetTag(oArea) == "caravana_enc1"))
+    //Ãreas de asalto de viaje en caravana, deberÃ­a tener asalto con cada grupo que entre al Ã¡rea.
+    if(iPCsEnArea == 0 && (GetTag(oArea) == "caravana_enc1" || GetTag(oArea) == "caravana_enc2"))
     {
         object oMod = GetModule();
         string sArea = "NOENC_"+GetTag(oArea);
@@ -71,6 +71,6 @@ void main()
     if(GetLocalInt(oPlayer,"ARENA") > 0)
     {
         DeleteLocalInt(oPlayer, "ARENA");
-        WriteTimestampedLogEntry("MODO ARENA: Un PJ salió de un área arena sin tener borrada la variable, comprobar los OnEnter y OnExit del área: "+GetName(oArea)+".");
+        WriteTimestampedLogEntry("MODO ARENA: Un PJ saliÃ³ de un Ã¡rea arena sin tener borrada la variable, comprobar los OnEnter y OnExit del Ã¡rea: "+GetName(oArea)+".");
     }
 }
