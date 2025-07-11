@@ -25,10 +25,8 @@ void SEGC_DestruirPNJs()
 
             oPCArea = GetNextObjectInArea(oArea);
         }
-
         SetLocalInt(oArea,"SEGC_HECHO",0);
     }
-
     SetLocalInt(oArea,"SEGC_DESTRUC_LANZADA", 0);
 }
 
@@ -59,6 +57,14 @@ void main()
     {
         DelayCommand(600.0, SEGC_DestruirPNJs()); //A los 600 segundos si no hay jugadores destruye los pnjs del SEGC
         SetLocalInt(oArea,"SEGC_DESTRUC_LANZADA", 1);
+    }
+
+    //Áreas de asalto de viaje en caravana, debería tener asalto con cada grupo que entre al área.
+    if(iPCsEnArea == 0 && (GetTag(oArea) == "caravana_enc1" || GetTag(oArea) == "caravana_enc1"))
+    {
+        object oMod = GetModule();
+        string sArea = "NOENC_"+GetTag(oArea);
+        DeleteLocalInt(oMod, sArea);
     }
 
     //Parche de Varacho.

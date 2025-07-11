@@ -28,7 +28,13 @@ void main()
     effect eLink = EffectLinkEffects(eVis, eSlow);
     object oTarget = GetEnteringObject();
     float fDelay = GetRandomDelay(1.0, 2.2);
-    if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
+    //Maestria de modelado
+    if((GetHasFeat(FEAT_MASTERY_SHAPES, GetAreaOfEffectCreator())) && (GetLocalInt(GetAreaOfEffectCreator(), "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oTarget, GetAreaOfEffectCreator()) || oTarget == GetAreaOfEffectCreator() || GetMaster(oTarget) == GetAreaOfEffectCreator()))
+    {
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
+    }
+
+    else if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
     {
         if(!GetHasFeat(FEAT_WOODLAND_STRIDE, oTarget) &&(GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_IS_INCORPOREAL) != TRUE) )
         {
@@ -43,3 +49,4 @@ void main()
         }
     }
 }
+

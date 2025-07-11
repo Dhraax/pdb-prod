@@ -54,14 +54,20 @@ void main()
     // Leer el contador de muros de fuego activos simultaneamente
     int nMuroFuego = GetLocalInt(oTarget, "AOE_" + IntToString(AOE_PER_WALLFIRE));
 
-    // Si el jugador est dentro de un muro de fuego, no aplicar ms dao de entrada al muro de fuego pero aumentar
-    if (nMuroFuego > 0) {
+    // Si el jugador est? dentro de un muro de fuego, no aplicar m?s da?o de entrada al muro de fuego pero aumentar
+    if (nMuroFuego > 0)
+    {
         SetLocalInt(oTarget, "AOE_" + IntToString(AOE_PER_WALLFIRE), nMuroFuego + 1);
         return;
     }
 
+    //Maestria de modelado
+    if((GetHasFeat(FEAT_MASTERY_SHAPES, GetAreaOfEffectCreator())) && (GetLocalInt(GetAreaOfEffectCreator(), "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oTarget, GetAreaOfEffectCreator()) || oTarget == GetAreaOfEffectCreator() || GetMaster(oTarget) == GetAreaOfEffectCreator()))
+    {
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
+    }
 
-    if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
+    else if (spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
     {
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, SPELL_WALL_OF_FIRE));

@@ -52,7 +52,7 @@ void main()
     effect eImmunidadAsesinoFantasmal = EffectSpellImmunity(SPELL_PHANTASMAL_KILLER);
     effect eImmunidadNemesisInexorable = EffectSpellImmunity(SPELL_WEIRD);
     effect eAbsorb = EffectSpellLevelAbsorption(9, 0, SPELL_SCHOOL_ILLUSION);
-    eSpot = EffectLinkEffects(EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT), eSpot);
+    eAbsorb = EffectLinkEffects(EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT), eAbsorb);
 
     int nTSDur = 0;
     if (GetHasFeat(FEAT_EPIC_SPELL_FOCUS_DIVINATION)) nTSDur = 4;

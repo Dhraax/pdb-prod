@@ -218,7 +218,7 @@ int iCDING (object oPC)
     if(iNivelClase > 10){iNivelClase = 10;}
     int iCantidad = 10 + iNivelClase + GetAbilityModifier(ABILITY_INTELLIGENCE,oPC);
     //+2 si tiene la dote Nacido en Lantan.
-    if(NWNX_Creature_GetKnowsFeat(oPC,1590)){iCantidad = iCantidad + 2;}
+    if(NWNX_Creature_GetKnowsFeat(oPC,1771)){iCantidad = iCantidad + 2;}
     return iCantidad;
 }
 
@@ -230,18 +230,17 @@ int iDANOING (object oPC)
     {
         iDamage =  d8(GetLevelByClass(CLASS_TYPE_INGENIERO,oPC)/2);
         //Añadimos un 1d6 por cada dote de Mejorar Artificio.
-        if(NWNX_Creature_GetKnowsFeat(oPC,1591)){iDamage = iDamage + d8();}
-        if(NWNX_Creature_GetKnowsFeat(oPC,1592)){iDamage = iDamage + d8();}
-        if(NWNX_Creature_GetKnowsFeat(oPC,1594)){iDamage = iDamage + d8();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1772)){iDamage = iDamage + d8();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1773)){iDamage = iDamage + d8();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1774)){iDamage = iDamage + d8();}
     }
     if(ObtenerIntPersistente(oPC,"CLS_ING_TIPO") > 1)
     {
         iDamage =  d6(GetLevelByClass(CLASS_TYPE_INGENIERO,oPC)/2);
         //Añadimos un 1d6 por cada dote de Mejorar Artificio.
-        //Añadimos un 1d6 por cada dote de Mejorar Artificio.
-        if(NWNX_Creature_GetKnowsFeat(oPC,1591)){iDamage = iDamage + d6();}
-        if(NWNX_Creature_GetKnowsFeat(oPC,1592)){iDamage = iDamage + d6();}
-        if(NWNX_Creature_GetKnowsFeat(oPC,1594)){iDamage = iDamage + d6();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1771)){iDamage = iDamage + d6();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1772)){iDamage = iDamage + d6();}
+        if(NWNX_Creature_GetKnowsFeat(oPC,1773)){iDamage = iDamage + d6();}
     }
     return iDamage;
 }
@@ -263,3 +262,4 @@ void Tiempo (object oPC, string sNombre)
 
 
 //void main(){}
+
