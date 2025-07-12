@@ -28,7 +28,7 @@ void BajarNivelQuedandoseA1XP(object oPC)
       case 6: iXP = 14999; break;
       case 7: iXP = 20999; break;
       case 8: iXP = 27999; break;
-      case 9: iXP = 359999; break;
+      case 9: iXP = 35999; break;
       case 10: iXP = 44999; break;
       case 11: iXP = 54999; break;
       case 12: iXP = 65999; break;
