@@ -160,7 +160,8 @@ void main()
         //Cambios de la fuerza.
         if(iFuerza < iInt)
         {
-            DoNoStackAbilityBonus(oPC, oPC, iInt - iFuerza, ABILITY_STRENGTH, fDuration);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectAbilityIncrease(ABILITY_STRENGTH, iInt - iFuerza), oPC, fDuration);
+            //DoNoStackAbilityBonus(oPC, oPC, iInt - iFuerza, ABILITY_STRENGTH, fDuration);
         }
         if(iFuerza > iInt)
         {
@@ -169,7 +170,8 @@ void main()
         //Cambios de la Int.
         if(iInt < iFuerza)
         {
-            DoNoStackAbilityBonus(oPC, oPC, iFuerza - iInt, ABILITY_INTELLIGENCE, fDuration);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectAbilityIncrease(ABILITY_INTELLIGENCE, iFuerza - iInt), oPC, fDuration);
+            //DoNoStackAbilityBonus(oPC, oPC, iFuerza - iInt, ABILITY_INTELLIGENCE, fDuration);
         }
         if(iInt > iFuerza)
         {
@@ -202,6 +204,7 @@ void main()
         SetLocalInt(oPC,"CLS_ING_ELIXIRBERS",1);
         DelayCommand(fDuration, DeleteLocalInt(oPC,"CLS_ING_ELIXIRBERS"));
     }
+
 
     ///////////////////////
     //FUEGO DE ALQUIMISTA//

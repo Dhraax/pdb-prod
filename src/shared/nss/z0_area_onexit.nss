@@ -25,10 +25,8 @@ void SEGC_DestruirPNJs()
 
             oPCArea = GetNextObjectInArea(oArea);
         }
-
         SetLocalInt(oArea,"SEGC_HECHO",0);
     }
-
     SetLocalInt(oArea,"SEGC_DESTRUC_LANZADA", 0);
 }
 
@@ -61,10 +59,18 @@ void main()
         SetLocalInt(oArea,"SEGC_DESTRUC_LANZADA", 1);
     }
 
+    //Áreas de asalto de viaje en caravana, debería tener asalto con cada grupo que entre al área.
+    if(iPCsEnArea == 0 && (GetTag(oArea) == "caravana_enc1" || GetTag(oArea) == "caravana_enc2"))
+    {
+        object oMod = GetModule();
+        string sArea = "NOENC_"+GetTag(oArea);
+        DeleteLocalInt(oMod, sArea);
+    }
+
     //Parche de Varacho.
     if(GetLocalInt(oPlayer,"ARENA") > 0)
     {
         DeleteLocalInt(oPlayer, "ARENA");
-        WriteTimestampedLogEntry("MODO ARENA: Un PJ sali� de un �rea arena sin tener borrada la variable, comprobar los OnEnter y OnExit del �rea: "+GetName(oArea)+".");
+        WriteTimestampedLogEntry("MODO ARENA: Un PJ salió de un área arena sin tener borrada la variable, comprobar los OnEnter y OnExit del área: "+GetName(oArea)+".");
     }
 }

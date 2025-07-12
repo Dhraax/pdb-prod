@@ -45,7 +45,7 @@ void main()
     int iMaxHenchmen = 3;
 
     //Menor a nivel 3, solo 2 convocados.
-    if(iHD < 3) iMaxHenchmen -= 2;
+    if(iHD < 3) iMaxHenchmen = 2;
     SetMaxHenchmen(iMaxHenchmen);
 
     string sSummon;

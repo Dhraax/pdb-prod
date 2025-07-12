@@ -13,10 +13,12 @@
 #include "pb_constantes"
 #include "pb_inc_mmf"
 
+//Baja el nivel dejando al PJ a 1 punto de subir de nuevo.
+void BajarNivelQuedandoseA1XP(object oPC);
 void BajarNivelQuedandoseA1XP(object oPC)
 {
+  int iPrevXP = GetXP(oPC);
   int iXP;
-
   switch(GetHitDice(oPC))
   {
       case 2: iXP = 999; break;
@@ -26,7 +28,7 @@ void BajarNivelQuedandoseA1XP(object oPC)
       case 6: iXP = 14999; break;
       case 7: iXP = 20999; break;
       case 8: iXP = 27999; break;
-      case 9: iXP = 35999; break;
+      case 9: iXP = 359999; break;
       case 10: iXP = 44999; break;
       case 11: iXP = 54999; break;
       case 12: iXP = 65999; break;
@@ -60,8 +62,10 @@ void BajarNivelQuedandoseA1XP(object oPC)
       case 40: iXP = 779999; break;
       default: iXP = GetXP(oPC); break;
   }
-
+  //Bajamos el nivel.
   SetXP(oPC, iXP);
+  //Le metemos la PX que tenía antes de bajarle el nivel.
+  SetXP(oPC, iPrevXP);
 }
 
 void main()
