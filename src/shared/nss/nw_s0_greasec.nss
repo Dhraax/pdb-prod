@@ -29,7 +29,12 @@ void main()
     {
         if(!GetHasFeat(FEAT_WOODLAND_STRIDE, oTarget) &&(GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_IS_INCORPOREAL) != TRUE) )
         {
-            if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
+            //Maestria de modelado
+            if((GetHasFeat(FEAT_MASTERY_SHAPES, GetAreaOfEffectCreator())) && (GetLocalInt(GetAreaOfEffectCreator(), "archmage_mastery_shaping") == 1) && (!GetIsReactionTypeHostile(oTarget, GetAreaOfEffectCreator()) || oTarget == GetAreaOfEffectCreator() || GetMaster(oTarget) == GetAreaOfEffectCreator()))
+            {
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SPELL_MANTLE_USE), oTarget);
+            }
+            else if(spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, GetAreaOfEffectCreator()))
             {
                 fDelay = GetRandomDelay(0.0, 2.0);
                 if(!MySavingThrow(SAVING_THROW_REFLEX, oTarget, (GetSpellSaveDC()+ GetChangesToSaveDC(OBJECT_SELF)), SAVING_THROW_TYPE_NONE, OBJECT_SELF, fDelay))
