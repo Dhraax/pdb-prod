@@ -23,22 +23,22 @@ int WINGMAX     =   1965; //CEP 2.4 Wing Max
 int TAILMAX     =   9999; //CEP 2.4 Tail Max
 
 //CEP 2.4 + PB 1.5 Heads Max
-int HFHEADMAX   =   229;    //-- human female
-int HMHEADMAX   =   237;    //-- human male
-int AFHEADMAX   =   194;    //-- halfling female
-int AMHEADMAX   =   194;    //-- halfling male
-int EFHEADMAX   =   201;    //-- elf female
-int EMHEADMAX   =   198;    //-- elf male
-int GFHEADMAX   =   33;     //-- gnome female
-int GMHEADMAX   =   193;     //-- gnome male
-int DFHEADMAX   =   192;     //-- dwarf female
-int DMHEADMAX   =   192;     //-- dwarf male
-int OFHEADMAX   =   28;     //-- halforc female
-int OMHEADMAX   =   199;     //-- halforc male
-int BFHEADMAX   =   36;     //-- brownie female
-int BMHEADMAX   =   32;     //-- brownie male
-int WFHEADMAX   =   2;      //-- wemic female
-int WMHEADMAX   =   4;      //-- wemic male
+int HFHEADMAX   =   255;    //-- human female
+int HMHEADMAX   =   255;    //-- human male
+int AFHEADMAX   =   255;    //-- halfling female
+int AMHEADMAX   =   255;    //-- halfling male
+int EFHEADMAX   =   255;    //-- elf female
+int EMHEADMAX   =   255;    //-- elf male
+int GFHEADMAX   =   255;    //-- gnome female
+int GMHEADMAX   =   255;    //-- gnome male
+int DFHEADMAX   =   255;    //-- dwarf female
+int DMHEADMAX   =   255;    //-- dwarf male
+int OFHEADMAX   =   255;    //-- halforc female
+int OMHEADMAX   =   255;    //-- halforc male
+int BFHEADMAX   =   255;    //-- brownie female
+int BMHEADMAX   =   255;    //-- brownie male
+int WFHEADMAX   =   255;    //-- wemic female
+int WMHEADMAX   =   255;    //-- wemic male
 
 int CUSTOMPARTS =    2;     //-- set this to how many pc parts you have
                             //-- before it should switch up to part 255. default is 0, 1, 2.
