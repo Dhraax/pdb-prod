@@ -206,7 +206,7 @@ void StoreOriginalData(object oPC, int iConstant);
 //object oContainer: Contenedor de variables.
 //int iMergeW: Valor boleano, si es TRUE guardara las propiedades del arma como un json para su uso posterior.
 //int SkipPlayerEquipableItems: Valor boleano, si es TRUE sólo guardara los objetos de criatura. (Garras, mordisco y piel)
-void SaveEquippedItems(object oPC, object oContainer, int iMergeW,/*int SkipPlayerEquipableItems = FALSE,*/ int SkipCreatureItems = FALSE);
+void SaveEquippedItems(object oPC, object oContainer, int iMergeW, int SkipCreatureItems = FALSE);
 
 //Gestiona según la forma si se tiene que guardar el equipo y/o guardar las propiedades del arma.
 //Parametros:
@@ -865,7 +865,8 @@ void EffectMDFPolymorph(object oPC,int iPOLYMORPH_CONSTANT)
         effect eFirst = GetFirstEffect(oPC);
         while(GetIsEffectValid(eFirst))
         {
-            if(GetEffectTag(eFirst) == "POLY_HP_BONUS" || GetEffectSpellId(eFirst)== 412 || GetEffectTag(eFirst) == "MMF_MOV_SPEED") RemoveEffect(oPC,eFirst);
+            if(GetEffectTag(eFirst) == "POLY_HP_BONUS" || GetEffectSpellId(eFirst)== 412 ||
+               GetEffectTag(eFirst) == "MMF_MOV_SPEED" || GetEffectTag(eFirst) == "MMF_TRUE_VISION" ) RemoveEffect(oPC,eFirst);
             eFirst = GetNextEffect(oPC);
         }
     }
@@ -887,11 +888,20 @@ void EffectMDFPolymorph(object oPC,int iPOLYMORPH_CONSTANT)
         eMovementSpeed = TagEffect(eMovementSpeed,"MMF_MOV_SPEED");
         ApplyEffectToObject(DURATION_TYPE_PERMANENT,eMovementSpeed,oPC);
     }
-    if(iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_ENT)
+    else if(iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_ENT)
     {
         effect eMovementSpeed = EffectMovementSpeedDecrease(20);
         eMovementSpeed = TagEffect(eMovementSpeed,"MMF_MOV_SPEED");
         ApplyEffectToObject(DURATION_TYPE_PERMANENT,eMovementSpeed,oPC);
+    }
+    else if(iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_RED || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_GREEN || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_BLUE ||
+            iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_BLACK || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_WHITE || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_GOLD ||
+            iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_BRASS || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_SILVER || iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_COPPER ||
+            iPOLYMORPH_CONSTANT == MDF_RACIALTYPE_DRAGON_BRONZE)
+    {
+        effect eTrueSeeing = EffectTrueSeeing();
+        eTrueSeeing = TagEffect(eTrueSeeing,"MMF_TRUE_VISION");
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT,eTrueSeeing,oPC);
     }
 
 
@@ -1004,12 +1014,11 @@ void SaveEquippedItems(object oPC, object oContainer, int iMergeW,int SkipCreatu
     object oItem;
     int i;
     json jOldEquipment = JsonObject();
-    /////////////
     object oWeapon = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
     object oWeapon2 = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
+    if(GetIsObjectValid(oWeapon2)) WrapNWNX_Creature_RunUnequip(oPC,oWeapon2);
     if(GetIsObjectValid(oWeapon))
     {
-
         if(iMergeW == TRUE)
         {
             json jProperties = JsonObjectGet(ObjectToJson(oWeapon),"PropertiesList");
@@ -1018,7 +1027,6 @@ void SaveEquippedItems(object oPC, object oContainer, int iMergeW,int SkipCreatu
             jOldEquipment = JsonObjectSet(jOldEquipment,IntToString(INVENTORY_SLOT_RIGHTHAND),ObjectToJson(oWeapon,TRUE));
             SetLocalInt(oPC,"MMF_WEAPON_DELETE",TRUE);
             DelayCommand(0.5,DeleteLocalInt(oPC,"MMF_WEAPON_DELETE"));
-            if(GetIsObjectValid(oWeapon2)) WrapNWNX_Creature_RunUnequip(oPC,oWeapon2);
             DestroyObject(oWeapon);
         }
         else
@@ -1052,16 +1060,13 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
     object oContainer = GetItemPossessedBy(oPC,CONTENEDOR_VARIABLES);
     object oItem;
     json jOldEquipment;
-    PrintString("Running StoreOriginalEquipment function");
     if(ObtenerIntPersistente(oPC,"POLYMORPHED")){
-        PrintString("Is polymorphed");
         jOldEquipment = GetLocalJson(oContainer,"OLD_EQUIPMENT");
+        if(JsonGetType(jOldEquipment) == JSON_TYPE_NULL) jOldEquipment = JsonObject();
         if(iMergeW == TRUE && JsonGetType(GetLocalJson(oContainer,"ME_OR_WEAPON")) == JSON_TYPE_NULL)
         {
-            PrintString("iMergeW = TRUE and JSON_TYPE_NULL");
             oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
             if(GetIsObjectValid(oItem)){
-                PrintString("Player has valid Weapon");
                 MMF_RemoveIP(oItem);
                 SetLocalInt(oItem,"INVENTORY_SLOT",INVENTORY_SLOT_RIGHTHAND);
                 json jProperties = JsonObjectGet(ObjectToJson(oItem),"PropertiesList");
@@ -1076,7 +1081,6 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
         else if(iMergeW == FALSE)
         {
             oItem = JsonToObject(JsonObjectGet(jOldEquipment,IntToString(INVENTORY_SLOT_RIGHTHAND)),GetLocation(oPC),oPC,TRUE);
-            PrintString("iMergeW = FALSE");
             if(GetIsObjectValid(oItem))
             {
                 DelayCommand(0.2,WrapNWNX_Creature_RunEquip(oPC,oItem,GetLocalInt(oItem,"INVENTORY_SLOT")));
@@ -1090,17 +1094,9 @@ void StoreOriginalEquipment(object oPC, int iPOLYMORPH_CONSTANT)
                 if(GetIsObjectValid(oItem)) NWNX_Creature_RunEquip(oPC,oWeapon,INVENTORY_SLOT_RIGHTHAND);
             }
         }
-
-        /*if (!ObtenerIntPersistente(oPC,"MMF_NO_MERGE_ARMOR") && !iMergeA){
-            SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
-        }*/
-
         return;
     }
-
-    SaveEquippedItems(oPC,oContainer,iMergeW,TRUE);
-
-    PrintString("End StoreOriginalEquipment function");
+    SaveEquippedItems(oPC,oContainer,iMergeW);
 }
 
 void LoadOriginalData(object oPC)
@@ -1150,7 +1146,6 @@ void LoadOriginalEquipment(object oPC)
     json jKey;
     object oItem;
     int i;
-
     /*oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
     if(GetIsObjectValid(oItem)) {
         DelayCommand(0.5,WrapNWNX_Creature_RunEquip(oPC,oItem,INVENTORY_SLOT_RIGHTHAND));
@@ -1164,7 +1159,6 @@ void LoadOriginalEquipment(object oPC)
             NWNX_Creature_RunUnequip(oPC,oItem);
             NWNX_Creature_RunEquip(oPC,oItem,GetLocalInt(oItem,"INVENTORY_SLOT"));
         }
-
     }
     DestroyObject(GetItemPossessedBy(oPC,MMF_TAG_HIDE));
     DestroyObject(GetItemPossessedBy(oPC,MMF_TAG_CW1));

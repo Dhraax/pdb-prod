@@ -10,7 +10,7 @@ void RemoveOldPolymorphMMF(object oPC, int iValue)
     while(GetIsEffectValid(e))
     {
         if(iValue == 1 && GetEffectTag(e) == "MDF_POLYMORPH_1") {RemoveEffect(oPC,e);break;}
-        else if( iValue != 1 && GetEffectTag(e) == "MDF_POLYMORPH_2") {RemoveEffect(oPC,e);break;}
+        else if( iValue == 2 && GetEffectTag(e) == "MDF_POLYMORPH_2") {RemoveEffect(oPC,e);break;}
         e = GetNextEffect(oPC);
     }
 }
@@ -36,7 +36,7 @@ void main()
         {
             StoreOriginalData(oCaster,iConstant);
             StoreOriginalEquipment(oCaster,iConstant);
-            if(iMergeA && ObtenerIntPersistente(oCaster,"MMF_NO_MERGE_ARMOR")) {
+            if(iMergeA && !iMergeW && ObtenerIntPersistente(oCaster,"MMF_NO_MERGE_ARMOR")) {
                 if(ObtenerIntPersistente(oCaster,"CRIT_RANGE_MODIFIED") == TRUE) NWNX_Creature_SetCriticalRangeOverride(oCaster,-1);
                 LoadOriginalEquipment(oCaster);
             }
@@ -97,7 +97,8 @@ void main()
                 effect eFirst = GetFirstEffect(oCaster);
                 while(GetIsEffectValid(eFirst))
                 {
-                    if(GetEffectTag(eFirst) == "POLY_HP_BONUS" || GetEffectSpellId(eFirst)== 412 || GetEffectTag(eFirst) == "MMF_MOV_SPEED") RemoveEffect(oCaster,eFirst);
+                    if(GetEffectTag(eFirst) == "POLY_HP_BONUS" || GetEffectSpellId(eFirst)== 412 ||
+                       GetEffectTag(eFirst) == "MMF_MOV_SPEED" || GetEffectTag(eFirst) == "MMF_TRUE_VISION") RemoveEffect(oCaster,eFirst);
                     eFirst = GetNextEffect(oCaster);
                 }
                 NWNX_Race_ReactivateCreatureRaceEffects(oCaster);
