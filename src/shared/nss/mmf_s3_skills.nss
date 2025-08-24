@@ -5,6 +5,7 @@
 #include "colors_inc"
 #include "vgz_libreria"
 #include "cerr_newdispel"
+#include "pb_inc_mmf"
 //#include "nostack_inc"
 
 void main()
@@ -780,37 +781,48 @@ check x2_inc_spellhook.nss to find out more
             oTarget = GetNextObjectInShape(SHAPE_SPELLCONE, 14.0, GetSpellTargetLocation());
         }
     }
-    else if(iSpellid == 1553)// MMF Mind Barrier
+    else if(iSpellid == 1553)// MMF Psionic shockwave
     {
         //Declare major variables
+        int nDamage;
+        float fDelay;
+        effect eExplode = EffectVisualEffect(VFX_IMP_PDK_GENERIC_PULSE,FALSE,0.5);
+        effect eVis = EffectVisualEffect(VFX_IMP_STUN);
+        effect eDam,eKnockdown;
+        //Get the spell target location as opposed to the spell target.
+        location lTarget = GetSpellTargetLocation();
 
-
-        int nDuration = nCasterLvl;
-        int nDamagePower = IPGetDamagePowerConstantFromNumber(nDuration);
-        int nReduction = nDuration /2;
-
-        if(nReduction <10)
+        //Apply the fireball explosion at the location captured above.
+        ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eExplode, lTarget);
+        //Declare the spell shape, size and the location.  Capture the first target object in the shape.
+        object oTarget = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, lTarget, TRUE, OBJECT_TYPE_CREATURE);
+        //Cycle through the targets within the spell shape until an invalid object is captured.
+        while (GetIsObjectValid(oTarget))
         {
-           nReduction = 10;
+            if (oTarget != oCaster && spellsIsTarget(oTarget, SPELL_TARGET_STANDARDHOSTILE, OBJECT_SELF))
+            {
+                //Fire cast spell at event for the specified target
+                SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 1553));
+                //Get the distance between the explosion and the target to calculate delay
+                fDelay = GetDistanceBetweenLocations(lTarget, GetLocation(oTarget))/20;
+                //Roll damage for each target
+                nDamage = d6(3);
+                //Set the damage effect
+                eDam = EffectDamage(nDamage,DAMAGE_TYPE_PSIQUICO);
+                // Apply effects to the currently selected target.
+                DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
+                //This visual effect is applied to the target object not the location as above.
+                DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
+                if (FortitudeSave(oTarget, iCD) < 1)
+                {
+                    //If fails, knockdowns the target
+                    eKnockdown = EffectKnockdown();
+                    DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockdown, oTarget, 6.0));
+                }
+            }
+           //Select the next target within the spell shape.
+           oTarget = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, lTarget, TRUE, OBJECT_TYPE_CREATURE);
         }
-
-
-        object oTarget = OBJECT_SELF;
-        effect eVis = EffectVisualEffect(VFX_DUR_GHOSTLY_VISAGE);
-        effect eDam = EffectDamageReduction(nReduction, nDamagePower , nDuration*10);
-        effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-        effect eLink = EffectLinkEffects(eDam, eVis);
-        eLink = EffectLinkEffects(eLink, eDur);
-        //Fire cast spell at event for the specified target
-        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 741, FALSE));
-        effect eImpact = EffectVisualEffect(VFX_IMP_AC_BONUS);
-
-        //Apply the VFX impact and effects
-        if (!GetHasSpellEffect(GetSpellId(),OBJECT_SELF))
-        {
-            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
-        }
-        ApplyEffectToObject(DURATION_TYPE_INSTANT, eImpact, oTarget);
     }
     else if(iSpellid == 1554) //MMF Mindblast
     {
@@ -832,7 +844,7 @@ check x2_inc_spellhook.nss to find out more
             //----------------------------------------------------------------------
             // Hack to make mind flayers immune to their psionic attacks...
             //----------------------------------------------------------------------
-            if (nApp == 413 ||nApp== 414 || nApp == 415 || ObtenerIntPersistente(oTarget,"POLYMORPH_FORM"))
+            if (nApp == 413 ||nApp== 414 || nApp == 415 || ObtenerIntPersistente(oTarget,"POLYMORPH_FORM") == MDF_RACIALTYPE_MINDFLAYER)
             {
                 bImmune = TRUE;
             }
@@ -841,27 +853,29 @@ check x2_inc_spellhook.nss to find out more
             {
                 SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 789));
                 fDelay = GetDistanceBetween(OBJECT_SELF, oTarget)/20;
-                // already stunned
-                if (GetHasSpellEffect(GetSpellId(),oTarget))
-                {
-                     // only affects the targeted object
-                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_STUN), oTarget);
 
-                    int nDamage = d6(nCasterLvl/2);
+                // only affects the targeted object
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_STUN), oTarget);
 
-                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(nDamage,16), oTarget);
-                    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_BIGBYS_FORCEFUL_HAND), oTarget);
-                }
-                else if (WillSave(oTarget, iCD) < 1)
+                int nDamage = d6(10);
+
+                if (WillSave(oTarget, iCD) < 1)
                 {
                     //Calculate the length of the stun
                     nStunTime = d4(1);
                     //Set stunned effect
                     eCone = EffectStunned();
+
                     //Apply the VFX impact and effects
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                     DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eCone, oTarget, RoundsToSeconds(nStunTime)));
                 }
+                else nDamage /= 2;
+
+
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(nDamage,DAMAGE_TYPE_PSIQUICO), oTarget);
+                ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_BIGBYS_FORCEFUL_HAND), oTarget);
+
             }
             //Get next target in spell area
             oTarget = GetNextObjectInShape(SHAPE_SPELLCONE, fRange, lTargetLocation, TRUE);
