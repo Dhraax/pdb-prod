@@ -69,11 +69,11 @@ void main()
   // Variable persistente: ESTOY MUERTO
   int iNivelPJ = GetHitDice(oPC);
   int iHorasDeEspera;
-  if(iNivelPJ >= 1 && iNivelPJ <= 4) iHorasDeEspera = 2;
-  else if(iNivelPJ >= 5 && iNivelPJ <= 8) iHorasDeEspera = 3;
-  else if(iNivelPJ >= 9 && iNivelPJ <= 12) iHorasDeEspera = 4;
-  else if(iNivelPJ >= 13 && iNivelPJ <= 16) iHorasDeEspera = 5;
-  else iHorasDeEspera = 6;
+  if(iNivelPJ >= 1 && iNivelPJ <= 4) iHorasDeEspera = 0;
+  else if(iNivelPJ >= 5 && iNivelPJ <= 8) iHorasDeEspera = 1;
+  else if(iNivelPJ >= 9 && iNivelPJ <= 12) iHorasDeEspera = 2;
+  else if(iNivelPJ >= 13 && iNivelPJ <= 16) iHorasDeEspera = 3;
+  else iHorasDeEspera = 4;
   iHorasDeEspera = iHorasDeEspera * 180;
   GuardarIntPersistente(oPC, "ESTOY_EN_PLANOFUGA", SQLite_GetTimeStamp() + iHorasDeEspera);
 
