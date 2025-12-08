@@ -7,11 +7,11 @@
         "__struct_id": 0,
         "ID": {
           "type": "byte",
-          "value": 16
+          "value": 5
         },
         "STRREF": {
           "type": "dword",
-          "value": 9129
+          "value": 1082
         }
       },
       {
@@ -23,28 +23,6 @@
         "LIST": {
           "type": "list",
           "value": [
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "Agua potable"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "agua_potable"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "Caida de rocas"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "caidaderocas"
-              }
-            },
             {
               "__struct_id": 0,
               "NAME": {
@@ -71,55 +49,55 @@
               "__struct_id": 0,
               "NAME": {
                 "type": "cexostring",
-                "value": "Excavar campo de batalla"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "vgz_tesoroesc002"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "Excavar cementerio"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "vgz_tesoroesc003"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "Excavar playa"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "vgz_tesoroesc001"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "Excavar tesoro concreto"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "vgz_tesoroescond"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
                 "value": "Jump Trigger"
               },
               "RESREF": {
                 "type": "resref",
                 "value": "q_jump_trigger"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "agua_potable"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "caidaderocas"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "newgeneric001"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "newgeneric002"
               }
             },
             {
@@ -137,18 +115,7 @@
               "__struct_id": 0,
               "NAME": {
                 "type": "cexostring",
-                "value": "Nuevo genérico"
-              },
-              "RESREF": {
-                "type": "resref",
-                "value": "qt_spawndeadtrg"
-              }
-            },
-            {
-              "__struct_id": 0,
-              "NAME": {
-                "type": "cexostring",
-                "value": "PuertaTrampillaSecreta"
+                "value": "New Generic"
               },
               "RESREF": {
                 "type": "resref",
@@ -159,22 +126,55 @@
               "__struct_id": 0,
               "NAME": {
                 "type": "cexostring",
-                "value": "Zona de Arena (El pj puede regenerar)"
+                "value": "New Generic"
               },
               "RESREF": {
                 "type": "resref",
-                "value": "newgeneric002"
+                "value": "vgz_tesoroesc001"
               }
             },
             {
               "__struct_id": 0,
               "NAME": {
                 "type": "cexostring",
-                "value": "Zona de Disipación"
+                "value": "New Generic"
               },
               "RESREF": {
                 "type": "resref",
-                "value": "newgeneric001"
+                "value": "vgz_tesoroesc002"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "vgz_tesoroesc003"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "New Generic"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "vgz_tesoroescond"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "NAME": {
+                "type": "cexostring",
+                "value": "Spawn Risen Dead"
+              },
+              "RESREF": {
+                "type": "resref",
+                "value": "qt_spawndeadtrg"
               }
             },
             {
@@ -204,6 +204,17 @@
         "STRREF": {
           "type": "dword",
           "value": 6790
+        }
+      },
+      {
+        "__struct_id": 0,
+        "ID": {
+          "type": "byte",
+          "value": 16
+        },
+        "STRREF": {
+          "type": "dword",
+          "value": 9129
         }
       },
       {
@@ -505,6 +516,17 @@
                     "__struct_id": 0,
                     "NAME": {
                       "type": "cexostring",
+                      "value": "Green Slime Hazard"
+                    },
+                    "RESREF": {
+                      "type": "resref",
+                      "value": "q_tr_grnslime"
+                    }
+                  },
+                  {
+                    "__struct_id": 0,
+                    "NAME": {
+                      "type": "cexostring",
                       "value": "Metal Ground Spikes Trap, large"
                     },
                     "RESREF": {
@@ -532,17 +554,6 @@
                     "RESREF": {
                       "type": "resref",
                       "value": "bh_mwstrap"
-                    }
-                  },
-                  {
-                    "__struct_id": 0,
-                    "NAME": {
-                      "type": "cexostring",
-                      "value": "Trampa de salpicadura de ácido corriente"
-                    },
-                    "RESREF": {
-                      "type": "resref",
-                      "value": "q_tr_grnslime"
                     }
                   },
                   {
@@ -693,17 +704,6 @@
         "STRREF": {
           "type": "dword",
           "value": 5563
-        }
-      },
-      {
-        "__struct_id": 0,
-        "ID": {
-          "type": "byte",
-          "value": 5
-        },
-        "STRREF": {
-          "type": "dword",
-          "value": 1082
         }
       }
     ]
