@@ -16,7 +16,20 @@ void main()
         // Actualizar CDKey y eliminar bloqueo
         GuardarStringPersistente(oJugadorSeleccionadoSeg, "CDKEY", sCDKeyNueva);
         DeleteLocalInt(oJugadorSeleccionadoSeg, "SEG_BLOQUEADO");
-        SetCutsceneMode(oJugadorSeleccionadoSeg, FALSE);
+        // Quitar parálisis
+        effect e = GetFirstEffect(oJugadorSeleccionadoSeg);
+        while (GetIsEffectValid(e))
+        {
+            if (GetEffectType(e) == EFFECT_TYPE_CUTSCENE_PARALYZE)
+                RemoveEffect(oJugadorSeleccionadoSeg, e);
+            e = GetNextEffect(oJugadorSeleccionadoSeg);
+        }
+
+        // Restaurar control
+        SetCommandable(TRUE, oJugadorSeleccionadoSeg);
+
+        // Restaurar paneles
+        SetGuiPanelDisabled(oJugadorSeleccionadoSeg, GUI_PANEL_INVENTORY, FALSE);
 
         // Mensajes al DM
         SendMessageToPC(oDM, StringToRGBString("------------------------------", "070"));

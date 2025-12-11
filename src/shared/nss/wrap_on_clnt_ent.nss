@@ -308,9 +308,13 @@ void main()
         // Marcar como bloqueado
         SetLocalInt(oPC, "SEG_BLOQUEADO", TRUE);
 
-        // Bloquear completamente el personaje (cutscene mode bloquea todo excepto chat)
-        SetCutsceneMode(oPC, TRUE);
+        // Bloqueo TOTAL sin ocultar UI
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectCutsceneParalyze(), oPC);
+        SetCommandable(FALSE, oPC);
         AssignCommand(oPC, ClearAllActions(TRUE));
+
+        // Opcional: bloquear inventario y hoja de personaje (NWN:EE)
+        SetGuiPanelDisabled(oPC, GUI_PANEL_INVENTORY, TRUE);
 
         // Mensajes al jugador (en rojo)
         SendMessageToPC(oPC, StringToRGBString("-------------------------------------", "700"));
