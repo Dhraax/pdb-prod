@@ -18,6 +18,7 @@
 #include "lib_disguise"
 #include "lib_dm_vfx"
 #include "inc_spells"
+#include "x3_inc_string"
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -289,6 +290,47 @@ void main()
 
     //SISTEMAS QUE HACE RETURN Y CANCELAN EL SCRIPT.
 
+    // SEGURIDAD PJ: VERIFICACION TRANSPARENTE DE CDKEY
+    string sCDKeyActual = GetPCPublicCDKey(oPC);
+    string sCDKeyMemorizada = ObtenerStringPersistente(oPC, "CDKEY");
+
+    // Si no tiene CDKey guardada, guardar la actual (primer acceso)
+    if(sCDKeyMemorizada == "")
+    {
+        GuardarStringPersistente(oPC, "CDKEY", sCDKeyActual);
+        WriteTimestampedLogEntry("[SEGURIDAD] CDKey registrada para PJ: " + GetName(oPC, TRUE) + " (Jugador: " + GetPCPlayerName(oPC) + ")");
+    }
+    // Si CDKey no coincide -> BLOQUEAR PERSONAJE
+    else if(sCDKeyMemorizada != sCDKeyActual)
+    {
+        WriteTimestampedLogEntry("[SEGURIDAD ALERTA] Intento de acceso con CDKey incorrecta! PJ: " + GetName(oPC, TRUE) + " | Jugador: " + GetPCPlayerName(oPC) + " | CDKey esperada: " + sCDKeyMemorizada + " | CDKey recibida: " + sCDKeyActual);
+
+        // Marcar como bloqueado
+        SetLocalInt(oPC, "SEG_BLOQUEADO", TRUE);
+
+        // Bloqueo TOTAL sin ocultar UI
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectCutsceneParalyze(), oPC);
+        SetCommandable(FALSE, oPC);
+        AssignCommand(oPC, ClearAllActions(TRUE));
+
+        // Opcional: bloquear inventario y hoja de personaje (NWN:EE)
+        SetGuiPanelDisabled(oPC, GUI_PANEL_INVENTORY, TRUE);
+
+        // Mensajes al jugador (en rojo)
+        SendMessageToPC(oPC, StringToRGBString("-------------------------------------", "700"));
+        SendMessageToPC(oPC, StringToRGBString("ACCESO DENEGADO - PERSONAJE BLOQUEADO", "700"));
+        SendMessageToPC(oPC, StringToRGBString("-------------------------------------", "700"));
+        SendMessageToPC(oPC, StringToRGBString("Este personaje ha sido bloqueado por el sistema de seguridad.", "770"));
+        SendMessageToPC(oPC, StringToRGBString("Puedes usar el chat para contactar con los DMs.", "770"));
+        SendMessageToPC(oPC, StringToRGBString("-------------------------------------", "700"));
+
+        // Alertar a todos los DMs conectados
+        SendMessageToAllDMs(StringToRGBString("[SEGURIDAD] Intento de acceso no autorizado detectado!", "700"));
+        SendMessageToAllDMs(StringToRGBString("[SEGURIDAD] Personaje: " + GetName(oPC, TRUE) + " | Jugador: " + GetPCPlayerName(oPC), "770"));
+        SendMessageToAllDMs(StringToRGBString("[SEGURIDAD] El personaje ha sido BLOQUEADO automaticamente.", "770"));
+
+        return;
+    }
     /*
     // SEGURIDAD PJ: CONTRASENYAS
     string sCDKeyMemorizada = ObtenerStringPersistente(oPC, "CDKEY");
