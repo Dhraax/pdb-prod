@@ -787,6 +787,7 @@ int GetCorrectHornsVFXConstantForCharacter(object oPC, int iHorns)
             break;
         }
 
+        case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
         case APPEARANCE_TYPE_HALF_ORC:
         {
             if(iGender == GENDER_MALE)
@@ -900,6 +901,7 @@ int GetCorrectHornsVFXConstantForCharacter(object oPC, int iHorns)
             break;
         }
 
+        case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
         case APPEARANCE_TYPE_HALF_ELF:
         case APPEARANCE_TYPE_HUMAN:
         {
@@ -1865,6 +1867,7 @@ int GetCorrectHelmVFXConstantForCharacter(object oPC, int iHelm)
             break;
         }
 
+        case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
         case APPEARANCE_TYPE_HALF_ORC:
         {
             if(iGender == GENDER_MALE)
@@ -2049,6 +2052,7 @@ int GetCorrectHelmVFXConstantForCharacter(object oPC, int iHelm)
             }
             break;
         }
+        case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
         case APPEARANCE_TYPE_HALF_ELF:
         case APPEARANCE_TYPE_HUMAN:
         {
@@ -2399,6 +2403,7 @@ int GetCorrectHairVFXConstantForCharacter(object oPC, int iHair)
             break;
         }
 
+        case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
         case APPEARANCE_TYPE_HALF_ORC:
         {
             if(iGender == GENDER_MALE)
@@ -2424,7 +2429,7 @@ int GetCorrectHairVFXConstantForCharacter(object oPC, int iHair)
             }
             break;
         }
-
+        case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
         case APPEARANCE_TYPE_HALF_ELF:
         case APPEARANCE_TYPE_HUMAN:
         {
@@ -2600,6 +2605,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -2611,7 +2617,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_CYN_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -2694,6 +2700,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -2705,7 +2712,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_GREEN_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -2787,6 +2794,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -2798,7 +2806,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_ORG_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -2881,6 +2889,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -2892,7 +2901,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_PUR_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -2975,6 +2984,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -2986,7 +2996,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_RED_FLAME_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -3069,6 +3079,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -3080,7 +3091,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_YEL_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -3164,6 +3175,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -3175,7 +3187,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_WHT_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -3258,6 +3270,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -3269,7 +3282,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = VFX_EYES_BLUE_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -3341,6 +3354,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -3352,7 +3366,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = IPPVFX_HEAD_EYES_RED_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
@@ -3423,6 +3437,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                     }
                     break;
 
+                case APPEARANCE_TYPE_HALF_ORC_SIZE_BIG://Semiorco grande
                 case APPEARANCE_TYPE_HALF_ORC:
 
                     if(iGender == GENDER_MALE)
@@ -3434,7 +3449,7 @@ int GetCorrectEyeVFXConstantForCharacter(object oPC, int iColor)
                         iVFXconstant = IPPVFX_HEAD_EYES_BLACK_HALFORC_FEMALE;
                     }
                     break;
-
+                case APPEARANCE_TYPE_HUMAN_SIZE_BIG://Humano grande
                 case APPEARANCE_TYPE_HALF_ELF:
                 case APPEARANCE_TYPE_HUMAN:
 
