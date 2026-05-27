@@ -394,3 +394,10 @@ const int VFX_HAIR_FIRE_O_HALFORC_MALE_AENEA = 6155;
 const int VFX_HAIR_FIRE_O_HALFORC_FEMALE_AENEA = 6154;
 const int VFX_HAIR_FIRE_O_HUMAN_MALE_AENEA = 6153;
 const int VFX_HAIR_FIRE_O_HUMAN_FEMALE_AENEA = 6152;
+
+/////////////////////////////////////////////////////////////////////////////
+/////BIG RACE CONSTANTS /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+const int APPEARANCE_TYPE_HALF_ORC_SIZE_BIG = 7527;
+const int APPEARANCE_TYPE_HUMAN_SIZE_BIG = 7528;

@@ -109,6 +109,12 @@ object ArmaCuerpoACuerpoObjetivoOEquipada()
     return oWeapon1;
   }
 
+  oWeapon1 = GetItemInSlot(INVENTORY_SLOT_CWEAPON_L, oTarget);
+  if (GetIsObjectValid(oWeapon1))
+  {
+    return oWeapon1;
+  }
+
   oWeapon1 = GetItemInSlot(INVENTORY_SLOT_CWEAPON_B, oTarget);
   if (GetIsObjectValid(oWeapon1))
   {
