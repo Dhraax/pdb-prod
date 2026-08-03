@@ -15,7 +15,7 @@ cp config/grafana.env server/config/grafana.env
 cp config/influxdb.env server/config/influxdb.env
 cp -rf config/grafana-provisioning server/config/grafana-provisioning
 cp docker-compose-dev.yml server/docker-compose.yml
-rsync -av tlk/* server/tlk/
+rsync -av --inplace tlk/* server/tlk/
 
 cd server
 docker-compose down --remove-orphans
