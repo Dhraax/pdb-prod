@@ -296,7 +296,12 @@ void main()
     // * and those will be walked at night. (The standard waypoints
     // * will be walked during the day.)
     // * The night "posting" waypoint tag is simply "NIGHT_" + NPC tag.
-    WalkWayPoints();
+    // Some placed creatures must keep the standard spawn setup without
+    // starting (or returning to) a waypoint route.
+    if (!GetLocalInt(OBJECT_SELF, "NO_WAYPOINT_WALK"))
+    {
+        WalkWayPoints();
+    }
 
     // ***** ADD ANY SPECIAL ON-SPAWN CODE HERE ***** //
 
