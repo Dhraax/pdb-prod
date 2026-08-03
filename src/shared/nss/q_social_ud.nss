@@ -125,12 +125,26 @@ void main()
 
        case 14:
              ClearAllActions();     //walk...   (10% chance)
-             AssignCommand(OBJECT_SELF,ActionRandomWalk());
+             if (!GetLocalInt(OBJECT_SELF,"NO_RANDOM_WALK"))
+             {
+                 AssignCommand(OBJECT_SELF,ActionRandomWalk());
+             }
+             else
+             {
+                 AssignCommand(OBJECT_SELF,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED));
+             }
             break;
 
        case 15:
              ClearAllActions();     //walk...
-             AssignCommand(OBJECT_SELF,ActionRandomWalk());
+             if (!GetLocalInt(OBJECT_SELF,"NO_RANDOM_WALK"))
+             {
+                 AssignCommand(OBJECT_SELF,ActionRandomWalk());
+             }
+             else
+             {
+                 AssignCommand(OBJECT_SELF,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED));
+             }
             break;
 
        case 16:
