@@ -19,7 +19,6 @@
 
 #include "NW_I0_SPELLS"
 #include "x2_inc_spellhook"
-#include "pb_constantes"
 
 void main()
 {
@@ -85,7 +84,7 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
                 fTime += fDelay2;
 
                 //Set damage effect
-                effect eDam = EffectDamage(nDam, DAMAGE_TYPE_FUERZA);
+                effect eDam = EffectDamage(nDam, DAMAGE_TYPE_MAGICAL);
                 //Apply the MIRV and damage effect
                 DelayCommand(fTime, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, oTarget));
                 DelayCommand(fTime, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oTarget));

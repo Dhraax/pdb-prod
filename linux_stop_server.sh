@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd server
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
