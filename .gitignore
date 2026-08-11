@@ -60,3 +60,69 @@ OPENCODE.md
 !sqlite3_64.dll
 !nwn_tlk.exe
 !nwn_erf.exe
+
+# Blacklist individual scripts even if whitelisted above
+server-restart.sh
+rsync.sh
+nwsync.sh
+
+# Local-only: Claude Code files
+CLAUDE.md
+.claude/
+
+# Local-only: scripts y docs personales
+README.md
+upload_mod.bat
+
+# Local-only: todo en tools/ raíz queda fuera (solo toolchain tools/linux y tools/win se trackea)
+tools/*
+!tools/linux/
+!tools/win/
+
+# Credenciales MySQL: solo se versiona el .example
+config/mysql.env
+!config/mysql.env.example
+!config/mysql-init/
+!config/mysql-init/**
+
+# Herramientas de migracion del catalogo de oficios
+!migration/
+!migration/**
+
+# =============================================================================
+# DHRAAX FORK-ONLY WHITELIST
+#
+# REMOVE THIS ENTIRE FINAL BLOCK before preparing a branch intended to sync
+# with git@github.com:minikanyas/pdb-dev.git. Keep it in Dhraax/pdb-dev.
+#
+# Removing these rules does not untrack files already committed in this fork.
+# An upstream-bound branch must also exclude the fork-only commit and paths
+# from its diff. See documentation/repository/remote-policy.md.
+# =============================================================================
+
+# Canonical project documentation
+!documentation/
+!documentation/**
+
+# CNR catalogue editor source
+!cnr-editor/
+!cnr-editor/**
+cnr-editor/.env
+cnr-editor/.env.*
+!cnr-editor/.env.example
+cnr-editor/**/__pycache__/
+cnr-editor/**/*.py[cod]
+cnr-editor/backend/.pytest_cache/
+cnr-editor/backend/.ruff_cache/
+cnr-editor/frontend/node_modules/
+cnr-editor/frontend/dist/
+cnr-editor/backend/.coverage
+cnr-editor/backend/htmlcov/
+
+# Repository verification and local push-safety source
+!scripts/
+!scripts/**
+!.githooks/
+!.githooks/**
+
+# ======================== END DHRAAX FORK-ONLY BLOCK =========================

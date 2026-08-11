@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Local safety policy: normal pushes from this checkout are allowed only to
+# Dhraax/pdb-prod.
+
+remote_name="${1:-}"
+remote_url="${2:-}"
+
+if [ "$remote_name" = "origin" ] \
+    && [ "$remote_url" = "git@github.com:Dhraax/pdb-prod.git" ]; then
+    exit 0
+fi
+
+if [ "${PDB_ALLOW_UPSTREAM_PUSH:-}" = "I_HAVE_AUTHORIZED_PDB_PUSH" ]; then
+    exit 0
+fi
+
+echo "BLOCKED: this checkout may push only to git@github.com:Dhraax/pdb-prod.git." >&2
+echo "Use origin, or perform the documented owner-authorized override." >&2
+exit 1
