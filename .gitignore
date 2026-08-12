@@ -3,6 +3,11 @@
 
 !.gitignore
 !.gitattributes
+!.gitmodules
+!.mcp.json
+!.codex/
+!.codex/config.toml
+!opencode.json
 
 # Whitelist devserver files
 !docker-compose-dev.yml
@@ -122,6 +127,12 @@ cnr-editor/backend/htmlcov/
 # Repository verification and local push-safety source
 !scripts/
 !scripts/**
+!mcp/
+!mcp/source-lock.json
+!mcp/nwn-official-mcp/
+!mcp/nwn-official-mcp/**
+!mcp/nwnx-mcp/
+!mcp/nwnx-mcp/**
 !.githooks/
 !.githooks/**
 

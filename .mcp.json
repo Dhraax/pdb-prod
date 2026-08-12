@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "nwn-official": {
+      "type": "stdio",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "exec bash \"$CLAUDE_PROJECT_DIR/scripts/run_nwn_official_mcp.sh\""
+      ]
+    },
+    "nwnx": {
+      "type": "stdio",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "exec bash \"$CLAUDE_PROJECT_DIR/scripts/run_nwnx_mcp.sh\""
+      ]
+    }
+  }
+}

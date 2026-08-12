@@ -1,0 +1,32 @@
+[mcp_servers."nwn-official"]
+command = "bash"
+args = ["scripts/run_nwn_official_mcp.sh"]
+cwd = "."
+enabled = true
+required = true
+startup_timeout_sec = 20
+tool_timeout_sec = 30
+enabled_tools = [
+  "search_native_api",
+  "list_native_symbols",
+  "get_native_function",
+  "get_native_constant",
+  "validate_native_api",
+]
+
+[mcp_servers."nwnx"]
+command = "bash"
+args = ["scripts/run_nwnx_mcp.sh"]
+cwd = "."
+enabled = true
+required = true
+startup_timeout_sec = 30
+tool_timeout_sec = 30
+enabled_tools = [
+  "search_nwnx_api",
+  "list_nwnx_plugins",
+  "list_nwnx_symbols",
+  "get_nwnx_function",
+  "get_nwnx_constant",
+  "validate_nwnx_api",
+]

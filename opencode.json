@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "nwn-official": {
+      "type": "local",
+      "command": [
+        "bash",
+        "scripts/run_nwn_official_mcp.sh"
+      ],
+      "cwd": ".",
+      "enabled": true,
+      "timeout": 30000
+    },
+    "nwnx": {
+      "type": "local",
+      "command": [
+        "bash",
+        "scripts/run_nwnx_mcp.sh"
+      ],
+      "cwd": ".",
+      "enabled": true,
+      "timeout": 30000
+    }
+  }
+}
