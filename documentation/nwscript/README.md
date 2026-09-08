@@ -11,6 +11,7 @@ NWScript code.
 | [Script template](script-template.md) | Copyable base template for a documented public include |
 | [Caster-level model](caster-levels.md) | Current caster-level implementation, known defects, target model, and migration constraints |
 | [Use Magic Device](use-magic-device.md) | Current scroll and wand eligibility checks, Mystic Theurge defects, target decision flow, and validation matrix |
+| [Warlock invocation model](warlock.md) | Invocation tiers, save DC formula, eldritch blast scaling, essences, blast shapes, and per-invocation implementation |
 
 Legacy files are not reformatted solely to conform to these rules. Apply the
 guide to new code and to the portion of legacy code deliberately refactored by

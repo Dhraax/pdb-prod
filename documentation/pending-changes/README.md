@@ -9,3 +9,5 @@ the validation required before implementation.
 | Proposal | Status |
 |----------|--------|
 | [Spell saving throws](spell-saving-throws.md) | Pending review |
+| [Warlock errata](warlock-errata.md) | Pending review |
+| [Archmage Arcane Fire](archmage-arcane-fire.md) | Pending review |

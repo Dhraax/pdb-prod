@@ -364,7 +364,7 @@ void main()
                     if(iDano>0)
                     {
                         //Aplicamos el daño.
-                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(iDano, DAMAGE_TYPE_FUERZA), oTarget));
+                        DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(iDano, DAMAGE_TYPE_FIRE), oTarget));
                         //Aplicamos el efecto visual.
                         DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_FLAME_M), oTarget));
                         if(!MySavingThrow(SAVING_THROW_REFLEX, oTarget, iCD))
