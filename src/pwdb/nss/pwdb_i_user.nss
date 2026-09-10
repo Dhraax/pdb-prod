@@ -68,9 +68,14 @@ int PWDB_CleanRebuildCharacter(object oPC);
 ///     migration, and snapshot refresh succeed.
 int PWDB_MigrateRebuiltCharacter(object oPC);
 
-/// @brief Permanently delete a character after its administrative grace period.
+/// @brief Mark the current character deleted while preserving its database tree.
+/// @param oPC Player character requesting deletion through the in-game NPC.
+/// @returns Positive character_id when the tombstone is stored; otherwise 0.
+int PWDB_MarkCharacterDeleted(object oPC);
+
+/// @brief Delete a tombstoned character's server-vault BIC after its warning.
 /// @param oPC Player character whose server-vault file will be deleted.
-/// @param iCharacterId Persistent character identifier to delete first.
+/// @param iCharacterId Persistent tombstone identifier retained for logging.
 void PWDB_FinalizeDeletedCharacter(object oPC, int iCharacterId);
 
 /// @brief Apply one database-granted unlock to the BioWare campaign store.
@@ -241,15 +246,7 @@ void PWDB_FinalizeDeletedCharacter(object oPC, int iCharacterId)
         return;
     }
 
-    if (!PWDB_DB_DeleteCharacter(iCharacterId))
-    {
-        WriteTimestampedLogEntry("[PWDB] Refused to delete the server-vault character for "
-            + GetName(oPC) + " because database deletion failed.");
-        BootPC(oPC, PWDB_MSG_VALIDATION_FAILED);
-        return;
-    }
-
-    WriteTimestampedLogEntry("[PWDB] Permanently deleted " + GetName(oPC)
+    WriteTimestampedLogEntry("[PWDB] Deleted tombstoned BIC for " + GetName(oPC)
         + " (account " + GetPCPlayerName(oPC) + ", character_id "
         + IntToString(iCharacterId) + ").");
     NWNX_Administration_DeletePlayerCharacter(
@@ -257,6 +254,17 @@ void PWDB_FinalizeDeletedCharacter(object oPC, int iCharacterId)
         FALSE,
         PWDB_MSG_CHARACTER_DELETED
     );
+}
+
+int PWDB_MarkCharacterDeleted(object oPC)
+{
+    int iCharacterId = PWDB_GetCharacterId(oPC);
+    if (iCharacterId <= 0
+        || !PWDB_DB_MarkCharacterDeleted(oPC, iCharacterId))
+    {
+        return 0;
+    }
+    return iCharacterId;
 }
 
 int PWDB_ResolveCharacterId(object oPC)
@@ -316,7 +324,7 @@ int PWDB_ResolveCharacterId(object oPC)
                 PWDB_DELETE_DELAY,
                 PWDB_FinalizeDeletedCharacter(oPC, iCharacterId)
             );
-            WriteTimestampedLogEntry("[PWDB] Scheduled permanent deletion for "
+            WriteTimestampedLogEntry("[PWDB] Scheduled tombstoned BIC deletion for "
                 + GetName(oPC) + " (account " + GetPCPlayerName(oPC)
                 + ", character_id " + IntToString(iCharacterId) + ").");
             return 0;

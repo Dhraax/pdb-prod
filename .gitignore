@@ -3,11 +3,6 @@
 
 !.gitignore
 !.gitattributes
-!.gitmodules
-!.mcp.json
-!.codex/
-!.codex/config.toml
-!opencode.json
 
 # Whitelist devserver files
 !docker-compose-dev.yml
@@ -47,10 +42,8 @@
 !nwsync_*
 !nwn_nwsync_*
 
-# Ignore local AI agent instructions
-AGENTS.md
-CLAUDE.md
-OPENCODE.md
+# Agent instruction files are tracked: they are part of how this repository is
+# maintained, and losing them loses the contract every tool works under.
 
 # Never commit these file types
 *.mod
@@ -66,14 +59,13 @@ OPENCODE.md
 !nwn_tlk.exe
 !nwn_erf.exe
 
-# Blacklist individual scripts even if whitelisted above
-server-restart.sh
+# Blacklist individual deployment scripts that still contain local policy.
 rsync.sh
 nwsync.sh
 
-# Local-only: Claude Code files
-CLAUDE.md
-.claude/
+# Agent tool settings are tracked too, so the permission list is reviewable.
+!.claude/
+!.claude/**
 
 # Local-only: scripts y docs personales
 README.md
@@ -95,10 +87,11 @@ config/mysql.env
 !migration/**
 
 # =============================================================================
-# DHRAAX FORK-ONLY WHITELIST
+# DHRAAX FORK-ONLY RULES - TEMPORARY, KEEP THIS BLOCK AT EOF
 #
-# REMOVE THIS ENTIRE FINAL BLOCK before preparing a branch intended to sync
-# with git@github.com:minikanyas/pdb-dev.git. Keep it in Dhraax/pdb-dev.
+# BEFORE syncing work back to git@github.com:minikanyas/pdb-dev.git, DELETE
+# EVERYTHING from this separator through the end of the file. These rules are
+# local to the Dhraax fork and must not be moved into the shared section above.
 #
 # Removing these rules does not untrack files already committed in this fork.
 # An upstream-bound branch must also exclude the fork-only commit and paths
@@ -121,6 +114,7 @@ cnr-editor/backend/.pytest_cache/
 cnr-editor/backend/.ruff_cache/
 cnr-editor/frontend/node_modules/
 cnr-editor/frontend/dist/
+cnr-editor/frontend/*.tsbuildinfo
 cnr-editor/backend/.coverage
 cnr-editor/backend/htmlcov/
 
@@ -128,12 +122,23 @@ cnr-editor/backend/htmlcov/
 !scripts/
 !scripts/**
 !mcp/
-!mcp/source-lock.json
-!mcp/nwn-official-mcp/
-!mcp/nwn-official-mcp/**
-!mcp/nwnx-mcp/
-!mcp/nwnx-mcp/**
+!mcp/**
+!nwnxee
+!.mcp.json
+!opencode.json
+!.codex/
+!.codex/config.toml
+!.agents/
+!.agents/**
 !.githooks/
 !.githooks/**
 
 # ======================== END DHRAAX FORK-ONLY BLOCK =========================
+
+# Cache de Python del generador
+migration/__pycache__/
+
+# Reference module kept locally to migrate proven code from. Not part of this
+# project and never committed: it is another module by the same author, and the
+# spell effect library was imported from it. See documentation/rules/spell-effect-library.md.
+/cow-scripts/

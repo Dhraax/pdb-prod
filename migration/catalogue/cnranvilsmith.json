@@ -1,0 +1,4972 @@
+{
+  "_generated_by": "migration/extract_catalogue_json.py",
+  "_source": "src/cnr/nss/cnranvilsmith.nss",
+  "device": {
+    "source_file": "cnranvilsmith.nss",
+    "tag": "cnrAnvilSmith",
+    "tradeskill_type": "CNR_TRADESKILL_SMITHING",
+    "pre_crafting_script": "cnr_anvil_anim",
+    "tools": [
+      {
+        "tag": "martillo_herrero",
+        "access_mode": "equipped",
+        "breakage": "CNR_FLOAT_SMITH_HAMMER_BREAKAGE_PERCENTAGE"
+      }
+    ]
+  },
+  "submenus": [
+    {
+      "name": "Municion",
+      "parent": null
+    },
+    {
+      "name": "Armas",
+      "parent": null
+    },
+    {
+      "name": "Armaduras Intermedias",
+      "parent": null
+    },
+    {
+      "name": "Escudos Pequeños",
+      "parent": null
+    },
+    {
+      "name": "Escudos Grandes",
+      "parent": null
+    },
+    {
+      "name": "Paves",
+      "parent": null
+    },
+    {
+      "name": "Yelmos",
+      "parent": null
+    }
+  ],
+  "recipes": [
+    {
+      "sort_order": 1,
+      "submenu": "Armas",
+      "display_name": "Arma de hierro",
+      "output_tag": "recipe_hierro_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 2,
+      "submenu": "Municion",
+      "display_name": "Bala de hierro",
+      "output_tag": "recipe_hierro_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 3,
+      "submenu": "Armas",
+      "display_name": "Arma de acero",
+      "output_tag": "recipe_acero_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 4,
+      "submenu": "Municion",
+      "display_name": "Bala de acero",
+      "output_tag": "recipe_acero_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 5,
+      "submenu": "Armas",
+      "display_name": "Arma de plata",
+      "output_tag": "recipe_plata_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 6,
+      "submenu": "Municion",
+      "display_name": "Bala de plata",
+      "output_tag": "recipe_plata_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 7,
+      "submenu": "Armas",
+      "display_name": "Arma de hierrofrío",
+      "output_tag": "recipe_hierrofrio_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 8,
+      "submenu": "Municion",
+      "display_name": "Bala de hierrofrío",
+      "output_tag": "recipe_hierrofrio_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 9,
+      "submenu": "Armas",
+      "display_name": "Arma de oro",
+      "output_tag": "recipe_oro_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 10,
+      "submenu": "Municion",
+      "display_name": "Bala de oro",
+      "output_tag": "recipe_oro_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 11,
+      "submenu": "Armas",
+      "display_name": "Arma de platino",
+      "output_tag": "recipe_platino_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 12,
+      "submenu": "Municion",
+      "display_name": "Bala de platino",
+      "output_tag": "recipe_platino_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 13,
+      "submenu": "Armas",
+      "display_name": "Arma de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 14,
+      "submenu": "Municion",
+      "display_name": "Bala de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 15,
+      "submenu": "Armas",
+      "display_name": "Arma de aceroscuro",
+      "output_tag": "recipe_aceroscuro_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 16,
+      "submenu": "Municion",
+      "display_name": "Bala de aceroscuro",
+      "output_tag": "recipe_aceroscuro_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 17,
+      "submenu": "Armas",
+      "display_name": "Arma de dlarun",
+      "output_tag": "recipe_dlarun_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 18,
+      "submenu": "Municion",
+      "display_name": "Bala de dlarun",
+      "output_tag": "recipe_dlarun_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 19,
+      "submenu": "Armas",
+      "display_name": "Arma de hizagkuur",
+      "output_tag": "recipe_hizagkuur_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 20,
+      "submenu": "Municion",
+      "display_name": "Bala de hizagkuur",
+      "output_tag": "recipe_hizagkuur_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 21,
+      "submenu": "Armas",
+      "display_name": "Arma de arandur",
+      "output_tag": "recipe_arandur_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 22,
+      "submenu": "Municion",
+      "display_name": "Bala de arandur",
+      "output_tag": "recipe_arandur_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 23,
+      "submenu": "Armas",
+      "display_name": "Arma de metal vivo",
+      "output_tag": "recipe_metalvivo_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 24,
+      "submenu": "Municion",
+      "display_name": "Bala de metal vivo",
+      "output_tag": "recipe_metalvivo_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 25,
+      "submenu": "Armas",
+      "display_name": "Arma de mithril",
+      "output_tag": "recipe_mithril_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 26,
+      "submenu": "Municion",
+      "display_name": "Bala de mithril",
+      "output_tag": "recipe_mithril_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 27,
+      "submenu": "Armas",
+      "display_name": "Arma de adamantita",
+      "output_tag": "recipe_adamantita_weapon",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item",
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 28,
+      "submenu": "Municion",
+      "display_name": "Bala de adamantita",
+      "output_tag": "recipe_adamantita_ammo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 29,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de hierro",
+      "output_tag": "recipe_hierro_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 30,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de acero",
+      "output_tag": "recipe_acero_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 31,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de plata",
+      "output_tag": "recipe_plata_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 32,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de hierrofrío",
+      "output_tag": "recipe_hierrofrio_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 33,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de oro",
+      "output_tag": "recipe_oro_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 34,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de platino",
+      "output_tag": "recipe_platino_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 35,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 36,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de aceroscuro",
+      "output_tag": "recipe_aceroscuro_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 37,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de dlarun",
+      "output_tag": "recipe_dlarun_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 38,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de hizagkuur",
+      "output_tag": "recipe_hizagkuur_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 39,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de arandur",
+      "output_tag": "recipe_arandur_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 40,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de metal vivo",
+      "output_tag": "recipe_metalvivo_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 41,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de mithril",
+      "output_tag": "recipe_mithril_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 42,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de adamantita",
+      "output_tag": "recipe_adamantita_cota",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 43,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de hierro",
+      "output_tag": "recipe_hierro_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 44,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de acero",
+      "output_tag": "recipe_acero_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 45,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de plata",
+      "output_tag": "recipe_plata_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 46,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de hierrofrío",
+      "output_tag": "recipe_hierrofrio_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 47,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de oro",
+      "output_tag": "recipe_oro_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 48,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de platino",
+      "output_tag": "recipe_platino_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 49,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 50,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de aceroscuro",
+      "output_tag": "recipe_aceroscuro_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 51,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de dlarun",
+      "output_tag": "recipe_dlarun_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 52,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de hizagkuur",
+      "output_tag": "recipe_hizagkuur_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 53,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de arandur",
+      "output_tag": "recipe_arandur_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 54,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de metal vivo",
+      "output_tag": "recipe_metalvivo_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 55,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de mithril",
+      "output_tag": "recipe_mithril_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 56,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de adamantita",
+      "output_tag": "recipe_adamantita_completa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 57,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de hierro",
+      "output_tag": "recipe_hierro_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 58,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de acero",
+      "output_tag": "recipe_acero_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 59,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de plata",
+      "output_tag": "recipe_plata_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 60,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de hierrofrío",
+      "output_tag": "recipe_hierrofrio_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 61,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de oro",
+      "output_tag": "recipe_oro_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 62,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de platino",
+      "output_tag": "recipe_platino_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 63,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 64,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de aceroscuro",
+      "output_tag": "recipe_aceroscuro_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 65,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de dlarun",
+      "output_tag": "recipe_dlarun_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 66,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de hizagkuur",
+      "output_tag": "recipe_hizagkuur_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 67,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de arandur",
+      "output_tag": "recipe_arandur_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 68,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de metal vivo",
+      "output_tag": "recipe_metalvivo_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 69,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de mithril",
+      "output_tag": "recipe_mithril_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 70,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño de adamantita",
+      "output_tag": "recipe_adamantita_escudopeq",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 71,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de hierro",
+      "output_tag": "recipe_hierro_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 72,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de acero",
+      "output_tag": "recipe_acero_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 73,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de plata",
+      "output_tag": "recipe_plata_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 74,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de hierrofrío",
+      "output_tag": "recipe_hierrofrio_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 75,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de oro",
+      "output_tag": "recipe_oro_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 76,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de platino",
+      "output_tag": "recipe_platino_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 77,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 78,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de aceroscuro",
+      "output_tag": "recipe_aceroscuro_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 79,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de dlarun",
+      "output_tag": "recipe_dlarun_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 80,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de hizagkuur",
+      "output_tag": "recipe_hizagkuur_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 81,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de arandur",
+      "output_tag": "recipe_arandur_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 82,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de metal vivo",
+      "output_tag": "recipe_metalvivo_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 83,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de mithril",
+      "output_tag": "recipe_mithril_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 84,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de adamantita",
+      "output_tag": "recipe_adamantita_escudogra",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 85,
+      "submenu": "Paves",
+      "display_name": "Paves de hierro",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 86,
+      "submenu": "Paves",
+      "display_name": "Paves de acero",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 87,
+      "submenu": "Paves",
+      "display_name": "Paves de plata",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 88,
+      "submenu": "Paves",
+      "display_name": "Paves de hierrofrío",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 89,
+      "submenu": "Paves",
+      "display_name": "Paves de oro",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 90,
+      "submenu": "Paves",
+      "display_name": "Paves de platino",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 91,
+      "submenu": "Paves",
+      "display_name": "Paves de hierro enardecido",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 92,
+      "submenu": "Paves",
+      "display_name": "Paves de aceroscuro",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 93,
+      "submenu": "Paves",
+      "display_name": "Paves de dlarun",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 94,
+      "submenu": "Paves",
+      "display_name": "Paves de hizagkuur",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 95,
+      "submenu": "Paves",
+      "display_name": "Paves de arandur",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 96,
+      "submenu": "Paves",
+      "display_name": "Paves de metal vivo",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 97,
+      "submenu": "Paves",
+      "display_name": "Paves de mithril",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 98,
+      "submenu": "Paves",
+      "display_name": "Paves de adamantita",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 99,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de hierro",
+      "output_tag": "recipe_hierro_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 100,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de acero",
+      "output_tag": "recipe_acero_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAcero",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 101,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de plata",
+      "output_tag": "recipe_plata_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlata",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 102,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de hierrofrío",
+      "output_tag": "recipe_hierrofrio_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHierrofrio",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 103,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de oro",
+      "output_tag": "recipe_oro_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteOro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 104,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de platino",
+      "output_tag": "recipe_platino_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingotePlatino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 105,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de hierro enardecido",
+      "output_tag": "recipe_hierroenardecido_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDerretido",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 106,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de aceroscuro",
+      "output_tag": "recipe_aceroscuro_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAceroscuro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        },
+        {
+          "tag": "AceiteHerrero",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 107,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de dlarun",
+      "output_tag": "recipe_dlarun_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteDlarun",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 108,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de hizagkuur",
+      "output_tag": "recipe_hizagkuur_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteHizagkuur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 109,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de arandur",
+      "output_tag": "recipe_arandur_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteArandur",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 110,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de metal vivo",
+      "output_tag": "recipe_metalvivo_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 111,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de mithril",
+      "output_tag": "recipe_mithril_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 112,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de adamantita",
+      "output_tag": "recipe_adamantita_yelmo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 113,
+      "submenu": "Armas",
+      "display_name": "Arma de cobre",
+      "output_tag": "nw_wswls001",
+      "base_resref": "cnr_base_lsword",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_esplarga",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "smith_weapon"
+    },
+    {
+      "sort_order": 114,
+      "submenu": "Municion",
+      "display_name": "Bala de cobre",
+      "output_tag": "nw_wambu001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_bala",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 115,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas de cobre",
+      "output_tag": "NW_AARCL010",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "base_resref": "cnr_base_scale"
+    },
+    {
+      "sort_order": 116,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa de cobre",
+      "output_tag": "NW_AARCL007",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "base_resref": "cnr_base_plate"
+    },
+    {
+      "sort_order": 117,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeno de cobre",
+      "output_tag": "NW_ASHSW001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "base_resref": "cnr_base_sshield"
+    },
+    {
+      "sort_order": 118,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande de cobre",
+      "output_tag": "NW_ASHLW001",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 119,
+      "submenu": "Paves",
+      "display_name": "Paves de cobre",
+      "output_tag": "NW_ASHTO001",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "base_resref": "cnr_base_tshield"
+    },
+    {
+      "sort_order": 120,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo de cobre",
+      "output_tag": "Tlr_Helmet",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteCobre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "base_resref": "cnr_base_helmet"
+    },
+    {
+      "sort_order": 121,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas ligera de metal vivo",
+      "output_tag": "recipe_metalvivo_cota_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 122,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa ligera de metal vivo",
+      "output_tag": "recipe_metalvivo_completa_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 123,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño ligero de metal vivo",
+      "output_tag": "recipe_metalvivo_escudopeq_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 124,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande ligero de metal vivo",
+      "output_tag": "recipe_metalvivo_escudogra_ca4",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 125,
+      "submenu": "Paves",
+      "display_name": "Paves ligero de metal vivo",
+      "output_tag": "recipe_metalvivo_escudopav_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 126,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo ligero de metal vivo",
+      "output_tag": "recipe_metalvivo_yelmo_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMetalvivo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 12,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 127,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas ligera de mithril",
+      "output_tag": "recipe_mithril_cota_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 128,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa ligera de mithril",
+      "output_tag": "recipe_mithril_completa_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 129,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño ligero de mithril",
+      "output_tag": "recipe_mithril_escudopeq_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 130,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande ligero de mithril",
+      "output_tag": "recipe_mithril_escudogra_ca4",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 131,
+      "submenu": "Paves",
+      "display_name": "Paves ligero de mithril",
+      "output_tag": "recipe_mithril_escudopav_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 132,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo ligero de mithril",
+      "output_tag": "recipe_mithril_yelmo_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteMithril",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 13,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 133,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Cota de escamas ligera de adamantita",
+      "output_tag": "recipe_adamantita_cota_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcotae",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 134,
+      "submenu": "Armaduras Intermedias",
+      "display_name": "Armadura completa ligera de adamantita",
+      "output_tag": "recipe_adamantita_completa_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_armorcompl",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 135,
+      "submenu": "Escudos Pequeños",
+      "display_name": "Escudo pequeño ligero de adamantita",
+      "output_tag": "recipe_adamantita_escudopeq_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopeq",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 136,
+      "submenu": "Escudos Grandes",
+      "display_name": "Escudo grande ligero de adamantita",
+      "output_tag": "recipe_adamantita_escudogra_ca4",
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudogra",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 137,
+      "submenu": "Paves",
+      "display_name": "Paves ligero de adamantita",
+      "output_tag": "recipe_adamantita_escudopav_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_escudopav",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    },
+    {
+      "sort_order": 138,
+      "submenu": "Yelmos",
+      "display_name": "Yelmo ligero de adamantita",
+      "output_tag": "recipe_adamantita_yelmo_ca4",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "lingoteAdamantita",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "molde_yelmo",
+          "qty": 1,
+          "retain_on_fail": 1
+        }
+      ],
+      "level": 14,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": "cnr_sql_c_item"
+    }
+  ]
+}

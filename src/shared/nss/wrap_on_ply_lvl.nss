@@ -3,6 +3,7 @@
 //::////////////////////////////////////////////////////////////////////////////
 //:: GUION ON_PLAYER_LEVEL_UP PARA EL SERVIDOR PUERTA DE BALDUR           //:://
 //:: Creado por Monti                                                     //:://
+/// modified by: Dhraax
 //::////////////////////////////////////////////////////////////////////////////
 
 #include "f_vampire_lvlup"
@@ -137,6 +138,10 @@ void main()
       }
   }
 
+  // PROD enforces level locks by default. DEV opts out explicitly through
+  // the module variable OMIT_LEVEL_LOCKS.
+  if(GetLocalInt(GetModule(), "OMIT_LEVEL_LOCKS") != TRUE)
+  {
   // 1.4 Bloqueos de nivel
   // Se mantiene un 25% de la XP del siguiente nivel como mucho
   /*if(iNivel == 6) // Nivel 6
@@ -306,6 +311,7 @@ void main()
       SetXP(oPC, 594999);
       SendMessageToPC(oPC, ColorTexto("No puedes subir de nivel debido al bloqueo de nivel 35. Por favor, contacta con un DM o lee tu diario o manual del servidor para obtener el permiso", TXT_COLOR_ROJO));
       return;
+  }
   }
 
 

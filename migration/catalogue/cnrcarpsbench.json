@@ -1,0 +1,3062 @@
+{
+  "_generated_by": "authored for the carpentry plan, slice 3",
+  "_source": "documentation/oficios/carpinteria.json for the wood/plank binding; the carptablon_* tags do not name their wood, never derive one from a tag",
+  "device": {
+    "source_file": null,
+    "tag": "cnrCarpsBench",
+    "tradeskill_type": "CNR_TRADESKILL_CARPENTRY",
+    "pre_crafting_script": "cnr_carp_anim",
+    "tools": [
+      {
+        "tag": "carp_kitcarp",
+        "access_mode": "inventory",
+        "breakage": "low"
+      }
+    ]
+  },
+  "submenus": [
+    {
+      "name": "Flechas",
+      "parent": null
+    },
+    {
+      "name": "Virotes",
+      "parent": null
+    },
+    {
+      "name": "Arcos cortos",
+      "parent": null
+    },
+    {
+      "name": "Arcos largos",
+      "parent": null
+    },
+    {
+      "name": "Ballestas ligeras",
+      "parent": null
+    },
+    {
+      "name": "Ballestas pesadas",
+      "parent": null
+    },
+    {
+      "name": "Armas de mano",
+      "parent": null
+    },
+    {
+      "name": "Bastones",
+      "parent": null
+    },
+    {
+      "name": "Escudos grandes",
+      "parent": null
+    },
+    {
+      "name": "Escudos pequeños",
+      "parent": null
+    }
+  ],
+  "recipes": [
+    {
+      "sort_order": 1,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 2,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 3,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 4,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 5,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 6,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 7,
+      "submenu": "Flechas",
+      "property_set": "flechas",
+      "display_name": "Flechas de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_arrow",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpac2_plumas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 8,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 9,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 10,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 11,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 12,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 13,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 14,
+      "submenu": "Virotes",
+      "property_set": "virotes",
+      "display_name": "Virotes de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_bolt",
+      "output_qty": 99,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_puntas2",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 15,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 16,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 17,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 18,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 19,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 20,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 21,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 22,
+      "submenu": "Arcos cortos",
+      "property_set": "arcos",
+      "display_name": "Arco corto de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_sbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 23,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 24,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 25,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 26,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 27,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 28,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 29,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 30,
+      "submenu": "Arcos largos",
+      "property_set": "arcos",
+      "display_name": "Arco largo de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_lbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 31,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 32,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 33,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 34,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 35,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 36,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 37,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 38,
+      "submenu": "Ballestas ligeras",
+      "property_set": "ballestas",
+      "display_name": "Ballesta ligera de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_lxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 39,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 40,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 41,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 42,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 43,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 44,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 45,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 46,
+      "submenu": "Ballestas pesadas",
+      "property_set": "ballestas",
+      "display_name": "Ballesta pesada de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_hxbow",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_cuerda2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 47,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 48,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 49,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 50,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 51,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 52,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 53,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 54,
+      "submenu": "Armas de mano",
+      "property_set": "clavas",
+      "display_name": "Arma de mano de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_club",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_mangoc",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null,
+      "variant_group": "wood_weapon"
+    },
+    {
+      "sort_order": 55,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 56,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 57,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 58,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 59,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 60,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 61,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 62,
+      "submenu": "Bastones",
+      "property_set": "bastones",
+      "display_name": "Baston de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_qstaff",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 63,
+      "submenu": "Bastones",
+      "property_set": null,
+      "display_name": "Baston de roble para mago",
+      "output_tag": null,
+      "base_resref": "cnr_bastonroble",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_aros",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 64,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 65,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 66,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 67,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 68,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 69,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 70,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 71,
+      "submenu": "Escudos grandes",
+      "property_set": "escudos",
+      "display_name": "Escudo grande de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_lshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha2",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 72,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Pino",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_pino",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 73,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Cedro",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cipre",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 74,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Abeto",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_abeto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 75,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Roble",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_cedro",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 76,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Sombralto",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_alamo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 77,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Leñocaso",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_olmo",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 11,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 78,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Zalantar",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_roble",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 79,
+      "submenu": "Escudos pequeños",
+      "property_set": "escudos",
+      "display_name": "Escudo pequeño de Maderadique",
+      "output_tag": null,
+      "base_resref": "cnr_base_sshield",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "carptablon_fresn",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "carpacc_plancha1",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 16,
+      "xp": {
+        "game": 0,
+        "trade": 0,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    }
+  ]
+}

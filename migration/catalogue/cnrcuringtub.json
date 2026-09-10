@@ -1,0 +1,427 @@
+{
+  "_generated_by": "migration/extract_catalogue_json.py",
+  "_source": "src/cnr/nss/cnrcuringtub.nss",
+  "device": {
+    "source_file": "cnrcuringtub.nss",
+    "tag": "cnrCuringTub",
+    "tradeskill_type": "CNR_TRADESKILL_TAILORING",
+    "pre_crafting_script": "cnr_curing_anim",
+    "tools": []
+  },
+  "submenus": [
+    {
+      "name": "Pieles Pequeñas",
+      "parent": null
+    },
+    {
+      "name": "Pieles Medianas",
+      "parent": null
+    },
+    {
+      "name": "Pieles Grandes",
+      "parent": null
+    }
+  ],
+  "recipes": [
+    {
+      "sort_order": 1,
+      "submenu": "Pieles Pequeñas",
+      "display_name": "Cuero curtido de roedor",
+      "output_tag": "cuero_roedor",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielroedor",
+          "qty": 3,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 2,
+      "submenu": "Pieles Pequeñas",
+      "display_name": "Cuero curtido de herbívoro",
+      "output_tag": "cuero_herbivoro",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielherbivoro",
+          "qty": 3,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 3,
+      "submenu": "Pieles Medianas",
+      "display_name": "Cuero curtido de bestia salvaje",
+      "output_tag": "cuero_bestia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielbestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 4,
+      "submenu": "Pieles Medianas",
+      "display_name": "Cuero curtido de bestia mítica",
+      "output_tag": "cuero_mitica",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielmitica",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 5,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de bestia salvaje grande",
+      "output_tag": "cuero_bestiag",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielbestiag",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 6,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de bestia mítica gruesa",
+      "output_tag": "cuero_miticag",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pielmiticag",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 7,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de dragón de fuego",
+      "output_tag": "cuero_dragof",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pieldracof",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 8,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de dragón de hielo",
+      "output_tag": "cuero_dragoh",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pieldracoh",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 9,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de dragón de ácido",
+      "output_tag": "cuero_dragoa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pieldracoa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 10,
+      "submenu": "Pieles Grandes",
+      "display_name": "Cuero curtido de dragón de rayo",
+      "output_tag": "cuero_dragor",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_sal",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_ing_tanino",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pieldracor",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    }
+  ]
+}

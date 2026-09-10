@@ -19,6 +19,7 @@ const string PWDB_TABLE_ACCOUNT_NAME_HISTORY = "pwdb_account_name_history";
 const string PWDB_TABLE_ACCOUNT_CDKEY_HISTORY = "pwdb_account_cd_key_history";
 const string PWDB_TABLE_ACCOUNT_IP_HISTORY = "pwdb_account_ip_history";
 const string PWDB_TABLE_CDKEY_BAN = "pwdb_cd_key_ban";
+const string PWDB_TABLE_DM_CDKEY_WHITELIST = "pwdb_dm_cd_key_whitelist";
 
 // Cached on CONTENEDOR_VARIABLES. Overwritten from the database on every login;
 // a value carried over from a previous session is never trusted.
@@ -31,7 +32,7 @@ const string PWDB_VAR_REBUILD_CLEANED = "PWDB_REBUILD_CLEANED";
 // Every character starts with this many completed rebuild opportunities.
 const int PWDB_DEFAULT_REBUILDS_AVAILABLE = 2;
 
-// Seconds to wait before permanently deleting an administratively removed PC.
+// Seconds to wait before deleting a tombstoned PC's server-vault BIC.
 const float PWDB_DELETE_DELAY = 5.0;
 
 const string PWDB_MSG_CONTACT_ADMIN =
@@ -51,12 +52,15 @@ const string PWDB_MSG_CHARACTER_BLOCKED =
     "Este personaje no tiene permitido acceder al servidor. "
     + PWDB_MSG_CONTACT_ADMIN;
 const string PWDB_MSG_CHARACTER_DELETED =
-    "Tu personaje ha sido eliminado administrativamente. Se eliminara de forma "
-    + "definitiva en 5 segundos.";
+    "Este personaje figura como eliminado. Su archivo se eliminara del servidor "
+    + "en 5 segundos. " + PWDB_MSG_CONTACT_ADMIN;
 const string PWDB_MSG_VALIDATION_FAILED =
     "No se ha podido validar el acceso al servidor. Intentalo de nuevo mas tarde.";
 const string PWDB_MSG_CDKEY_BANNED =
     "Esta CD key no tiene permitido acceder al servidor.";
+const string PWDB_MSG_DM_CDKEY_NOT_ALLOWED =
+    "Esta CD key no esta autorizada para acceder como DM. "
+    + PWDB_MSG_CONTACT_ADMIN;
 const string PWDB_MSG_ACCOUNT_NAME_MISMATCH =
     "Este nombre de cuenta esta protegido por otra CD key. "
     + PWDB_MSG_CONTACT_ADMIN;

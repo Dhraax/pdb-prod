@@ -1,28 +1,16 @@
 # NWScript Style Guide
 
-## Scope
+Canonical style rules for PDB NWScript. `AGENTS.md` carries the summary; this is
+the detailed reference it points to.
 
-These rules apply to new scripts, new includes, and code materially refactored
-for Puerta de Baldur. Preserve unrelated legacy code and established public API
-names.
+Apply these rules to new code and to code materially refactored by the current
+task. Do not reformat untouched legacy files just to conform.
 
-## API References
+---
 
-Never guess engine or plugin APIs.
+## 1. File header
 
-- Confirm native NWScript functions, constants, callbacks, and engine behavior
-  in the [NWN Lexicon](https://nwnlexicon.com/index.php/Main_Page).
-- Confirm NWNX plugin functions, event data, return values, and runtime behavior
-  in the [NWNX:EE unified documentation](https://nwnxee.github.io/unified/).
-- Keep native NWN:EE and NWNX APIs clearly distinguished in code and design
-  documentation.
-
-When an external lookup reveals behavior not documented locally, add the
-durable result to the relevant module documentation in the same change.
-
-## Script Header
-
-Every script and include starts with:
+Every new script and include starts with this header:
 
 ```nwscript
 /// ----------------------------------------------------------------------------
@@ -33,23 +21,40 @@ Every script and include starts with:
 /// ----------------------------------------------------------------------------
 ```
 
-Replace every placeholder. Keep descriptions concise and in English. New
-project scripts created for the user always use `Dhraax` as the author.
+- `@system` names the owning system (for example `CNR`, `NUI`, `RAZAS`).
+- `@file` is the resref, without extension.
+- `@brief` is one line describing what the file does.
 
-When modifying an existing project script, keep its original author and add the
-following line before the closing separator:
+### Authorship tracking
+
+Applies only to scripts created or modified on the user's behalf.
+
+- New project scripts use `/// @author  Dhraax`.
+- When modifying an existing project script, **preserve its original `@author`
+  line** and add `/// modified by: Dhraax` before the closing separator.
+- If `modified by: Dhraax` is already present, do not add it again.
+- Do not add the marker to untouched scripts, third-party code, generated files,
+  or vendor code.
+- Documentation-only inspection is not a modification.
+
+Modified-file example:
 
 ```nwscript
+/// ----------------------------------------------------------------------------
+/// @system  CNR
+/// @file    cnr_recipe_load
+/// @author  Original Author
+/// @brief   Loads recipe metadata for the active tradeskill.
 /// modified by: Dhraax
+/// ----------------------------------------------------------------------------
 ```
 
-Add the marker only once. Do not rewrite authorship in untouched scripts,
-third-party code, vendor code, or generated files.
+---
 
-## Include Layout
+## 2. Include layout
 
-Every public function is declared as a prototype before any function
-implementation. Includes use this order:
+Every include declares all public functions as documented prototypes **before**
+any implementation, using these exact headings and this order:
 
 ```nwscript
 // -----------------------------------------------------------------------------
@@ -61,24 +66,25 @@ implementation. Includes use this order:
 // -----------------------------------------------------------------------------
 ```
 
-Do not allow a public prototype and its definition to drift. Search callers
-before changing either signature.
+Never place a public function definition before the prototype section. Keep
+prototypes and definitions synchronized: a signature change edits both.
 
-## Function Documentation
+---
 
-Place the full documentation block immediately above each prototype:
+## 3. Function documentation
+
+Every prototype carries a documentation block immediately above it:
 
 ```nwscript
 /// @brief Run an event, causing all subscribed scripts to trigger.
 /// @param sEvent The name of the event.
-/// @param oInitiator The object triggering the event, such as a PC entering.
+/// @param oInitiator The object that triggered the event, e.g. a PC on client enter.
 /// @param oTarget The object on which to run the event.
 /// @param iLocalOnly TRUE to skip scripts from plugins and other objects.
-/// @returns A bitmask of EVENT_STATE_* constants describing how the event
-///     finished:
-///     - EVENT_STATE_OK: all queued scripts executed successfully.
-///     - EVENT_STATE_ABORT: a script cancelled the remaining queue.
-///     - EVENT_STATE_DENIED: a script denied the event.
+/// @returns A bitmask of EVENT_STATE_* constants describing how the event finished:
+///     - EVENT_STATE_OK: all queued scripts executed successfully
+///     - EVENT_STATE_ABORT: a script cancelled the remaining queue
+///     - EVENT_STATE_DENIED: a script specified that the event should be cancelled
 int RunEvent(
     string sEvent,
     object oInitiator = OBJECT_INVALID,
@@ -87,53 +93,132 @@ int RunEvent(
 );
 ```
 
-Requirements:
+Rules:
 
-- One `@brief` line per function.
+- Exactly one `@brief` line.
 - One `@param` line per parameter, in declaration order.
-- One `@returns` entry for every non-void function.
-- Continue detailed contracts on indented `///` lines.
-- Add side effects, ownership, ordering constraints, failure modes, and event
-  context notes when callers need them.
-- Do not document behavior that the implementation does not guarantee.
+- `@returns` on every non-void function. Continue onto indented `///` lines when
+  the return contract needs more detail.
+- Additional contract notes go after the tags and before the prototype.
 
-## Naming
+---
 
-- Member variables: `m_` plus type prefix plus lowerCamelCase, for example
-  `m_oOwner`.
-- Static globals: `s_` plus type prefix plus lowerCamelCase, for example
-  `s_iActiveCount`.
-- Local variables and parameters: type prefix plus lowerCamelCase, for example
-  `oOwner`, `iCount`, `fDelay`, `sMessage`, `vPosition`, or `lDestination`.
-- Functions and classes: UpperCamelCase.
-- Macros and preprocessor defines: ALL_CAPS.
-- Constants: `Namespaced::UpperCamelCase` where the language supports
-  namespaces. NWScript does not support `::`; use the documented system naming
-  convention instead of invalid syntax.
-- Preserve third-party and existing public API names even when they use an
-  older convention.
+## 4. Naming
 
-Every variable and parameter carries its data-type prefix. Use `o` for
-`object`, `i` for `int`, `f` for `float`, and the lowercase first letter for
-other types.
+| Kind | Convention | Example |
+|------|------------|---------|
+| Function | UpperCamelCase | `GetRecipeMetadata` |
+| Class | UpperCamelCase | `RecipeCache` |
+| Variable / parameter | lowerCamelCase after prefixes | `oTarget`, `iCount` |
+| Macro / define | ALL_CAPS | `CNR_MAX_RECIPES` |
+| Constant | `Namespaced::UpperCamelCase` where the language allows | see note below |
+| Member variable | `m_` prefix | `m_oOwner` |
+| Static global | `s_` prefix | `s_iActiveCount` |
 
-## Formatting
+### Type prefixes
 
-- Opening braces and closing braces always occupy their own lines.
-- Indent with four spaces. Never use tabs.
-- End every text file with a newline.
-- Write comments, identifiers, headers, and technical documentation in English.
-- Preserve Spanish player-facing content unless translation is part of the
-  requested change.
-- C++ headers use `.hpp`; C++ source files use `.cpp`.
+Every variable and parameter carries a type prefix:
 
-## NWN Constraints
+| Type | Prefix | Example |
+|------|--------|---------|
+| `object` | `o` | `oTarget` |
+| `int` | `i` | `iCount` |
+| `float` | `f` | `fDelay` |
+| `string` | `s` | `sName` |
+| `vector` | `v` | `vPosition` |
+| `location` | `l` | `lSpawn` |
 
-- Resrefs are limited to 16 characters and use letters, numbers, and
-  underscores. Do not rename an existing resref without tracing every consumer.
-- Object tags are limited to 32 characters. Truncate constructed tags
-  explicitly before creation and lookup.
-- Keep shared include dependency chains shallow and search all consumers before
-  changing a public include.
-- Prefer one clear public include per new system and keep internal helpers
-  private where NWScript permits it.
+Other types use the lowercase first letter of the type name. Combine storage and
+type prefixes: `m_oOwner` is an object member; `s_iActiveCount` is a static int
+global; a plain local object is `oOwner`.
+
+### Constants in NWScript
+
+NWScript has **no namespace operator**. Do not emulate `Namespaced::Constant`
+syntax — it will not compile. Use the system's documented prefix instead:
+
+```nwscript
+const int    CNR_STATE_IDLE     = 0;
+const string CNR_VAR_RECIPE_ID  = "cnr_recipe_id";
+```
+
+### Preserving legacy names
+
+Preserve existing public API parameter names even when they predate this
+convention. Do not break callers merely to rename them.
+
+---
+
+## 5. Formatting
+
+- Braces always open on a new line and close on a new line.
+- Four spaces of indentation, never tabs.
+- Every text file ends with a newline.
+- C++ headers use `.hpp`; C++ sources use `.cpp`.
+
+```nwscript
+void ApplyRecipe(object oPC, string sRecipeId)
+{
+    if (!GetIsPC(oPC))
+    {
+        return;
+    }
+
+    SetLocalString(oPC, CNR_VAR_RECIPE_ID, sRecipeId);
+}
+```
+
+---
+
+## 6. Language and encoding
+
+- Comments, identifiers, and script headers are written in English.
+- Existing Spanish player-facing content stays Spanish unless translation is
+  part of the task.
+- Preserve file encoding. Project files outside Markdown are treated as
+  Windows-1252; unpack passes `--gffFlags="--nwn-encoding windows-1252"`. Never
+  bypass that flag — accented content will corrupt.
+- Prefer ASCII-safe punctuation in technical files. No Unicode decoration in
+  game or build files.
+
+---
+
+## 7. Include hygiene and coupling
+
+- Keep include dependency chains shallow.
+- Search all consumers before changing a shared include.
+- Prefer one clear public include per new system; keep implementation details
+  private where NWScript's file model allows it.
+- Never invent project APIs or resource relationships. Search references and
+  callers before changing a public include, event script, resref, tag, local
+  variable name, database key, or persisted data shape.
+- Treat module event scripts, shared includes, persistence, character data,
+  areas, and deployment as high-risk: their coupling may not be visible from a
+  single file.
+- Prefer event-driven behavior where the engine exposes a suitable event. Avoid
+  global heartbeat work and other unbounded hot paths.
+
+---
+
+## 8. Engine limits
+
+| Limit | Value | Consequence |
+|-------|-------|-------------|
+| Resref length | 16 characters, `[A-Za-z0-9_]` | Longer names are rejected or truncated; confirm against existing legacy resrefs before renaming |
+| Tag length | 32 characters | The engine truncates silently. Truncate constructed tags explicitly — UUID-based tags otherwise fail lookup after truncation |
+
+---
+
+## 9. References
+
+- Native NWScript declarations and engine comments: the `nwn-official` MCP,
+  then [`reference/nwscript.nss`](reference/README.md) when neighbouring source
+  context is required.
+- Reusable behavior not established by that contract:
+  [`engine-behavior.md`](engine-behavior.md), backed by a probe, release note or
+  pinned source.
+- NWNX:EE signatures and plugin behavior: the `nwnx` MCP, then the pinned
+  `nwnxee/` source when the extracted view is insufficient.
+
+Never guess undocumented engine or plugin behavior. When either API affects a
+design, record the exact source or probe in the resulting module documentation.

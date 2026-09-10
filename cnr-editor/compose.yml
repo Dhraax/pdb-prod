@@ -1,0 +1,45 @@
+name: cnr-editor
+
+services:
+  api:
+    build:
+      context: backend
+    container_name: pdb_cnr_editor_api
+    env_file:
+      - ${CNR_EDITOR_MYSQL_ENV_FILE:-../server/config/mysql.env}
+    environment:
+      CONTROL_PANEL_TITLE: ${CONTROL_PANEL_TITLE:-Control Panel}
+      MYSQL_HOST: mysql
+      CNR_EDITOR_FRONTEND_ORIGIN: ${CNR_EDITOR_FRONTEND_ORIGIN:-http://localhost:8088}
+      CNR_EDITOR_COOKIE_SECURE: "${CNR_EDITOR_COOKIE_SECURE:-false}"
+      CNR_EDITOR_SESSION_TTL_HOURS: "${CNR_EDITOR_SESSION_TTL_HOURS:-12}"
+      CNR_EDITOR_MFA_ISSUER: ${CNR_EDITOR_MFA_ISSUER:-Control Panel}
+      CNR_EDITOR_MFA_CHALLENGE_TTL_MINUTES: "${CNR_EDITOR_MFA_CHALLENGE_TTL_MINUTES:-5}"
+      CNR_EDITOR_LOGIN_FAILURE_WINDOW_MINUTES: "${CNR_EDITOR_LOGIN_FAILURE_WINDOW_MINUTES:-15}"
+      CNR_EDITOR_WRITES_ENABLED: "${CNR_EDITOR_WRITES_ENABLED:-false}"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: frontend
+      args:
+        CONTROL_PANEL_TITLE: ${CONTROL_PANEL_TITLE:-Control Panel}
+        CONTROL_PANEL_SUBTITLE: ${CONTROL_PANEL_SUBTITLE:-System management}
+    container_name: pdb_cnr_editor_web
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${CNR_EDITOR_PORT:-8088}:80"
+    restart: unless-stopped
+
+networks:
+  default:
+    external: true
+    name: ${CNR_EDITOR_NETWORK_NAME:-server_default}

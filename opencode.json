@@ -1,25 +1,18 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "OPENCODE.md"
+  ],
   "mcp": {
     "nwn-official": {
       "type": "local",
-      "command": [
-        "bash",
-        "scripts/run_nwn_official_mcp.sh"
-      ],
-      "cwd": ".",
-      "enabled": true,
-      "timeout": 30000
+      "command": ["bash", "scripts/run_nwn_official_mcp.sh"],
+      "enabled": true
     },
     "nwnx": {
       "type": "local",
-      "command": [
-        "bash",
-        "scripts/run_nwnx_mcp.sh"
-      ],
-      "cwd": ".",
-      "enabled": true,
-      "timeout": 30000
+      "command": ["bash", "scripts/run_nwnx_mcp.sh"],
+      "enabled": true
     }
   }
 }

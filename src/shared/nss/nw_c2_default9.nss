@@ -22,6 +22,7 @@
 //:: Copyright (c) 2002 Floodgate Entertainment
 //:: Created By: Naomi Novik
 //:: Created On: 12/11/2002
+//:: modified by: Dhraax
 //:://////////////////////////////////////////////////
 //:: Updated 2003-08-20 Georg Zoeller: Added check for variables to active spawn in conditions without changing the spawnscript
 
@@ -296,7 +297,12 @@ void main()
     // * and those will be walked at night. (The standard waypoints
     // * will be walked during the day.)
     // * The night "posting" waypoint tag is simply "NIGHT_" + NPC tag.
-    WalkWayPoints();
+    // Some placed creatures must keep the standard spawn setup without
+    // starting (or returning to) a waypoint route.
+    if (!GetLocalInt(OBJECT_SELF, "NO_WAYPOINT_WALK"))
+    {
+        WalkWayPoints();
+    }
 
     // ***** ADD ANY SPECIAL ON-SPAWN CODE HERE ***** //
 

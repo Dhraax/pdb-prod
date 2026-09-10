@@ -1,9 +1,10 @@
-/// ----------------------------------------------------------------------------
-/// @system PB_EE_PROD
-/// @file wrap_on_clnt_ent.nss
-/// @author Dhraax
-/// @brief  OnClientEnter event script. Handles player login logic and persistent effect cleanup.
-/// ----------------------------------------------------------------------------
+//::////////////////////////////////////////////////////////////////////////////
+//:: Nombre del guion:  wrap_on_clnt_ent                                  //:://
+//::////////////////////////////////////////////////////////////////////////////
+//:: GUION ON_CLIENT_ENTER PARA EL SERVIDOR PUERTA DE BALDUR              //:://
+//:: Creado por Monti                                                     //:://
+/// modified by: Dhraax
+//::////////////////////////////////////////////////////////////////////////////
 
 #include "x0_i0_petrify"
 #include "mti_libreria"
@@ -15,6 +16,7 @@
 #include "nwnx_creature"
 #include "x0_i0_spells"
 #include "pb_constantes"
+#include "pwdb_i_user"
 #include "lib_disguise"
 #include "lib_dm_vfx"
 #include "inc_spells"
@@ -60,25 +62,40 @@ void RemoveStuckDarknessEffects(object oPC)
     if (iHasDarkness && !iIsInDarkness)
     {
         gsSPRemoveEffect(oPC, iSpellDarkness, OBJECT_INVALID, "", TRUE);
-        SendMessageToPC(oPC, "<c´$$>Stuck darkness effects have been removed.</c>");
+        SendMessageToPC(oPC, "Stuck darkness effects have been removed.");
     }
 }
-
-// -----------------------------------------------------------------------------
-//                             Main Function
-// -----------------------------------------------------------------------------
 
 void main()
 {
     object oPC = GetEnteringObject();
+    int iCharacterId = 0;
+
+    // PWDB: resolve identity before any system writes persistent state.
+    // Boot when identity fails or the account/character is not active.
+    if (!GetIsDM(oPC) && !GetIsDMPossessed(oPC))
+    {
+        iCharacterId = PWDB_ResolveCharacterId(oPC);
+        if (PWDB_WasLoginDenied())
+        {
+            return;
+        }
+    }
 
     // PJS NUEVOS
-    if(GetXP(oPC) == 0 && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)) ExecuteScript("persist_pjs_nuev", OBJECT_SELF);
+    if(GetXP(oPC) == 0 && !GetIsDM(oPC) && !GetIsDMPossessed(oPC))
+    {
+        ExecuteScript("persist_pjs_nuev", OBJECT_SELF);
+    }
+
+    // Synchronize the legacy container after the new-character initializer has
+    // had an opportunity to create it.
+    PWDB_SyncRegisteredCharacter(oPC, iCharacterId);
 
      //SISTEMA DE DISFRACES.
     Disfrazarse_ModEnter(oPC);
 
-    // AJUSTES ESPECÍFICOS PARA DUNGEON MASTERS
+    // AJUSTES ESPECIFICOS PARA DUNGEON MASTERS
     if(GetIsDM(oPC))
     {
         // Dar la herramienta explotadora dmfi al dm
@@ -95,7 +112,7 @@ void main()
     WriteTimestampedLogEntry("[SISTEMA DE SEGURIDAD] Informe: El PJ: " + GetName(oPC) + " de la cuenta: "
     + GetPCPlayerName(oPC)+" ha entrado en el servidor."
     + " Su CdKey es: " + GetPCPublicCDKey(oPC) + ";"
-    + " y su dirección ip es: "  + GetPCIPAddress(oPC));
+    + " y su direccion ip es: "  + GetPCIPAddress(oPC));
 
     // MANUAL DEL SERVIDOR
     object oManual = GetItemPossessedBy(oPC, "i420_i_ac_pstat");
@@ -106,8 +123,8 @@ void main()
     if(!GetHasFeat(FEAT_PLAYER_TOOL_06, oPC)) ExecuteScript("dote_pbconv", oPC);
 
     // COMPROBAR QUE EL JUGADOR TIENE LA DOTE DE CONVOCAR ALIADOS Y SU ELIMINAODR EN CASO DE BUGEOS.
-    if(GetClassByPosition(1,oPC)==44 || GetClassByPosition(2,oPC)==44 || GetClassByPosition(3,oPC)==44 || //Ladrón de las Sombras
-       GetClassByPosition(1,oPC)==49 || GetClassByPosition(2,oPC)==49 || GetClassByPosition(3,oPC)==49 || //Señor de la guerra muraní
+    if(GetClassByPosition(1,oPC)==44 || GetClassByPosition(2,oPC)==44 || GetClassByPosition(3,oPC)==44 || //Ladron de las Sombras
+       GetClassByPosition(1,oPC)==49 || GetClassByPosition(2,oPC)==49 || GetClassByPosition(3,oPC)==49 || //Senor de la guerra murano
        GetHasFeat(1550, oPC) || GetHasFeat(1555, oPC))  //Liderazgo Guerrero, Allegado MDL
     {
         if(!GetIsObjectValid(GetItemPossessedBy(oPC, "pb_elimconvocado")))
@@ -118,7 +135,7 @@ void main()
     }
 
     // RESTAURAR ALTURA DEL PJ.
-    // APLICARÁ SIEMPRE QUE EL PJ ENTRE Y NO LO HAGA ESTANDO POLIFORMADO USANDO LA DOTE DE POLIFORMAR DE LAS RAZAS COMO EL FEY'RI Y EL OGRO HECHICERO.
+    // APLICARA SIEMPRE QUE EL PJ ENTRE Y NO LO HAGA ESTANDO POLIFORMADO USANDO LA DOTE DE POLIFORMAR DE LAS RAZAS COMO EL FEY'RI Y EL OGRO HECHICERO.
     if (ObtenerIntPersistente(oPC, "CAB_ALTURA")==TRUE &&
         (ObtenerIntPersistente(oPC, "APTITUD_POLY_RAZA") == FALSE))
     {
@@ -127,13 +144,13 @@ void main()
         {
             fAltura = PB_Race_TamanoMaximo (oPC);
             GuardarFloatPersistente(oPC, "IND_ALTURA", fAltura);
-            SendMessageToPC(oPC, "<c´$$>Se ha ajustado tu altura al máximo de tu raza.</c>");
+            SendMessageToPC(oPC, "Se ha ajustado tu altura al maximo de tu raza.");
         }
         if(fAltura < PB_Race_TamanoMinimo (oPC))
         {
             fAltura = PB_Race_TamanoMinimo (oPC);
             GuardarFloatPersistente(oPC, "IND_ALTURA", fAltura);
-            SendMessageToPC(oPC, "<c´$$>Se ha ajustado tu altura al mínimo de tu raza.</c>");
+            SendMessageToPC(oPC, "Se ha ajustado tu altura al minimo de tu raza.");
         }
         SetObjectVisualTransform(oPC, OBJECT_VISUAL_TRANSFORM_SCALE, fAltura);
     }
@@ -201,12 +218,12 @@ void main()
             SetPlotFlag(oDDGarras1, TRUE);
             SetPlotFlag(oDDGarras2, TRUE);
             SetPlotFlag(oDDMordisco, TRUE);
-            SetName(oDDGarras1, "<cÈª`>Garras dracónicas</c>");
-            SetName(oDDGarras2, "<cÈª`>Garras dracónicas</c>");
-            SetName(oDDMordisco, "<cÈª`>Mordisco dracónico</c>");
-            SetDescription(oDDGarras1, "<cÈª`>Este objeto son tus 'garras' de discípulo de dragón, si se te desequipara por error puedes equipártelo fácilmente moviéndolo a un acceso directo y haciendo Click izquierdo sobre él.</c>");
-            SetDescription(oDDGarras2, "<cÈª`>Este objeto son tus 'garras' de discípulo de dragón, si se te desequipara por error puedes equipártelo fácilmente moviéndolo a un acceso directo y haciendo Click izquierdo sobre él.</c>");
-            SetDescription(oDDMordisco, "<cÈª`>Este objeto es tu 'mordisco' de discípulo de dragón, si se te desequipara por error puedes equipártelo fácilmente moviéndolo a un acceso directo y haciendo Click izquierdo sobre él.</c>");
+            SetName(oDDGarras1, "Garras draconicas");
+            SetName(oDDGarras2, "Garras draconicas");
+            SetName(oDDMordisco, "Mordisco draconico");
+            SetDescription(oDDGarras1, "Este objeto son tus 'garras' de discipulo de dragon, si se te desequipara por error puedes equipartelo facilmente moviendolo a un acceso directo y haciendo Click izquierdo sobre el.");
+            SetDescription(oDDGarras2, "Este objeto son tus 'garras' de discipulo de dragon, si se te desequipara por error puedes equipartelo facilmente moviendolo a un acceso directo y haciendo Click izquierdo sobre el.");
+            SetDescription(oDDMordisco, "Este objeto es tu 'mordisco' de discipulo de dragon, si se te desequipara por error puedes equipartelo facilmente moviendolo a un acceso directo y haciendo Click izquierdo sobre el.");
             AssignCommand(oPC, ClearAllActions());
             AssignCommand(oPC, ActionEquipItem(oDDGarras1, INVENTORY_SLOT_CWEAPON_L));
             AssignCommand(oPC, ActionEquipItem(oDDGarras2, INVENTORY_SLOT_CWEAPON_R));
@@ -258,14 +275,14 @@ void main()
     // REAPLICAR EFECTOS PB
     if (sSubRace != "")
     {
-        // SUBRAZAS VAMPIRO Y ENGENDRO VAMPÍRICO: utiliza un sistema de entrada especial (Tiene que ver con las propiedades del sarcófago y la asignación del jugador como un vampiro.)
+        // SUBRAZAS VAMPIRO Y ENGENDRO VAMPIRICO: utiliza un sistema de entrada especial (Tiene que ver con las propiedades del sarcofago y la asignacion del jugador como un vampiro.)
         if(GetIsPC(oPC) == TRUE && UseSubRaceField && (sSubRace == "vampiro" || sSubRace == "engendro"))
         {
             Vampire_Client_Enter(oPC);
         }
     }
 
-    // Tamaño gigante
+    // Tamano gigante
     if(GetIsPC(oPC) == TRUE && GetRacialType(oPC) == RACIAL_TYPE_GIANT) NWNX_Creature_SetSize(oPC, 4);
 
     // Fuego Arcano
@@ -275,7 +292,7 @@ void main()
     SetLocalInt(oPC, "PJ_SALIO",0);
     ReaplicarEfectosPB(oPC, TRUE);
 
-    //Añadimos a todos los jugadores el item de disfraz
+    // Anadimos a todos los jugadores el item de disfraz
     object oDisfraz = GetItemPossessedBy(oPC, "item_disfraz");
     if(GetIsObjectValid(oDisfraz) != TRUE) CreateItemOnObject("item_disfraz", oPC);
 
@@ -331,25 +348,6 @@ void main()
 
         return;
     }
-    /*
-    // SEGURIDAD PJ: CONTRASENYAS
-    string sCDKeyMemorizada = ObtenerStringPersistente(oPC, "CDKEY");
-    if(sCDKeyMemorizada != GetPCPublicCDKey(oPC))
-    {
-        if(GetCurrentHitPoints(oPC) < 1)
-        {
-            SetLocalInt(oPC, "SEG_RESUCITADO", TRUE);
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectResurrection(), oPC);
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectHeal(GetMaxHitPoints(oPC)), oPC);
-        }
-
-        SetLocalInt(oPC, "SEG_OCUPADO", TRUE);
-        FadeToBlack(oPC);
-        SetCutsceneMode(oPC, TRUE);
-        DelayCommand(15.0, AssignCommand(oPC, ActionStartConversation(oPC, "seg", TRUE)));
-        DelayCommand(15.0, FadeFromBlack(oPC));
-        return;
-    } */
 
     // SEGURIDAD PJ: BANEADO HASTA EL PROXIMO REINICIO
     if(GetLocalInt(oMod, "SEG_BANCDKEY_" + GetPCPublicCDKey(oPC)) || GetLocalInt(oMod, "SEG_BANIP_" + GetPCIPAddress(oPC)))
@@ -374,7 +372,7 @@ void main()
         return;
     }
 
-    // FEY'RI: SELECCIÓN APTITUDES DEMONÍACAS
+    // FEY'RI: SELECCION APTITUDES DEMONIACAS
     if(nRacialType == RACIAL_TYPE_FEYRI && ObtenerIntPersistente(oPC, "FEYRI_APTDEM") == FALSE)
     {
         FadeToBlack(oPC);
@@ -384,7 +382,7 @@ void main()
         return;
     }
 
-    //Añadimos dotes nuevas semielfo si el jugador no las tiene
+    // Anadimos dotes nuevas semielfo si el jugador no las tiene
     if(nRacialType == RACIAL_TYPE_HALFELF) {
         int bHasHalfElfFeats = NWNX_Creature_GetKnowsFeat(oPC, FEAT_SKILL_AFFINITY_GATHER_INFORMATION);
 
@@ -395,7 +393,7 @@ void main()
         }
     }
 
-    // DRACÓNIDO: SELECCIÓN DE LINAJE.
+    // DRACONIDO: SELECCION DE LINAJE.
     if(nRacialType == RACIAL_TYPE_DRACONIDO && ObtenerIntPersistente(oPC, "DRACONIDO_LINAJE") == FALSE)
     {
         FadeToBlack(oPC);
@@ -404,7 +402,6 @@ void main()
         DelayCommand(5.0, FadeFromBlack(oPC));
         return;
     }
-
-    // Remove stuck darkness effects if not inside a darkness AoE
+    // Remove stuck darkness effects if not inside a darkness AoE.
     RemoveStuckDarknessEffects(oPC);
 }

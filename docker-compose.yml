@@ -1,4 +1,5 @@
-version: '3'
+name: server
+
 services:
   pb-server:
     image: nwnxee/unified:build8193.37
@@ -7,21 +8,58 @@ services:
     tty: true
     stdin_open: true
     stop_signal: SIGINT
+    stop_grace_period: 2m
+    entrypoint: /nwn/home/run-server.sh
     env_file:
         - ${PWD-.}/config/nwserver.env
+        - ${PWD-.}/config/mysql.env
+    environment:
+      # Sustituye los bind-mount de /etc/timezone y /etc/localtime, que no
+      # existen en un host Windows y rompian el arranque desde win_run_server.bat.
+      - TZ=Europe/Madrid
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
     - '5121:5121/udp'
     volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - ${PWD-.}/logs:/nwn/run/logs.0
       - ${PWD-.}/:/nwn/home
       - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 20m
+        max-file: "5"
+
+  mysql:
+    image: mysql:8.4
+    hostname: mysql
+    container_name: nwnee_baldur_mysql
+    command: ["mysqld", "--mysql-native-password=ON"]
+    env_file:
+      - ${PWD-.}/config/mysql.env
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ${PWD-.}/config/mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h 127.0.0.1 -u"$${MYSQL_USER}" -p"$${MYSQL_PASSWORD}" --silent
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    restart: unless-stopped
+
   influxdb:
     hostname: influxdb
     image: influxdb:1.7
     restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
     env_file: ${PWD-.}/config/influxdb.env
     volumes:
     - influxdb:/var/lib/influxdb
@@ -30,6 +68,8 @@ services:
     hostname: grafana
     image: grafana/grafana:6.0.1
     restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
     ports:
       - 3000:3000/tcp
     depends_on:
@@ -41,3 +81,4 @@ services:
 volumes:
   influxdb:
   grafana:
+  mysql_data:

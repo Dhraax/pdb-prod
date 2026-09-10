@@ -28,3 +28,9 @@
 # *.pwk	text eol=crlf working-tree-encoding=windows-1252
 # *.set	text eol=crlf working-tree-encoding=windows-1252
 # *.wok	text eol=crlf working-tree-encoding=windows-1252
+
+# Vendored native NWScript reference. It is a byte-for-byte copy of the game's
+# ovr/nwscript.nss and its sha256 is locked in mcp/source-lock.json, so git must
+# not convert its line endings or its Windows-1252 bytes. Refreshed only by
+# scripts/refresh_nwscript_reference.sh.
+/documentation/nwscript/reference/nwscript.nss -text

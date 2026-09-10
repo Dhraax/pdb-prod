@@ -1,0 +1,4511 @@
+{
+  "_generated_by": "migration/extract_catalogue_json.py",
+  "_source": "src/cnr/nss/cnralchemytable.nss",
+  "device": {
+    "source_file": "cnralchemytable.nss",
+    "tag": "cnrAlchemyTable",
+    "tradeskill_type": "CNR_TRADESKILL_ALCHEMY",
+    "pre_crafting_script": "cnr_alchemy_anim",
+    "tools": [
+      {
+        "tag": "guantesAlquimista",
+        "access_mode": "equipped",
+        "breakage": "CNR_FLOAT_TINKERS_TOOLS_BREAKAGE_PERCENTAGE"
+      }
+    ]
+  },
+  "submenus": [
+    {
+      "name": "Pociones",
+      "parent": null
+    }
+  ],
+  "recipes": [
+    {
+      "sort_order": 1,
+      "submenu": "Pociones",
+      "display_name": "Agua Pura",
+      "output_tag": "recipe_agua_pura",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 20,
+        "trade": 20,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 2,
+      "submenu": "Pociones",
+      "display_name": "Galleta Mágica",
+      "output_tag": "recipe_galleta_magica",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 3,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 3,
+      "submenu": "Pociones",
+      "display_name": "Poción Acústica",
+      "output_tag": "recipe_pocion_acustica",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 4,
+      "submenu": "Pociones",
+      "display_name": "Poción Agarrotadora",
+      "output_tag": "recipe_pocion_agarrotadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 5,
+      "submenu": "Pociones",
+      "display_name": "Poción Agitada",
+      "output_tag": "recipe_pocion_agitada",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 6,
+      "submenu": "Pociones",
+      "display_name": "Poción Atontadora",
+      "output_tag": "recipe_pocion_atontadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 7,
+      "submenu": "Pociones",
+      "display_name": "Poción Aullante",
+      "output_tag": "recipe_pocion_aullante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 40,
+        "trade": 40,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 8,
+      "submenu": "Pociones",
+      "display_name": "Poción Refrescante",
+      "output_tag": "recipe_pocion_refrescante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 9,
+      "submenu": "Pociones",
+      "display_name": "Poción Reparadora",
+      "output_tag": "recipe_pocion_reparadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 10,
+      "submenu": "Pociones",
+      "display_name": "Poción Turbia",
+      "output_tag": "recipe_pocion_turbia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 11,
+      "submenu": "Pociones",
+      "display_name": "Poción Viscosa",
+      "output_tag": "recipe_pocion_viscosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 12,
+      "submenu": "Pociones",
+      "display_name": "Poción Vital",
+      "output_tag": "recipe_pocion_vital",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 13,
+      "submenu": "Pociones",
+      "display_name": "Poción Blanquecina",
+      "output_tag": "recipe_pocion_blanquecina",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 14,
+      "submenu": "Pociones",
+      "display_name": "Poción Brumosa",
+      "output_tag": "recipe_pocion_brumosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 15,
+      "submenu": "Pociones",
+      "display_name": "Poción de Soporte",
+      "output_tag": "recipe_pocion_de_soporte",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 16,
+      "submenu": "Pociones",
+      "display_name": "Poción de Tierra",
+      "output_tag": "recipe_pocion_de_tierra",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 17,
+      "submenu": "Pociones",
+      "display_name": "Poción de Furia",
+      "output_tag": "recipe_pocion_de_furia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 18,
+      "submenu": "Pociones",
+      "display_name": "Poción de Guerra",
+      "output_tag": "recipe_pocion_de_guerra",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 19,
+      "submenu": "Pociones",
+      "display_name": "Poción de Protección",
+      "output_tag": "recipe_pocion_de_proteccion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 20,
+      "submenu": "Pociones",
+      "display_name": "Poción de Lentitud",
+      "output_tag": "recipe_pocion_de_lentitud",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 21,
+      "submenu": "Pociones",
+      "display_name": "Poción de Agilidad",
+      "output_tag": "recipe_pocion_de_agilidad",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 22,
+      "submenu": "Pociones",
+      "display_name": "Poción de Robustez",
+      "output_tag": "recipe_pocion_de_robustez",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 23,
+      "submenu": "Pociones",
+      "display_name": "Poción Bendita",
+      "output_tag": "recipe_pocion_bendita",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 24,
+      "submenu": "Pociones",
+      "display_name": "Poción de Barrera",
+      "output_tag": "recipe_pocion_de_barrera",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 25,
+      "submenu": "Pociones",
+      "display_name": "Poción Disipadora",
+      "output_tag": "recipe_pocion_disipadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 26,
+      "submenu": "Pociones",
+      "display_name": "Poción Evolutiva",
+      "output_tag": "recipe_pocion_evolutiva",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 27,
+      "submenu": "Pociones",
+      "display_name": "Poción Férrea",
+      "output_tag": "recipe_pocion_ferrea",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 28,
+      "submenu": "Pociones",
+      "display_name": "Poción Polvorienta",
+      "output_tag": "recipe_pocion_polvorienta",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 300,
+        "trade": 300,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 29,
+      "submenu": "Pociones",
+      "display_name": "Poción Radiante",
+      "output_tag": "recipe_pocion_radiante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 300,
+        "trade": 300,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 30,
+      "submenu": "Pociones",
+      "display_name": "Poción Translúcida",
+      "output_tag": "recipe_pocion_translucida",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 350,
+        "trade": 350,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 31,
+      "submenu": "Pociones",
+      "display_name": "Poción Transparente",
+      "output_tag": "recipe_pocion_transparente",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 350,
+        "trade": 350,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 32,
+      "submenu": "Pociones",
+      "display_name": "Poción Volátil",
+      "output_tag": "recipe_pocion_volatil",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 400,
+        "trade": 400,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 33,
+      "submenu": "Pociones",
+      "display_name": "Poción Carmesí",
+      "output_tag": "recipe_pocion_carmesi",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 34,
+      "submenu": "Pociones",
+      "display_name": "Poción Calorífica",
+      "output_tag": "recipe_pocion_calorifica",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 35,
+      "submenu": "Pociones",
+      "display_name": "Poción Corrosiva",
+      "output_tag": "recipe_pocion_corrosiva",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 36,
+      "submenu": "Pociones",
+      "display_name": "Poción de Antimagia",
+      "output_tag": "recipe_pocion_de_antimagia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 37,
+      "submenu": "Pociones",
+      "display_name": "Poción de Alivio",
+      "output_tag": "recipe_pocion_de_alivio",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 38,
+      "submenu": "Pociones",
+      "display_name": "Poción de Aire",
+      "output_tag": "recipe_pocion_de_aire",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 39,
+      "submenu": "Pociones",
+      "display_name": "Seta Listada",
+      "output_tag": "recipe_seta_listada",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 40,
+      "submenu": "Pociones",
+      "display_name": "Veneno de ciempiés pequeño",
+      "output_tag": "recipe_veneno_de_ciempiés_pequeño",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 41,
+      "submenu": "Pociones",
+      "display_name": "Veneno de víbora negra",
+      "output_tag": "recipe_veneno_de_vibora_negra",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 42,
+      "submenu": "Pociones",
+      "display_name": "Raíz de Sanguinaria",
+      "output_tag": "recipe_raiz_de_sanguinaria",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 43,
+      "submenu": "Pociones",
+      "display_name": "Vomicalia",
+      "output_tag": "recipe_vomicalia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 44,
+      "submenu": "Pociones",
+      "display_name": "Aceite de sangreverde",
+      "output_tag": "recipe_aceite_de_sangreverde",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 45,
+      "submenu": "Pociones",
+      "display_name": "Arsénico",
+      "output_tag": "recipe_arsenico",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 46,
+      "submenu": "Pociones",
+      "display_name": "Relinchos Azules",
+      "output_tag": "recipe_relinchos_azules",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 47,
+      "submenu": "Pociones",
+      "display_name": "Veneno de Araña",
+      "output_tag": "recipe_veneno_de_arania",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 48,
+      "submenu": "Pociones",
+      "display_name": "Musgo del Yo",
+      "output_tag": "recipe_musgo_del_yo",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 49,
+      "submenu": "Pociones",
+      "display_name": "Aceite de gárrala",
+      "output_tag": "recipe_aceite_de_garrala",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 50,
+      "submenu": "Pociones",
+      "display_name": "Polvo de Ungol",
+      "output_tag": "recipe_polvo_de_ungol",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 51,
+      "submenu": "Pociones",
+      "display_name": "Niebla del caos",
+      "output_tag": "recipe_niebla_del_caos",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 52,
+      "submenu": "Pociones",
+      "display_name": "Pasta de raíz de viraguia",
+      "output_tag": "recipe_pasta_de_raiz_de_viraguia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 53,
+      "submenu": "Pociones",
+      "display_name": "Raiz de terinav",
+      "output_tag": "recipe_raiz_de_terinav",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 3,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 54,
+      "submenu": "Pociones",
+      "display_name": "Residuo de hoja de cativera",
+      "output_tag": "recipe_residuo_de_hoja_de_cativera",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 55,
+      "submenu": "Pociones",
+      "display_name": "Veneno de draco",
+      "output_tag": "recipe_veneno_de_draco",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 210,
+        "trade": 210,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 56,
+      "submenu": "Pociones",
+      "display_name": "Polvo de Liche",
+      "output_tag": "recipe_polvo_de_liche",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 57,
+      "submenu": "Pociones",
+      "display_name": "Esencia de sombra",
+      "output_tag": "recipe_esencia_de_sombra",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 240,
+        "trade": 240,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 58,
+      "submenu": "Pociones",
+      "display_name": "Veneno de avispa gigante",
+      "output_tag": "recipe_veneno_de_avispa_gigante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 59,
+      "submenu": "Pociones",
+      "display_name": "Veneno de escorpión",
+      "output_tag": "recipe_veneno_de_escorpion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 60,
+      "submenu": "Pociones",
+      "display_name": "Pólvoras de asaltante oscuro",
+      "output_tag": "recipe_polvoras_de_asaltante_oscuro",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 300,
+        "trade": 300,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 61,
+      "submenu": "Pociones",
+      "display_name": "Efluvios somarreros",
+      "output_tag": "recipe_efluvios_somarreros",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 300,
+        "trade": 300,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 62,
+      "submenu": "Pociones",
+      "display_name": "Hoja mortal",
+      "output_tag": "recipe_hoja_mortal",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 350,
+        "trade": 350,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 63,
+      "submenu": "Pociones",
+      "display_name": "Extracto de loto negro",
+      "output_tag": "recipe_extracto_de_loto_negro",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 350,
+        "trade": 350,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 64,
+      "submenu": "Pociones",
+      "display_name": "Veneno de gusano púrpura",
+      "output_tag": "recipe_veneno_de_gusano_purpura",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 400,
+        "trade": 400,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 65,
+      "submenu": "Pociones",
+      "display_name": "Bilis de dragón",
+      "output_tag": "recipe_bilis_de_dragon",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 500,
+        "trade": 500,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 66,
+      "submenu": "Pociones",
+      "display_name": "Poción Blanca",
+      "output_tag": "recipe_pocion_blanca",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 67,
+      "submenu": "Pociones",
+      "display_name": "Poción Borrosa",
+      "output_tag": "recipe_pocion_borrosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 68,
+      "submenu": "Pociones",
+      "display_name": "Poción Brillante",
+      "output_tag": "recipe_pocion_brillante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 69,
+      "submenu": "Pociones",
+      "display_name": "Poción Curativa",
+      "output_tag": "recipe_pocion_curativa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 70,
+      "submenu": "Pociones",
+      "display_name": "Raíces Comestibles",
+      "output_tag": "recipe_raices_comestibles",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 20,
+        "trade": 20,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 71,
+      "submenu": "Pociones",
+      "display_name": "Zumo Mágico",
+      "output_tag": "recipe_zumo_magico",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 72,
+      "submenu": "Pociones",
+      "display_name": "Poción Consciente",
+      "output_tag": "recipe_pocion_consciente",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 73,
+      "submenu": "Pociones",
+      "display_name": "Poción de Absorción",
+      "output_tag": "recipe_pocion_de_absorcion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 74,
+      "submenu": "Pociones",
+      "display_name": "Poción de Agua",
+      "output_tag": "recipe_pocion_de_agua",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 75,
+      "submenu": "Pociones",
+      "display_name": "Poción de Aislamiento",
+      "output_tag": "recipe_pocion_de_aislamiento",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 76,
+      "submenu": "Pociones",
+      "display_name": "Poción de Ascenso",
+      "output_tag": "recipe_pocion_de_ascenso",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 77,
+      "submenu": "Pociones",
+      "display_name": "Poción de Atracción",
+      "output_tag": "recipe_pocion_de_atraccion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 78,
+      "submenu": "Pociones",
+      "display_name": "Poción de Deducción",
+      "output_tag": "recipe_pocion_de_deduccion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 79,
+      "submenu": "Pociones",
+      "display_name": "Poción de Descenso",
+      "output_tag": "recipe_pocion_de_descenso",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 80,
+      "submenu": "Pociones",
+      "display_name": "Poción de Desvío",
+      "output_tag": "recipe_pocion_de_desvio",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 81,
+      "submenu": "Pociones",
+      "display_name": "Poción de Dureza",
+      "output_tag": "recipe_pocion_de_dureza",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 180,
+        "trade": 180,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 82,
+      "submenu": "Pociones",
+      "display_name": "Poción de Fuego",
+      "output_tag": "recipe_pocion_de_fuego",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 83,
+      "submenu": "Pociones",
+      "display_name": "Poción de Intuición",
+      "output_tag": "recipe_pocion_de_intuicion",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 84,
+      "submenu": "Pociones",
+      "display_name": "Poción de Perseverancia",
+      "output_tag": "recipe_pocion_de_perseverancia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 85,
+      "submenu": "Pociones",
+      "display_name": "Poción de Poder",
+      "output_tag": "recipe_pocion_de_poder",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 40,
+        "trade": 40,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 86,
+      "submenu": "Pociones",
+      "display_name": "Poción de Supervivencia",
+      "output_tag": "recipe_pocion_de_supervivencia",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 40,
+        "trade": 40,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 87,
+      "submenu": "Pociones",
+      "display_name": "Poción de Verdad",
+      "output_tag": "recipe_pocion_de_verdad",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 88,
+      "submenu": "Pociones",
+      "display_name": "Poción Debilitante",
+      "output_tag": "recipe_pocion_debilitante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 89,
+      "submenu": "Pociones",
+      "display_name": "Poción Densa",
+      "output_tag": "recipe_pocion_densa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 90,
+      "submenu": "Pociones",
+      "display_name": "Poción Desconcertante",
+      "output_tag": "recipe_pocion_desconcertante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 91,
+      "submenu": "Pociones",
+      "display_name": "Poción Descorazonadora",
+      "output_tag": "recipe_pocion_descorazonadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 92,
+      "submenu": "Pociones",
+      "display_name": "Poción Furiosa",
+      "output_tag": "recipe_pocion_furiosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 120,
+        "trade": 120,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 93,
+      "submenu": "Pociones",
+      "display_name": "Poción Grumosa",
+      "output_tag": "recipe_pocion_grumosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 94,
+      "submenu": "Pociones",
+      "display_name": "Poción Insconsistente",
+      "output_tag": "recipe_pocion_insconsistente",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 95,
+      "submenu": "Pociones",
+      "display_name": "Poción Mística",
+      "output_tag": "recipe_pocion_mistica",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 96,
+      "submenu": "Pociones",
+      "display_name": "Poción Mohosa",
+      "output_tag": "recipe_pocion_mohosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 97,
+      "submenu": "Pociones",
+      "display_name": "Poción Negra",
+      "output_tag": "recipe_pocion_negra",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 30,
+        "trade": 30,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 98,
+      "submenu": "Pociones",
+      "display_name": "Poción Nocturna",
+      "output_tag": "recipe_pocion_nocturna",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 99,
+      "submenu": "Pociones",
+      "display_name": "Poción Nudosa",
+      "output_tag": "recipe_pocion_nudosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "pastaTerrosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 100,
+      "submenu": "Pociones",
+      "display_name": "Poción Obtusa",
+      "output_tag": "recipe_pocion_obtusa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "esenciaInvisible",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 101,
+      "submenu": "Pociones",
+      "display_name": "Poción Omniosa",
+      "output_tag": "recipe_pocion_omniosa",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 42,
+        "trade": 42,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 102,
+      "submenu": "Pociones",
+      "display_name": "Poción Opaca",
+      "output_tag": "recipe_pocion_opaca",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 103,
+      "submenu": "Pociones",
+      "display_name": "Poción Oscura",
+      "output_tag": "recipe_pocion_oscura",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 40,
+        "trade": 40,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 104,
+      "submenu": "Pociones",
+      "display_name": "Poción Purificadora",
+      "output_tag": "recipe_pocion_purificadora",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 105,
+      "submenu": "Pociones",
+      "display_name": "Poción Reconfortante",
+      "output_tag": "recipe_pocion_reconfortante",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 106,
+      "submenu": "Pociones",
+      "display_name": "Poción Repulsiva",
+      "output_tag": "recipe_pocion_repulsiva",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "picadaRocosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 107,
+      "submenu": "Pociones",
+      "display_name": "Poción Resplandeciente",
+      "output_tag": "recipe_pocion_resplandeciente",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 270,
+        "trade": 270,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 108,
+      "submenu": "Pociones",
+      "display_name": "Poción Rojiza",
+      "output_tag": "recipe_pocion_rojiza",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "limoPutrefacto",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 109,
+      "submenu": "Pociones",
+      "display_name": "Poción Sensorial",
+      "output_tag": "recipe_pocion_sensorial",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "humoGaseoso",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "zumoAcuoso",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 35,
+        "trade": 35,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 110,
+      "submenu": "Pociones",
+      "display_name": "Poción Tenaz",
+      "output_tag": "recipe_pocion_tenaz",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "especiaSulfurosa",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "virutasResplandecientes",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "x2_it_cfm_pbottl",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "display_name": "Botella de poción"
+        }
+      ],
+      "level": null,
+      "xp": {
+        "game": 40,
+        "trade": 40,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    }
+  ]
+}

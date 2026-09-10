@@ -1,16 +1,16 @@
-//#include "nwnx_exalt"
-//#include "nwnx_system"
-#include "nwnx_admin"
-
-void DelayDelChar(object oPC) {
-
-  //FileDelete(sBic);
-  NWNX_Administration_DeletePlayerCharacter(oPC, FALSE);
-}
+// modified by: Dhraax
+#include "pwdb_i_user"
 
 void main()
 {
   object oPC = GetPCSpeaker();
+  int iCharacterId = PWDB_MarkCharacterDeleted(oPC);
+  if (iCharacterId <= 0)
+  {
+    SendMessageToPC(oPC, PWDB_MSG_VALIDATION_FAILED);
+    WriteTimestampedLogEntry("[PWDB:DELETE] Refused BIC deletion because the tombstone failed.");
+    return;
+  }
   //string sBic = "/home/baldurs/nwn/server/servervault/"; //"/home/baldurs/nwserver/servervault/";
 
   //sBic += GetPCPlayerName(oPC) +"/"+ NWNX_GetPCFileName(oPC) +".bic";
@@ -21,8 +21,8 @@ void main()
   // REGISTRO EN EL LOG
   WriteTimestampedLogEntry("[INFORME DE BORRADO DE PJ] Informe: El PJ: " + GetName(oPC, TRUE) + " de la cuenta: "
   + GetPCPlayerName(oPC)+" ha sido borrado del servidor."
-  + " Su CdKey es: " + GetPCPublicCDKey(oPC) + ";"
+  + " Su CdKey es: " + GetStringLeft(GetPCPublicCDKey(oPC), 4) + "*;"
   + " y su dirección ip es: "  + GetPCIPAddress(oPC));
 
-  DelayCommand(4.0f, DelayDelChar(oPC));
+  DelayCommand(PWDB_DELETE_DELAY, PWDB_FinalizeDeletedCharacter(oPC, iCharacterId));
 }

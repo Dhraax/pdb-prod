@@ -14,6 +14,7 @@ const int PWDB_ACCESS_ACCOUNT_BLOCKED  = -2;
 const int PWDB_ACCESS_NAME_MISMATCH    = -3;
 const int PWDB_ACCESS_AMBIGUOUS_NAME   = -4;
 const int PWDB_ACCESS_DB_ERROR         = -5;
+const int PWDB_ACCESS_DM_NOT_ALLOWED   = -6;
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -121,8 +122,16 @@ int PWDB_DB_EnsureAccessSchema()
         + " KEY ix_cd_key_ban_active (active)"
         + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
     );
+    int bDmWhitelist = NWNX_SQL_ExecuteQuery(
+        "CREATE TABLE IF NOT EXISTS " + PWDB_TABLE_DM_CDKEY_WHITELIST + " ("
+        + " cd_key VARCHAR(16) NOT NULL,"
+        + " display_name VARCHAR(64) NULL,"
+        + " added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+        + " PRIMARY KEY (cd_key)"
+        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+    );
 
-    if (!bNames || !bKeys || !bIps || !bBans)
+    if (!bNames || !bKeys || !bIps || !bBans || !bDmWhitelist)
     {
         PrintString("[PWDB:ACCESS] Access schema failed: " + NWNX_SQL_GetLastError());
         return FALSE;
@@ -204,7 +213,7 @@ int PWDB_AccessCheckConnection(
 )
 {
     sPlayerName = GetStringLeft(sPlayerName, 64);
-    sCdKey = GetStringLeft(sCdKey, 16);
+    sCdKey = GetStringUpperCase(GetStringLeft(sCdKey, 16));
     sIpAddress = GetStringLeft(sIpAddress, 45);
     if (sCdKey == "")
     {
@@ -226,9 +235,31 @@ int PWDB_AccessCheckConnection(
     NWNX_SQL_ReadNextRow();
     int bBanned = StringToInt(NWNX_SQL_ReadDataInActiveRow(0)) > 0;
 
+    if (bBanned)
+    {
+        return PWDB_ACCESS_BANNED;
+    }
+
     if (bIsDm)
     {
-        return bBanned ? PWDB_ACCESS_BANNED : PWDB_ACCESS_ALLOWED;
+        if (!NWNX_SQL_PrepareQuery(
+            "SELECT COUNT(*) FROM " + PWDB_TABLE_DM_CDKEY_WHITELIST
+            + " WHERE cd_key = ?"
+        ))
+        {
+            return PWDB_ACCESS_DB_ERROR;
+        }
+        NWNX_SQL_PreparedString(0, sCdKey);
+        if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
+        {
+            return PWDB_ACCESS_DB_ERROR;
+        }
+        NWNX_SQL_ReadNextRow();
+        if (StringToInt(NWNX_SQL_ReadDataInActiveRow(0)) == 0)
+        {
+            return PWDB_ACCESS_DM_NOT_ALLOWED;
+        }
+        return PWDB_ACCESS_ALLOWED;
     }
 
     if (!NWNX_SQL_PrepareQuery(
@@ -268,10 +299,6 @@ int PWDB_AccessCheckConnection(
         PrintString("[PWDB:ACCESS] Attempt history failed for account_id="
             + IntToString(iAccountId) + ": " + NWNX_SQL_GetLastError());
         return PWDB_ACCESS_DB_ERROR;
-    }
-    if (bBanned)
-    {
-        return PWDB_ACCESS_BANNED;
     }
     if (iNameAccounts > 1)
     {
@@ -365,6 +392,10 @@ string PWDB_AccessDenialMessage(int iResult)
     if (iResult == PWDB_ACCESS_ACCOUNT_BLOCKED)
     {
         return PWDB_MSG_ACCOUNT_BLOCKED;
+    }
+    if (iResult == PWDB_ACCESS_DM_NOT_ALLOWED)
+    {
+        return PWDB_MSG_DM_CDKEY_NOT_ALLOWED;
     }
     if (iResult == PWDB_ACCESS_NAME_MISMATCH)
     {

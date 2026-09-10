@@ -1,4 +1,3 @@
-version: '3'
 services:
   pb-server:
     image: nwnxee/unified:build8193.37
@@ -9,15 +8,44 @@ services:
     stop_signal: SIGINT
     env_file:
         - ${PWD-.}/config/nwserver-dev.env
+    environment:
+      # Sustituye los bind-mount de /etc/timezone y /etc/localtime, que no
+      # existen en un host Windows y rompian el arranque desde win_run_server.bat.
+      - TZ=Europe/Madrid
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
     - '5121:5121/udp'
     volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
       - ${PWD-.}/logs:/nwn/run/logs.0
       - ${PWD-.}/:/nwn/home
       - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
     restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4
+    hostname: mysql
+    container_name: nwnee_baldur_mysql
+    # NWNX_SQL necesita mysql_native_password; MySQL 8.4 lo trae desactivado.
+    command: ["mysqld", "--mysql-native-password=ON"]
+    env_file:
+      - ${PWD-.}/config/mysql.env
+    environment:
+      - TZ=Europe/Madrid
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ${PWD-.}/config/mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h 127.0.0.1 -u"$${MYSQL_USER}" -p"$${MYSQL_PASSWORD}" --silent
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    restart: unless-stopped
+
   influxdb:
     hostname: influxdb
     image: influxdb:1.7
@@ -41,3 +69,4 @@ services:
 volumes:
   influxdb:
   grafana:
+  mysql_data:

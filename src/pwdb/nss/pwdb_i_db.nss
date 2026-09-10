@@ -16,7 +16,7 @@ const int PWDB_RESULT_DB_ERROR     = -2;  // database unreachable or query faile
 const int PWDB_RESULT_BAD_INPUT    = -3;  // empty UUID or CD key
 const int PWDB_RESULT_ACCOUNT_DENIED   = -4;  // account management status is not active
 const int PWDB_RESULT_CHARACTER_DENIED = -5;  // character profile status is not active
-const int PWDB_RESULT_CHARACTER_DELETED = -6; // character is pending permanent deletion
+const int PWDB_RESULT_CHARACTER_DELETED = -6; // character tombstone denies this BIC or name
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -101,10 +101,11 @@ int PWDB_DB_ImportLegacyIdentity(
     string sPresentedCdKey
 );
 
-/// @brief Delete a character identity and every cascading character-owned row.
-/// @param iCharacterId Persistent character identifier to delete.
-/// @returns TRUE when the deletion statements completed; otherwise FALSE.
-int PWDB_DB_DeleteCharacter(int iCharacterId);
+/// @brief Turn an owned live character into a persistent deletion tombstone.
+/// @param oPC Live character requesting deletion of its own server-vault BIC.
+/// @param iCharacterId Persistent character identifier proven for this session.
+/// @returns TRUE only when the UUID and CD key still own the updated row.
+int PWDB_DB_MarkCharacterDeleted(object oPC, int iCharacterId);
 
 /// @brief Delete the current character tree during an authorized rebuild.
 /// @param oPC Live replacement character whose UUID and CD key are verified.
@@ -542,51 +543,50 @@ int PWDB_DB_RecordLevelUnlockMask(int iCharacterId, int iUnlockMask)
     return TRUE;
 }
 
-int PWDB_DB_DeleteCharacter(int iCharacterId)
+int PWDB_DB_MarkCharacterDeleted(object oPC, int iCharacterId)
 {
-    if (iCharacterId <= 0)
+    if (!GetIsObjectValid(oPC) || !GetIsPC(oPC) || iCharacterId <= 0)
     {
         return FALSE;
     }
 
-    // Revision rows intentionally have no target foreign key, so remove them
-    // explicitly before the character root triggers cascading domain deletes.
+    string sUuid = GetObjectUUID(oPC);
+    string sCdKey = GetPCPublicCDKey(oPC);
+    if (sUuid == "" || sCdKey == "")
+    {
+        return FALSE;
+    }
+
     if (!NWNX_SQL_PrepareQuery(
-        "DELETE FROM " + PWDB_TABLE_REVISION
-        + " WHERE target_type = 'character' AND target_id = ?"
+        "INSERT INTO " + PWDB_TABLE_PROFILE
+        + " (character_id, status, deleted_at, name_reuse_unlocked_at,"
+        + " name_reuse_unlocked_by, updated_by)"
+        + " SELECT c.character_id, 'deleted', CURRENT_TIMESTAMP, NULL, NULL, NULL"
+        + " FROM " + PWDB_TABLE_CHARACTER + " c"
+        + " JOIN " + PWDB_TABLE_ACCOUNT + " a ON a.account_id = c.account_id"
+        + " WHERE c.character_id = ? AND c.character_uuid = ? AND a.cd_key = ?"
+        + " ON DUPLICATE KEY UPDATE status = 'deleted',"
+        + " deleted_at = COALESCE(deleted_at, CURRENT_TIMESTAMP),"
+        + " name_reuse_unlocked_at = NULL, name_reuse_unlocked_by = NULL,"
+        + " updated_by = NULL, updated_at = CURRENT_TIMESTAMP"
     ))
     {
-        PrintString("[PWDB:DB] Character revision deletion prepare failed: "
+        PrintString("[PWDB:DB] Character tombstone prepare failed: "
             + NWNX_SQL_GetLastError());
         return FALSE;
     }
 
     NWNX_SQL_PreparedInt(0, iCharacterId);
+    NWNX_SQL_PreparedString(1, sUuid);
+    NWNX_SQL_PreparedString(2, sCdKey);
     if (!NWNX_SQL_ExecutePreparedQuery())
     {
-        PrintString("[PWDB:DB] Character revision deletion failed: "
+        PrintString("[PWDB:DB] Character tombstone update failed: "
             + NWNX_SQL_GetLastError());
         return FALSE;
     }
 
-    if (!NWNX_SQL_PrepareQuery(
-        "DELETE FROM " + PWDB_TABLE_CHARACTER + " WHERE character_id = ?"
-    ))
-    {
-        PrintString("[PWDB:DB] Character deletion prepare failed: "
-            + NWNX_SQL_GetLastError());
-        return FALSE;
-    }
-
-    NWNX_SQL_PreparedInt(0, iCharacterId);
-    if (!NWNX_SQL_ExecutePreparedQuery())
-    {
-        PrintString("[PWDB:DB] Character deletion failed: "
-            + NWNX_SQL_GetLastError());
-        return FALSE;
-    }
-
-    return TRUE;
+    return NWNX_SQL_GetAffectedRows() > 0;
 }
 
 int PWDB_DB_CleanRebuildCharacter(object oPC, int iCharacterId)
@@ -1183,6 +1183,49 @@ int PWDB_DB_ResolveCharacterId(
             PrintString("[PWDB:DB] Account access denied for PC=" + sName
                 + " status=" + sAccountStatus);
             PWDB_DB_SetLastResult(PWDB_RESULT_ACCOUNT_DENIED);
+            return 0;
+        }
+    }
+
+    // A new UUID may not reclaim the same character name inside the same
+    // stable account while a deleted character keeps that name locked. The
+    // old UUID remains blocked regardless of an administrative name unlock.
+    if (!bKnown && sName != "")
+    {
+        if (!NWNX_SQL_PrepareQuery(
+            "SELECT c.character_id FROM " + PWDB_TABLE_CHARACTER + " c"
+            + " JOIN " + PWDB_TABLE_ACCOUNT + " a ON a.account_id = c.account_id"
+            + " JOIN " + PWDB_TABLE_PROFILE + " p"
+            + "   ON p.character_id = c.character_id"
+            + " WHERE a.cd_key = ? AND p.status = 'deleted'"
+            + " AND p.name_reuse_unlocked_at IS NULL"
+            + " AND LOWER(REGEXP_REPLACE(TRIM(c.char_name), '[[:space:]]+', ' '))"
+            + " = LOWER(REGEXP_REPLACE(TRIM(?), '[[:space:]]+', ' '))"
+            + " LIMIT 1"
+        ))
+        {
+            PrintString("[PWDB:DB] Deleted-name lookup prepare failed: "
+                + NWNX_SQL_GetLastError());
+            PWDB_DB_SetLastResult(PWDB_RESULT_DB_ERROR);
+            return 0;
+        }
+        NWNX_SQL_PreparedString(0, sCdKey);
+        NWNX_SQL_PreparedString(1, sName);
+        if (!NWNX_SQL_ExecutePreparedQuery())
+        {
+            PrintString("[PWDB:DB] Deleted-name lookup failed for PC=" + sName
+                + ": " + NWNX_SQL_GetLastError());
+            PWDB_DB_SetLastResult(PWDB_RESULT_DB_ERROR);
+            return 0;
+        }
+        if (NWNX_SQL_ReadyToReadNextRow())
+        {
+            NWNX_SQL_ReadNextRow();
+            int iDeletedCharacterId = StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
+            SetLocalInt(GetModule(), PWDB_VAR_LAST_CHARACTER_ID, iDeletedCharacterId);
+            PrintString("[PWDB:DB] Deleted character name reused for PC=" + sName
+                + " character_id=" + IntToString(iDeletedCharacterId));
+            PWDB_DB_SetLastResult(PWDB_RESULT_CHARACTER_DELETED);
             return 0;
         }
     }

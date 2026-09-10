@@ -1,0 +1,2848 @@
+{
+  "_generated_by": "migration/extract_catalogue_json.py",
+  "_source": "src/cnr/nss/cnrtailorstable.nss",
+  "device": {
+    "source_file": "cnrtailorstable.nss",
+    "tag": "cnrTailorsTable",
+    "tradeskill_type": "CNR_TRADESKILL_TAILORING",
+    "pre_crafting_script": "cnr_tailor_anim",
+    "tools": [
+      {
+        "tag": "aguja_cost",
+        "access_mode": "inventory",
+        "breakage": "CNR_FLOAT_SEWING_KIT_BREAKAGE_PERCENTAGE"
+      },
+      {
+        "tag": "sapo_kitcuero",
+        "access_mode": "inventory",
+        "breakage": "CNR_FLOAT_SEWING_KIT_BREAKAGE_PERCENTAGE"
+      }
+    ]
+  },
+  "submenus": [
+    {
+      "name": "Armaduras Acolchadas",
+      "parent": null
+    },
+    {
+      "name": "Armaduras de Ligeras",
+      "parent": null
+    },
+    {
+      "name": "Armaduras de Cuero Tachonado",
+      "parent": null
+    },
+    {
+      "name": "Armaduras de Cuero Reforzado",
+      "parent": null
+    },
+    {
+      "name": "Guantes de cuero",
+      "parent": null
+    },
+    {
+      "name": "Botas",
+      "parent": null
+    },
+    {
+      "name": "Cinturón",
+      "parent": null
+    },
+    {
+      "name": "Latigos",
+      "parent": null
+    }
+  ],
+  "recipes": [
+    {
+      "sort_order": 18,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de roedor",
+      "output_tag": "armadura_cuero_roedor",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 19,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de herbívoro",
+      "output_tag": "armadura_cuero_herbivoro",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 20,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de bestia salvaje",
+      "output_tag": "armadura_cuero_bestia",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 21,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de bestia salvaje grande",
+      "output_tag": "armadura_cuero_bestiag",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 22,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de bestia mítica",
+      "output_tag": "armadura_cuero_mitica",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 23,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de bestia mítica gruesa",
+      "output_tag": "armadura_cuero_miticag",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 24,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de dragón de fuego",
+      "output_tag": "armadura_cuero_dragof",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 25,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de dragón de hielo",
+      "output_tag": "armadura_cuero_dragoh",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 26,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de dragón de ácido",
+      "output_tag": "armadura_cuero_dragoa",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 27,
+      "submenu": "Armaduras de Ligeras",
+      "display_name": "Armadura de cuero de dragón de rayo",
+      "output_tag": "armadura_cuero_dragor",
+      "base_resref": "cnr_base_leather",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "correas",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 28,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de roedor",
+      "output_tag": "armaduraint_cuero_roedor",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 29,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de herbívoro",
+      "output_tag": "armaduraint_cuero_herbivoro",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 30,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de bestia salvaje",
+      "output_tag": "armaduraint_cuero_bestia",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 31,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de bestia salvaje grande",
+      "output_tag": "armaduraint_cuero_bestiag",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 32,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de bestia mítica",
+      "output_tag": "armaduraint_cuero_mitica",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 33,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de bestia mítica gruesa",
+      "output_tag": "armaduraint_cuero_miticag",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 34,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de dragón de fuego",
+      "output_tag": "armaduraint_cuero_dragof",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 35,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de dragón de hielo",
+      "output_tag": "armaduraint_cuero_dragoh",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 36,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de dragón de ácido",
+      "output_tag": "armaduraint_cuero_dragoa",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 37,
+      "submenu": "Armaduras de Cuero Tachonado",
+      "display_name": "Armadura intermedia de cuero de dragón de rayo",
+      "output_tag": "armaduraint_cuero_dragor",
+      "base_resref": "cnr_base_studded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "sapo_ing_tachon",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 38,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de roedor",
+      "output_tag": "armaduraref_cuero_roedor",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 39,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de herbívoro",
+      "output_tag": "armaduraref_cuero_herbivoro",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 40,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de bestia salvaje",
+      "output_tag": "armaduraref_cuero_bestia",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 41,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de bestia salvaje grande",
+      "output_tag": "armaduraref_cuero_bestiag",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 42,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de bestia mítica",
+      "output_tag": "armaduraref_cuero_mitica",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 43,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de bestia mítica gruesa",
+      "output_tag": "armaduraref_cuero_miticag",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 44,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de dragón de fuego",
+      "output_tag": "armaduraref_cuero_dragof",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 45,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de dragón de hielo",
+      "output_tag": "armaduraref_cuero_dragoh",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 46,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de dragón de ácido",
+      "output_tag": "armaduraref_cuero_dragoa",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 47,
+      "submenu": "Armaduras de Cuero Reforzado",
+      "display_name": "Armadura reforzada de cuero de dragón de rayo",
+      "output_tag": "armaduraref_cuero_dragor",
+      "base_resref": "cnr_base_hide",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "tachones_reforza",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 48,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de roedor",
+      "output_tag": "guantes_cuero_roedor",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 49,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de herbívoro",
+      "output_tag": "guantes_cuero_herbivoro",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 50,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de bestia salvaje",
+      "output_tag": "guantes_cuero_bestia",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 51,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de bestia salvaje grande",
+      "output_tag": "guantes_cuero_bestiag",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 52,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de bestia mítica",
+      "output_tag": "guantes_cuero_mitica",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 53,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de bestia mítica gruesa",
+      "output_tag": "guantes_cuero_miticag",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 54,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de dragón de fuego",
+      "output_tag": "guantes_cuero_dragof",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 55,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de dragón de hielo",
+      "output_tag": "guantes_cuero_dragoh",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 56,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de dragón de ácido",
+      "output_tag": "guantes_cuero_dragoa",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 57,
+      "submenu": "Guantes de cuero",
+      "display_name": "Guantes de cuero de dragón de rayo",
+      "output_tag": "guantes_cuero_dragor",
+      "base_resref": "cnr_base_gloves",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_guan",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 68,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de roedor",
+      "output_tag": "botas_cuero_roedor",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 69,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de herbívoro",
+      "output_tag": "botas_cuero_herbivoro",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 70,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de bestia salvaje",
+      "output_tag": "botas_cuero_bestia",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 71,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de bestia salvaje grande",
+      "output_tag": "botas_cuero_bestiag",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 72,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de bestia mítica",
+      "output_tag": "botas_cuero_mitica",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 73,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de bestia mítica gruesa",
+      "output_tag": "botas_cuero_miticag",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 74,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de dragón de fuego",
+      "output_tag": "botas_cuero_dragof",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 75,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de dragón de hielo",
+      "output_tag": "botas_cuero_dragoh",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 76,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de dragón de ácido",
+      "output_tag": "botas_cuero_dragoa",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 77,
+      "submenu": "Botas",
+      "display_name": "Botas de cuero de dragón de rayo",
+      "output_tag": "botas_cuero_dragor",
+      "base_resref": "cnr_base_boots",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_bota",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 88,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de roedor",
+      "output_tag": "cinturon_cuero_roedor",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 89,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de herbívoro",
+      "output_tag": "cinturon_cuero_herbivoro",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 2,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 90,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de bestia salvaje",
+      "output_tag": "cinturon_cuero_bestia",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 3,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 91,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de bestia salvaje grande",
+      "output_tag": "cinturon_cuero_bestiag",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 5,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 92,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de bestia mítica",
+      "output_tag": "cinturon_cuero_mitica",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 4,
+      "xp": {
+        "game": 90,
+        "trade": 90,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 93,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de bestia mítica gruesa",
+      "output_tag": "cinturon_cuero_miticag",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 6,
+      "xp": {
+        "game": 150,
+        "trade": 150,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 94,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de dragón de fuego",
+      "output_tag": "cinturon_cuero_dragof",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 7,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 95,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de dragón de hielo",
+      "output_tag": "cinturon_cuero_dragoh",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 8,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 96,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de dragón de ácido",
+      "output_tag": "cinturon_cuero_dragoa",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 9,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 97,
+      "submenu": "Cinturón",
+      "display_name": "Cinturón de cuero de dragón de rayo",
+      "output_tag": "cinturon_cuero_dragor",
+      "base_resref": "cnr_base_belt",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_cint",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 10,
+      "xp": {
+        "game": 450,
+        "trade": 450,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 98,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de roedor",
+      "output_tag": "armaduraacol_cuero_roedor",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_roedor",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 99,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de herbívoro",
+      "output_tag": "armaduraacol_cuero_herbivoro",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_herbivoro",
+          "qty": 1,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 100,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de bestia salvaje",
+      "output_tag": "armaduraacol_cuero_bestia",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestia",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 101,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de bestia salvaje grande",
+      "output_tag": "armaduraacol_cuero_bestiag",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_bestiag",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 102,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de bestia mítica",
+      "output_tag": "armaduraacol_cuero_mitica",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_mitica",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 103,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de bestia mítica gruesa",
+      "output_tag": "armaduraacol_cuero_miticag",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_miticag",
+          "qty": 3,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 104,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de dragón de fuego",
+      "output_tag": "armaduraacol_cuero_dragof",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragof",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 105,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de dragón de hielo",
+      "output_tag": "armaduraacol_cuero_dragoh",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoh",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 106,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de dragón de ácido",
+      "output_tag": "armaduraacol_cuero_dragoa",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragoa",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    },
+    {
+      "sort_order": 107,
+      "submenu": "Armaduras Acolchadas",
+      "display_name": "Armadura acolchada de cuero de dragón de rayo",
+      "output_tag": "armaduraacol_cuero_dragor",
+      "base_resref": "cnr_base_padded",
+      "output_qty": 1,
+      "components": [
+        {
+          "tag": "cuero_dragor",
+          "qty": 4,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sedas",
+          "qty": 2,
+          "retain_on_fail": 0
+        },
+        {
+          "tag": "sapo_plnt12_armd",
+          "qty": 1,
+          "retain_on_fail": 1,
+          "retain_on_success": 0
+        }
+      ],
+      "level": 1,
+      "xp": {
+        "game": 60,
+        "trade": 60,
+        "scalar_override": null
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
+      },
+      "biproduct": null,
+      "pre_crafting_script": null
+    }
+  ]
+}
