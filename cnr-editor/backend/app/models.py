@@ -569,6 +569,7 @@ class CharacterLevelUnlock(Base):
     granted_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=func.current_timestamp()
     )
+    applied_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
     character: Mapped[Character] = relationship(back_populates="level_unlocks")
 
@@ -639,10 +640,6 @@ class CharacterProfile(Base):
     snapshot_captured_at: Mapped[datetime | None] = mapped_column(DateTime)
     admin_notes: Mapped[str | None] = mapped_column(Text)
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime)
-    name_reuse_unlocked_at: Mapped[datetime | None] = mapped_column(DateTime)
-    name_reuse_unlocked_by: Mapped[int | None] = mapped_column(
-        ForeignKey("cnr_editor_user.user_id", ondelete="SET NULL")
-    )
     updated_by: Mapped[int | None] = mapped_column(
         ForeignKey("cnr_editor_user.user_id", ondelete="SET NULL")
     )

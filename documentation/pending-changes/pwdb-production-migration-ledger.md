@@ -11,7 +11,7 @@ the two repositories were compared and why the current decisions were taken.
 This ledger records what was actually changed, what is merely present in the
 PROD working tree, what has been verified, and what still has to happen.
 
-Last updated: 2026-09-10.
+Last updated: 2026-09-12.
 
 ## Status vocabulary
 
@@ -644,19 +644,19 @@ Status: Implemented in DEV and mirrored to the PROD source tree; all runtime
 deployment remains pending.
 
 Requested outcome: delete the BIC through the existing NPC without losing the
-database record, prevent a same-account recreation with the same normalized
-name, allow an administrator to release that name deliberately, and retain a
-separate deliberate hard purge for all character-owned data.
+database record, reject any later BIC carrying that deleted UUID, permit the
+same name to register as an independent new character, and retain a separate
+deliberate hard purge for all character-owned data.
 
 Decision and scope:
 
 - `deleted` is an immutable database tombstone and never an implicit database
   purge;
-- the old UUID always remains denied, including after a name unlock;
-- a new UUID with the same trimmed, whitespace-collapsed, case-insensitive name
-  is denied only inside the same stable account while the lock remains;
-- name unlock is exact-administrator-only and releases only that account/name
-  reservation;
+- the old UUID always remains denied and the rebuild migration refuses deleted
+  source rows;
+- a new UUID may use the same name in the same or another account; it receives
+  a new `character_id` and independent character-owned rows;
+- name equality never restores, merges, or links a tombstone;
 - hard purge is a distinct exact-administrator action requiring `ELIMINAR` and
   an unchanged timestamp;
 - account-level CD-key and IP histories survive purge because they are shared
@@ -668,10 +668,10 @@ database/user includes, `borrarpjs.nss`, `borrarpjs.dlg`,
 `rebuild_confirm.dlg`, `rebuild_prompt.nss`, panel models/schemas/API/UI/tests,
 and canonical database, control-panel, changelog, and migration documentation.
 
-Database/configuration impact: migration `0021` adds the deletion timestamp and
-name-unlock timestamp/actor columns. It introduces no environment variable or
-credential. The safe deployment order is database migration, panel, compiled
-module, then one NWN restart.
+Database/configuration impact: migration `0021` adds only the deletion
+timestamp. It introduces no environment variable or credential. The safe
+deployment order is database migration, panel, compiled module, then one NWN
+restart.
 
 Verification completed:
 
@@ -698,8 +698,8 @@ Runtime evidence: none. No migration was applied, no module was packaged, and
 no server, database, or panel container was started.
 
 Remaining work: apply migration `0021` in rehearsal, then run the NPC deletion,
-same-account rejection, other-account allowance, administrative unlock,
-old-UUID rejection, and hard-purge acceptance cases.
+same-name/new-UUID registration, old-UUID rejection, deleted-row rebuild
+refusal, and hard-purge acceptance cases.
 
 ## MIG-012 — 2026-09-10 PWDB transfer baseline
 
@@ -775,6 +775,82 @@ key before activating the DM gate, then apply `0021` and deploy the module.
 
 Excluded explicitly: `src/cnr/`, CNR module hooks and resources, production
 maps, HAK/TLK changes, and DEV spell/effect work remain outside this transfer.
+
+## MIG-013 — Level-unlock delivery acknowledgement
+
+Date: 2026-09-12
+
+Status: Implemented in DEV and mirrored to the PROD source tree; database and
+runtime deployment pending.
+
+Migration `0022_level_unlock_application_status` adds nullable `applied_at` to
+`pwdb_character_level_unlock`. The original row and `granted_at` remain the
+administrative authorization; the new timestamp records only a module-confirmed
+campaign value. The API preserves `level_unlocks` as the backward-compatible
+editable grant list and adds `applied_level_unlocks` as read-only delivery
+state. The account interface labels selected grants as pending or applied and
+states that reconnection performs delivery.
+
+During successful non-DM character synchronization, existing `DESBLOQUEO`
+values are imported or acknowledged as applied. Newly authorized values are
+written and immediately read back. Only values observed in the resulting
+campaign mask receive `applied_at`; a campaign write or SQL acknowledgement
+failure remains pending and retries on the next successful connection. This
+does not introduce polling or a web-to-game hot-update channel.
+
+Transferred source boundary:
+
+- `src/pwdb/nss/pwdb_i_db.nss`;
+- `src/pwdb/nss/pwdb_i_user.nss`;
+- panel model, schema, identity response, account interface and shared types;
+- migration `0022` and its focused backend contract test;
+- database, panel, changelog and this deployment documentation.
+
+Static verification completed in DEV and PROD: the focused
+`wrap_on_clnt_ent.nss` consumer compilation passed; frontend lint and TypeScript
+checks passed; changed Python files parsed successfully; documentation indexes
+passed the DEV repository checker; and the transferred shared files compared
+byte for byte. Backend Pytest could not run because the host Python environment
+does not provide Pytest. No module was packaged, no migration was applied, and
+no container or server was started.
+
+Deployment order: deploy the panel and migration, apply `0022`, package and
+deploy the module, then run the pending/applied and legacy-import acceptance
+cases from the monthly module changelog.
+
+## MIG-014 — Rebuild-only character renaming and recurring snapshots
+
+Date: 2026-09-12
+
+Status: Implemented in DEV and mirrored to the PROD source tree; runtime
+deployment pending.
+
+Normal identity resolution stores `pwdb_character.char_name` only when it
+inserts a new UUID. Subsequent ordinary logins update the login timestamp and
+engine-owned profile/class snapshots but cannot rename that persistent record.
+This prevents a disguise or other runtime presentation change from overwriting
+the registered identity name.
+
+The controlled rebuild migration remains the only rename path. It reads the old
+`character_id` from the restored variable container, requires that row to be
+active and owned by the presented CD key, deletes the replacement's provisional
+tree through the preceding clean step, then binds the live UUID and current
+name to the old identity. Name equality is neither required nor accepted as
+authorization. The same operation refreshes class slots, levels, race, subrace,
+gender, portrait, deity and base ability scores from the replacement BIC while
+retaining character-owned domain history.
+
+Static verification completed in DEV and PROD: focused compilation passed for
+`wrap_on_clnt_ent.nss`, `rebuild_migrate.nss`, and `borrarpjs.nss`; frontend
+lint and TypeScript checks passed; changed Python files parsed successfully;
+DEV documentation checks passed; and shared changed files compared byte for
+byte. Runtime evidence remains absent: no module was packaged, no migration was
+applied, and no server or panel was started.
+
+Remaining work: package both modules and test ordinary login with a changed
+runtime-presented name, same-name recreation after NPC deletion, old-UUID
+rejection, deleted-row rebuild refusal, and a full rebuild using a different
+name.
 
 ## Open work
 

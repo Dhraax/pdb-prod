@@ -53,7 +53,7 @@ MySQL 8.4                                   volume mysql_data
     |                |
     |                +--< cnr_tradeskill       (character_id, skill_name)
     |                +--< cnr_craft_selection  (character_id)
-    |                +--< pwdb_character_level_unlock (character_id, unlock_level)
+    |                +--< pwdb_character_level_unlock (character_id, unlock_level, granted_at, applied_at)
     |                +--< future system tables reference character_id
     |
     +-- recipe_metadata         global catalogue, no character_id
@@ -161,13 +161,11 @@ server-vault folder: the lookup proves which stable PWDB account may present
 that routing name, not that the name itself is an identity credential. See
 [`account-access-security.md`](account-access-security.md).
 
-The one deliberate lifecycle exception is deleted-name reservation. A
-`pwdb_character_profile` row with status `deleted` remains a tombstone for its
-immutable UUID. Until `name_reuse_unlocked_at` is set, it also reserves the
-normalized `(account_id, char_name)` pair so a new UUID cannot recreate the
-same named character in the same account. This is an access-policy lookup, not
-a new natural key: another account may use the name, and an administrator may
-release the name without changing or reusing the deleted UUID.
+A `pwdb_character_profile` row with status `deleted` remains a tombstone for its
+immutable UUID. It does not reserve `(account_id, char_name)`: a new UUID may
+register the same name and receives a new `character_id` and independent domain
+tree. Name equality never links identities. Only the explicit rebuild protocol
+may replace the UUID and registered name of an existing active `character_id`.
 
 DM access uses a separate closed allowlist keyed by the public CD key. The DM
 password remains necessary, but it is no longer sufficient: the client-connect

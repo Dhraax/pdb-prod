@@ -78,7 +78,7 @@ int PWDB_MarkCharacterDeleted(object oPC);
 /// @param iCharacterId Persistent tombstone identifier retained for logging.
 void PWDB_FinalizeDeletedCharacter(object oPC, int iCharacterId);
 
-/// @brief Apply one database-granted unlock to the BioWare campaign store.
+/// @brief Apply and verify one database-granted unlock in the campaign store.
 /// @param oPC Registered player character receiving the unlock.
 /// @param iUnlockMask Complete database unlock bit mask.
 /// @param iExistingMask Unlock bit mask already present in the campaign store.
@@ -134,6 +134,14 @@ void PWDB_ApplyLevelUnlock(
     }
 
     SetCampaignInt("DESBLOQUEO", sCampaignVariable, 1, oPC);
+    if (GetCampaignInt("DESBLOQUEO", sCampaignVariable, oPC) == 0)
+    {
+        PrintString("[PWDB] Level unlock verification failed for character_id="
+            + IntToString(PWDB_GetCharacterId(oPC)) + " level="
+            + IntToString(iUnlockLevel));
+        return;
+    }
+
     SendMessageToPC(
         oPC,
         ColorTexto(
@@ -237,6 +245,11 @@ void PWDB_SyncRegisteredCharacter(object oPC, int iCharacterId)
     PWDB_ApplyLevelUnlock(oPC, iUnlockMask, iExistingMask, 64, 26, "NIVEL26");
     PWDB_ApplyLevelUnlock(oPC, iUnlockMask, iExistingMask, 128, 30, "NIVEL30");
     PWDB_ApplyLevelUnlock(oPC, iUnlockMask, iExistingMask, 256, 35, "NIVEL35");
+
+    // Only campaign values confirmed by a read-back become applied in the
+    // panel. A failed database acknowledgement remains pending and retries on
+    // the next successful character connection.
+    PWDB_DB_RecordLevelUnlockMask(iCharacterId, PWDB_ReadLevelUnlockMask(oPC));
 }
 
 void PWDB_FinalizeDeletedCharacter(object oPC, int iCharacterId)

@@ -140,9 +140,6 @@ def _character_detail(
         charisma_score=profile.charisma_score if profile and can_view_abilities else None,
         admin_notes=profile.admin_notes if profile and can_view_profile else None,
         deleted_at=profile.deleted_at if profile and can_view_identity else None,
-        name_reuse_unlocked_at=(
-            profile.name_reuse_unlocked_at if profile and can_view_identity else None
-        ),
         created_at=character.created_at if can_view_timestamps else None,
         last_login_at=character.last_login_at if can_view_timestamps else None,
         updated_at=profile.updated_at if profile else None,
@@ -153,6 +150,15 @@ def _character_detail(
         tradeskills=tradeskills,
         level_unlocks=(
             [item.unlock_level for item in character.level_unlocks] if can_view_unlocks else []
+        ),
+        applied_level_unlocks=(
+            [
+                item.unlock_level
+                for item in character.level_unlocks
+                if item.applied_at is not None
+            ]
+            if can_view_unlocks
+            else []
         ),
     )
 
@@ -936,8 +942,6 @@ def update_character(
             profile.status = payload.status
             if payload.status == "deleted":
                 profile.deleted_at = datetime.now(UTC).replace(tzinfo=None)
-                profile.name_reuse_unlocked_at = None
-                profile.name_reuse_unlocked_by = None
         if "race_id" in requested_fields:
             profile.race_id = payload.race_id
         if "subrace" in requested_fields:
@@ -1004,69 +1008,6 @@ def update_character(
             status_code=status.HTTP_409_CONFLICT,
             detail="El personaje incumple una restricción de integridad",
         ) from exc
-    refreshed = db.scalar(
-        select(Character)
-        .where(Character.character_id == character_id)
-        .options(
-            selectinload(Character.profile),
-            selectinload(Character.classes).selectinload(CharacterClass.definition),
-            selectinload(Character.tradeskills),
-            selectinload(Character.level_unlocks),
-        )
-    )
-    return _character_detail(refreshed, context.user)
-
-
-@router.post(
-    "/characters/{character_id}/name-reuse-unlock",
-    response_model=CharacterDetail,
-)
-def unlock_character_name_reuse(
-    character_id: int,
-    context: SessionContext = Depends(require_csrf),
-    db: Session = Depends(get_db),
-) -> CharacterDetail:
-    require_identity_admin(context.user)
-    character = db.get(Character, character_id, with_for_update=True)
-    profile = db.get(CharacterProfile, character_id, with_for_update=True)
-    if character is None or profile is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Personaje no encontrado")
-    if profile.status != "deleted":
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Solo puede desbloquearse el nombre de un personaje eliminado",
-        )
-    if profile.name_reuse_unlocked_at is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="El nombre de este personaje ya está desbloqueado para su cuenta",
-        )
-
-    before = {
-        "character_id": character_id,
-        "status": profile.status,
-        "name_reuse_unlocked_at": None,
-    }
-    now = datetime.now(UTC).replace(tzinfo=None)
-    profile.name_reuse_unlocked_at = now
-    profile.name_reuse_unlocked_by = context.user.user_id
-    profile.updated_at = now
-    db.add(
-        IdentityRevision(
-            target_type="character",
-            target_id=character_id,
-            actor_user_id=context.user.user_id,
-            action="name_unlock",
-            before_json=before,
-            after_json={
-                "character_id": character_id,
-                "status": profile.status,
-                "name_reuse_unlocked_at": now.isoformat(),
-            },
-        )
-    )
-    db.commit()
-
     refreshed = db.scalar(
         select(Character)
         .where(Character.character_id == character_id)

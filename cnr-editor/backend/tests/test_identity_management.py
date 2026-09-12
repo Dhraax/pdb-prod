@@ -25,6 +25,8 @@ from app.models import (
     AccountCdKeyReset,
     AccountIpHistory,
     CdKeyBan,
+    Character,
+    CharacterLevelUnlock,
     EditorLoginThrottle,
     EditorProfessionPermission,
     EditorSession,
@@ -40,7 +42,12 @@ from app.routers.admin import (
 )
 from app.routers.audit import _target_label
 from app.routers.auth import login
-from app.routers.identity import _access_history, _account_detail, _cd_key_reset_state
+from app.routers.identity import (
+    _access_history,
+    _account_detail,
+    _cd_key_reset_state,
+    _character_detail,
+)
 from app.schemas import (
     AccountUpdate,
     CharacterDetail,
@@ -156,6 +163,7 @@ def test_character_detail_exposes_captured_base_ability_scores() -> None:
             "classes": [],
             "tradeskills": [],
             "level_unlocks": [],
+            "applied_level_unlocks": [],
         }
     )
 
@@ -195,6 +203,7 @@ def test_character_detail_rejects_out_of_range_ability_scores() -> None:
                 "classes": [],
                 "tradeskills": [],
                 "level_unlocks": [],
+                "applied_level_unlocks": [],
             }
         )
 
@@ -249,6 +258,44 @@ def test_character_update_accepts_and_sorts_known_level_unlocks() -> None:
     payload["level_unlocks"] = [35, 9, 21]
 
     assert CharacterUpdate.model_validate(payload).level_unlocks == [9, 21, 35]
+
+
+def test_character_detail_distinguishes_pending_and_applied_level_unlocks() -> None:
+    now = datetime.now(UTC).replace(tzinfo=None)
+    character = Character(
+        character_id=7,
+        character_uuid="1234567890ABCDEF",
+        account_id=3,
+        char_name="Test Character",
+        created_at=now,
+        last_login_at=now,
+        rebuilds_available=2,
+        rebuilds_completed=0,
+    )
+    character.profile = None
+    character.classes = []
+    character.tradeskills = []
+    character.level_unlocks = [
+        CharacterLevelUnlock(
+            character_id=7,
+            unlock_level=9,
+            granted_by=None,
+            granted_at=now,
+            applied_at=None,
+        ),
+        CharacterLevelUnlock(
+            character_id=7,
+            unlock_level=13,
+            granted_by=None,
+            granted_at=now,
+            applied_at=now,
+        ),
+    ]
+
+    detail = _character_detail(character)
+
+    assert detail.level_unlocks == [9, 13]
+    assert detail.applied_level_unlocks == [13]
 
 
 @pytest.mark.parametrize("level_unlocks", [[8], [40], [9, 9]])

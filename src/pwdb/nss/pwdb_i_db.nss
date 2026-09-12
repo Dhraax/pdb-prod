@@ -16,7 +16,7 @@ const int PWDB_RESULT_DB_ERROR     = -2;  // database unreachable or query faile
 const int PWDB_RESULT_BAD_INPUT    = -3;  // empty UUID or CD key
 const int PWDB_RESULT_ACCOUNT_DENIED   = -4;  // account management status is not active
 const int PWDB_RESULT_CHARACTER_DENIED = -5;  // character profile status is not active
-const int PWDB_RESULT_CHARACTER_DELETED = -6; // character tombstone denies this BIC or name
+const int PWDB_RESULT_CHARACTER_DELETED = -6; // character tombstone denies this UUID/BIC
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -73,11 +73,11 @@ int PWDB_DB_GetLevelUnlockMask(int iCharacterId);
 /// @returns A non-negative available count, or -1 when the lookup fails.
 int PWDB_DB_GetRebuildsAvailable(int iCharacterId);
 
-/// @brief Import already-existing BioWare campaign unlocks into MySQL.
+/// @brief Import and acknowledge BioWare campaign unlocks in MySQL.
 /// @param iCharacterId Resolved persistent character identifier.
-/// @param iUnlockMask Existing campaign unlock bit mask.
-/// @returns TRUE when the import completed or there was nothing to import;
-///     otherwise FALSE.
+/// @param iUnlockMask Campaign unlock bit mask confirmed by GetCampaignInt.
+/// @returns TRUE when every confirmed grant exists and carries applied_at, or
+///     when there was nothing to record; otherwise FALSE.
 int PWDB_DB_RecordLevelUnlockMask(int iCharacterId, int iUnlockMask);
 
 /// @brief Capture the first presented CD key during a panel-authorized reset.
@@ -512,8 +512,8 @@ int PWDB_DB_RecordLevelUnlockMask(int iCharacterId, int iUnlockMask)
 
     if (!NWNX_SQL_PrepareQuery(
         "INSERT IGNORE INTO " + PWDB_TABLE_LEVEL_UNLOCK
-        + " (character_id, unlock_level)"
-        + " SELECT ?, unlock_level FROM ("
+        + " (character_id, unlock_level, applied_at)"
+        + " SELECT ?, unlock_level, CURRENT_TIMESTAMP FROM ("
         + " SELECT 9 AS unlock_level, 1 AS unlock_bit"
         + " UNION ALL SELECT 13, 2"
         + " UNION ALL SELECT 17, 4"
@@ -540,6 +540,37 @@ int PWDB_DB_RecordLevelUnlockMask(int iCharacterId, int iUnlockMask)
         return FALSE;
     }
 
+    if (!NWNX_SQL_PrepareQuery(
+        "UPDATE " + PWDB_TABLE_LEVEL_UNLOCK
+        + " SET applied_at = COALESCE(applied_at, CURRENT_TIMESTAMP)"
+        + " WHERE character_id = ?"
+        + " AND ((? & CASE unlock_level"
+        + "   WHEN 9 THEN 1"
+        + "   WHEN 13 THEN 2"
+        + "   WHEN 17 THEN 4"
+        + "   WHEN 21 THEN 8"
+        + "   WHEN 22 THEN 16"
+        + "   WHEN 24 THEN 32"
+        + "   WHEN 26 THEN 64"
+        + "   WHEN 30 THEN 128"
+        + "   WHEN 35 THEN 256"
+        + "   ELSE 0 END) != 0)"
+    ))
+    {
+        PrintString("[PWDB:DB] Applied level unlock prepare failed: "
+            + NWNX_SQL_GetLastError());
+        return FALSE;
+    }
+
+    NWNX_SQL_PreparedInt(0, iCharacterId);
+    NWNX_SQL_PreparedInt(1, iUnlockMask);
+    if (!NWNX_SQL_ExecutePreparedQuery())
+    {
+        PrintString("[PWDB:DB] Applied level unlock update failed for character_id="
+            + IntToString(iCharacterId) + ": " + NWNX_SQL_GetLastError());
+        return FALSE;
+    }
+
     return TRUE;
 }
 
@@ -559,15 +590,13 @@ int PWDB_DB_MarkCharacterDeleted(object oPC, int iCharacterId)
 
     if (!NWNX_SQL_PrepareQuery(
         "INSERT INTO " + PWDB_TABLE_PROFILE
-        + " (character_id, status, deleted_at, name_reuse_unlocked_at,"
-        + " name_reuse_unlocked_by, updated_by)"
-        + " SELECT c.character_id, 'deleted', CURRENT_TIMESTAMP, NULL, NULL, NULL"
+        + " (character_id, status, deleted_at, updated_by)"
+        + " SELECT c.character_id, 'deleted', CURRENT_TIMESTAMP, NULL"
         + " FROM " + PWDB_TABLE_CHARACTER + " c"
         + " JOIN " + PWDB_TABLE_ACCOUNT + " a ON a.account_id = c.account_id"
         + " WHERE c.character_id = ? AND c.character_uuid = ? AND a.cd_key = ?"
         + " ON DUPLICATE KEY UPDATE status = 'deleted',"
         + " deleted_at = COALESCE(deleted_at, CURRENT_TIMESTAMP),"
-        + " name_reuse_unlocked_at = NULL, name_reuse_unlocked_by = NULL,"
         + " updated_by = NULL, updated_at = CURRENT_TIMESTAMP"
     ))
     {
@@ -1187,49 +1216,6 @@ int PWDB_DB_ResolveCharacterId(
         }
     }
 
-    // A new UUID may not reclaim the same character name inside the same
-    // stable account while a deleted character keeps that name locked. The
-    // old UUID remains blocked regardless of an administrative name unlock.
-    if (!bKnown && sName != "")
-    {
-        if (!NWNX_SQL_PrepareQuery(
-            "SELECT c.character_id FROM " + PWDB_TABLE_CHARACTER + " c"
-            + " JOIN " + PWDB_TABLE_ACCOUNT + " a ON a.account_id = c.account_id"
-            + " JOIN " + PWDB_TABLE_PROFILE + " p"
-            + "   ON p.character_id = c.character_id"
-            + " WHERE a.cd_key = ? AND p.status = 'deleted'"
-            + " AND p.name_reuse_unlocked_at IS NULL"
-            + " AND LOWER(REGEXP_REPLACE(TRIM(c.char_name), '[[:space:]]+', ' '))"
-            + " = LOWER(REGEXP_REPLACE(TRIM(?), '[[:space:]]+', ' '))"
-            + " LIMIT 1"
-        ))
-        {
-            PrintString("[PWDB:DB] Deleted-name lookup prepare failed: "
-                + NWNX_SQL_GetLastError());
-            PWDB_DB_SetLastResult(PWDB_RESULT_DB_ERROR);
-            return 0;
-        }
-        NWNX_SQL_PreparedString(0, sCdKey);
-        NWNX_SQL_PreparedString(1, sName);
-        if (!NWNX_SQL_ExecutePreparedQuery())
-        {
-            PrintString("[PWDB:DB] Deleted-name lookup failed for PC=" + sName
-                + ": " + NWNX_SQL_GetLastError());
-            PWDB_DB_SetLastResult(PWDB_RESULT_DB_ERROR);
-            return 0;
-        }
-        if (NWNX_SQL_ReadyToReadNextRow())
-        {
-            NWNX_SQL_ReadNextRow();
-            int iDeletedCharacterId = StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
-            SetLocalInt(GetModule(), PWDB_VAR_LAST_CHARACTER_ID, iDeletedCharacterId);
-            PrintString("[PWDB:DB] Deleted character name reused for PC=" + sName
-                + " character_id=" + IntToString(iDeletedCharacterId));
-            PWDB_DB_SetLastResult(PWDB_RESULT_CHARACTER_DELETED);
-            return 0;
-        }
-    }
-
     // -------------------------------------------------------------------------
     // Step 2: upsert the account row.
     // -------------------------------------------------------------------------
@@ -1258,8 +1244,9 @@ int PWDB_DB_ResolveCharacterId(
     }
 
     // -------------------------------------------------------------------------
-    // Step 3: upsert the character row. account_id is set on insert only, so a
-    // later login never re-parents the character to a different account.
+    // Step 3: upsert the character row. Account ownership and the observed
+    // name are set on insert only. A normal login must not rename a persistent
+    // identity; only the controlled rebuild migration can do that.
     // -------------------------------------------------------------------------
     if (!NWNX_SQL_PrepareQuery(
         "INSERT INTO " + PWDB_TABLE_CHARACTER
@@ -1269,7 +1256,6 @@ int PWDB_DB_ResolveCharacterId(
         + " CURRENT_TIMESTAMP"
         + "   FROM " + PWDB_TABLE_ACCOUNT + " WHERE cd_key = ?"
         + " ON DUPLICATE KEY UPDATE"
-        + "   char_name     = VALUES(char_name),"
         + "   created_at    = LEAST(created_at, VALUES(created_at)),"
         + "   last_login_at = CURRENT_TIMESTAMP"
     ))

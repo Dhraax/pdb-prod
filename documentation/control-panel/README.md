@@ -119,8 +119,8 @@ session. Characters use `active`, `blocked`, and `deleted`. Character policy is
 applied after character selection because that identity is unavailable at
 client-connect time. A deleted character receives a five-second warning on its
 next login and its server-vault BIC is removed, while its database tree remains
-as an immutable tombstone. The same normalized name cannot be recreated inside
-that account until an administrator explicitly unlocks it. A separate
+as an immutable tombstone. Its UUID remains rejected, but its name may be used
+by a new UUID, which creates an independent character record. A separate
 administrator-only purge with typed confirmation permanently removes the
 character-owned data.
 Changing a panel user's own active flag does not alter a game account unless an
@@ -155,13 +155,19 @@ database constraints with the reduced status sets.
 | DM CD-key whitelist | Exact `admin` or `technical` role | Exact `admin` or `technical` role; every write requires CSRF and is audited |
 | Character list | `view_characters` | Section-specific permissions below |
 | Identity and status | `view_character_identity` | `edit_character_identity` |
-| Deleted-name unlock and permanent character purge | Exact `admin` role | Exact `admin` role; every write requires CSRF and explicit confirmation |
+| Permanent character purge | Exact `admin` role | Exact `admin` role; every write requires CSRF and explicit confirmation |
 | Creation and login dates | `view_character_timestamps` | Read-only |
 | Ability scores | `view_character_abilities` | Read-only |
 | Classes and levels | `view_character_classes` | Read-only |
 | Level unlocks | `view_character_level_unlocks` | `edit_character_level_unlocks` |
 | Technical profile | `view_character_profile` | `edit_character_profile` |
 | Character tradeskills | `view_character_tradeskills` | `edit_character_tradeskills` |
+
+Level-unlock controls distinguish authorization from game delivery. A selected
+unlock remains `Pending reconnection` while its `applied_at` value is empty and
+changes to `Applied` only after the module confirms the campaign variable on a
+successful character connection. Grants remain append-only and the panel does
+not claim that saving the form updates an already connected character.
 
 Edit permissions require their matching view permission. Character-section
 permissions also require `view_accounts` and `view_characters`. The UI applies
@@ -182,10 +188,10 @@ class data so the interface cannot imply that a database edit changes the game
 save. Administrative profile fields and tradeskill progression retain their
 existing edit rules while the character is active or blocked. A deleted
 character is read-only regardless of those section permissions. Its sheet
-shows the deletion date and whether its same-account name reservation remains
-locked. Name unlock and hard purge are intentionally separate actions: unlock
-does not reactivate the deleted UUID, while purge removes the complete
-character-owned tree.
+shows the deletion date and explains that the old UUID remains deleted while
+the name is reusable. The hard-purge action removes the complete
+character-owned tree; it is not required before creating a new character with
+the same name.
 
 Migration `0007_character_statistics` adds nullable base-score columns. Older
 characters show a pending state until their next login captures the values.

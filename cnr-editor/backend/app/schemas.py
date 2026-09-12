@@ -442,7 +442,6 @@ class CharacterDetail(BaseModel):
     charisma_score: int | None = Field(default=None, ge=0, le=255)
     admin_notes: str | None
     deleted_at: datetime | None = None
-    name_reuse_unlocked_at: datetime | None = None
     created_at: datetime | None
     last_login_at: datetime | None
     updated_at: datetime | None
@@ -452,6 +451,7 @@ class CharacterDetail(BaseModel):
     classes: list[CharacterClassOut]
     tradeskills: list[TradeskillOut]
     level_unlocks: list[int]
+    applied_level_unlocks: list[int]
 
 
 class AccountListItem(BaseModel):

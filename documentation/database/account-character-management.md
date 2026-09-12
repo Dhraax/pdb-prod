@@ -56,7 +56,7 @@ pwdb_account
                  character_id PK    only character join key
                  character_uuid UQ  immutable natural identity
                  account_id FK      explicit ownership/transfer point
-                 char_name          latest name observed by the game
+                 char_name          registered name; changed only by rebuild
                      |
                      +-- pwdb_character_profile
                      |      display override, status, race, subrace,
@@ -78,9 +78,11 @@ pwdb_class_definition               player classes from PDB classes.2da
 pwdb_identity_revision              immutable authorized edit snapshots
 ```
 
-Observed names remain controlled by the login resolver and are not editable in
-the web panel. Administrative display overrides are separate so the next login
-cannot silently overwrite a managed label. CD keys remain masked in API
+The character name is stored on first registration and is not changed by an
+ordinary login. Only a completed rebuild migration may replace it together
+with the UUID. This prevents disguises or other runtime presentation changes
+from rewriting persistent character identity. Administrative display overrides
+remain separate and editable in the panel. CD keys remain masked in API
 responses. Character UUIDs are visible in full to users with
 `view_character_identity` for exact diagnosis, but are never editable from the
 browser.
@@ -111,13 +113,10 @@ Account and character management statuses are also runtime access policy:
 - the tombstone retains the UUID, account ownership, profile, classes,
   tradeskills, level unlocks, rebuild counters, domain rows, and audit history.
   Every character section becomes read-only in the panel;
-- a new UUID using the same normalized character name is also denied when it is
-  presented by the same stable account. It receives the same five-second
-  warning and its new BIC is deleted. Name matching trims outer whitespace,
-  collapses repeated whitespace, and compares without case distinctions;
-- the same name remains valid on another account. An administrator may unlock
-  name reuse for the original account without reactivating the tombstone or
-  releasing its old UUID;
+- the tombstone blocks only its deleted UUID. A new UUID may register the same
+  character name in the same or another account and receives a new
+  `character_id` and independent domain rows. Name equality never revives or
+  links the deleted record;
 - if the NPC cannot persist the tombstone, the BIC is preserved. This prevents
   an SQL failure from destroying the only remaining character record;
 - an identity or database validation failure denies the session instead of
@@ -169,8 +168,10 @@ dedicated DM rebuild wand enforces this order:
 4. The DM copies the old variable container to the replacement character.
 5. `Migrate character` reads the old `character_id` from that container,
    verifies that it belongs to the presented CD key, refuses UUID conflicts,
-   and updates the old root row to the replacement BIC UUID. That guarded update
-   atomically decrements `rebuilds_available` and increments
+   and updates the old root row to the replacement BIC UUID and current name.
+   The name may differ from the original because the container-held identifier,
+   not name equality, authorizes this operation. That guarded update atomically
+   decrements `rebuilds_available` and increments
    `rebuilds_completed`. It then refreshes the engine-owned profile and class
    snapshot, synchronizes restored metadata and unlocks, and reloads the CNR
    cache. Retrying after a partial snapshot failure recognizes the already-bound
@@ -191,10 +192,9 @@ removes the BIC instead of renaming it to a `.deleted0` backup.
 
 ## Deleted-character lifecycle
 
-Migration `0021_character_tombstones` adds `deleted_at`,
-`name_reuse_unlocked_at`, and `name_reuse_unlocked_by` to the character
-profile. It must be applied before the updated module scripts are deployed;
-the runtime deliberately fails closed if the expected schema is absent.
+Migration `0021_character_tombstones` adds `deleted_at` to the character
+profile. It must be applied before the updated module scripts are deployed; the
+runtime deliberately fails closed if the expected schema is absent.
 
 Normal deletion and rebuild cleanup are separate resource paths. The character
 deletion NPC uses `borrarpjs.dlg` and `borrarpjs.nss`, which create the tombstone
@@ -204,17 +204,18 @@ identity deleted.
 
 Once persisted as `deleted`, a character cannot be edited, transferred,
 reactivated, or granted domain progress through the ordinary character update
-endpoint. Exact administrators receive two separate CSRF-protected actions:
+endpoint. Its UUID remains permanently rejected unless an exact administrator
+uses the separate hard-purge action. The tombstone does not reserve its name:
+a normal recreation receives a new identity and never inherits the old domain
+tree. The rebuild workflow cannot use a deleted row because its guarded lookup
+requires the old profile to remain `active`.
 
-- **Allow this name to be recreated** sets the unlock timestamp and actor. It
-  releases only the normalized `(account, character name)` reservation for a
-  future UUID. The deleted row and its old UUID remain tombstones.
-- **Permanently delete data** requires the exact typed confirmation `ELIMINAR`
-  and an unchanged concurrency timestamp. It deletes character-targeted audit
-  snapshots, then the character root so foreign-key cascades remove every
-  character-owned row. A minimal account-scoped audit records that a character
-  ID was purged. Account-level CD-key and IP history remains because it is
-  shared security evidence, not character-owned data.
+**Permanently delete data** requires the exact typed confirmation `ELIMINAR`
+and an unchanged concurrency timestamp. It deletes character-targeted audit
+snapshots, then the character root so foreign-key cascades remove every
+character-owned row. A minimal account-scoped audit records that a character
+ID was purged. Account-level CD-key and IP history remains because it is shared
+security evidence, not character-owned data.
 
 The exact wand blueprint, resource graph, module event binding, database
 migration, operator procedure, production deployment order, acceptance test,
@@ -242,32 +243,24 @@ capture path owns this snapshot.
 The initial class reference rows are the 41 `PlayerClass = 1` entries in PDB's
 `haks-2da/classes.2da`, including custom PDB classes. Class metadata stored here
 does not modify a server-vault BIC. After resolving the persistent character ID,
-the login integration captures the engine's current three class positions and
-levels only when `snapshot_captured_at` is null. A completed initial capture
-sets that marker and later logins do not rewrite the snapshot.
+every successful login refreshes the engine's current three class positions and
+levels, removing stale class slots that no longer exist.
 
-The same one-time operation captures race, subrace, gender, portrait resref,
+The same recurring operation captures race, subrace, gender, portrait resref,
 deity, and the six base ability scores in `pwdb_character_profile`. Strength,
 Dexterity, Constitution, Intelligence, Wisdom, and Charisma use
-`GetAbilityScore(oPC, ABILITY_*, TRUE)`: the `TRUE` base-score flag deliberately
-excludes equipment and temporary bonuses. This behavior follows the
-[NWN Lexicon GetAbilityScore contract](https://nwnlexicon.com/index.php/GetAbilityScore).
-The panel exposes these values as read-only observations because editing a
-database snapshot does not modify the server-vault BIC.
+`GetAbilityScore(oPC, ABILITY_*, TRUE)` so equipment and temporary bonuses are
+excluded. The panel exposes these values as read-only observations because
+editing a database snapshot does not modify the server-vault BIC.
 
 Existing characters created before the statistics migration acquire those
-values the next time they enter the module. Snapshot status requires both the
-existing marker and all six ability values, so a previously captured profile
-is recaptured once to populate the new columns. A failed capture can retry on a
-later login and does not invalidate an otherwise successful identity
-resolution. The database migration must run before the updated module is
-deployed; if ordering is reversed, identity still resolves but the snapshot
-query fails until the schema is upgraded.
-
-No automatic refresh policy exists after the initial capture. A future update
-workflow must define its own authority and timing. It may deliberately clear
-`snapshot_captured_at` to request another capture on the next login, but normal
-login does not clear that marker.
+values the next time they enter the module. `snapshot_captured_at` records the
+first successful capture for historical provenance; it is not a guard against
+later refreshes. A failed capture can retry on a later login and does not
+invalidate an otherwise successful identity resolution. The database migration
+must run before the updated module is deployed; if ordering is reversed,
+identity still resolves but the snapshot query fails until the schema is
+upgraded.
 
 All snapshot values are passed as bound parameters through the
 [NWNX:EE SQL prepared-statement API](https://nwnxee.github.io/unified/group__sql.html);
@@ -300,17 +293,28 @@ with `edit_character_level_unlocks`. Its accepted values mirror the live
 and 35. The panel also shows the current cap immediately below each permission,
 for example cap 8 permits level 9.
 
-On successful login, and only for a resolved non-DM character, the module reads
-the existing BioWare campaign values and imports legacy grants missing from
-MySQL without producing messages. It then reads the resulting rows once. Each
-database grant is compared with its existing BioWare
-campaign variable in campaign `DESBLOQUEO`. A missing value is restored with
-`SetCampaignInt` and announced in pale green through `SendMessageToPC`; an
-already-present value produces no message. No character row or no grants means
-no assignment and no player message. Native `GetCampaignInt` and
-`SetCampaignInt` scope a value to the supplied player object, as documented by
-the installed NWScript API and the supplementary
-[NWN Lexicon](https://nwnlexicon.com/index.php/SetCampaignInt).
+Migration `0022_level_unlock_application_status` separates authorization from
+delivery. `granted_at` records when the panel authorized the unlock;
+`applied_at` remains `NULL` until the module has confirmed the corresponding
+campaign value. The panel therefore presents an authorized row as pending until
+the character reconnects, and as applied only after that acknowledgement.
+
+On successful login, and only for a resolved non-DM character, the module first
+reads the existing BioWare campaign values. Legacy values missing from MySQL
+are imported with `applied_at` already set, and existing pending rows whose
+campaign value is present are acknowledged without producing a player message.
+It then reads the authorized rows once and compares each one with its variable
+in campaign `DESBLOQUEO`. A missing value is written with `SetCampaignInt` and
+immediately read back with `GetCampaignInt`. Only a successful read-back emits
+the pale-green player message and qualifies the row for `applied_at`; a failed
+write remains pending and is retried on the next successful connection. A
+database acknowledgement failure also leaves the panel state pending and is
+retried without revoking the campaign value.
+
+No character row or no grants means no assignment and no player message. This
+flow deliberately does not attempt a hot update from the web process: granting
+an unlock in the panel requires the affected character to reconnect before it
+can become applied.
 
 Grants are deliberately append-only in the panel. Removing a MySQL row cannot
 reliably revoke a permission already copied into the BioWare campaign store, so
@@ -416,7 +420,7 @@ account/character pair or an unenforced polymorphic reference.
 - A panel status change to `deleted` removes the BIC only when that character
   next connects. The in-game deletion NPC removes it immediately after MySQL
   stores the tombstone. Neither path keeps a BIC recovery backup.
-- Same-account name reuse is enforced after character selection because the
-  engine does not expose the new character UUID and name at pre-vault connect.
-  It cannot prevent listing a newly created BIC, but it deletes that BIC before
-  the session is allowed to continue.
+- A deleted UUID can be rejected only after character selection because the
+  engine does not expose character identity at pre-vault connect. Reusing the
+  same name with a different UUID is intentionally allowed and creates an
+  independent persistent character.

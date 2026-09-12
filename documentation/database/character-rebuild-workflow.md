@@ -159,10 +159,13 @@ Migration validates that the old `character_id`:
 - has an active character profile;
 - does not conflict with another row already using the replacement UUID.
 
-It then updates the old row's UUID, observed name, and last-login timestamp,
+It then updates the old row's UUID, registered name, and last-login timestamp,
 clears its profile snapshot marker, and captures engine-owned profile and class
-data from the replacement BIC. The old `character_id` and its domain data do
-not change.
+data from the replacement BIC. The replacement name may differ from the old
+name: authorization comes exclusively from the old `character_id` carried by
+the restored container, not from name equality. The old `character_id` and its
+domain data do not change. A row deleted through the ordinary deletion NPC is
+not eligible because rebuild migration requires the old profile to be active.
 
 Same-CD-key validation cannot distinguish two different old characters owned
 by the same game account. The saved old container is therefore an operational

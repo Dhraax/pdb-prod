@@ -249,7 +249,6 @@ export interface CharacterDetail {
   charisma_score: number | null
   admin_notes: string | null
   deleted_at: string | null
-  name_reuse_unlocked_at: string | null
   created_at: string | null
   last_login_at: string | null
   updated_at: string | null
@@ -259,6 +258,7 @@ export interface CharacterDetail {
   classes: CharacterClassRow[]
   tradeskills: TradeskillRow[]
   level_unlocks: number[]
+  applied_level_unlocks: number[]
 }
 
 export interface AccountListItem {

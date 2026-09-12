@@ -134,7 +134,6 @@ function CharacterCard({
   saving,
   administrativeActionPending,
   onSave,
-  onUnlockName,
   onPurge,
 }: {
   character: CharacterDetail
@@ -144,7 +143,6 @@ function CharacterCard({
   saving: boolean
   administrativeActionPending: boolean
   onSave: (character: CharacterDetail) => void
-  onUnlockName: (character: CharacterDetail) => void
   onPurge: (character: CharacterDetail) => void
 }) {
   const [draft, setDraft] = useState<CharacterDetail>(structuredClone(character))
@@ -288,6 +286,7 @@ function CharacterCard({
             <Box className="level-unlock-grid">
               {levelUnlockOptions.map(({ unlockLevel, currentCap }) => {
                 const persisted = character.level_unlocks.includes(unlockLevel)
+                const applied = character.applied_level_unlocks?.includes(unlockLevel) ?? false
                 const selected = draft.level_unlocks.includes(unlockLevel)
                 return (
                   <FormControlLabel
@@ -310,7 +309,11 @@ function CharacterCard({
                       <Box className="level-unlock-label">
                         <Typography variant="body2">Nivel {unlockLevel}</Typography>
                         <Typography variant="caption" color="text.secondary">
-                          Corte de nivel {currentCap}{persisted ? ' · Concedido' : ''}
+                          Corte de nivel {currentCap}{applied
+                            ? ' · Aplicado'
+                            : persisted
+                              ? ' · Pendiente de reconexión'
+                              : ''}
                         </Typography>
                       </Box>
                     )}
@@ -319,7 +322,8 @@ function CharacterCard({
               })}
             </Box>
             <Typography variant="caption" color="text.secondary" className="level-unlock-note">
-              Las concesiones guardadas no pueden retirarse desde el panel.
+              Las concesiones guardadas no pueden retirarse desde el panel. Un
+              corte pendiente se confirma cuando el personaje vuelve a conectar.
             </Typography>
           </Box>}
         </Box>}
@@ -366,9 +370,7 @@ function CharacterCard({
                     Eliminado: {formatDateTime(draft.deleted_at)}
                   </Typography>
                   <Typography variant="body2">
-                    Nombre en esta cuenta: {draft.name_reuse_unlocked_at
-                      ? `desbloqueado el ${formatDateTime(draft.name_reuse_unlocked_at)}`
-                      : 'bloqueado para recreación'}
+                    El nombre puede reutilizarse, pero este UUID permanece eliminado.
                   </Typography>
                 </Box>
               )}
@@ -495,16 +497,6 @@ function CharacterCard({
         )}
         {isAdmin && isDeleted && (
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} justifyContent="flex-end">
-            {!draft.name_reuse_unlocked_at && (
-              <Button
-                color="warning"
-                variant="outlined"
-                disabled={administrativeActionPending}
-                onClick={() => onUnlockName(character)}
-              >
-                Permitir recrear este nombre
-              </Button>
-            )}
             <Button
               color="error"
               variant="contained"
@@ -534,7 +526,6 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
   const [confirmingCdKeyReset, setConfirmingCdKeyReset] = useState(false)
   const [cdKeyAction, setCdKeyAction] = useState<{ cdKey: string, banned: boolean } | null>(null)
   const [primaryCdKeyAction, setPrimaryCdKeyAction] = useState<string | null>(null)
-  const [nameUnlockAction, setNameUnlockAction] = useState<CharacterDetail | null>(null)
   const [purgeAction, setPurgeAction] = useState<CharacterDetail | null>(null)
   const [purgeConfirmation, setPurgeConfirmation] = useState('')
   const [banReason, setBanReason] = useState('')
@@ -652,21 +643,6 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['identity-account', accountId] })
       client.invalidateQueries({ queryKey: ['identity-accounts'] })
-    },
-  })
-  const unlockCharacterName = useMutation({
-    mutationFn: (value: CharacterDetail) => api<CharacterDetail>(
-      `/admin/identity/characters/${value.character_id}/name-reuse-unlock`,
-      { method: 'POST' },
-    ),
-    onSuccess: (updated) => {
-      if (draft) acceptAccountUpdate({
-        ...draft,
-        characters: draft.characters.map((item) => (
-          item.character_id === updated.character_id ? updated : item
-        )),
-      })
-      setNameUnlockAction(null)
     },
   })
   const purgeCharacter = useMutation({
@@ -1063,11 +1039,8 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
                   permissions={permissions}
                   isAdmin={isAdmin}
                   saving={saveCharacter.isPending}
-                  administrativeActionPending={
-                    unlockCharacterName.isPending || purgeCharacter.isPending
-                  }
+                  administrativeActionPending={purgeCharacter.isPending}
                   onSave={(value) => saveCharacter.mutate(value)}
-                  onUnlockName={setNameUnlockAction}
                   onPurge={setPurgeAction}
                 />
               ))}
@@ -1076,35 +1049,6 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
         )}
       </DialogContent>
       <DialogActions><Button onClick={onClose}>Cerrar</Button></DialogActions>
-    </Dialog>
-    <Dialog
-      open={nameUnlockAction !== null}
-      onClose={() => setNameUnlockAction(null)}
-      maxWidth="sm"
-      fullWidth
-    >
-      <DialogTitle>Permitir recrear el nombre</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          La cuenta #{nameUnlockAction?.account_id} podrá crear un personaje nuevo llamado
-          {' '}{nameUnlockAction?.observed_name ?? nameUnlockAction?.display_name}. La lápida y el
-          UUID borrado permanecerán bloqueados y no se restaurarán.
-        </DialogContentText>
-        {unlockCharacterName.error && (
-          <Alert severity="error" sx={{ mt: 2 }}>{unlockCharacterName.error.message}</Alert>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setNameUnlockAction(null)}>Cancelar</Button>
-        <Button
-          color="warning"
-          variant="contained"
-          disabled={!nameUnlockAction || unlockCharacterName.isPending}
-          onClick={() => nameUnlockAction && unlockCharacterName.mutate(nameUnlockAction)}
-        >
-          Confirmar desbloqueo
-        </Button>
-      </DialogActions>
     </Dialog>
     <Dialog
       open={purgeAction !== null}
@@ -1118,9 +1062,8 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
       <DialogTitle>Eliminar datos definitivamente</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Esta acción elimina la lápida y todos los datos propios del personaje. Después podrá
-          recrearse el mismo nombre sin autorización. El historial compartido de IP y CD keys de
-          la cuenta no se elimina. Escribe ELIMINAR para confirmar.
+          Esta acción elimina la lápida y todos los datos propios del personaje. El historial
+          compartido de IP y CD keys de la cuenta no se elimina. Escribe ELIMINAR para confirmar.
         </DialogContentText>
         <TextField
           autoFocus
