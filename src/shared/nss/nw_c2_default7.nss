@@ -135,14 +135,11 @@ void main()
     // CADAVERES USABLES AL MORIR
     corpse_InitializeCorpse(OBJECT_SELF);
 
-    //Pellejos de Rata
-    if(GetTag(OBJECT_SELF) == "NW_RAT001" || GetTag(OBJECT_SELF) == "NW_RAT002" && !GetIsObjectValid(GetItemPossessedBy(OBJECT_SELF, "pellejoderata")))
-    CreateItemOnObject("pellejoderata", OBJECT_SELF);
 
-    //Pellejos de Oso
-    if(GetTag(OBJECT_SELF) == "NW_BEARBLKC" || GetTag(OBJECT_SELF) == "NW_BEARBRWN" && !GetIsObjectValid(GetItemPossessedBy(OBJECT_SELF, "pieldeoso")))
-    CreateItemOnObject("pieldeoso", OBJECT_SELF);
 
+    // La piel de lobo invernal se queda: la cuenta la quest de Salvya
+    // (qui_questsalvya3 y 4). Las de rata y oso se retiran: ahora las da
+    // el desollado del CNR, y solo el.
     // Pieles de Lobo Invernal
     if(GetTag(OBJECT_SELF) == "NW_WOLFWINT" && !GetIsObjectValid(GetItemPossessedBy(OBJECT_SELF, "pieldeloboinvern")))
     CreateItemOnObject("pieldeloboinvern", OBJECT_SELF);
