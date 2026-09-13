@@ -185,8 +185,21 @@ corresponden uno a uno, y en orden, con los diez cueros de peleteria.
 
 ## Las 26 criaturas que sueltan piel como botin
 
-Llevan el objeto en su inventario, asi que la piel cae al morir sin desollar y
-sin herramienta. Ninguna de ellas usa la variable `PIEL`.
+Llevaban el objeto en su inventario, asi que la piel caia al morir sin desollar
+y sin herramienta.
+
+**Quince de las veintiseis ya eran desollables**: `bison`, `bongo`, `draco`,
+`draco001`, `girallon`, `gorila`, `gorila2`, `huargo_nask`, `loboinvernal`,
+`mono`, `uri_osolegendari`, `wolf001`, `wolfwint001`, `zep_bat_004` y
+`zep_bat_005` ya llevaban `PIEL`, asi que cobraban dos veces. Los conjuntos se
+solapan, y la union son **134 criaturas distintas**, no 149.
+
+**Las once restantes no tenian `PIEL`** y se habrian quedado sin piel y sin
+cadaver: `avestruz`, `gaviota2`, `hellhound001`, `mano001`, `mano002`, `pb_lobo`,
+`pb_loboinv`, `pb_oso`, `pb_osolegendario`, `pb_welclalobo01` y `wyvern004`. Se
+les asigna el `PIEL` que implica la piel que soltaban: 3 para las de lobo,
+lobo invernal y can, y 6 para las de oso y wyrm. Tres de ellas corrian
+`x2_def_ondeath` y pasan a su envoltorio.
 
 | Criatura | Blueprint | CR | Piel en el inventario |
 |----------|-----------|----|----------------------|
