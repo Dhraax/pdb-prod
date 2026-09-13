@@ -17,6 +17,7 @@
 #include "corpse_functions"
 #include "mti_libreria"
 #include "sys_quest_death"
+#include "cnr_i_skin"
 
 void CreateCreatureQuest(string sCreature, location lDest)
 {
@@ -33,6 +34,10 @@ void main()
 
     // SISTEMA DE SEGURIDAD, POR SI LA CRIATURA SE MATA A SI MISMA
     if(oKiller == OBJECT_SELF) return;
+
+    // CNR: la criatura que lleva PIEL deja un cadaver aprovechable. El
+    // cadaver copia de ella su material y su tier; las demas no dejan nada.
+    CnrSkin_SpawnCorpse(OBJECT_SELF);
 
     // EXPERIENCIA
     ExecuteScript("pwfxp",OBJECT_SELF);
