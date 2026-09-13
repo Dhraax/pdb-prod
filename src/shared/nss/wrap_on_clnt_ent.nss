@@ -17,6 +17,7 @@
 #include "x0_i0_spells"
 #include "pb_constantes"
 #include "pwdb_i_user"
+#include "cnr_i_skill"
 #include "lib_disguise"
 #include "lib_dm_vfx"
 #include "inc_spells"
@@ -91,6 +92,13 @@ void main()
     // Synchronize the legacy container after the new-character initializer has
     // had an opportunity to create it.
     PWDB_SyncRegisteredCharacter(oPC, iCharacterId);
+
+    // CNR: load the database-backed tradeskill cache only after PWDB has
+    // resolved the character and synchronized its variable container.
+    if (iCharacterId > 0)
+    {
+        CnrSkill_Load(oPC);
+    }
 
      //SISTEMA DE DISFRACES.
     Disfrazarse_ModEnter(oPC);

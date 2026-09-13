@@ -1,5 +1,7 @@
 #include "x2_inc_itemprop"
 #include "mti_libreria"
+#include "cnr_config_inc"
+#include "cnr_i_skill"
 
 void main()
 {
@@ -27,7 +29,8 @@ void main()
   else if(iValorOroArma < 120000) iNivelHerreria = 80;
   else iNivelHerreria = 100;
 
-  if(ObtenerIntPersistente(oPC, "NIVELHERRERIA") < iNivelHerreria)
+  // Legacy repair thresholds use a 20-100 scale; CNR smithing uses 1-20.
+  if(CnrSkill_GetLevel(oPC, CNR_TRADESKILL_SMITHING) * 5 < iNivelHerreria)
   {
       AssignCommand(OBJECT_SELF, ActionSpeakString("¡Tienes muy poca experiencia en herrería! Así dificilmente podrás arreglar esa arma."));
       return;

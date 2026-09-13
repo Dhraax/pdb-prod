@@ -52,7 +52,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 42
+                "value": 40
               },
               "IsChild": {
                 "type": "byte",
@@ -67,7 +67,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 34
+                "value": 32
               },
               "IsChild": {
                 "type": "byte",
@@ -82,7 +82,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 33
+                "value": 31
               },
               "IsChild": {
                 "type": "byte",
@@ -97,7 +97,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 31
+                "value": 28
               },
               "IsChild": {
                 "type": "byte",
@@ -112,21 +112,6 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 28
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 5,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
                 "value": 1
               },
               "IsChild": {
@@ -135,7 +120,7 @@
               }
             },
             {
-              "__struct_id": 6,
+              "__struct_id": 5,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -1806,23 +1791,7 @@
         },
         "RepliesList": {
           "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 32
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
+          "value": []
         },
         "Script": {
           "type": "resref",
@@ -1839,7 +1808,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "¡Claro! Mira los que tengo."
+            "8": "En ese caso, habla con mi ayudante, él se encarga de la tienda."
           }
         }
       },
@@ -1867,7 +1836,53 @@
         },
         "RepliesList": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": "deseo_aventura4"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 37
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 34
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 33
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "Script": {
           "type": "resref",
@@ -1884,7 +1899,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "En ese caso, habla con mi ayudante, él se encarga de la tienda."
+            "8": "¿Aún con eso? ¡Jaja! ¡No te das por vencido eh! ¿Deduzco que ya tienes los ingredientes?"
           }
         }
       },
@@ -1917,21 +1932,6 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": "deseo_aventura4"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 39
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 1,
-              "Active": {
-                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -1944,7 +1944,7 @@
               }
             },
             {
-              "__struct_id": 2,
+              "__struct_id": 1,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -1975,7 +1975,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "¿Aún con eso? ¡Jaja! ¡No te das por vencido eh! ¿Deduzco que ya tienes los ingredientes?"
+            "8": "Recuerda... además una generosa cantidad monetaria necesitarás: un tahalí de fuerza de gigante de la escarcha, unos guantes de fuerza de ogro y un martillo mágico llamado \"Martillo Tronante\". ¿Entendido?"
           }
         }
       },
@@ -2012,7 +2012,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 39
               },
               "IsChild": {
                 "type": "byte",
@@ -2027,7 +2027,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 37
+                "value": 38
               },
               "IsChild": {
                 "type": "byte",
@@ -2051,7 +2051,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Recuerda... además una generosa cantidad monetaria necesitarás: un tahalí de fuerza de gigante de la escarcha, unos guantes de fuerza de ogro y un martillo mágico llamado \"Martillo Tronante\". ¿Entendido?"
+            "8": "¡Oh! ¡Excelente! A parte de esos ingredientes necesitarás 500.000 po por los gastos de fabricación. ¿Qué? ¿qué me dices? ¿trato hecho?"
           }
         }
       },
@@ -2094,82 +2094,6 @@
                 "type": "byte",
                 "value": 0
               }
-            },
-            {
-              "__struct_id": 1,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 40
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "¡Oh! ¡Excelente! A parte de esos ingredientes necesitarás 500.000 po por los gastos de fabricación. ¿Qué? ¿qué me dices? ¿trato hecho?"
-          }
-        }
-      },
-      {
-        "__struct_id": 22,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "RepliesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 43
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
             }
           ]
         },
@@ -2193,7 +2117,7 @@
         }
       },
       {
-        "__struct_id": 23,
+        "__struct_id": 22,
         "Animation": {
           "type": "dword",
           "value": 71
@@ -2225,7 +2149,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 44
+                "value": 42
               },
               "IsChild": {
                 "type": "byte",
@@ -2254,7 +2178,7 @@
         }
       },
       {
-        "__struct_id": 24,
+        "__struct_id": 23,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -3991,53 +3915,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "¿Tienes moldes de herrería? Me interesaría comprar alguno."
+            "8": "Venía a hacer unas compras."
           }
         }
       },
       {
         "__struct_id": 32,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "sute_met_c_a_tie"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "<StartAction>[Ver moldes]</Start>"
-          }
-        }
-      },
-      {
-        "__struct_id": 33,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -4089,7 +3972,48 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Venía a hacer unas compras."
+            "8": "Sobre el Crom Faeyr..."
+          }
+        }
+      },
+      {
+        "__struct_id": 33,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "No. Me marcho pero volveré."
           }
         }
       },
@@ -4146,7 +4070,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Sobre el Crom Faeyr..."
+            "8": "Solo venía para informarme, ¿qué materiales necesito?"
           }
         }
       },
@@ -4187,110 +4111,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "No. Me marcho pero volveré."
-          }
-        }
-      },
-      {
-        "__struct_id": 36,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 20
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "Solo venía para informarme, ¿qué materiales necesito?"
-          }
-        }
-      },
-      {
-        "__struct_id": 37,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
             "8": "Me marcho, adios."
           }
         }
       },
       {
-        "__struct_id": 38,
+        "__struct_id": 36,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -4351,10 +4177,149 @@
         }
       },
       {
+        "__struct_id": 37,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 20
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Tengo todos los ingredientes."
+          }
+        }
+      },
+      {
+        "__struct_id": 38,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "En otro momento, adios."
+          }
+        }
+      },
+      {
         "__struct_id": 39,
         "Animation": {
           "type": "dword",
           "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "deseo_aventura5"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "<StartAction>[Forjar el Crom Faeyr]</Start>"
+          }
+        }
+      },
+      {
+        "__struct_id": 40,
+        "Animation": {
+          "type": "dword",
+          "value": 71
         },
         "AnimLoop": {
           "type": "byte",
@@ -4403,48 +4368,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Tengo todos los ingredientes."
-          }
-        }
-      },
-      {
-        "__struct_id": 40,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "En otro momento, adios."
+            "8": "He encontrado este pergamino y me preguntaba si tú podrías forjar lo que en él describe."
           }
         }
       },
@@ -4453,47 +4377,6 @@
         "Animation": {
           "type": "dword",
           "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "deseo_aventura5"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "<StartAction>[Forjar el Crom Faeyr]</Start>"
-          }
-        }
-      },
-      {
-        "__struct_id": 42,
-        "Animation": {
-          "type": "dword",
-          "value": 71
         },
         "AnimLoop": {
           "type": "byte",
@@ -4542,69 +4425,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "He encontrado este pergamino y me preguntaba si tú podrías forjar lo que en él describe."
-          }
-        }
-      },
-      {
-        "__struct_id": 43,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 23
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
             "8": ""
           }
         }
       },
       {
-        "__struct_id": 44,
+        "__struct_id": 42,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -4657,7 +4483,7 @@
         },
         "Index": {
           "type": "dword",
-          "value": 24
+          "value": 23
         }
       },
       {

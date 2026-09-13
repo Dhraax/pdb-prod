@@ -52,36 +52,6 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 4
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 1,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 3
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 2,
-              "Active": {
-                "type": "resref",
-                "value": "carp_libro"
-              },
-              "Index": {
-                "type": "dword",
                 "value": 0
               },
               "IsChild": {
@@ -140,21 +110,6 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": "sute_met_c_t_oro"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 2
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 1,
-              "Active": {
-                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -183,7 +138,8 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Pues tiene un librro aquí, Semli no sabe leer pero dise enseñá cosa básico. Te te lo cambio por un barril de grasa foca o 200 monelas. ¿Parese?"
+            "0": "Porr que dises maese a Kimli?",
+            "8": "¿Porr que dises maese a Kimli <lad/lass>?"
           }
         }
       },
@@ -211,11 +167,27 @@
         },
         "RepliesList": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 2
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "Script": {
           "type": "resref",
-          "value": "carp_tienda"
+          "value": ""
         },
         "Sound": {
           "type": "resref",
@@ -228,7 +200,8 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "¡Clarro, clarro, mirre!"
+            "0": "Sierrto! ¿cosa dicho antes Kimli?",
+            "8": "¡Sierrto! ¿Cosa dicho antes Kimli?"
           }
         }
       },
@@ -265,7 +238,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 5
+                "value": 3
               },
               "IsChild": {
                 "type": "byte",
@@ -289,8 +262,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Porr que dises maese a Kimli?",
-            "8": "¿Porr que dises maese a Kimli <lad/lass>?"
+            "0": "Sierrto sierrto..."
           }
         }
       },
@@ -327,130 +299,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 6
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": "gof_Semli"
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Sierrto! ¿cosa dicho antes Kimli?",
-            "8": "¡Sierrto! ¿Cosa dicho antes Kimli?"
-          }
-        }
-      },
-      {
-        "__struct_id": 5,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "RepliesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 7
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": "gof_kimli"
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Sierrto sierrto..."
-          }
-        }
-      },
-      {
-        "__struct_id": 6,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "RepliesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 8
+                "value": 4
               },
               "IsChild": {
                 "type": "byte",
@@ -545,94 +394,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "¿Podría enseñarme a trabajar la madera?"
+            "0": "Salve maese."
           }
         }
       },
       {
         "__struct_id": 1,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "Mmm, a lo mejor más adelante."
-          }
-        }
-      },
-      {
-        "__struct_id": 2,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "carp_libro2"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "Claro, aquí las tienes."
-          }
-        }
-      },
-      {
-        "__struct_id": 3,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -684,12 +451,13 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "8": "Necesito algunas herramientas..."
+            "0": "bueno... se suele decir a los señores enanos por aquí.",
+            "8": "Bueno... se suele decir a los señores enanos por aquí."
           }
         }
       },
       {
-        "__struct_id": 4,
+        "__struct_id": 2,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -741,12 +509,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Salve maese."
+            "0": "..."
           }
         }
       },
       {
-        "__struct_id": 5,
+        "__struct_id": 3,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -798,128 +566,13 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "bueno... se suele decir a los señores enanos por aquí.",
-            "8": "Bueno... se suele decir a los señores enanos por aquí."
-          }
-        }
-      },
-      {
-        "__struct_id": 6,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 5
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "..."
-          }
-        }
-      },
-      {
-        "__struct_id": 7,
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 6
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            }
-          ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
             "0": "Qué hacen aquí?",
             "8": "¿Cómo que no están en el interior?"
           }
         }
       },
       {
-        "__struct_id": 8,
+        "__struct_id": 4,
         "Animation": {
           "type": "dword",
           "value": 0

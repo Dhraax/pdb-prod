@@ -1,6 +1,7 @@
 //::///////////////////////////////////////////////
 //:: inc_timelock
 //:: Timelock Library
+//:: modified by: Dhraax
 //:://////////////////////////////////////////////
 /*
     Contains functions for creating and managing
@@ -31,9 +32,9 @@ const string MESSAGE_PERMANENT_TIMELOCK_ACTIVATED = "<c´$$>%s</c> ha sido bloque
 // Message sent when a timelock is enabled.
 const string MESSAGE_TIMELOCK_ACTIVATED = "<c´$$>%s</c> tiene una demora de %t. No podras utilizar nuevamente <c´$$>%s</c> durante ese periodo de tiempo.";
 // Message sent when a timelock has expired.
-const string MESSAGE_TIMELOCK_AVAILABLE = "<c´$$>%s</c> esta disponible nuevamente.";
+const string MESSAGE_TIMELOCK_AVAILABLE = "<cPÿP>%s</c> esta disponible nuevamente.";
 // Message that floats above a PCs head when a timelock has expired.
-const string MESSAGE_TIMELOCK_AVAILABLE_FLOATING = "*<c´$$>%s</c> Disponible*";
+const string MESSAGE_TIMELOCK_AVAILABLE_FLOATING = "*<cPÿP>%s</c> Disponible*";
 // Message sent when a PC attempts to use an ability on a permanent timelock.
 const string MESSAGE_PERMANENT_TIMELOCK_UNAVAILABLE = "<c´$$>%s</c> esta en cooldown. Este efecto ha sido cancelado.";
 // Messange sent when a PC attempts to use an ability on a timelock.
@@ -85,7 +86,7 @@ void SetIsTimelockMuted(object oCreature, string sAbility, int bIsMuted);
 // * If set, the given feat will be set to zero charges, and then replenished to full
 //   when it expires.
 // * Use %s in the feedback string to include the ability name, and %t in the feedback string to include the time.
-void SetTimelock(object oCreature, int nTime, string sAbility, int nUpdateInterval = 60, int nPenultimateUpdateTime = 6, int nFeat = -1, string sFeedback = MESSAGE_TIMELOCK_ACTIVATED);
+void SetTimelock(object oCreature, int nTime, string sAbility, int nUpdateInterval = 60, int nPenultimateUpdateTime = 6, int nFeat = -1, string sFeedback = MESSAGE_TIMELOCK_ACTIVATED, int bMuted = FALSE);
 // Sends an error message to the creature for attempting to use a timelocked ability.
 void TimelockErrorMessage(object oCreature, string sAbility);
 // Updates timelocks on the creature. Should be called whenever a PC logs in to reactivate
@@ -96,8 +97,12 @@ void UpdateTimelocks(object oCreature);
  * PRIVATE FUNCTION PROTOTYPES
  **********************************************************************/
 
-/* Retuns the current time on SQLite TimeStamp formart */
-int nCurrentTime = SQLite_GetTimeStamp();
+/* Returns the current time in SQLite timestamp format.
+   This was a global initialised once, when the including script started, so
+   every timelock question was answered against a frozen clock instead of the
+   present one. Inside a single script that is invisible; across a DelayCommand,
+   which is how the status messages run, it is not. */
+int _TimelockNow();
 /* Returns the feat to be replenished when the timelock expires. */
 int _GetTimelockFeat(object oCreature, string sAbility);
 /* Returns the time of the penultimate timelock update. */
@@ -132,6 +137,11 @@ string _TimelockSecondsToPresentableTime(int nSeconds);
 void _UpdateTimelock(object oCreature, string sAbility);
 // Sets the remaining uses per day for the given feat.
 void SetRemainingFeatUses(object oCreature, int nFeat, int nUses);
+int _TimelockNow()
+{
+    return SQLite_GetTimeStamp();
+}
+
 /**********************************************************************
  * PUBLIC FUNCTION DEFINITIONS
  **********************************************************************/
@@ -190,7 +200,7 @@ void SetRemainingFeatUses(object oCreature, int nFeat, int nUses)
 
 int GetIsTimelocked(object oCreature, string sAbility)
 {
-    return nCurrentTime < _GetTimelockTimestamp(oCreature, sAbility);
+    return _TimelockNow() < _GetTimelockTimestamp(oCreature, sAbility);
 }
 
 //::///////////////////////////////////////////////
@@ -221,7 +231,7 @@ int GetIsTimelockMuted(object oCreature, string sAbility)
 int GetTimelockRemaining(object oCreature, string sAbility)
 {
     int nTimestamp = _GetTimelockTimestamp(oCreature, sAbility);
-    int nSeconds = nTimestamp - nCurrentTime;
+    int nSeconds = nTimestamp - _TimelockNow();
 
     if(nTimestamp == TIMELOCK_TIMESTAMP_PERMANENT) return nTimestamp;
     return (nSeconds > 0) ? nSeconds : 0;
@@ -295,18 +305,25 @@ void SetIsTimelockMuted(object oCreature, string sAbility, int bIsMuted)
 */
 //:://////////////////////////////////////////////
 
-void SetTimelock(object oCreature, int nTime, string sAbility, int nUpdateInterval = 60, int nPenultimateUpdateTime = 6, int nFeat = -1, string sFeedback = MESSAGE_TIMELOCK_ACTIVATED)
+void SetTimelock(object oCreature, int nTime, string sAbility, int nUpdateInterval = 60, int nPenultimateUpdateTime = 6, int nFeat = -1, string sFeedback = MESSAGE_TIMELOCK_ACTIVATED, int bMuted = FALSE)
 {
-    // Do not add to a permanent timestamp, as this will result in overflow.
-    if(nTime == TIMELOCK_TIMESTAMP_PERMANENT)
-        nCurrentTime = 0;
+    // Do not add to a permanent timestamp, as this will result in overflow: a
+    // permanent lock is stored as the constant itself, so it counts from zero.
+    // This used to zero the shared clock instead of a local base, which left
+    // every later question in the same script comparing against zero and
+    // answering that everything was locked.
+    int nBase = (nTime == TIMELOCK_TIMESTAMP_PERMANENT) ? 0 : _TimelockNow();
     if(nUpdateInterval <= 0)
         nUpdateInterval = nTime;
     else if(nUpdateInterval < MINIMUM_UPDATE_INTERVAL)
         nUpdateInterval = MINIMUM_UPDATE_INTERVAL;
 
-    _SetTimelockTimestamp(oCreature, sAbility, nCurrentTime + (nTime));
-    SetIsTimelockMuted(oCreature, sAbility, TRUE);
+    _SetTimelockTimestamp(oCreature, sAbility, nBase + nTime);
+    // Not muted any more. This line silenced every timelock the moment it was
+    // created, so the "available again" notice in RemoveTimelock could never
+    // fire and no caller could switch it on: the mute was applied after them.
+    // Callers that want silence still have SetIsTimelockMuted.
+    SetIsTimelockMuted(oCreature, sAbility, bMuted);
     _SetTimelockPenultimateUpdateTime(oCreature, sAbility, nPenultimateUpdateTime);
     _SetTimelockUpdateInterval(oCreature, sAbility, nUpdateInterval);
 
@@ -359,7 +376,7 @@ void TimelockErrorMessage(object oCreature, string sAbility)
 
 void UpdateTimelocks(object oCreature)
 {
-    int nTime = nCurrentTime;
+    int nTime = _TimelockNow();
     string sAbility;
     int iVar = 0;
     int iVars = NWNX_Object_GetLocalVariableCount(oCreature);
@@ -513,7 +530,7 @@ void _RunEventTimelockExpired(object oCreature, string sAbility)
 
 void _ScheduleTimelockUpdate(object oCreature, string sAbility)
 {
-    if((nCurrentTime < _GetTimelockUpdateScheduledTimestamp(oCreature, sAbility)) || !GetIsObjectValid(oCreature))
+    if((_TimelockNow() < _GetTimelockUpdateScheduledTimestamp(oCreature, sAbility)) || !GetIsObjectValid(oCreature))
         return;
 
     int nUpdateInterval = _GetTimelockUpdateInterval(oCreature, sAbility);
@@ -546,7 +563,7 @@ void _ScheduleTimelockUpdate(object oCreature, string sAbility)
         nUpdateTime = nUpdateInterval;
     }
 
-    _SetTimelockUpdateScheduledTimestamp(oCreature, sAbility, nCurrentTime + nUpdateTime);
+    _SetTimelockUpdateScheduledTimestamp(oCreature, sAbility, _TimelockNow() + nUpdateTime);
     DelayCommand(IntToFloat(nUpdateTime), _UpdateTimelock(oCreature, sAbility));
 }
 
@@ -731,10 +748,23 @@ void _UpdateTimelock(object oCreature, string sAbility)
     if(nTimelockRemaining == TIMELOCK_TIMESTAMP_PERMANENT)
         return;
 
-    // The timelock has expired (or close enough to it). Flag the ability as available and exit.
-    if(nTimelockRemaining <= 1)
+    // The timelock has expired. Flag the ability as available and exit.
+    if(nTimelockRemaining <= 0)
     {
         RemoveTimelock(oCreature, sAbility);
+        return;
+    }
+
+    // Woken a moment early, with a second still genuinely left on the clock.
+    // This used to say "close enough" and announce the ability free one second
+    // before it was. Sleep the remainder instead: announcing early is a small
+    // lie, and falling through to the update branch would print a "one second
+    // remaining" nobody needs. It cannot spin - the timestamp is fixed and the
+    // clock only moves forward, so the next pass reads zero.
+    if(nTimelockRemaining <= 1)
+    {
+        DelayCommand(IntToFloat(nTimelockRemaining),
+                     _UpdateTimelock(oCreature, sAbility));
         return;
     }
     // Update current timelock status for the PC and schedule a new update.

@@ -36,7 +36,9 @@ the rebuild workflow, MySQL, panel integration and persistent logging.
 
 The following remain outside this module slice:
 
-- CNR module scripts and area/station integration;
+- CNR area and station placement, and retirement of the legacy harvesting,
+  potion and skinning system (MIG-015 ports the CNR engine and resources
+  without activating either);
 - the arcane-fire rework;
 - caster-level and spell/effect reworks;
 - production maps, HAKs, TLKs and palette changes not required by PWDB;
@@ -56,7 +58,8 @@ presence in MySQL does not activate CNR gameplay in the module.
 | Nasher/build identity | Configured for `PB_EE_PROD.mod` and PROD source layout | Statically inspected |
 | Local development Compose | MySQL-enabled and retains the image's normal entrypoint | Statically verified |
 | Production rehearsal/host Compose | MySQL-enabled, persistent, log-preserving and panel-network compatible | Statically verified |
-| Database baseline | Manual SQL and Alembic `0001` through `0019` are present | Present; not applied |
+| CNR structural port | Engine, blueprints, palette entries and legacy bridges are present in `pdb-prod`; no station placed | Statically verified |
+| Database baseline | Manual SQL and Alembic `0001` through `0022` are present | Present; not applied |
 | Administration panel | Backend, frontend, migrations and container definitions are present | Present; Compose verified |
 | Production module artifact | Not produced by this work | Not built |
 | Containers and database | Not started or changed by this work | Not rehearsed |
@@ -852,6 +855,364 @@ runtime-presented name, same-name recreation after NPC deletion, old-UUID
 rejection, deleted-row rebuild refusal, and a full rebuild using a different
 name.
 
+## MIG-015 — CNR structural port without gameplay activation
+
+Date: 2026-09-12
+
+Status: Implemented in the PROD source tree and statically verified; nothing
+packaged, applied, placed or deployed.
+
+The panel and its migration history cannot stand on a PWDB-only database.
+`migrations/versions/0001_editor_identity.py` runs `ALTER TABLE cnr_recipe`
+unconditionally, and `app/models.py` maps `cnr_profession`, `cnr_station`,
+`cnr_category`, `cnr_material`, `cnr_recipe`, `cnr_recipe_component` and
+`cnr_tradeskill`. Decoupling them is a separate design change, so the accepted
+decision is to carry the CNR schema, catalogue and engine into PROD while
+leaving the gameplay switched off.
+
+### Source and build
+
+`src/cnr/` is present and byte-identical to DEV: 170 `nss`, 4 `nui`, 506 `uti`,
+62 `utp` and 5 `dlg`. It is untracked. `linux_build-dev.sh` adds
+`src/cnr/nss` and `src/cnr/nui` to `SRC_NSS`, and `nasher.cfg` gains
+`"cnr*.${shared-files}" = "src/cnr/$ext"` ahead of the shared rule so that a
+future unpack keeps new CNR-prefixed resources in the self-contained tree.
+Resources already tracked under `src/` keep their existing paths, per the
+Nasher rule contract.
+
+### Bridges into the retained legacy module
+
+No legacy system was removed, replaced or reverted. Five existing scripts gained
+a call:
+
+| File | Bridge |
+|------|--------|
+| `wrap_on_mod_load.nss` | `ExecuteScript("cnr_module_oml")` after the existing load work |
+| `wrap_on_clnt_ent.nss` | `CnrSkill_Load(oPC)` once PWDB has resolved `character_id` |
+| `pb_chat.nss` | `CnrCraft_CaptureTypedId` plus `NWNX_Chat_SkipMessage` while a station is active |
+| `rebuild_migrate.nss` | reloads the tradeskill cache after a rebuild migration and warns the DM on failure |
+| `dote_romarm4.nss` | the repair threshold reads `CnrSkill_GetLevel * 5` instead of the persistent `NIVELHERRERIA` |
+
+`guia_pb.dlg.json` links the CNR manual, which PROD lacked.
+`mti_libreria.nss` gains the two tradeskill helpers (`GetSkillName` and the
+XP-to-level calculation) that `cnr_i_skill` requires; the file is Windows-1252
+and was reapplied through a reversible Latin-1 conversion after a
+`WINDOWS-1252` conversion truncated it at byte 7640. `inc_effect_ids.nss` is
+new and untracked. `pb_potion_inc.nss` now includes `lib_race` itself in both
+repositories: it called `PB_Race_GetIsUndead()` and compiled in DEV only
+because another consumer included that library first.
+
+### Palette
+
+CNR blueprints ship from `src/cnr/uti` and `src/cnr/utp`, but the custom palette
+is a single module-wide index and remains an integration-owned resource under
+`src/shared/itp/`. The two PROD palettes received an additive merge from DEV,
+restricted to entries whose blueprint exists under `src/cnr/`: 256 entries into
+`itempalcus.itp.json` (custom node `6687/6688`, 433 to 689 leaves) and 62 into
+`placeablepalcus.itp.json` (same node, 81 to 143 leaves). The diff is 2816 and
+682 inserted lines with zero deletions; no existing entry was removed, reordered
+or renamed. `x0_it_mmedmisc04`, a stock resref DEV lists as the jeweller tool
+kit, was skipped: it has no blueprint under `src/cnr/uti` and no reference in
+the PROD CNR sources or migrations.
+
+### Duplicate blueprints
+
+Copying `src/cnr/` into PROD produced 187 `.uti` resources present under both
+`src/cnr/uti/` and `src/shared/uti/`. DEV does not have them because the shared
+copy is removed whenever CNR takes ownership of a resource. A module cannot ship
+two resources with one resref, and the compiler cannot see the conflict: Nasher
+resolves it at pack time through `onMultipleSources`, whose default is `choose`,
+so with `linux_build-dev.sh` running `--yes` the winner would be decided by
+source order rather than by a decision.
+
+All 187 shared copies were removed with `git rm`, so every duplicated resref
+now ships from the CNR tree, which is the same resolution DEV reached: none of
+the nine survives under `src/shared/uti/` there either. 178 pairs were
+byte-identical, so the packed module receives the same bytes as before. There
+were no duplicated `nss`, `utp` or `dlg` resources: `src/shared/nss/` in PROD
+holds no `cnr*` script.
+
+Nine pairs diverged and the CNR copy was chosen deliberately:
+
+| Blueprint | What the CNR copy changes |
+|-----------|---------------------------|
+| `aguja_hierro` | Tag `aguja_hierro` becomes `aguja_cost`, which is what `cnrtailorstable`, `cnrsewingtable` and `02_seed.sql` require |
+| `bru_aza`, `bru_obs`, `polvo_aza`, `polvo_obs` | Name colour code only |
+| `carplenyo_olmo`, `carptablon_cipre`, `carptablon_olmo` | Name and description: "del crepusculo" becomes "de Lenocaso" |
+| `virutasresplande` | Plain name becomes a coloured name |
+
+Base item, cost, stack size, charges, plot flag and property lists were already
+identical in all nine.
+
+Three CNR tool instances inside the store of `src/module/git/_basefaccione001.git.json`
+still carried the legacy tag and name, and a store instance keeps its own copy
+of those fields rather than reading the blueprint. They were aligned with DEV,
+field by field, leaving the store slot positions untouched: `aguja_hierro`
+becomes tag `aguja_cost` and "Aguja de Costura", `aguja_grande` becomes tag
+`aguja_cost` and "Aguja Grande de Costura", and `x0_it_mmedmisc04` becomes "Kit
+de herramientas de Orfebre".
+
+The retained legacy leatherworking script `cierra_marroqui.nss` rejects any
+needle whose tag it does not know, and PROD still runs it. Retagging the basic
+needles to `aguja_cost` would have made a newly bought one unusable there, so
+that tag was added to its accepted list beside the five legacy ones. Nothing was
+removed from the check, `aguja_acero`, `aguja_aceroscuro` and `aguja_mithril`
+remain legacy blueprints under `src/shared/uti/`, and a needle already in a
+player's inventory keeps whatever tag it was created with. DEV does not have
+this script at all; CNR replaced it.
+
+`src/shared/uti/x0_it_mmedmisc04.uti.json` was missing from PROD entirely. It
+carries tag `tall_kittall`, the jeweller tool kit the CNR catalogue reads, and
+its absence was why the generated catalogue named that tool "Kit de herramientas
+del tallador". The blueprint was copied from DEV and its palette entry added, so
+the earlier decision to skip that one entry is superseded.
+
+### Blueprints outside every palette
+
+63 CNR jewellery blueprints (`amu_*`, `anillo_*`, the `*_aro` and `*_cadena`
+pairs, and `brazalcuero`) appear in no palette, in DEV either. This is a
+pre-existing shared gap, not a port regression, and it blocks nothing: it only
+means a builder cannot import those blueprints from the toolset. It is fixed in
+DEV first.
+
+### Other resource dependencies
+
+The 52 `placeables.2da` rows used by the CNR placeables all exist in PROD and
+are identical to DEV, and the 84 `baseitems.2da` rows used by the CNR items all
+exist (row 53 differs only in trailing whitespace). No CNR blueprint uses a
+custom TLK entry: the highest string reference is 111445. The other seven
+palettes hold no CNR entry in either repository.
+
+### Areas
+
+The PROD map keeps 108 legacy station instances across 22 areas and no modern
+CNR station. They are deliberately not converted: some placements are decoration
+or a fireplace, and others select a different trade through their tag. Each one
+is a separate decision for a later slice.
+
+### Verification completed
+
+Focused NWScript compilation of the CNR slice in PROD: 157 successful, 22
+skipped, 0 errors. `pb_mod_activate.nss` in DEV: 1 successful. `bash -n
+linux_build-dev.sh` passed. `migration/{01_schema,02_seed,03_catalogue}.sql` are
+identical to DEV, and `diff -qr src/cnr` against DEV is empty. Focused compilation of `cierra_marroqui.nss` after the needle-tag change: 1
+successful, 0 errors. `migration/build_catalogue.py --check` passes in PROD and its output is
+byte-identical to the DEV run: 559 recipes intact, 71 materials, 39 categories,
+1287 components, 647 properties, 0 external references. It failed twice on the
+way there, first on the 76 `cnr_base_*` blueprints absent from the palette and
+then on a stale `03_catalogue.sql`, whose single differing row was the jeweller
+tool name described above.
+
+Remaining work: package the module, apply the database baseline, decide the
+legacy station placements one by one, and version the untracked slice. `04_drop_legacy.sql` drops `recipe_metadata`, `material_properties` and
+`cnr_craft_selection`; that is harmless on the empty baseline but is a deletion
+to decide before it ever runs against a populated production database.
+
+## MIG-016 — Trade merchants and their stores
+
+Date: 2026-09-12
+
+Status: Implemented in the PROD source tree and statically verified; nothing
+packaged, applied or deployed.
+
+The profession masters in PROD still run the legacy conversations: they teach a
+trade, buy nuggets, ingots and hides, sell moulds and tools, and open a store as
+one option among many. CNR owns all of that now, so DEV reduced each of those
+conversations to one line and two replies, "Abrir tienda" and "Salir", with the
+store tag passed as the conversation action parameter `tienda`.
+
+The 26 conversations DEV trimmed were copied verbatim, and every one is now
+byte-identical to its DEV counterpart:
+
+`cam_rio_cazado01`, `cromwell`, `curtidor`, `flechero`, `gof_inuslarga`,
+`jj_toigan`, `ko_nash_hansen`, `mainah_mda`, `oficios_artarcan`, `oficios_carp`,
+`oficios_orf`, `oficios_peletero`, `ormc_tienda`, `oro_im`, `pb_x_coramrueda`,
+`quim_curtidor`, `sapo_artes_arca`, `sapo_cmcueros`, `sute_her_c_base`,
+`sute_met_c_base`, `tyr_druidaherbo`, `uri_her_c_base`, `uri_horgen`,
+`uri_korgan`, `uri_oficios_carp`, `uri_oficios_orf`.
+
+The order armourers were cut to the same shape, beyond what DEV did. DEV left
+`ormc_tienda`, `uri_horgen` and `uri_korgan` with their dragon scale armour,
+their weapon repair and their day/night greetings once the legacy smithing
+branches were gone; the accepted decision for PROD is that a profession
+merchant does nothing but open its store, so each of the three is now one
+greeting and the two replies, opening the same store it opened before through
+`abretiendas`, `ko_equipo_basi_3` and `ko_equipo_basi_2` respectively. What
+they lose is the dragon scale armour conversation (`elg_escamas3` to
+`elg_escamas6`), both weapon repair paths (`dote_romarm3`, `dote_romarm4`) and
+the conditional night and faction greetings. PROD and DEV therefore differ on
+these three files until the same cut is made in DEV.
+
+Those conversations reference 51 scripts. Fifty already existed in PROD;
+`ofi_abre_tienda.nss` did not and was copied from DEV. It is the single opener
+for every master: it reads the `tienda` action parameter, resolves the store by
+tag and calls `gplotAppraiseOpenStore`, so a new profession needs a dialogue and
+a placed store rather than another script. Focused compilation: 1 successful,
+0 errors.
+
+No conversation in PROD teaches a legacy trade any more, and none buys or sells
+nuggets, ingots, hides, moulds or tools: the only scripts left on any of these
+27 files are store openers.
+
+Six of the thirty stores in `src/module/git/_basefaccione001.git.json` carried a
+legacy stock list and were replaced with the DEV inventory, item for item. The
+other 24 were already identical and were not touched, and nothing outside
+`StoreList` was modified.
+
+| Store | Items before | Items after |
+|-------|--------------|-------------|
+| `tienda_herreria` | 48 | 14 |
+| `tienda_orfebreria` | 11 | 7 |
+| `tienda_peleteria` | 20 | 16 |
+| `ko_floristeria` | 20 | 19 |
+| `tienda_herbologia` | 8 | 7 |
+| `tienda_artarcana` | 5 | 4 |
+
+Store items are stored inline in the area file, so the shelves now hold what DEV
+sells; a copy already in a player's inventory is unaffected. 518 of the resrefs
+sold across the area have no blueprint under `src/`, which is the same shape as
+DEV's 520: those items come from the game data and the haks, not from module
+sources.
+
+`area001` was left alone. DEV places a `tiendaenano` store with 443 items and one
+creature there and PROD has neither, but that is a merchant, not a profession
+master, and it is outside this slice.
+
+Remaining work: none for this entry beyond the packaging and runtime tests owed
+by MIG-015.
+
+## MIG-017 — Timelock port and the potion library's effect calls
+
+Date: 2026-09-12
+
+Status: Implemented in the PROD source tree and statically verified; nothing
+packaged or deployed. Deliberately scoped to two files.
+
+### inc_timelock
+
+`src/shared/nss/inc_timelock.nss` was replaced with the DEV version and is now
+byte-identical to it. The 26 public functions are unchanged, so no caller had to
+be touched; `SetTimelock` gains an optional trailing `bMuted` that nothing in
+PROD passes yet. What the DEV version fixes, as its own comments record:
+
+- the current time was a global initialised once when the including script
+  started, so every question was answered against a frozen clock. Invisible
+  inside one script, wrong across a `DelayCommand`, which is how the status
+  messages run. It now reads the clock through `_TimelockNow()`;
+- a permanent lock zeroed that shared clock instead of a local base, after which
+  every later question in the same script compared against zero and answered
+  that everything was locked;
+- `SetTimelock` muted every lock the moment it created it, so the "available
+  again" notice could never fire.
+
+Thirteen PROD scripts include it: focused compilation returns 10 successful,
+3 skipped (the includes among them), 0 errors.
+
+### pb_potion_inc adapted to the effect helpers PROD still runs
+
+The copied `src/cnr/nss/pb_potion_inc.nss` was written against DEV's
+`inc_effects` layer, which PROD does not have: its `gsSPApplyEffect` takes a
+fifth `sTag` argument and its `gsSPRemoveEffect` takes an `FX_SUBTYPE_*` policy.
+PROD keeps both helpers inside the monolithic `inc_spells`, where apply has four
+parameters and the fifth parameter of remove is `bForceRemove`. The file
+therefore could not compile here, and nothing had noticed: an include has no
+`main()`, so the focused check only parses it — it was one of the 22 skipped.
+
+The accepted decision is to adapt the file rather than port the spell stack. Two
+mechanical changes, 33 call sites:
+
+- the 15 apply calls now tag the link themselves,
+  `gsSPApplyEffect(oPC, TagEffect(eLink, FX_ID_X), SPELL_INVALID, fDuration)`.
+  `TagEffect` is what DEV's layer calls internally, and PROD's
+  `gsSPRemoveEffect` already filters on `GetEffectTag`, so the identity survives;
+- the 18 `FX_SUBTYPE_SAFE` arguments became `FALSE`. PROD's `bForceRemove` at
+  FALSE skips `SUBTYPE_SUPERNATURAL` and `SUBTYPE_UNYIELDING`, which is exactly
+  what SAFE means. No call used UNYIELDING or ALL, so nothing else maps.
+
+A header note in the file records both changes and that they are reverted when
+`inc_effects` is ported. `PROD` and `DEV` copies of this one file now differ on
+purpose; every other file under `src/cnr/` remains identical.
+
+Verified by compiling a throwaway script that includes the library, outside the
+repository, against the real PROD include roots: 1 successful, 0 errors. That is
+the only way to compile an include semantically rather than parse it.
+
+### Still not wired
+
+`pb_mod_activate.nss` line 118 continues to call `usarPocionHerboristeria` from
+`src/shared/nss/sute_libreria.nss`, the legacy library, which also gives it
+`FuncionCrearObjetoYTag` (10 uses) and `bonoRealCaracteristicaPJ` (2). Both
+libraries define `usarPocionHerboristeria`, so the switch requires retiring that
+one function from `sute_libreria`, and that was deliberately left for later. The
+potion library is therefore correct and compilable in PROD but still inert.
+
+Remaining work: port `inc_effects` and revert the two adaptations, then move the
+activation entry point.
+
+## CNR port roadmap
+
+The PWDB slice (MIG-001 to MIG-014) and the CNR slice (MIG-015 to MIG-017) are
+implemented in the PROD source tree and statically verified. Nothing has been
+packaged, applied to a database, or deployed. This is the order the remaining
+work is meant to run in, and what blocks each phase.
+
+| Phase | Work | Blocked by |
+|-------|------|-----------|
+| A. Version the slice | Review and commit the accepted PROD slice, changelog entries included, then run the independent audit gate on that candidate commit | nothing |
+| B. Build | Produce `PB_EE_PROD.mod` and record its checksum; confirm no `unknown/` directory appears | A |
+| C. Local rehearsal | Apply the database baseline on an empty database, run the Alembic chain, start the stack, create the first administrator, and run the tests each changelog entry names | B, plus the `04_drop_legacy.sql` decision |
+| D. Host | DNS, HTTPS reverse proxy, final origin and cookie policy, host credentials, upload and rollback | C |
+| E. Stations | Decide the 108 legacy station instances across 22 areas one at a time, and place the modern CNR stations | C, and only worth doing once crafting is testable |
+| F. Effects layer | Port `inc_effects`, revert the two `pb_potion_inc` adaptations, and move the potion entry point off `sute_libreria` | nothing technically; deliberately deferred |
+| G. Legacy retirement | Retire `sute_libreria`'s potion function, the `tall_tall_*` jewelcrafting scripts, the `aguja_cost` compatibility line in `cierra_marroqui`, and whatever else CNR has replaced | E and F |
+| H. Reconciliation | Bring DEV level with the decisions PROD took, and fix the PROD documentation structure | nothing; independent of deployment |
+
+Phases A to D are the production migration proper. E to H are the CNR
+transition, and none of them is a prerequisite for putting PWDB in production.
+
+## Debt carried forward
+
+Recorded here so a later session does not have to re-derive it.
+
+**Source control.** The accepted slice is not versioned: `src/cnr/` (747
+resources), `src/shared/nss/inc_effect_ids.nss`, `src/shared/nss/ofi_abre_tienda.nss`
+and `src/shared/uti/x0_it_mmedmisc04.uti.json` are untracked, 187 `src/shared/uti`
+deletions are staged, and `cnr-editor/`, `migration/` helpers and the deployment
+scripts listed under MIG-002 remain untracked. A pull or clone delivers none of
+it.
+
+**Changelog commit ids.** Every entry written for this work carries
+`**Commits.** \`<pending>\``. The audit gate reads one commit, so each entry has
+to travel in the commit that makes its change, and the id is filled in
+afterwards in the single direct child.
+
+**Deliberate DEV/PROD divergences.** Two, both recorded in their MIG entry:
+`src/cnr/nss/pb_potion_inc.nss` carries the effect-call adaptation (MIG-017),
+and `ormc_tienda`, `uri_horgen` and `uri_korgan` are cut to store-only in PROD
+while DEV still has their dragon scale armour and weapon repair (MIG-016). Both
+are decisions, not drift, and both need mirroring or reverting eventually.
+
+**DEV working tree.** `src/cnr/nss/pb_potion_inc.nss` in DEV holds an
+uncommitted one-line `#include "lib_race"` fix.
+
+**Shared gaps.** 63 CNR jewellery blueprints (`amu_*`, `anillo_*`, `*_aro`,
+`*_cadena`, `brazalcuero`) are in no palette in either repository. PROD has no
+`scripts/check_documentation.py`, so its documentation structure is unchecked.
+
+**Transitional code that has to come out.** `cierra_marroqui.nss` accepts the
+`aguja_cost` tag so the legacy leatherworker keeps working with the CNR needles;
+`sute_libreria.nss` still owns the live `usarPocionHerboristeria`; PROD keeps the
+`tall_tall_*` jewelcrafting scripts DEV deleted; and the module runs two effect
+systems side by side, `PJ_Efecto*`/`ApplyTaggedEffectToObject` and `gsSP*`.
+
+**Why the spell stack was not ported.** DEV's `inc_spells` facade and its five
+files do not define 16 functions PROD still calls: `ApplyTaggedEffectToObject`,
+`CreateNonStackingPersistentAoE`, the six `*AoE*` helpers, `PJ_EfectoBuscarTag`,
+`PJ_EfectoQuitar`, `PJ_EfectoQuitarTag`, `ReadySingleMemorizedSpell`,
+`gsC2AdjustSpellEffectiveness` and `IntDivisionRounding`, plus three constants.
+Swapping the stack means porting or rewriting their callers, which is NEXT-012,
+not an import.
+
 ## Open work
 
 | ID | Status | Work |
@@ -866,7 +1227,13 @@ name.
 | NEXT-008 | Pending | Execute the host upload and rollback plan |
 | NEXT-009 | Pending | Correct the PROD repository instruction/documentation structure independently of runtime deployment |
 | NEXT-010 | Pending | Continue the disguise/community-name security redesign after PWDB containment is proven |
-| NEXT-011 | Deferred | Port CNR gameplay integration |
+| NEXT-017 | Pending | Decide and convert the 108 legacy station instances across 22 areas, then place the modern CNR stations |
+| NEXT-018 | Pending | Retire the CNR-replaced legacy code once crafting is live: `sute_libreria`'s potion function, `tall_tall_*`, the `aguja_cost` line in `cierra_marroqui` |
+| NEXT-019 | Pending | Reconcile the deliberate DEV/PROD divergences: the `pb_potion_inc` adaptation and the three store-only armourer dialogues |
+| NEXT-020 | Pending | Replace every `**Commits.** \`<pending>\`` in the changelog entries with the candidate commit id |
+| NEXT-011 | Partly done | CNR engine, resources, palette entries and bridges ported by MIG-015; area/station placement and legacy retirement still deferred |
+| NEXT-015 | Pending | Add the 63 CNR jewellery blueprints to the item palette, in DEV first |
+| NEXT-016 | Pending | Port `inc_effects` to PROD, revert the two `pb_potion_inc` adaptations and switch the potion entry point off `sute_libreria` |
 | NEXT-012 | Deferred | Port arcane-fire, caster-level and other spell/effect reworks |
 
 ## Follow-up entry template

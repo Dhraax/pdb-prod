@@ -31,8 +31,8 @@ cd "$RAIZ"
 COMP="$RAIZ/tools/linux/neverwinter/nwn_script_comp"
 NASHER="$RAIZ/tools/linux/nasher/nasher"
 
-# Unicos directorios de src/ que contienen .nss.
-SRC_NSS="$RAIZ/src/shared/nss $RAIZ/src/pwdb/nss"
+# Script roots included in the production module.
+SRC_NSS="$RAIZ/src/shared/nss $RAIZ/src/cnr/nss $RAIZ/src/cnr/nui $RAIZ/src/pwdb/nss"
 DIRS=$(echo "$SRC_NSS" | tr ' ' ',')
 
 [ -x "$COMP" ] || { echo "ERROR: no existe $COMP"; exit 1; }

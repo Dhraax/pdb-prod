@@ -119,4 +119,8 @@ void main()
 
     //Script de gestión de eventos "GUI", usado por ejemplo para las burbujas del chat.
     SetEventScript( GetModule(), EVENT_SCRIPT_MODULE_ON_PLAYER_GUIEVENT,"event_guimod" );
+
+    // CNR: initialize the legacy resource registries used by the retained
+    // harvesting and recipe compatibility layer.
+    ExecuteScript("cnr_module_oml", OBJECT_SELF);
 }

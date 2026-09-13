@@ -30,7 +30,10 @@ void main()
 
   // SI NO TE EQUIPAS UNA AGUJA, EL SCRIPT NO SIGUE
   object oAguja = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC);
+  // aguja_cost: las agujas basicas pasaron al CNR y comparten ese tag. Se
+  // acepta aqui para que el peletero antiguo siga funcionando con ellas.
   if(GetTag(oAguja) != "aguja_hierro"  &&
+     GetTag(oAguja) != "aguja_cost" &&
      GetTag(oAguja) != "aguja_acero" &&
      GetTag(oAguja) != "aguja_aceroscuro" &&
      GetTag(oAguja) != "aguja_grande" &&

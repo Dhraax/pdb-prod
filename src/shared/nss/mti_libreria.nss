@@ -3,6 +3,7 @@
 //::////////////////////////////////////////////////////////////////////////:://
 //::// LIBRERIA PERSONALIZADA DE MONTI                                    //:://
 //::////////////////////////////////////////////////////////////////////////:://
+// modified by: Dhraax
 
 const string CONTENEDOR_VARIABLES = "dmfi_pc_emote";
 const string TXT_COLOR_GRIS       = "<c°°°>";
@@ -46,6 +47,45 @@ void Teletransporte2(object oPC, location lLugar)
       ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oPC);
       SetLocalInt(oPC, "RUTASOMBRAS", FALSE);
     }
+}
+
+/// -----------------------------------------------------------------------------
+/// @brief Returns the tradeskill name for a given index.
+/// @param iIndex The index of the skill (0-6).
+/// @returns The name of the tradeskill as a string, or empty string if out of range.
+string GetSkillName(int iIndex)
+{
+    switch(iIndex)
+    {
+        case 0: return "Herreria";
+        case 1: return "Carpinteria";
+        case 2: return "Peleteria";
+        case 3: return "Alquimia";
+        case 4: return "Joyeria";
+        case 5: return "Arcano";
+        case 6: return "Sastreria";
+    }
+    return "";
+}
+
+/// -----------------------------------------------------------------------------
+/// @brief Determines the tradeskill level from the module CNR XP thresholds.
+/// @param nXP The XP value.
+/// @returns The level (1-20).
+int PersistDetermineTradeskillLevel(int nXP)
+{
+    object oModule = GetModule();
+    int nLevelXP;
+    int n;
+    for (n = 20; n >= 1; n--)
+    {
+        nLevelXP = GetLocalInt(oModule, "CnrTradeXPLevel" + IntToString(n));
+        if (nXP >= nLevelXP)
+        {
+            return n;
+        }
+    }
+    return 1;
 }
 
 void GuardarIntPersistente(object oJugador, string sVariable, int iValor)

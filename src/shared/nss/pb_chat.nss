@@ -1,4 +1,5 @@
 #include "nwnx_chat"
+#include "cnr_i_craft"
 
 void main()
 {
@@ -6,6 +7,15 @@ void main()
     object oTarget = NWNX_Chat_GetTarget();
     int iCanal = NWNX_Chat_GetChannel();
     string sTexto = NWNX_Chat_GetMessage();
+
+    // CNR: while a crafting station is active, a bare number selects a
+    // recipe by public id and must not be emitted to chat.
+    if (GetIsObjectValid(GetLocalObject(oPC, CNR_VAR_PLACEABLE))
+        && CnrCraft_CaptureTypedId(oPC, sTexto))
+    {
+        NWNX_Chat_SkipMessage();
+        return;
+    }
 
     // EVITAMOS VERDES SI ESTAMOS EN DESCONOCIDO.
     if (iCanal == NWNX_CHAT_CHANNEL_PLAYER_TELL && GetLocalInt(oPC, "HELM_ON"))

@@ -6,6 +6,7 @@
 /// ----------------------------------------------------------------------------
 
 #include "pwdb_i_user"
+#include "cnr_i_skill"
 
 void main()
 {
@@ -50,10 +51,18 @@ void main()
     }
 
     PWDB_SyncRegisteredCharacter(oTarget, iCharacterId);
+    int iCnrLoaded = CnrSkill_Load(oTarget);
     DeleteLocalObject(oDM, "REBUILD_TARGET");
 
     SendMessageToPC(oDM, "Migracion completada correctamente.");
     SendMessageToPC(oTarget, "El rehecho ha sido migrado correctamente.");
+    if (!iCnrLoaded)
+    {
+        SendMessageToPC(
+            oDM,
+            "Aviso: la identidad fue migrada, pero no se pudo recargar la cache de oficios."
+        );
+    }
     WriteTimestampedLogEntry(
         "[PWDB:REBUILD] Migrated replacement UUID to character_id="
         + IntToString(iCharacterId) + "."
