@@ -1895,7 +1895,7 @@ says the same thing from the other side: "Only duration, subtype, tag and spell
 related fields can be overwritten" (line 89).
 
 The plugin is available. `NWNX_EFFECT_SKIP=n` in both `config/nwserver.env` and
-`config/nwserver-dev.env`, and `src/shared/nss/nwnx_effect.nss` is present. No
+`config/nwserver.env`, and `src/shared/nss/nwnx_effect.nss` is present. No
 script in `src/` calls it today.
 
 **Two things to settle before that route is taken, and one that settled itself.**
@@ -2109,7 +2109,7 @@ power, blood frenzy and the six ioun stones all run through that one function.
 `nostack_inc.nss` was written before NWNX:EE had a NoStack plugin. The plugin is
 pinned in this repository at `nwnxee/Plugins/NoStack/` and it is **switched
 off**: `NWNX_NOSTACK_SKIP=y` in both `config/nwserver.env` and
-`config/nwserver-dev.env`. Nothing in `src/` calls it; only its header sits
+`config/nwserver.env`. Nothing in `src/` calls it; only its header sits
 there unused.
 
 Its modes, from `nwnxee/Plugins/NoStack/README.md`, set per bonus family through
@@ -3185,7 +3185,7 @@ description decision. Then validate fixes in focused slices.
 2. For each changed executable `.nss`, run:
 
    ```bash
-   ./linux_build-dev.sh --check <explicit-changed-script.nss>
+   ./linux_build.sh --check <explicit-changed-script.nss>
    ```
 
 3. When `cls_ing_lib.nss` changes, compile representative direct consumers

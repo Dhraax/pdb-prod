@@ -41,7 +41,7 @@ Verified end to end on 2026-08-08 against a live server:
 Still unverified, needs a deliberate setup: booting a character whose CD key
 does not match the one registered for it.
 
-**Gotcha found during the first run:** `linux_run_server-dev.sh` copies
+**Gotcha found during the first run:** `linux_run_server.sh` copies
 `modules/PB_EE_PGCC.mod` as it exists *at that moment*. Running it while a
 compile is still finishing stages the previous build, and the server loads a
 `.mod` with no `.ncs` for the changed scripts — the hooks silently do nothing.
@@ -65,7 +65,7 @@ Always compile first, then stage. To check what actually shipped:
 
 ### Files changed
 
-**`docker-compose-dev.yml`**
+**`docker-compose.yml`**
 
 - new `mysql:8.4` service: `command: ["mysqld", "--mysql-native-password=ON"]`,
   healthcheck, named volume `mysql_data`, mounts `config/mysql-init` read-only
@@ -75,7 +75,7 @@ Always compile first, then stage. To check what actually shipped:
   `TZ=Europe/Madrid` on both services. Those paths do not exist on a Windows
   host and blocked `win_run_server.bat`.
 
-**`config/nwserver-dev.env`** — the NWNX_SQL block:
+**`config/nwserver.env`** — the NWNX_SQL block:
 
 ```env
 NWNX_SQL_SKIP=n
@@ -96,7 +96,7 @@ NWNX_SQL_QUERY_METRICS=false
 **`.gitignore`** — `config/mysql.env` excluded, `mysql.env.example` and
 `mysql-init/` allowed.
 
-**`linux_run_server-dev.sh`** and **`win_run_server.bat`** — now also copy
+**`linux_run_server.sh`** and **`win_run_server.bat`** — now also copy
 `config/mysql.env` and `config/mysql-init/` into `server/`.
 
 ### Porting to production
@@ -322,17 +322,17 @@ port must configure `OnUsed = cnr_device_ou`,
 ## Build and run
 
 ```bash
-./linux_build-dev.sh          # compile src/ and pack modules/PB_EE_PGCC.mod
-./linux_run_server-dev.sh     # stage into server/ and start the stack
+./linux_build.sh          # compile src/ and pack modules/PB_EE_PGCC.mod
+./linux_run_server.sh     # stage into server/ and start the stack
 ```
 
 | Command | Does |
 |---------|------|
-| `./linux_build-dev.sh` | Incremental compile, then full repack of the `.mod` |
-| `./linux_build-dev.sh --check` | Verify all of `src/` compiles. Writes nothing |
-| `./linux_build-dev.sh --check a.nss b.nss` | Verify only those files |
-| `./linux_build-dev.sh --clean` | Clear the cache and rebuild everything |
-| `./linux_run_server-dev.sh` | Stage and start. Warns if a `.nss` is newer than the `.mod` |
+| `./linux_build.sh` | Incremental compile, then full repack of the `.mod` |
+| `./linux_build.sh --check` | Verify all of `src/` compiles. Writes nothing |
+| `./linux_build.sh --check a.nss b.nss` | Verify only those files |
+| `./linux_build.sh --clean` | Clear the cache and rebuild everything |
+| `./linux_run_server.sh` | Stage and start. Warns if a `.nss` is newer than the `.mod` |
 | `./linux_stop_server.sh` | Stop the stack |
 
 The compiler is `tools/linux/neverwinter/nwn_script_comp`, which wraps the
@@ -409,7 +409,7 @@ docker compose exec mysql mysql -u pdb_dev -p pdb_dev \
 
 | Symptom | Cause |
 |---------|-------|
-| `[PWDB:DB] Expected MYSQL, received SQLITE` | `NWNX_SQL_TYPE` still `SQLITE`, or the container is using a stale `server/config/nwserver-dev.env` |
+| `[PWDB:DB] Expected MYSQL, received SQLITE` | `NWNX_SQL_TYPE` still `SQLITE`, or the container is using a stale `server/config/nwserver.env` |
 | NWNX_SQL cannot authenticate | `mysql-init` did not run — the volume already existed. Recreate it or alter the user by hand |
 | No `[PWDB]` lines at all | The module was packed without compiling, or the hooks are in scripts not bound to the module events |
 | Nothing connects, MySQL healthy | `NWNX_SQL_HOST` must be `mysql`, the Compose service name |

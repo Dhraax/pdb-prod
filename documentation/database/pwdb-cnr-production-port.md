@@ -263,7 +263,7 @@ scripts instead. This example lists the scripts affected by the PWDB/CNR port;
 do not replace it with bare `--check`, which compiles all of `src/`:
 
 ```bash
-./linux_build-dev.sh --check \
+./linux_build.sh --check \
   wrap_on_mod_load.nss \
   wrap_on_clnt_ent.nss \
   cnr_a_craft.nss \

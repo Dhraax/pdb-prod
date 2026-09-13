@@ -252,7 +252,7 @@ upstream source that another checkout can obtain.
 | `config/` | Server environment files and Grafana/InfluxDB provisioning |
 | `server/` | Staging/runtime directory populated by launch scripts |
 | `docker-compose.yml` | Production-oriented NWN:EE/NWNX:EE, InfluxDB, and Grafana services |
-| `docker-compose-dev.yml` | Development variant using `config/nwserver-dev.env` |
+| `docker-compose.yml` | Development variant using `config/nwserver.env` |
 | `haks-2da/` | Project 2DA and HAK-related content |
 | `tlk/` | TLK content staged for the server |
 | `erf/` | ERF-related content/artifacts |
@@ -383,17 +383,17 @@ src/shared/nss   src/cnr/nss   src/pwdb/nss   src/nui
 
 | Script | Purpose |
 |--------|---------|
-| `linux_build-dev.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod` |
-| `linux_build-dev.sh --check [files]` | Verify compilation only; writes nothing |
-| `linux_build-dev.sh --clean` | Clear the cache and rebuild everything |
-| `linux_run_server-dev.sh` | Stage into `server/` and start the stack |
+| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod` |
+| `linux_build.sh --check [files]` | Verify compilation only; writes nothing |
+| `linux_build.sh --clean` | Clear the cache and rebuild everything |
+| `linux_run_server.sh` | Stage into `server/` and start the stack |
 | `linux_stop_server.sh` | Stop the stack |
 
 Normal cycle:
 
 ```bash
-./linux_build-dev.sh
-./linux_run_server-dev.sh
+./linux_build.sh
+./linux_run_server.sh
 ```
 
 `src/` is the only source of truth. Never edit `modules/PB_EE_PGCC/`: it is an
@@ -419,8 +419,8 @@ explicitly asks.
 
 | Script | Role |
 |--------|------|
-| `linux_build-dev.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod`. `--check` verifies only, `--clean` rebuilds all |
-| `linux_run_server-dev.sh` | Stage the `.mod`, env files, `mysql-init`, Grafana provisioning and TLK into `server/`; start Compose. Warns when a `.nss` is newer than the `.mod` |
+| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod`. `--check` verifies only, `--clean` rebuilds all |
+| `linux_run_server.sh` | Stage the `.mod`, env files, `mysql-init`, Grafana provisioning and TLK into `server/`; start Compose. Warns when a `.nss` is newer than the `.mod` |
 | `linux_stop_server.sh` | Stop the stack (`--remove-orphans`) |
 
 **Secondary and legacy:**
@@ -431,7 +431,7 @@ explicitly asks.
 | `win_nasher_unpack_folder.bat` | Windows equivalent | Same warnings |
 | `win_run_server.bat` | Windows build/deploy/start | Repaired for `PB_EE_PGCC`. Blocked until the Compose file stops bind-mounting `/etc/timezone` |
 | `win_stop_server.bat` | Stop the Windows-staged stack | Runs from `server/` |
-| `linux_nasher_install.sh` | Legacy install | Uses `--noCompile`: packs **without compiling**. Prefer `linux_build-dev.sh` |
+| `linux_nasher_install.sh` | Legacy install | Uses `--noCompile`: packs **without compiling**. Prefer `linux_build.sh` |
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
 | `rsync.sh` | Mirror staged `server/`, the CNR editor, tools, and remote helpers to the dev host | Defaults to `nwserver@192.168.1.142`. Deletes obsolete deployment files but protects remote databases, vaults, saves, logs, NWSync state, and `cryptographic_secret` |
 | `server-restart.sh` | Restart the NWN stack **on the dev host** (expects `dev-server/`) | High risk: deletes `cryptographic_secret`, enables Master List publication, and `sed`-rewrites `NWN_PLAYERPASSWORD`, `NWN_DMPASSWORD` and `NWN_ADMINPASSWORD` in each staged `config/nwserver*.env` with hardcoded values. Never run locally, never echo its credential lines |
@@ -443,7 +443,7 @@ explicitly asks.
 The root Compose files currently run `nwnxee/unified:build8193.37` with
 `mysql:8.4`, `influxdb:1.7` and `grafana/grafana:6.0.1`. MySQL holds the
 persistent identity and CNR tables; see `documentation/database/`. Environment-specific server settings
-live in `config/nwserver.env` and `config/nwserver-dev.env`, with
+live in `config/nwserver.env` and `config/nwserver.env`, with
 `config/grafana.env`, `config/influxdb.env`, and
 `config/docker-compose-template.yml` alongside them. Treat environment files as
 sensitive: do not print their values in reports or copy secrets into
@@ -578,14 +578,14 @@ optional verification step:
 
 1. Identify only the `.nss` files created or modified by the current work
    slice. Do not include unrelated dirty files already present in the worktree.
-2. Run `./linux_build-dev.sh --check <file.nss> [more-file.nss ...]`, passing
+2. Run `./linux_build.sh --check <file.nss> [more-file.nss ...]`, passing
    the explicit filename of every changed executable script. Confirm each
    filename resolves uniquely under `src/` before running the command.
 3. A changed include has no `main()` and the compiler reports it as skipped.
    For every changed include, identify its affected executable consumers and
    add at least one representative direct consumer plus every executable
    consumer modified in the same slice to the focused command.
-4. Never run bare `./linux_build-dev.sh --check` for change-level testing: with
+4. Never run bare `./linux_build.sh --check` for change-level testing: with
    no filenames it compiles all of `src/`. Never substitute a normal build,
    Nasher install, module package, or `--clean`; those operations remain under
    user control.

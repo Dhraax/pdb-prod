@@ -78,7 +78,7 @@ population belongs in the report from whoever played, not in a query.
 
 ## The switches
 
-In `config/nwserver-dev.env`. `NWNX_PROFILER_SKIP` and
+In `config/nwserver.env`. `NWNX_PROFILER_SKIP` and
 `NWNX_METRICS_INFLUXDB_SKIP` must both be off, and:
 
 | Switch | Installs | Measures |

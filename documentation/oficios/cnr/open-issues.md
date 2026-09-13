@@ -314,7 +314,7 @@ fault; if they do not, it never was.
 **The other way out, when the slice is opened.**
 `NWNX_Dialog_SetCurrentNodeText()` sets the node's text on the server, so no
 token is involved. The plugin is enabled -- `NWNX_DIALOG_SKIP=n` in
-`config/nwserver-dev.env` -- and `nwnx_dialog.nss` is already in
+`config/nwserver.env` -- and `nwnx_dialog.nss` is already in
 `src/shared/nss/`. Two things to plan for:
 
 - It only works from a starting conditional, and **eleven of the thirteen fixed

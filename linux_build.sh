@@ -5,14 +5,14 @@
 #  Fuente unica: src/. Nunca se edita modules/PB_EE_PROD/.
 #
 #  Uso:
-#    ./linux_build-dev.sh                    Compila lo cambiado y empaqueta
+#    ./linux_build.sh                    Compila lo cambiado y empaqueta
 #                                            modules/PB_EE_PROD.mod
-#    ./linux_build-dev.sh --check            Comprueba que src/ compila.
+#    ./linux_build.sh --check            Comprueba que src/ compila.
 #                                            Simula: no escribe ningun fichero.
-#    ./linux_build-dev.sh --check a.nss ...  Comprueba solo esos.
-#    ./linux_build-dev.sh --clean            Vacia la cache y recompila todo.
+#    ./linux_build.sh --check a.nss ...  Comprueba solo esos.
+#    ./linux_build.sh --clean            Vacia la cache y recompila todo.
 #
-#  Despues de un build:  ./linux_run_server-dev.sh
+#  Despues de un build:  ./linux_run_server.sh
 #
 #  Compilador: tools/linux/neverwinter/nwn_script_comp, que usa
 #  libnwnscriptcomp.so (la libreria oficial del juego). Compila igual que
@@ -62,7 +62,7 @@ if [ "${1:-}" = "--check" ]; then
     grep -iE "error|Unable to open" "$LOG" | head -20 | sed 's/^/  /'
     tail -1 "$LOG" | sed 's/^/  /'
     rm -f "$LOG"
-    echo "(--check no escribe nada; para desplegar usa ./linux_build-dev.sh)"
+    echo "(--check no escribe nada; para desplegar usa ./linux_build.sh)"
     exit $RC
 fi
 
@@ -93,4 +93,4 @@ echo "=== Build correcto ==="
 echo "  $MOD"
 echo "  $(stat -c '%y' "$MOD" | cut -c1-19)   $(du -h "$MOD" | cut -f1)"
 echo
-echo "Siguiente paso:  ./linux_run_server-dev.sh"
+echo "Siguiente paso:  ./linux_run_server.sh"

@@ -1371,7 +1371,7 @@ the effect event is already subscribed, so what matters is not *can we afford
 it* but *what does it cost now, and what would the library add*.
 
 **What was turned on.** `NWNX_PROFILER_SKIP` and `NWNX_METRICS_INFLUXDB_SKIP`
-were both set to skip in `config/nwserver-dev.env`, so InfluxDB and Grafana were
+were both set to skip in `config/nwserver.env`, so InfluxDB and Grafana were
 running with nothing to show. Both are now off.
 
 **Which switch gives which number**, read from `Plugins/Profiler/Profiler.cpp`
@@ -2014,7 +2014,7 @@ twelve once mind fog moves. `nwnx.nss` and `nwnx_deprecated.nss` also call
 the argument from `_UpdateAoEDataAtLocation` changes what the area object
 carries, and belongs with the Extraordinary question in section 5.
 
-**Verification, 2026-08-26.** `./linux_build-dev.sh --check` over 29 scripts in
+**Verification, 2026-08-26.** `./linux_build.sh --check` over 29 scripts in
 two runs: the changed `nw_s0_mindfogb.nss`, the five converted areas, and a
 consumer of every function the rename touched, including
 `gsSPCreateNonStackingPersistentAoE`, `gsSPReadySingleMemorizedSpell`,

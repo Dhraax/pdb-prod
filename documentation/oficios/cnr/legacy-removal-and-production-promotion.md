@@ -310,12 +310,12 @@ The release owner must run the normal development-equivalent build with the
 production checkout and target configuration:
 
 ```bash
-./linux_build-dev.sh --check \
+./linux_build.sh --check \
   pb_mod_activate.nss \
   cnr_device_ou.nss \
   cnr_a_craft.nss
 
-./linux_build-dev.sh --clean
+./linux_build.sh --clean
 ```
 
 Then inspect the packaged `PB_EE_PGCC.mod`. Confirm that the package contains

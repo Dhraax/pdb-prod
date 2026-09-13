@@ -21,7 +21,7 @@ estimated.
 | 2 | **UUID + CD key binding.** PWDB replaces the current identity outright |
 | 3 | **CNR consumes the identity tables.** `player_characters` / `player_tradeskills` are retired; tradeskills hang off `pwdb_character` |
 | 4 | `cnr_sqlite_init.nss` renamed to **`cnr_sql_init.nss`** — done, callers and docs updated |
-| 5 | **Credentials stay in the tracked `config/nwserver-dev.env`.** Accepted risk: this is a testing server, not a production deployment. `config/mysql.env` is still git-ignored. Revisit if a real production stack is ever built from this repo |
+| 5 | **Credentials stay in the tracked `config/nwserver.env`.** Accepted risk: this is a testing server, not a production deployment. `config/mysql.env` is still git-ignored. Revisit if a real production stack is ever built from this repo |
 
 ---
 
@@ -239,14 +239,14 @@ reseeded from `cnr_sql_init.nss` on every module load.
 
 ### Phase 1 — MySQL infrastructure
 
-1. Add `mysql:8.4` to `docker-compose-dev.yml` with
+1. Add `mysql:8.4` to `docker-compose.yml` with
    `command: ["mysqld", "--mysql-native-password=ON"]`, a healthcheck, and a
    named volume (guide §8).
 2. `depends_on: mysql: {condition: service_healthy}` on `pb-server`.
 3. `config/mysql.env` plus a committed `config/mysql.env.example`. **`config/`
    is tracked by git** — confirm the real file is excluded before any commit.
 4. `config/mysql-init/01-nwnx-compatible-auth.sh`, LF endings (guide §7).
-5. `config/nwserver-dev.env`: `NWNX_SQL_TYPE=MYSQL`, `NWNX_SQL_HOST=mysql`,
+5. `config/nwserver.env`: `NWNX_SQL_TYPE=MYSQL`, `NWNX_SQL_HOST=mysql`,
    `NWNX_SQL_PORT=3306`, credentials matching `mysql.env`,
    `NWNX_SQL_CHARACTER_SET=utf8mb4`.
 

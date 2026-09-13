@@ -63,7 +63,7 @@ from `pdb-prod/nasher.cfg` and its actual scripts first.
 
 The supplied legacy file is `pdb-dev/docker-compose-pdb.yml`. No
 `docker-compose-pdb.yml` currently exists at the `pdb-prod` root. PROD does
-contain `docker-compose.yml`, `docker-compose-dev.yml`,
+contain `docker-compose.yml`, `docker-compose.yml`,
 `config/docker-compose-template.yml`, `cnr-editor/compose.yml`, and a staged
 `server/docker-compose.yml`.
 
@@ -178,7 +178,7 @@ production topology, HTTPS boundary, applied database state, or initial user.
 
 The current `docker-compose.yml` is identical in DEV and PROD and defines only
 the NWN server, InfluxDB, and Grafana. It has no MySQL service or persistent
-MySQL volume. The MySQL service exists only in `docker-compose-dev.yml`.
+MySQL volume. The MySQL service exists only in `docker-compose.yml`.
 
 The production Compose loads `config/nwserver.env`. That environment currently
 sets `NWNX_SQL_SKIP=y` and does not provide the MySQL connection variables used
@@ -255,7 +255,7 @@ legacy production BIC actually carries the container and stored value.
 ### F-016: PROD has no production build-and-stage workflow yet
 
 The copied Linux build and launch scripts still use `PB_EE_PGCC.mod`,
-`nwserver-dev.env`, and `docker-compose-dev.yml`. The current staged PROD
+`nwserver.env`, and `docker-compose.yml`. The current staged PROD
 `server/docker-compose.yml` does not contain MySQL either. A separate legacy
 `nwsync.sh` references `PB_EE_PROD.mod`, confirming that the production artifact
 boundary has not been reconciled across the newer workflow.
@@ -520,7 +520,7 @@ preserved.
 | Decision | Date | Result |
 |----------|------|--------|
 | D-001 | 2026-09-08 | Approved: first deployment is PWDB-only; CNR module code, arcane-fire changes and caster-level changes remain out of scope |
-| Production runtime | 2026-09-08 | One host-oriented Compose is also used for the final local rehearsal; `docker-compose-dev.yml` keeps the image's normal entrypoint |
+| Production runtime | 2026-09-08 | One host-oriented Compose is also used for the final local rehearsal; `docker-compose.yml` keeps the image's normal entrypoint |
 | Credentials | 2026-09-08 | NWN credentials remain in `config/nwserver.env`; MySQL and panel encryption credentials remain in ignored `config/mysql.env` |
 | Restart boundary | 2026-09-08 | `server-restart.sh` stops and recreates only `pb-server`; MySQL, its volume and the panel's external connection to `server_default` remain active |
 
@@ -546,10 +546,10 @@ The exact final manifest remains open until the production rehearsal is
 complete. The accepted runtime boundary already consists of:
 
 - `docker-compose.yml`, `run-server.sh` and `server-restart.sh` for the host;
-- `docker-compose-dev.yml` and `linux_run_server-dev.sh` for the local rehearsal;
-- `config/nwserver.env`, `config/nwserver-dev.env`, the private
+- `docker-compose.yml` and `linux_run_server.sh` for the local rehearsal;
+- `config/nwserver.env`, `config/nwserver.env`, the private
   `config/mysql.env`, and `config/mysql-init/`;
-- `nasher.cfg`, `linux_build-dev.sh`, the PWDB/rebuild source resources and the
+- `nasher.cfg`, `linux_build.sh`, the PWDB/rebuild source resources and the
   resulting `modules/PB_EE_PROD.mod` after the owner-authorized build;
 - `migration/`, `db-apply.sh`, `cnr-editor/` and its environment file for the
   database baseline, Alembic chain and panel.

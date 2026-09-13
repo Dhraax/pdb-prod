@@ -142,7 +142,7 @@ not honour, which is worse than the bug being fixed.
 
 ### Verification
 
-- `./linux_build-dev.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
+- `./linux_build.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
   — the three executables that reach the changed includes, found by walking the
   include graph rather than guessed. 3 successful, 0 errored.
 - At the time of this slice, the formula was run against the then-current 105
@@ -279,7 +279,7 @@ the reason the two sets of numbers will not match if anyone diffs them.
 
 ### Verification
 
-- `./linux_build-dev.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
+- `./linux_build.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
   -> 3 successful, 0 errored.
 - `SetName` confirmed against the installed `nwscript.nss` to accept an item,
   and to revert to the original name when passed `""` — which is why slice 4
@@ -441,7 +441,7 @@ original*, which would undo the recipe's own name.
 
 ### Verification
 
-- `./linux_build-dev.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
+- `./linux_build.sh --check cnr_arc_dist.nss cnr_arc_evt.nss cnr_arc_ou.nss`
   -> 3 successful, 0 errored.
 - `NuiTextEdit` and `NuiGetBind` taken from working code in this repository
   (`src/nui/0i_window.nss:490`, `src/cnr/nui/cnr_arc_evt.nss`), not from memory;

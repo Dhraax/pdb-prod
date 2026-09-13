@@ -320,7 +320,7 @@ was modified, so the mandatory focused compilation does not apply to this
 document.
 
 When implementation starts, each slice needs: the focused
-`./linux_build-dev.sh --check` for its scripts, a changelog entry in the same
+`./linux_build.sh --check` for its scripts, a changelog entry in the same
 commit, and — for anything touching `classes.2da` — a hak repack, which is the
 owner's.
 
@@ -465,7 +465,7 @@ things it praises have since become engine behaviour, and §1a and §2a were
 written on a wrong premise. This section supersedes them.
 
 The server runs `nwnxee/unified:build8193.37` (`docker-compose.yml:3`,
-`docker-compose-dev.yml:3`).
+`docker-compose.yml:3`).
 
 ### 8a. `ArcSpellLvlMod` does not feed `GetCasterLevel()`. It never did.
 
@@ -491,7 +491,7 @@ exactly this, `Plugins/Tweaks/AddPrestigeclassCasterLevels.cpp`, hooking
 `CGameEffect::SetCreator`.
 
 **That tweak is not enabled here.** `config/nwserver.env` and
-`config/nwserver-dev.env` set six `NWNX_TWEAKS_*` keys and
+`config/nwserver.env` set six `NWNX_TWEAKS_*` keys and
 `ADD_PRESTIGECLASS_CASTER_LEVELS` is not among them; the plugin default is
 `false`.
 
@@ -1019,7 +1019,7 @@ it needs a getter after all — see §12c.
 ## 13. Implementation plan
 
 Every slice is one commit with its own changelog entry, its own focused
-`./linux_build-dev.sh --check`, and its own audit. Nothing below has been
+`./linux_build.sh --check`, and its own audit. Nothing below has been
 started.
 
 ### S0 — Probes, before anything else *(owner)*
@@ -2433,12 +2433,12 @@ base column also carries.
 The handoff recorded
 
 ```
-./linux_build-dev.sh --check src/shared/nss/x2_pc_umdcheck.nss src/shared/nss/cwa_enforcer.nss src/shared/nss/pb_nivellanzador.nss
+./linux_build.sh --check src/shared/nss/x2_pc_umdcheck.nss src/shared/nss/cwa_enforcer.nss src/shared/nss/pb_nivellanzador.nss
 ```
 
 and claimed `3 successful, 1 skipped, 0 errored`.
 
-`linux_build-dev.sh:46` resolves each argument with `find src -name "$n"`, which
+`linux_build.sh:46` resolves each argument with `find src -name "$n"`, which
 matches a **basename**. Given a path it matches nothing. Re-running the exact
 recorded command prints three `no encontrado en src/` lines and `Nada que
 comprobar.` — it compiled nothing at all.

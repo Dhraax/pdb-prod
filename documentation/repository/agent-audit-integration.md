@@ -38,7 +38,7 @@ databases.
 
 Before the candidate commit, run the smallest deterministic checks required by
 the root `AGENTS.md`. For `.nss` changes, the handoff records the mandatory
-focused `./linux_build-dev.sh --check <explicit files>` command and observed
+focused `./linux_build.sh --check <explicit files>` command and observed
 result. Full packaging, server startup, and in-game validation remain with the
 user unless explicitly delegated.
 

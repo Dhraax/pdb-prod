@@ -79,7 +79,7 @@ supplied legacy production Compose. The comparison established these decisions:
    dependencies.
 4. Use one host-oriented production Compose for the final local rehearsal and
    the real host.
-5. Keep `docker-compose-dev.yml` as the ordinary local development variant,
+5. Keep `docker-compose.yml` as the ordinary local development variant,
    without the custom server entrypoint.
 6. Keep credentials out of Compose YAML and documentation.
 
@@ -181,13 +181,13 @@ Status: implemented; focused compilation passed; full build not run.
 
 ### Build and staging scripts
 
-`pdb-prod/linux_build-dev.sh` now compiles against the two script roots that
+`pdb-prod/linux_build.sh` now compiles against the two script roots that
 actually exist in PROD, `src/shared/nss` and `src/pwdb/nss`, and expects
 `modules/PB_EE_PROD.mod`.
 
-`pdb-prod/linux_run_server-dev.sh` stages that same artifact together with the
+`pdb-prod/linux_run_server.sh` stages that same artifact together with the
 development server env, MySQL env, MySQL initialization helper, Grafana
-provisioning and TLK files. It then uses `docker-compose-dev.yml`, which does not
+provisioning and TLK files. It then uses `docker-compose.yml`, which does not
 invoke the custom production runner.
 
 The filenames retain `-dev` for compatibility with the existing workflow; the
@@ -237,7 +237,7 @@ private credential source instead of duplicating database secrets.
 | File | Values owned there | Deployment handling |
 |------|--------------------|---------------------|
 | `config/nwserver.env` | Server identity, player password, DM password, administration password and non-secret NWNX behavior | Edit for the host; never copy values into documentation |
-| `config/nwserver-dev.env` | Local/test NWN and explicit NWNX_SQL connection settings | Local rehearsal only |
+| `config/nwserver.env` | Local/test NWN and explicit NWNX_SQL connection settings | Local rehearsal only |
 | `config/mysql.env` | MySQL root password, database, application user/password and panel MFA encryption key | Ignored/private; create from `config/mysql.env.example`, preserve across restarts and back it up privately |
 | `config/grafana.env` | Grafana administrator password | Replace for the host |
 | `config/influxdb.env` | InfluxDB database and users/passwords | Replace for the host |
@@ -353,7 +353,7 @@ seed tied to a different encryption key is not part of this migration.
 | Shell syntax for productive runner/restart, build/staging, database apply and panel restart scripts | Passed |
 | `module.ifo.json` parse and PWDB event values | Passed |
 | PROD `docker-compose.yml` render | Passed |
-| PROD `docker-compose-dev.yml` render | Passed |
+| PROD `docker-compose.yml` render | Passed |
 | Panel Compose render with local and remote example controls | Passed |
 | Required plugin, log-mount, NWSync and absent-CNR static assertions | Passed |
 | DEV canonical documentation checker | Passed: 81 Markdown files and 23 README indexes |
@@ -371,9 +371,9 @@ port files. At the last inventory:
 ### Tracked modifications
 
 - `.gitignore`;
-- `config/nwserver.env` and `config/nwserver-dev.env`;
-- `docker-compose.yml` and `docker-compose-dev.yml`;
-- `linux_run_server-dev.sh`;
+- `config/nwserver.env` and `config/nwserver.env`;
+- `docker-compose.yml` and `docker-compose.yml`;
+- `linux_run_server.sh`;
 - `nasher.cfg`;
 - `src/module/ifo/module.ifo.json`;
 - `src/shared/dlg/borrarpjs.dlg.json`;
@@ -385,7 +385,7 @@ port files. At the last inventory:
 - `migration/`;
 - `config/mysql-init/` and `config/mysql.env.example`;
 - `db-apply.sh`, `web-restart.sh`, `run-server.sh`, `server-restart.sh` and
-  `linux_build-dev.sh`;
+  `linux_build.sh`;
 - `src/pwdb/nss/pwdb_mod_act.nss` and `src/pwdb/nss/pwdb_mod_load.nss`;
 - the rebuild UTI, dialogue and executable scripts listed under MIG-003;
 - the PROD module changelog file.
@@ -444,7 +444,7 @@ This is the intended order, not a record of commands already executed:
 ### Build input or reviewed source
 
 - `nasher.cfg`;
-- `linux_build-dev.sh`;
+- `linux_build.sh`;
 - `src/pwdb/nss/`;
 - the integration and rebuild resources listed in MIG-002 and MIG-003;
 - `src/shared/nss/nw_c2_default9.nss`;
@@ -474,9 +474,9 @@ This is the intended order, not a record of commands already executed:
 
 ### Local rehearsal only
 
-- `docker-compose-dev.yml`;
-- `config/nwserver-dev.env`;
-- `linux_run_server-dev.sh`.
+- `docker-compose.yml`;
+- `config/nwserver.env`;
+- `linux_run_server.sh`.
 
 The private env values, database volume, server vault and log history must not
 be committed as deployment artifacts. They are provisioned or preserved on the
@@ -535,10 +535,10 @@ Verification completed:
   integer variable;
 - the complete module-event maps were compared field by field;
 - DEV focused compilation:
-  `./linux_build-dev.sh --check nw_c2_default9.nss` — one successful, zero
+  `./linux_build.sh --check nw_c2_default9.nss` — one successful, zero
   skipped, zero errors;
 - PROD focused compilation:
-  `./linux_build-dev.sh --check nw_c2_default9.nss wrap_on_ply_lvl.nss` — two
+  `./linux_build.sh --check nw_c2_default9.nss wrap_on_ply_lvl.nss` — two
   successful, zero skipped, zero errors.
 
 Runtime evidence: none. No module was packaged and no server or container was
@@ -873,7 +873,7 @@ leaving the gameplay switched off.
 ### Source and build
 
 `src/cnr/` is present and byte-identical to DEV: 170 `nss`, 4 `nui`, 506 `uti`,
-62 `utp` and 5 `dlg`. It is untracked. `linux_build-dev.sh` adds
+62 `utp` and 5 `dlg`. It is untracked. `linux_build.sh` adds
 `src/cnr/nss` and `src/cnr/nui` to `SRC_NSS`, and `nasher.cfg` gains
 `"cnr*.${shared-files}" = "src/cnr/$ext"` ahead of the shared rule so that a
 future unpack keeps new CNR-prefixed resources in the self-contained tree.
@@ -922,7 +922,7 @@ Copying `src/cnr/` into PROD produced 187 `.uti` resources present under both
 copy is removed whenever CNR takes ownership of a resource. A module cannot ship
 two resources with one resref, and the compiler cannot see the conflict: Nasher
 resolves it at pack time through `onMultipleSources`, whose default is `choose`,
-so with `linux_build-dev.sh` running `--yes` the winner would be decided by
+so with `linux_build.sh` running `--yes` the winner would be decided by
 source order rather than by a decision.
 
 All 187 shared copies were removed with `git rm`, so every duplicated resref
@@ -995,7 +995,7 @@ is a separate decision for a later slice.
 
 Focused NWScript compilation of the CNR slice in PROD: 157 successful, 22
 skipped, 0 errors. `pb_mod_activate.nss` in DEV: 1 successful. `bash -n
-linux_build-dev.sh` passed. `migration/{01_schema,02_seed,03_catalogue}.sql` are
+linux_build.sh` passed. `migration/{01_schema,02_seed,03_catalogue}.sql` are
 identical to DEV, and `diff -qr src/cnr` against DEV is empty. Focused compilation of `cierra_marroqui.nss` after the needle-tag change: 1
 successful, 0 errors. `migration/build_catalogue.py --check` passes in PROD and its output is
 byte-identical to the DEV run: 559 recipes intact, 71 materials, 39 categories,
@@ -1208,6 +1208,14 @@ afterwards in the single direct child.
 and `ormc_tienda`, `uri_horgen` and `uri_korgan` are cut to store-only in PROD
 while DEV still has their dragon scale armour and weapon repair (MIG-016). Both
 are decisions, not drift, and both need mirroring or reverting eventually.
+
+A third: production no longer names anything `-dev`. `linux_build-dev.sh` and
+`linux_run_server-dev.sh` are `linux_build.sh` and `linux_run_server.sh`,
+`docker-compose-dev.yml` and `config/nwserver-dev.env` are gone, and every
+document in this repository names the new files. Development keeps the old
+names, so the command lines quoted in this ledger differ between the two copies
+of it from 2026-09-13 onwards. Anything run in production before that date used
+the old name.
 
 **DEV working tree.** `src/cnr/nss/pb_potion_inc.nss` in DEV holds an
 uncommitted one-line `#include "lib_race"` fix.

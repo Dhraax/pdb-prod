@@ -9,7 +9,7 @@ database.
 
 The remote NWN stack is synchronized from `server/`, not directly from the
 repository's root `config/`, `modules/`, or `tlk/` directories. Run
-`linux_run_server-dev.sh` after a build when the staging contents need to be
+`linux_run_server.sh` after a build when the staging contents need to be
 refreshed. This keeps the remote server aligned with the exact local runtime
 that was staged and reviewed.
 
@@ -129,7 +129,7 @@ the server on it.
 
 Before transferring anything, `rsync.sh` verifies that the staged module,
 Compose file, settings, panel configuration, tools, and remote helpers exist.
-If staging is stale, refresh it with `linux_run_server-dev.sh` before syncing.
+If staging is stale, refresh it with `linux_run_server.sh` before syncing.
 The server mirror uses delayed deletion so obsolete deployment files are
 removed only after transfer, while the excluded persistent paths remain
 untouched.

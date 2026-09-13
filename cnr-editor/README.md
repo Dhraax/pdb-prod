@@ -48,7 +48,7 @@ the build/runtime containers; do not install or replace either runtime in WSL.
 
 Database credentials are deliberately not versioned. For a fresh checkout,
 copy `config/mysql.env.example` to `config/mysql.env`, replace every placeholder,
-and keep the resulting file local. `linux_run_server-dev.sh` stages it as
+and keep the resulting file local. `linux_run_server.sh` stages it as
 `server/config/mysql.env`; `cnr-editor/compose.yml` reads that staged file so the
 panel and the development MySQL service use the same connection values. Never
 commit either real credential file.

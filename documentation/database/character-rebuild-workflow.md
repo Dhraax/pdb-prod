@@ -308,7 +308,7 @@ The implementation slice was checked without writing bytecode or packaging the
 module:
 
 ```bash
-./linux_build-dev.sh --check \
+./linux_build.sh --check \
   pwdb_mod_act.nss \
   rebuild_prompt.nss \
   rebuild_cancel.nss \
@@ -332,7 +332,7 @@ and moved ownership-scoped revision deletion into the existing NWScript cleanup
 path. The affected consumers were then checked with:
 
 ```bash
-./linux_build-dev.sh --check rebuild_clean.nss wrap_on_clnt_ent.nss
+./linux_build.sh --check rebuild_clean.nss wrap_on_clnt_ent.nss
 ```
 
 Result: two successful compilations, zero skipped, zero errors. Migration

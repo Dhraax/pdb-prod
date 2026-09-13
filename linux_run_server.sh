@@ -10,17 +10,16 @@ if [ -f "$MOD" ]; then
   if [ "$NUEVOS" -gt 0 ]; then
     echo
     echo "  AVISO: $NUEVOS fichero(s) .nss en src/ son mas nuevos que $MOD."
-    echo "  Vas a desplegar una build desfasada. Ejecuta antes:  ./linux_build-dev.sh"
+    echo "  Vas a desplegar una build desfasada. Ejecuta antes:  ./linux_build.sh"
     echo
     read -r -p "  Continuar de todos modos? [s/N] " R
     [ "$R" = "s" ] || [ "$R" = "S" ] || exit 1
   fi
 else
-  echo "ERROR: no existe $MOD. Ejecuta primero ./linux_build-dev.sh"
+  echo "ERROR: no existe $MOD. Ejecuta primero ./linux_build.sh"
   exit 1
 fi
 
-rm -f server/config/nwserver-dev.env
 rm -f server/config/nwserver.env
 rm -f server/config/mysql.env
 rm -f server/modules/PB_EE_PROD.mod
@@ -30,13 +29,13 @@ mkdir -p server/config
 mkdir -p server/modules
 
 cp modules/PB_EE_PROD.mod server/modules/PB_EE_PROD.mod
-cp config/nwserver-dev.env server/config/nwserver-dev.env
+cp config/nwserver.env server/config/nwserver.env
 cp config/grafana.env server/config/grafana.env
 cp config/influxdb.env server/config/influxdb.env
 cp config/mysql.env server/config/mysql.env
 rsync -a --delete config/mysql-init/ server/config/mysql-init/
 rsync -a --delete config/grafana-provisioning/ server/config/grafana-provisioning/
-cp docker-compose-dev.yml server/docker-compose.yml
+cp docker-compose.yml server/docker-compose.yml
 rsync -av --delete tlk/ server/tlk/
 
 cd server

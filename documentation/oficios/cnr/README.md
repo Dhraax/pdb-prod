@@ -24,7 +24,7 @@ promotion runbook are closed.
 | Legacy station conversation and handlers | Removed | [`legacy-removal-and-production-promotion.md`](legacy-removal-and-production-promotion.md) |
 | Legacy non-CNR profession runtime | Removed from DEV source | [`legacy-removal-and-production-promotion.md`](legacy-removal-and-production-promotion.md) |
 | Crafted `sute_her*` activation | Isolated in `pb_potion_inc` | [`legacy-removal-and-production-promotion.md`](legacy-removal-and-production-promotion.md) |
-| Build and package | Done: the module is built and running as of 2026-08-15 | `linux_build-dev.sh` |
+| Build and package | Done: the module is built and running as of 2026-08-15 | `linux_build.sh` |
 | In-game regression and persistence validation | Pending | Promotion runbook |
 | Resource collection (harvesting) | Implemented: 44 nodes, tools, cooldown and refill; unproven in game | [`harvesting-nodes.md`](harvesting-nodes.md) |
 

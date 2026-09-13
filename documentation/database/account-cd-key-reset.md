@@ -225,7 +225,7 @@ The changed PWDB includes were checked through the explicit `OnClientEnter`
 consumer without writing bytecode or packaging the module:
 
 ```bash
-./linux_build-dev.sh --check wrap_on_clnt_ent.nss
+./linux_build.sh --check wrap_on_clnt_ent.nss
 ```
 
 Result: one successful compilation, zero skipped, zero errors.

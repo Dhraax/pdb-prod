@@ -1301,7 +1301,7 @@ This guide is extracted from these repository sources:
 | `documentation/database/schema.md` | Canonical Underworld schema and identity reasoning |
 | `documentation/database/setup.md` | MySQL/NWNX environment and operational behavior |
 | `docker-compose.yml` | Production MySQL and NWN service wiring |
-| `docker-compose-dev.yml` | Development service wiring and volume separation |
+| `docker-compose.yml` | Development service wiring and volume separation |
 | `config/mysql-init/01-nwnx-compatible-auth.sh` | MySQL auth compatibility bootstrap |
 | `plugins/systems/pwdb/pwdb_i_db.nss` | DDL, prepared upserts, lookup, and session cache |
 | `plugins/systems/pwdb/pwdb_l_plugin.nss` | Core Framework module-load and client-enter registration |

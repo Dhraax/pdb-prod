@@ -172,7 +172,7 @@ wrapped in a `DelayCommand` — that one, and Aura de Vitalidad.
 
 The **NoStack** plugin is pinned at `nwnxee/Plugins/NoStack/` and is **switched
 off**: `NWNX_NOSTACK_SKIP=y` in both `config/nwserver.env` and
-`config/nwserver-dev.env`. Nothing in `src/` calls it; only its header sits
+`config/nwserver.env`. Nothing in `src/` calls it; only its header sits
 there unused.
 
 Modes, set per family through `NWNX_NOSTACK_ABILITY`, `_SKILL`,
