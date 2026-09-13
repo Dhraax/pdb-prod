@@ -954,13 +954,14 @@ becomes tag `aguja_cost` and "Aguja de Costura", `aguja_grande` becomes tag
 de herramientas de Orfebre".
 
 The retained legacy leatherworking script `cierra_marroqui.nss` rejects any
-needle whose tag it does not know, and PROD still runs it. Retagging the basic
-needles to `aguja_cost` would have made a newly bought one unusable there, so
-that tag was added to its accepted list beside the five legacy ones. Nothing was
-removed from the check, `aguja_acero`, `aguja_aceroscuro` and `aguja_mithril`
-remain legacy blueprints under `src/shared/uti/`, and a needle already in a
-player's inventory keeps whatever tag it was created with. DEV does not have
-this script at all; CNR replaced it.
+needle whose tag it does not know, and retagging the basic needles to
+`aguja_cost` makes a newly bought one unusable there. That tag was briefly added
+to its accepted list and then removed on 2026-09-13: the owner's decision is
+that the legacy leatherworker is deprecated and will not be kept working against
+CNR items. The script is untouched again, `aguja_acero`, `aguja_aceroscuro` and
+`aguja_mithril` remain legacy blueprints under `src/shared/uti/`, and a needle
+already in a player's inventory keeps whatever tag it was created with. DEV does
+not have this script at all; CNR replaced it.
 
 `src/shared/uti/x0_it_mmedmisc04.uti.json` was missing from PROD entirely. It
 carries tag `tall_kittall`, the jeweller tool kit the CNR catalogue reads, and
@@ -1166,6 +1167,28 @@ potion library is therefore correct and compilable in PROD but still inert.
 Remaining work: port `inc_effects` and revert the two adaptations, then move the
 activation entry point.
 
+## MIG-018 — The skinning knife CNR asks for
+
+Date: 2026-09-13
+
+Status: Implemented in both repositories; no runtime validation.
+
+`cnr_skin_onused.nss` refuses to skin unless the player holds an item tagged
+`cnrSkinningKnife` in either hand, and no blueprint anywhere carried that tag,
+in either repository. Hide gathering could therefore never have worked. The
+legacy `desollador` blueprint under `src/shared/uti/` has the tag `desollador`
+and no script reads it.
+
+`src/cnr/uti/cnr_desollador.uti.json` is modelled on that legacy knife, keeps
+its dagger base item and its single property, and carries the tag CNR reads. It
+is in the custom item palette and the leatherworking store sells it for 20 gold,
+unlimited. Nothing else was changed: no recipe produces it yet and no node is
+placed, because hide gathering and node normalisation are the next slice.
+
+The `aguja_cost` compatibility line added to `cierra_marroqui.nss` on 2026-09-12
+was removed the following day: the legacy leatherworker is deprecated and is not
+being kept alive against CNR items.
+
 ## CNR port roadmap
 
 The PWDB slice (MIG-001 to MIG-014) and the CNR slice (MIG-015 to MIG-017) are
@@ -1181,7 +1204,7 @@ work is meant to run in, and what blocks each phase.
 | D. Host | DNS, HTTPS reverse proxy, final origin and cookie policy, host credentials, upload and rollback | C |
 | E. Stations | Decide the 108 legacy station instances across 22 areas one at a time, and place the modern CNR stations | C, and only worth doing once crafting is testable |
 | F. Effects layer | Port `inc_effects`, revert the two `pb_potion_inc` adaptations, and move the potion entry point off `sute_libreria` | nothing technically; deliberately deferred |
-| G. Legacy retirement | Retire `sute_libreria`'s potion function, the `tall_tall_*` jewelcrafting scripts, the `aguja_cost` compatibility line in `cierra_marroqui`, and whatever else CNR has replaced | E and F |
+| G. Legacy retirement | Retire `sute_libreria`'s potion function, the `tall_tall_*` jewelcrafting scripts, the deprecated `cierra_marroqui` leatherworker, and whatever else CNR has replaced | E and F |
 | H. Reconciliation | Bring DEV level with the decisions PROD took, and fix the PROD documentation structure | nothing; independent of deployment |
 
 Phases A to D are the production migration proper. E to H are the CNR
@@ -1224,9 +1247,7 @@ uncommitted one-line `#include "lib_race"` fix.
 `*_cadena`, `brazalcuero`) are in no palette in either repository. PROD has no
 `scripts/check_documentation.py`, so its documentation structure is unchecked.
 
-**Transitional code that has to come out.** `cierra_marroqui.nss` accepts the
-`aguja_cost` tag so the legacy leatherworker keeps working with the CNR needles;
-`sute_libreria.nss` still owns the live `usarPocionHerboristeria`; PROD keeps the
+**Transitional code that has to come out.** `sute_libreria.nss` still owns the live `usarPocionHerboristeria`; PROD keeps the
 `tall_tall_*` jewelcrafting scripts DEV deleted; and the module runs two effect
 systems side by side, `PJ_Efecto*`/`ApplyTaggedEffectToObject` and `gsSP*`.
 
@@ -1253,7 +1274,7 @@ not an import.
 | NEXT-009 | Pending | Correct the PROD repository instruction/documentation structure independently of runtime deployment |
 | NEXT-010 | Pending | Continue the disguise/community-name security redesign after PWDB containment is proven |
 | NEXT-017 | Pending | Decide and convert the 108 legacy station instances across 22 areas, then place the modern CNR stations |
-| NEXT-018 | Pending | Retire the CNR-replaced legacy code once crafting is live: `sute_libreria`'s potion function, `tall_tall_*`, the `aguja_cost` line in `cierra_marroqui` |
+| NEXT-018 | Pending | Retire the CNR-replaced legacy code once crafting is live: `sute_libreria`'s potion function, `tall_tall_*`, and the deprecated `cierra_marroqui` leatherworker |
 | NEXT-019 | Pending | Reconcile the deliberate DEV/PROD divergences: the `pb_potion_inc` adaptation and the three store-only armourer dialogues |
 | NEXT-020 | Pending | Replace every `**Commits.** \`<pending>\`` in the changelog entries with the candidate commit id |
 | NEXT-011 | Partly done | CNR engine, resources, palette entries and bridges ported by MIG-015; area/station placement and legacy retirement still deferred |

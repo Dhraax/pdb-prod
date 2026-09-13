@@ -31,38 +31,32 @@ echo "target: $target_database (user $target_user)"
 read -r -p "Type PROMOTE to continue: " answer
 [[ "$answer" == "PROMOTE" ]] || { echo "aborted"; exit 1; }
 
-# NWNX_SQL still needs mysql_native_password; MySQL 8.4 defaults to sha2.
-docker exec -i "$container" sh -lc '
-    set -eu
-    mysql -u root -p"$MYSQL_ROOT_PASSWORD" <<SQL
-CREATE DATABASE IF NOT EXISTS `'"$target_database"'`
-    CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER IF NOT EXISTS '"'$target_user'"'@'"'%'"'
-    IDENTIFIED WITH mysql_native_password BY '"'$target_password'"';
-ALTER USER '"'$target_user'"'@'"'%'"'
-    IDENTIFIED WITH mysql_native_password BY '"'$target_password'"';
-GRANT ALL PRIVILEGES ON `'"$target_database"'`.* TO '"'$target_user'"'@'"'%'"';
-FLUSH PRIVILEGES;
-SQL'
+# NWNX_SQL still needs mysql_native_password; MySQL 8.4 defaults to sha2, and
+# NWNX cannot speak it: the server logs "RSA Encryption not supported" and never
+# connects. The SQL is built here and piped in, so no identifier or password has
+# to survive a second round of shell quoting inside the container.
+{
+    printf 'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;\n' "$target_database"
+    printf "CREATE USER IF NOT EXISTS '%s'@'%%' IDENTIFIED WITH mysql_native_password BY '%s';\n" "$target_user" "$target_password"
+    printf "ALTER USER '%s'@'%%' IDENTIFIED WITH mysql_native_password BY '%s';\n" "$target_user" "$target_password"
+    printf "GRANT ALL PRIVILEGES ON %s.* TO '%s'@'%%';\n" "$target_database" "$target_user"
+    printf 'FLUSH PRIVILEGES;\n'
+} | docker exec -i "$container" sh -lc 'mysql -u root -p"$MYSQL_ROOT_PASSWORD"'
 
 echo "copying the data"
-docker exec -i "$container" sh -lc '
-    set -eu
-    mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --single-transaction --routines \
-        --events --triggers '"$source_database"' \
-    | mysql -u root -p"$MYSQL_ROOT_PASSWORD" '"$target_database"
+docker exec -i "$container" sh -lc 'mysqldump -u root -p"$MYSQL_ROOT_PASSWORD" --single-transaction --routines --events --triggers '"$source_database" \
+  | docker exec -i "$container" sh -lc 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" '"$target_database"
 
 echo
 echo "row counts, source then target:"
-docker exec -i "$container" sh -lc '
-    for db in '"$source_database $target_database"'; do
-        printf "  %-10s " "$db"
-        mysql -u root -p"$MYSQL_ROOT_PASSWORD" -N -e \
-            "SELECT CONCAT(\"characters=\", (SELECT COUNT(*) FROM pwdb_character),
-                    \" tradeskill=\", (SELECT COUNT(*) FROM cnr_tradeskill),
-                    \" recipes=\", (SELECT COUNT(*) FROM cnr_recipe));" "$db" 2>/dev/null \
-            || echo "(tables missing)"
-    done'
+for db in "$source_database" "$target_database"; do
+    printf '  %-10s ' "$db"
+    docker exec -i "$container" sh -lc 'mysql -u root -p"$MYSQL_ROOT_PASSWORD" -N -e "
+        SELECT CONCAT(\"characters=\", (SELECT COUNT(*) FROM pwdb_character),
+                      \" tradeskill=\", (SELECT COUNT(*) FROM cnr_tradeskill),
+                      \" recipes=\", (SELECT COUNT(*) FROM cnr_recipe),
+                      \" alembic=\", (SELECT version_num FROM alembic_version LIMIT 1));" '"$db" \
+        2>/dev/null || echo "(tables missing)"
+done
 
-echo
 echo "done. $source_database is left in place; drop it by hand once you trust the copy."
