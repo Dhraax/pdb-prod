@@ -1,11 +1,17 @@
-"""Track when a level unlock reaches the character campaign store."""
+"""Track when a level unlock reaches the character campaign store.
+
+The identifier stays under 32 characters: that is the width of Alembic's
+default alembic_version.version_num column, and a longer one is written
+only after the DDL has already been committed, which leaves the database
+with the column added and the revision unrecorded.
+"""
 
 from collections.abc import Sequence
 
 import sqlalchemy as sa
 from alembic import op
 
-revision: str = "0022_level_unlock_application_status"
+revision: str = "0022_level_unlock_applied"
 down_revision: str | None = "0021_character_tombstones"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None

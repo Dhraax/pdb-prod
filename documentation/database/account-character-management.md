@@ -293,7 +293,7 @@ with `edit_character_level_unlocks`. Its accepted values mirror the live
 and 35. The panel also shows the current cap immediately below each permission,
 for example cap 8 permits level 9.
 
-Migration `0022_level_unlock_application_status` separates authorization from
+Migration `0022_level_unlock_applied` separates authorization from
 delivery. `granted_at` records when the panel authorized the unlock;
 `applied_at` remains `NULL` until the module has confirmed the corresponding
 campaign value. The panel therefore presents an authorized row as pending until
