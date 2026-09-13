@@ -35,6 +35,11 @@ cp config/influxdb.env server/config/influxdb.env
 cp config/mysql.env server/config/mysql.env
 rsync -a --delete config/mysql-init/ server/config/mysql-init/
 rsync -a --delete config/grafana-provisioning/ server/config/grafana-provisioning/
+# El compose de produccion arranca con entrypoint /nwn/home/run-server.sh,
+# y /nwn/home es este directorio server/. Sin esta copia el contenedor no
+# encuentra su entrypoint y muere al crearse.
+cp -p run-server.sh server/run-server.sh
+chmod +x server/run-server.sh
 cp docker-compose.yml server/docker-compose.yml
 rsync -av --delete tlk/ server/tlk/
 
