@@ -786,7 +786,7 @@ Date: 2026-09-12
 Status: Implemented in DEV and mirrored to the PROD source tree; database and
 runtime deployment pending.
 
-Migration `0022_level_unlock_application_status` adds nullable `applied_at` to
+Migration `0022_level_unlock_applied` adds nullable `applied_at` to
 `pwdb_character_level_unlock`. The original row and `granted_at` remain the
 administrative authorization; the new timestamp records only a module-confirmed
 campaign value. The API preserves `level_unlocks` as the backward-compatible
