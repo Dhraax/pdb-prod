@@ -253,7 +253,8 @@ void usarPocionHerboristeria(object oPC, string sPocion)
                 RemoveEffectsFromSpell(oTarget, 186);
                 RemoveEffectsFromSpell(oTarget, 20);
                 ApplyEffectToObject(DURATION_TYPE_INSTANT, eDur, oPC);
-                ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC, TurnsToSeconds(iDuracionRestringida));
+                // El bono de Escuchar lo da DoNoStackSkillBonus. eLink nunca se
+                // construye en esta rama, asi que aplicarlo no hacia nada.
                 DoNoStackSkillBonus(OBJECT_SELF, oTarget, 14, SKILL_LISTEN, TurnsToSeconds(iDuracionRestringida));
             }
 
@@ -845,8 +846,9 @@ void usarPocionHerboristeria(object oPC, string sPocion)
             //Consciente 2/2/5
             eVis = EffectVisualEffect(VFX_DUR_MAGICAL_SIGHT);
             eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
-            eLink = EffectLinkEffects(eLink, eVis);
-            eLink = EffectLinkEffects(eLink, eDur);
+            // Se construye desde los dos visuales. Antes partia de un eLink sin
+            // asignar, lo que invalidaba el enlace y perdia los dos efectos.
+            eLink = EffectLinkEffects(eVis, eDur);
             //Si no tenemos el conjuro clarividencia y tampoco el de amplificar.
             if(!GetHasSpellEffect(SPELL_CLAIRAUDIENCE_AND_CLAIRVOYANCE, oPC) && !GetHasSpellEffect(SPELL_AMPLIFY, oPC)) {
                 RemoveEffectsFromSpell(oTarget, 20);

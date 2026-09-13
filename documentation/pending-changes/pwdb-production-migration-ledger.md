@@ -938,7 +938,8 @@ Nine pairs diverged and the CNR copy was chosen deliberately:
 |-----------|---------------------------|
 | `aguja_hierro` | Tag `aguja_hierro` becomes `aguja_cost`, which is what `cnrtailorstable`, `cnrsewingtable` and `02_seed.sql` require |
 | `bru_aza`, `bru_obs`, `polvo_aza`, `polvo_obs` | Name colour code only |
-| `carplenyo_olmo`, `carptablon_cipre`, `carptablon_olmo` | Name and description: "del crepusculo" becomes "de Lenocaso" |
+| `carplenyo_olmo`, `carptablon_olmo` | Name and description: "del crepusculo" becomes "de Lenocaso" |
+| `carptablon_cipre` | Name: "Tablones de cipres" becomes "Tablones de cedro"; its description already said cedar |
 | `virutasresplande` | Plain name becomes a coloured name |
 
 Base item, cost, stack size, charges, plot flag and property lists were already
@@ -1017,9 +1018,25 @@ packaged, applied or deployed.
 
 The profession masters in PROD still run the legacy conversations: they teach a
 trade, buy nuggets, ingots and hides, sell moulds and tools, and open a store as
-one option among many. CNR owns all of that now, so DEV reduced each of those
-conversations to one line and two replies, "Abrir tienda" and "Salir", with the
-store tag passed as the conversation action parameter `tienda`.
+one option among many. CNR owns all of that now, so DEV cut the trade out of
+every conversation that carried it.
+
+That cut has two shapes, and an earlier draft of this entry wrongly described
+all 26 files as having the first one. **Eighteen are profession merchants and
+are now one entry and two replies**, "Abrir tienda" and "Salir", with the store
+tag passed as the conversation action parameter `tienda`: `curtidor`,
+`jj_toigan`, `oficios_artarcan`, `oficios_carp`, `oficios_orf`,
+`oficios_peletero`, `ormc_tienda`, `quim_curtidor`, `sapo_artes_arca`,
+`sapo_cmcueros`, `sute_her_c_base`, `sute_met_c_base`, `tyr_druidaherbo`,
+`uri_her_c_base`, `uri_horgen`, `uri_korgan`, `uri_oficios_carp` and
+`uri_oficios_orf`. **The other eight are not merchants of a trade and keep their
+own conversation**, having lost only the branches that taught or traded:
+`cam_rio_cazado01` (3 entries / 3 replies), `cromwell` (24/43), `flechero`
+(4/5), `gof_inuslarga` (5/5), `ko_nash_hansen` (2/2), `mainah_mda` (2/2),
+`oro_im` (2/2) and `pb_x_coramrueda` (4/6). What holds for all 26 is narrower
+and is what was actually verified: none of them references a trade-teaching
+script any more, and the only trade scripts left anywhere in them are store
+openers.
 
 The 26 conversations DEV trimmed were copied verbatim, and every one is now
 byte-identical to its DEV counterpart:

@@ -18,6 +18,22 @@ const string TXT_COLOR_NINGUNO    = "";
 const string TXT_COLOR_FINAL      = "</c>";
 const string TXT_COLOR_ESTANDARD  = TXT_COLOR_CELESTE;
 
+/// -----------------------------------------------------------------------------
+///                              Function Prototypes
+/// -----------------------------------------------------------------------------
+/// Only the tradeskill helpers are declared here. The rest of this legacy
+/// library keeps its own prototypes further down, next to the SQL helpers.
+
+/// @brief Returns the tradeskill name for a given index.
+/// @param iIndex The index of the skill (0-6).
+/// @returns The name of the tradeskill as a string, or empty string if out of range.
+string GetSkillName(int iIndex);
+
+/// @brief Determines the tradeskill level based on XP (version persistencia).
+/// @param nXP The XP value.
+/// @returns The level (1-20).
+int PersistDetermineTradeskillLevel(int nXP);
+
 void Teletransporte(object oPC, location lLugar)
 {
   DelayCommand(0.4, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_GOOD_HELP), oPC));

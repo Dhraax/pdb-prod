@@ -95,37 +95,59 @@ int CnrSkill_Load(object oPC)
             continue;
         }
 
-        // Create the row if this character has never trained the skill.
-        if (NWNX_SQL_PrepareQuery(
+        // Create the row if this character has never trained the skill. A failed
+        // prepare or execute is a database problem, not a character without
+        // progress: it used to be swallowed, and the loop below then cached
+        // level 1 with no experience and still returned TRUE. The caller
+        // believed the load had happened, so the rebuild migration kept its DM
+        // warning to itself and weapon repair judged invented progress.
+        if (!NWNX_SQL_PrepareQuery(
             "INSERT INTO cnr_tradeskill (character_id, skill_name)"
             + " VALUES (?, ?)"
             + " ON DUPLICATE KEY UPDATE character_id = character_id"))
         {
-            NWNX_SQL_PreparedInt(0, nCharacterId);
-            NWNX_SQL_PreparedString(1, sSkill);
-            NWNX_SQL_ExecutePreparedQuery();
+            WriteTimestampedLogEntry(
+                "[CNR:SKILL] insert prepare failed for " + sSkill);
+            return FALSE;
         }
 
-        int nXp = 0;
-        int nLevel = 1;
+        NWNX_SQL_PreparedInt(0, nCharacterId);
+        NWNX_SQL_PreparedString(1, sSkill);
+        if (!NWNX_SQL_ExecutePreparedQuery())
+        {
+            WriteTimestampedLogEntry(
+                "[CNR:SKILL] tradeskill row could not be created for " + sSkill);
+            return FALSE;
+        }
 
-        if (NWNX_SQL_PrepareQuery(
+        if (!NWNX_SQL_PrepareQuery(
             "SELECT skill_xp, skill_level FROM cnr_tradeskill"
             + " WHERE character_id = ? AND skill_name = ? LIMIT 1"))
         {
-            NWNX_SQL_PreparedInt(0, nCharacterId);
-            NWNX_SQL_PreparedString(1, sSkill);
-
-            if (NWNX_SQL_ExecutePreparedQuery() && NWNX_SQL_ReadyToReadNextRow())
-            {
-                NWNX_SQL_ReadNextRow();
-                nXp    = StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
-                nLevel = StringToInt(NWNX_SQL_ReadDataInActiveRow(1));
-            }
+            WriteTimestampedLogEntry(
+                "[CNR:SKILL] select prepare failed for " + sSkill);
+            return FALSE;
         }
 
-        SetLocalInt(oContainer, CNR_VAR_XP + IntToString(nSkill), nXp);
-        SetLocalInt(oContainer, CNR_VAR_LEVEL + IntToString(nSkill), nLevel);
+        NWNX_SQL_PreparedInt(0, nCharacterId);
+        NWNX_SQL_PreparedString(1, sSkill);
+
+        // The insert above guarantees the row, so an empty result is a database
+        // failure. Nothing is written to the cache in that case: a stale cache
+        // is recoverable, an invented one is not.
+        if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
+        {
+            WriteTimestampedLogEntry(
+                "[CNR:SKILL] no tradeskill row came back for " + sSkill);
+            return FALSE;
+        }
+
+        NWNX_SQL_ReadNextRow();
+
+        SetLocalInt(oContainer, CNR_VAR_XP + IntToString(nSkill),
+                    StringToInt(NWNX_SQL_ReadDataInActiveRow(0)));
+        SetLocalInt(oContainer, CNR_VAR_LEVEL + IntToString(nSkill),
+                    StringToInt(NWNX_SQL_ReadDataInActiveRow(1)));
     }
 
     return TRUE;
