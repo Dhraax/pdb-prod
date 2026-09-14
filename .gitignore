@@ -152,3 +152,8 @@ migration/__pycache__/
 # project and never committed: it is another module by the same author, and the
 # spell effect library was imported from it. See documentation/rules/spell-effect-library.md.
 /cow-scripts/
+
+# Ultima palabra sobre los entornos del panel: la regla !cnr-editor/** de mas
+# arriba los volvia a incluir.
+cnr-editor/*.env
+!cnr-editor/*.env.example
