@@ -1,3 +1,4 @@
+// modified by: Dhraax
 #include "nw_i0_spells"
 #include "NW_I0_GENERIC"
 #include "mti_libreria"
@@ -38,10 +39,10 @@ void FuncionCrearObjetoYTag(string sResref, object oObjetivo = OBJECT_SELF, int 
     }
 }
 
-// usarPocionHerboristeria vivia aqui, 1623 lineas. Las pociones las sirve
-// ahora pb_potion_inc, en src/cnr/nss, que es el fichero que mantiene el
-// CNR. Esta libreria se queda solo por bonoRealCaracteristicaPJ y
-// FuncionCrearObjetoYTag, y deberia desaparecer cuando esas dos se muevan
-// a pb_item_helpers como en desarrollo.
+// usarPocionHerboristeria lived here, 1623 lines of it. The potions are served
+// by pb_potion_inc in src/cnr/nss now, which is the file CNR maintains. This
+// library survives only for bonoRealCaracteristicaPJ and FuncionCrearObjetoYTag
+// and should disappear once those two move to pb_item_helpers, as they already
+// have in the development repository.
 
 //void main(){}
