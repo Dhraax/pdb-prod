@@ -18,6 +18,7 @@
 #include "nwnx_creature"
 #include "lib_disguise"
 #include "sute_libreria"
+#include "pb_potion_inc"
 #include "mti_subrazas_inc"
 #include "nw_i0_2q4luskan"
 #include "x0_i0_spells"

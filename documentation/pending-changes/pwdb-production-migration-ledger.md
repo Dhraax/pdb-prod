@@ -1274,12 +1274,12 @@ not an import.
 | NEXT-009 | Pending | Correct the PROD repository instruction/documentation structure independently of runtime deployment |
 | NEXT-010 | Pending | Continue the disguise/community-name security redesign after PWDB containment is proven |
 | NEXT-017 | Pending | Decide and convert the 108 legacy station instances across 22 areas, then place the modern CNR stations |
-| NEXT-018 | Pending | Retire the CNR-replaced legacy code once crafting is live: `sute_libreria`'s potion function, `tall_tall_*`, and the deprecated `cierra_marroqui` leatherworker |
-| NEXT-019 | Pending | Reconcile the deliberate DEV/PROD divergences: the `pb_potion_inc` adaptation and the three store-only armourer dialogues |
+| NEXT-018 | Partly done | `sute_libreria`'s potion function is gone. Still to retire: `tall_tall_*`, the deprecated `cierra_marroqui`, `desollador`, `kitdesollador`, the `NIVELDESOLLADOR` persistence and the two unreachable Festyx skinning scripts |
+| NEXT-019 | Partly done | The three armourer dialogues were restored from DEV on 2026-09-14 and the two repositories match again. The `pb_potion_inc` effect adaptation is still a deliberate divergence |
 | NEXT-020 | Pending | Replace every `**Commits.** \`<pending>\`` in the changelog entries with the candidate commit id |
 | NEXT-011 | Partly done | CNR engine, resources, palette entries and bridges ported by MIG-015; area/station placement and legacy retirement still deferred |
 | NEXT-015 | Pending | Add the 63 CNR jewellery blueprints to the item palette, in DEV first |
-| NEXT-016 | Pending | Port `inc_effects` to PROD, revert the two `pb_potion_inc` adaptations and switch the potion entry point off `sute_libreria` |
+| NEXT-016 | Partly done | The potion entry point moved off `sute_libreria` on 2026-09-14 and CNR serves the potions. Porting `inc_effects` and reverting the two `pb_potion_inc` adaptations remain deferred |
 | NEXT-012 | Deferred | Port arcane-fire, caster-level and other spell/effect reworks |
 
 ## Follow-up entry template
