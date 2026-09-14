@@ -987,9 +987,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -1075,7 +1073,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -1107,7 +1105,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -1123,11 +1121,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_corindon"
+          "value": "cnr_gema_corind"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_corindon"
+          "value": "cnr_gema_corind"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1168,22 +1166,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -1191,22 +1189,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 400
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_zaf;bru_rubi;bru_jac;bru_zafnegro;bru_zafestre;bru_rubiestre"
               }
             }
           ]
@@ -1226,6 +1224,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de corindones"
+          }
         }
       },
       {
@@ -1264,9 +1268,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -1352,7 +1354,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -1384,7 +1386,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -1400,11 +1402,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_corindon"
+          "value": "cnr_gema_corind"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_corindon"
+          "value": "cnr_gema_corind"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1445,22 +1447,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -1468,22 +1470,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 400
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_zaf;bru_rubi;bru_jac;bru_zafnegro;bru_zafestre;bru_rubiestre"
               }
             }
           ]
@@ -1503,6 +1505,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de corindones"
+          }
         }
       },
       {
@@ -1541,9 +1549,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -1629,7 +1635,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -1661,7 +1667,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -1677,11 +1683,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1722,22 +1728,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -1745,22 +1751,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 250
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_lagrimar;bru_orblen;bru_orlo;bru_zen"
               }
             }
           ]
@@ -1780,6 +1786,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de cristal"
+          }
         }
       },
       {
@@ -1818,9 +1830,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -1906,7 +1916,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -1938,7 +1948,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -1954,11 +1964,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1999,22 +2009,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2022,22 +2032,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 250
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_lagrimar;bru_orblen;bru_orlo;bru_zen"
               }
             }
           ]
@@ -2057,6 +2067,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de cristal"
+          }
         }
       },
       {
@@ -2095,9 +2111,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2183,7 +2197,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2215,7 +2229,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2231,11 +2245,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2276,22 +2290,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2299,22 +2313,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 250
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_lagrimar;bru_orblen;bru_orlo;bru_zen"
               }
             }
           ]
@@ -2334,6 +2348,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de cristal"
+          }
         }
       },
       {
@@ -2372,9 +2392,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2460,7 +2478,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2492,7 +2510,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2508,11 +2526,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2553,22 +2571,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2576,22 +2594,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 250
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_lagrimar;bru_orblen;bru_orlo;bru_zen"
               }
             }
           ]
@@ -2611,6 +2629,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de cristal"
+          }
         }
       },
       {
@@ -2649,9 +2673,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2737,7 +2759,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2769,7 +2791,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2785,11 +2807,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_cristal"
+          "value": "cnr_gema_cristal"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2830,22 +2852,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2853,22 +2875,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 250
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_lagrimar;bru_orblen;bru_orlo;bru_zen"
               }
             }
           ]
@@ -2888,6 +2910,12 @@
         "Z": {
           "type": "float",
           "value": 25.0544
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de cristal"
+          }
         }
       },
       {
@@ -2926,9 +2954,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Un pequeño cáctus que parece muy seco y extrañamente caliente..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2994,7 +3020,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -3014,7 +3040,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3046,7 +3072,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3062,11 +3088,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3107,22 +3133,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3130,22 +3156,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "ardorDesertico"
               }
             }
           ]
@@ -3165,6 +3191,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Ardor desértico"
+          }
         }
       },
       {
@@ -3203,9 +3235,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Un pequeño cáctus que parece muy seco y extrañamente caliente..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3271,7 +3301,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -3291,7 +3321,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3323,7 +3353,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3339,11 +3369,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3384,22 +3414,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3407,22 +3437,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "ardorDesertico"
               }
             }
           ]
@@ -3442,6 +3472,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Ardor desértico"
+          }
         }
       },
       {
@@ -3480,9 +3516,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas hediondas setas muy ocultas entre las sombras..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3548,7 +3582,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -3568,7 +3602,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3600,7 +3634,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3616,11 +3650,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p07"
+          "value": "cnr_pl_seta"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p07"
+          "value": "cnr_pl_seta"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3661,22 +3695,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3684,22 +3718,37 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 130
+                "type": "cexostring",
+                "value": "setaNocturna"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Name": {
+                "type": "cexostring",
+                "value": "CNR_CONDICION"
+              },
+              "Type": {
+                "type": "dword",
+                "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "noche"
               }
             }
           ]
@@ -3719,6 +3768,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Seta nocturna"
+          }
         }
       },
       {
@@ -3757,9 +3812,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas hediondas setas muy ocultas entre las sombras..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3825,7 +3878,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -3845,7 +3898,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3877,7 +3930,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3893,11 +3946,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p07"
+          "value": "cnr_pl_seta"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p07"
+          "value": "cnr_pl_seta"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3938,22 +3991,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3961,22 +4014,37 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 130
+                "type": "cexostring",
+                "value": "setaNocturna"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Name": {
+                "type": "cexostring",
+                "value": "CNR_CONDICION"
+              },
+              "Type": {
+                "type": "dword",
+                "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "noche"
               }
             }
           ]
@@ -3996,6 +4064,12 @@
         "Z": {
           "type": "float",
           "value": 25.1338
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Seta nocturna"
+          }
         }
       },
       {
@@ -4034,9 +4108,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas flores azuladas, que se agitan vivamente con la brisa..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4102,7 +4174,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -4122,7 +4194,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4154,7 +4226,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4170,11 +4242,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p02_2"
+          "value": "cnr_pl_brisaa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p02_2"
+          "value": "cnr_pl_brisaa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4215,22 +4287,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 2
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4238,22 +4310,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 145
+                "value": 1
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 180
+                "type": "cexostring",
+                "value": "brisaSusurrante"
               }
             }
           ]
@@ -4273,6 +4345,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Brisa susurrante"
+          }
         }
       },
       {
@@ -4311,9 +4389,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas flores azuladas, que se agitan vivamente con la brisa..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4379,7 +4455,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -4399,7 +4475,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4431,7 +4507,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4447,11 +4523,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p02_2"
+          "value": "cnr_pl_brisaa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p02_2"
+          "value": "cnr_pl_brisaa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4492,22 +4568,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 2
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4515,22 +4591,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 145
+                "value": 1
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 180
+                "type": "cexostring",
+                "value": "brisaSusurrante"
               }
             }
           ]
@@ -4752,6 +4828,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Brisa susurrante"
+          }
         }
       },
       {
@@ -4790,9 +4872,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una gruesa y dura enredadera que crece por las rocas cercanas..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4858,7 +4938,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -4878,7 +4958,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4910,7 +4990,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4926,11 +5006,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p03_3"
+          "value": "cnr_pl_resinaa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p03_3"
+          "value": "cnr_pl_resinaa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4971,22 +5051,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
-              },
-              "Value": {
-                "type": "int",
                 "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4994,22 +5074,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 205
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "resinasubterrane"
               }
             }
           ]
@@ -5029,6 +5109,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Resina subterránea"
+          }
         }
       },
       {
@@ -5067,9 +5153,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una gruesa y dura enredadera que crece por las rocas cercanas..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5135,7 +5219,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -5155,7 +5239,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5187,7 +5271,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5203,11 +5287,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p03_3"
+          "value": "cnr_pl_resinaa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p03_3"
+          "value": "cnr_pl_resinaa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5248,22 +5332,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
-              },
-              "Value": {
-                "type": "int",
                 "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -5271,22 +5355,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 205
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "resinasubterrane"
               }
             }
           ]
@@ -5297,7 +5381,7 @@
         },
         "X": {
           "type": "float",
-          "value": 99.86409999999999
+          "value": 99.8641
         },
         "Y": {
           "type": "float",
@@ -5306,6 +5390,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Resina subterránea"
+          }
         }
       },
       {
@@ -5344,9 +5434,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas flores blancas y brillantes, muy relajantes y hermosas..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5412,7 +5500,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -5432,7 +5520,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5464,7 +5552,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5480,11 +5568,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5525,22 +5613,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -5548,22 +5636,37 @@
               },
               "Value": {
                 "type": "int",
-                "value": 395
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 140
+                "type": "cexostring",
+                "value": "florLuminosa"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Name": {
+                "type": "cexostring",
+                "value": "CNR_CONDICION"
+              },
+              "Type": {
+                "type": "dword",
+                "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "dia"
               }
             }
           ]
@@ -5583,6 +5686,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Flor luminosa"
+          }
         }
       },
       {
@@ -5621,9 +5730,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas flores blancas y brillantes, muy relajantes y hermosas..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5689,7 +5796,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -5709,7 +5816,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5741,7 +5848,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5757,11 +5864,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5802,22 +5909,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -5825,22 +5932,37 @@
               },
               "Value": {
                 "type": "int",
-                "value": 395
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 140
+                "type": "cexostring",
+                "value": "florLuminosa"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Name": {
+                "type": "cexostring",
+                "value": "CNR_CONDICION"
+              },
+              "Type": {
+                "type": "dword",
+                "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "dia"
               }
             }
           ]
@@ -5860,6 +5982,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Flor luminosa"
+          }
         }
       },
       {
@@ -5898,9 +6026,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unas flores blancas y brillantes, muy relajantes y hermosas..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5966,7 +6092,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -5986,7 +6112,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6018,7 +6144,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6034,11 +6160,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p06_6"
+          "value": "cnr_pl_flora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6079,22 +6205,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6102,22 +6228,37 @@
               },
               "Value": {
                 "type": "int",
-                "value": 395
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 140
+                "type": "cexostring",
+                "value": "florLuminosa"
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Name": {
+                "type": "cexostring",
+                "value": "CNR_CONDICION"
+              },
+              "Type": {
+                "type": "dword",
+                "value": 3
+              },
+              "Value": {
+                "type": "cexostring",
+                "value": "dia"
               }
             }
           ]
@@ -6137,6 +6278,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Flor luminosa"
+          }
         }
       },
       {
@@ -6175,9 +6322,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Un pequeño cáctus que parece muy seco y extrañamente caliente..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6243,7 +6388,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -6263,7 +6408,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6295,7 +6440,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6311,11 +6456,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6356,22 +6501,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6379,22 +6524,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "ardorDesertico"
               }
             }
           ]
@@ -6414,6 +6559,12 @@
         "Z": {
           "type": "float",
           "value": 25.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Ardor desértico"
+          }
         }
       },
       {
@@ -6452,9 +6603,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Un pequeño cáctus que parece muy seco y extrañamente caliente..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6520,7 +6669,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -6540,7 +6689,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6572,7 +6721,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6588,11 +6737,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p04_4"
+          "value": "cnr_pl_ardora"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6633,22 +6782,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6656,22 +6805,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "ardorDesertico"
               }
             }
           ]
@@ -6691,6 +6840,12 @@
         "Z": {
           "type": "float",
           "value": 25.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Ardor desértico"
+          }
         }
       }
     ]
@@ -7445,7 +7600,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": -9.614000000000001
+                "value": -9.614
               },
               "PointY": {
                 "type": "float",
@@ -7885,7 +8040,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": 8.731199999999999
+                "value": 8.7312
               },
               "PointZ": {
                 "type": "float",
@@ -9104,7 +9259,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 74.09690000000001
+          "value": 74.0969
         },
         "ZOrientation": {
           "type": "float",
@@ -10046,7 +10201,7 @@
         },
         "YOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "YPosition": {
           "type": "float",

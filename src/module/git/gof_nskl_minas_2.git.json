@@ -260,7 +260,7 @@
         },
         "X": {
           "type": "float",
-          "value": 74.18000000000001
+          "value": 74.18
         },
         "Y": {
           "type": "float",
@@ -495,7 +495,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 8.049300000000001
+          "value": 8.0493
         },
         "ZPosition": {
           "type": "float",
@@ -950,7 +950,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 67.07980000000001
+          "value": 67.0798
         },
         "YPosition": {
           "type": "float",
@@ -1240,7 +1240,7 @@
               },
               "Z": {
                 "type": "float",
-                "value": -0.08500000000000001
+                "value": -0.085
               }
             },
             {
@@ -2607,7 +2607,7 @@
         },
         "X": {
           "type": "float",
-          "value": 89.25369999999999
+          "value": 89.2537
         },
         "Y": {
           "type": "float",
@@ -2882,9 +2882,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Hizagkuur. Un mineral de color verdoso similar a la arcilla."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2970,7 +2968,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3002,7 +3000,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3018,11 +3016,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m21"
+          "value": "cnr_veta_hizag"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m021"
+          "value": "cnr_veta_hizag"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3063,22 +3061,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 11
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3086,22 +3084,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 230
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHizagkuur"
               }
             }
           ]
@@ -3121,6 +3119,12 @@
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hizagkuur"
+          }
         }
       },
       {
@@ -3159,9 +3163,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Hizagkuur. Un mineral de color verdoso similar a la arcilla."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3247,7 +3249,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3279,7 +3281,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3295,11 +3297,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m21"
+          "value": "cnr_veta_hizag"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m021"
+          "value": "cnr_veta_hizag"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3340,22 +3342,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 11
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3363,22 +3365,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 230
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHizagkuur"
               }
             }
           ]
@@ -3389,7 +3391,7 @@
         },
         "X": {
           "type": "float",
-          "value": 73.58929999999999
+          "value": 73.5893
         },
         "Y": {
           "type": "float",
@@ -3398,6 +3400,12 @@
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hizagkuur"
+          }
         }
       },
       {
@@ -3436,9 +3444,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Hizagkuur. Un mineral de color verdoso similar a la arcilla."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3524,7 +3530,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3556,7 +3562,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3572,11 +3578,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m21"
+          "value": "cnr_veta_hizag"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m021"
+          "value": "cnr_veta_hizag"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3617,22 +3623,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 11
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3640,22 +3646,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 230
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHizagkuur"
               }
             }
           ]
@@ -3675,6 +3681,12 @@
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hizagkuur"
+          }
         }
       },
       {
@@ -3713,9 +3725,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Hizagkuur. Un mineral de color verdoso similar a la arcilla."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3801,7 +3811,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3833,7 +3843,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3849,11 +3859,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m21"
+          "value": "cnr_veta_hizag"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m021"
+          "value": "cnr_veta_hizag"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3894,22 +3904,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 11
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3917,22 +3927,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 230
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHizagkuur"
               }
             }
           ]
@@ -3952,6 +3962,12 @@
         "Z": {
           "type": "float",
           "value": 0.0518
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hizagkuur"
+          }
         }
       },
       {
@@ -3990,9 +4006,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Hizagkuur. Un mineral de color verdoso similar a la arcilla."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4078,7 +4092,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4110,7 +4124,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4126,11 +4140,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m21"
+          "value": "cnr_veta_hizag"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m021"
+          "value": "cnr_veta_hizag"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4171,22 +4185,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 11
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4194,22 +4208,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 230
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHizagkuur"
               }
             }
           ]
@@ -4229,6 +4243,12 @@
         "Z": {
           "type": "float",
           "value": 0.1223
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hizagkuur"
+          }
         }
       },
       {
@@ -4267,9 +4287,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de plata..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4355,7 +4373,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4387,7 +4405,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4403,11 +4421,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m04"
+          "value": "cnr_veta_plata"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m04"
+          "value": "cnr_veta_plata"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4448,22 +4466,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4471,22 +4489,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaPlata"
               }
             }
           ]
@@ -4506,6 +4524,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de plata"
+          }
         }
       },
       {
@@ -4544,9 +4568,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de plata..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4632,7 +4654,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4664,7 +4686,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4680,11 +4702,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m04"
+          "value": "cnr_veta_plata"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m04"
+          "value": "cnr_veta_plata"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4725,22 +4747,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 4
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4748,22 +4770,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 270
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaPlata"
               }
             }
           ]
@@ -4783,6 +4805,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de plata"
+          }
         }
       }
     ]
@@ -5162,7 +5190,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": -0.6788999999999999
+                "value": -0.6789
               },
               "PointY": {
                 "type": "float",
@@ -5598,7 +5626,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": 8.002000000000001
+                "value": 8.002
               },
               "PointY": {
                 "type": "float",
@@ -5925,7 +5953,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 89.18859999999999
+          "value": 89.1886
         },
         "YOrientation": {
           "type": "float",

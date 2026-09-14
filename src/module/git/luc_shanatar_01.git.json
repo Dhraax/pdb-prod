@@ -2098,7 +2098,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 70.68040000000001
+          "value": 70.6804
         },
         "ZPosition": {
           "type": "float",
@@ -7099,7 +7099,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 72.94580000000001
+          "value": 72.9458
         },
         "Z": {
           "type": "float",
@@ -7553,7 +7553,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 74.39100000000001
+          "value": 74.391
         },
         "Z": {
           "type": "float",
@@ -8028,9 +8028,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de mithril..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -8116,7 +8114,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -8148,7 +8146,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -8164,11 +8162,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -8209,22 +8207,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -8232,22 +8230,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaMithril"
               }
             }
           ]
@@ -8262,11 +8260,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 70.09910000000001
+          "value": 70.0991
         },
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de mithril"
+          }
         }
       },
       {
@@ -8305,9 +8309,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de mithril..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -8393,7 +8395,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -8425,7 +8427,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -8441,11 +8443,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -8486,22 +8488,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -8509,22 +8511,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaMithril"
               }
             }
           ]
@@ -8544,6 +8546,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de mithril"
+          }
         }
       },
       {
@@ -8582,9 +8590,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de mithril..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -8670,7 +8676,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -8702,7 +8708,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -8718,11 +8724,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -8763,22 +8769,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -8786,22 +8792,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaMithril"
               }
             }
           ]
@@ -8821,6 +8827,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de mithril"
+          }
         }
       },
       {
@@ -8859,9 +8871,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de mithril..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -8947,7 +8957,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -8979,7 +8989,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -8995,11 +9005,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m07"
+          "value": "cnr_veta_mithril"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -9040,22 +9050,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 7
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -9063,22 +9073,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 455
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaMithril"
               }
             }
           ]
@@ -9098,6 +9108,12 @@
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de mithril"
+          }
         }
       }
     ]

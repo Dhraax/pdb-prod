@@ -1608,7 +1608,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 87.83459999999999
+          "value": 87.8346
         },
         "ZPosition": {
           "type": "float",
@@ -3022,10 +3022,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3112,7 +3109,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3144,7 +3141,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3160,11 +3157,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3205,22 +3202,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3235,15 +3232,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -3263,6 +3260,12 @@
         "Z": {
           "type": "float",
           "value": 5.0059
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       },
       {
@@ -7101,7 +7104,7 @@
         },
         "X": {
           "type": "float",
-          "value": 81.40600000000001
+          "value": 81.406
         },
         "Y": {
           "type": "float",
@@ -7785,7 +7788,7 @@
         },
         "X": {
           "type": "float",
-          "value": 94.14879999999999
+          "value": 94.1488
         },
         "Y": {
           "type": "float",
@@ -10069,7 +10072,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 75.63720000000001
+          "value": 75.6372
         },
         "Z": {
           "type": "float",
@@ -10293,7 +10296,7 @@
         },
         "X": {
           "type": "float",
-          "value": 94.99290000000001
+          "value": 94.9929
         },
         "Y": {
           "type": "float",
@@ -10548,7 +10551,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.5881999999999999
+          "value": -0.5882
         },
         "BodyBag": {
           "type": "byte",
@@ -18292,7 +18295,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 88.01309999999999
+          "value": 88.0131
         },
         "Z": {
           "type": "float",
@@ -18520,7 +18523,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 89.41719999999999
+          "value": 89.4172
         },
         "Z": {
           "type": "float",
@@ -18976,7 +18979,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 92.17010000000001
+          "value": 92.1701
         },
         "Z": {
           "type": "float",
@@ -24592,7 +24595,7 @@
         },
         "X": {
           "type": "float",
-          "value": 82.71980000000001
+          "value": 82.7198
         },
         "Y": {
           "type": "float",
@@ -35352,7 +35355,7 @@
         },
         "X": {
           "type": "float",
-          "value": 99.53019999999999
+          "value": 99.5302
         },
         "Y": {
           "type": "float",
@@ -35784,7 +35787,7 @@
         },
         "X": {
           "type": "float",
-          "value": 91.01000000000001
+          "value": 91.01
         },
         "Y": {
           "type": "float",
@@ -40007,7 +40010,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": 0.9572000000000001
+          "value": 0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -41149,7 +41152,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": 0.9572000000000001
+          "value": 0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -41837,7 +41840,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.8836000000000001
+          "value": -0.8836
         },
         "BodyBag": {
           "type": "byte",
@@ -42067,7 +42070,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.8836000000000001
+          "value": -0.8836
         },
         "BodyBag": {
           "type": "byte",
@@ -42932,7 +42935,7 @@
         },
         "X": {
           "type": "float",
-          "value": 96.53959999999999
+          "value": 96.5396
         },
         "Y": {
           "type": "float",
@@ -43162,7 +43165,7 @@
         },
         "X": {
           "type": "float",
-          "value": 91.49720000000001
+          "value": 91.4972
         },
         "Y": {
           "type": "float",
@@ -44312,7 +44315,7 @@
         },
         "X": {
           "type": "float",
-          "value": 89.81180000000001
+          "value": 89.8118
         },
         "Y": {
           "type": "float",
@@ -55466,7 +55469,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.075799999999999
+          "value": 8.0758
         }
       },
       {
@@ -58363,7 +58366,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.8836000000000001
+          "value": -0.8836
         },
         "BodyBag": {
           "type": "byte",
@@ -60857,7 +60860,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 66.69840000000001
+          "value": 66.6984
         },
         "Z": {
           "type": "float",
@@ -66775,7 +66778,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.704599999999999
+          "value": 8.7046
         }
       },
       {
@@ -70377,7 +70380,7 @@
         },
         "X": {
           "type": "float",
-          "value": 75.50020000000001
+          "value": 75.5002
         },
         "Y": {
           "type": "float",
@@ -72177,7 +72180,7 @@
         },
         "X": {
           "type": "float",
-          "value": 91.16160000000001
+          "value": 91.1616
         },
         "Y": {
           "type": "float",
@@ -72185,7 +72188,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.837999999999999
+          "value": 8.838
         }
       },
       {
@@ -73124,7 +73127,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.8836000000000001
+          "value": -0.8836
         },
         "BodyBag": {
           "type": "byte",
@@ -75607,7 +75610,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.540699999999999
+          "value": 8.5407
         }
       },
       {
@@ -83489,7 +83492,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.919600000000001
+          "value": 9.9196
         }
       },
       {
@@ -83738,7 +83741,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.8836000000000001
+          "value": -0.8836
         },
         "BodyBag": {
           "type": "byte",
@@ -83949,7 +83952,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.220800000000001
+          "value": 9.2208
         }
       },
       {
@@ -87391,7 +87394,7 @@
         },
         "X": {
           "type": "float",
-          "value": 92.03319999999999
+          "value": 92.0332
         },
         "Y": {
           "type": "float",
@@ -88549,7 +88552,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.683400000000001
+          "value": 8.6834
         }
       },
       {
@@ -93699,7 +93702,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.225899999999999
+          "value": 8.2259
         }
       },
       {
@@ -105571,7 +105574,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.516500000000001
+          "value": 8.5165
         }
       },
       {
@@ -107866,7 +107869,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 64.72799999999999
+          "value": 64.728
         },
         "Z": {
           "type": "float",
@@ -108782,7 +108785,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 95.14060000000001
+          "value": 95.1406
         },
         "Z": {
           "type": "float",
@@ -110201,10 +110204,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -110291,7 +110291,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -110323,7 +110323,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -110339,11 +110339,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -110384,22 +110384,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -110414,15 +110414,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -110442,6 +110442,12 @@
         "Z": {
           "type": "float",
           "value": 5.129
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       },
       {
@@ -110480,10 +110486,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -110570,7 +110573,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -110602,7 +110605,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -110618,11 +110621,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -110663,22 +110666,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -110693,15 +110696,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -110721,6 +110724,12 @@
         "Z": {
           "type": "float",
           "value": 5.2651
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       },
       {
@@ -113812,7 +113821,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 73.42270000000001
+          "value": 73.4227
         },
         "Z": {
           "type": "float",
@@ -124103,7 +124112,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 81.40130000000001
+          "value": 81.4013
         },
         "Z": {
           "type": "float",
@@ -125686,7 +125695,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 73.21680000000001
+          "value": 73.2168
         },
         "Z": {
           "type": "float",
@@ -126136,7 +126145,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 83.79300000000001
+          "value": 83.793
         },
         "Z": {
           "type": "float",
@@ -126790,7 +126799,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 75.49930000000001
+          "value": 75.4993
         },
         "Z": {
           "type": "float",
@@ -128005,7 +128014,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 71.86409999999999
+          "value": 71.8641
         },
         "Z": {
           "type": "float",
@@ -128499,7 +128508,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 80.47969999999999
+          "value": 80.4797
         },
         "Z": {
           "type": "float",
@@ -129220,7 +129229,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 72.43689999999999
+          "value": 72.4369
         },
         "Z": {
           "type": "float",
@@ -133066,7 +133075,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 79.41589999999999
+          "value": 79.4159
         },
         "Z": {
           "type": "float",
@@ -134379,7 +134388,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 86.05549999999999
+          "value": 86.0555
         },
         "Z": {
           "type": "float",
@@ -135277,7 +135286,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 88.34529999999999
+          "value": 88.3453
         },
         "Z": {
           "type": "float",
@@ -135726,7 +135735,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 87.71250000000001
+          "value": 87.7125
         },
         "Z": {
           "type": "float",
@@ -136624,7 +136633,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 83.94119999999999
+          "value": 83.9412
         },
         "Z": {
           "type": "float",
@@ -137522,7 +137531,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 81.42659999999999
+          "value": 81.4266
         },
         "Z": {
           "type": "float",
@@ -138869,7 +138878,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 85.51560000000001
+          "value": 85.5156
         },
         "Z": {
           "type": "float",
@@ -139552,7 +139561,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.41500000000001
+          "value": 96.415
         },
         "Z": {
           "type": "float",
@@ -139779,7 +139788,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 94.93640000000001
+          "value": 94.9364
         },
         "Z": {
           "type": "float",
@@ -143166,7 +143175,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 99.59999999999999
+          "value": 99.6
         },
         "Z": {
           "type": "float",
@@ -144056,7 +144065,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 95.90819999999999
+          "value": 95.9082
         },
         "Z": {
           "type": "float",
@@ -153664,7 +153673,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.841699999999999
+          "value": 9.8417
         }
       },
       {
@@ -154114,7 +154123,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 74.25190000000001
+          "value": 74.2519
         },
         "Z": {
           "type": "float",
@@ -154568,7 +154577,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 72.34690000000001
+          "value": 72.3469
         },
         "Z": {
           "type": "float",
@@ -155249,7 +155258,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 72.47669999999999
+          "value": 72.4767
         },
         "Z": {
           "type": "float",
@@ -155703,7 +155712,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 78.03570000000001
+          "value": 78.0357
         },
         "Z": {
           "type": "float",
@@ -156838,7 +156847,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 73.59829999999999
+          "value": 73.5983
         },
         "Z": {
           "type": "float",
@@ -157292,7 +157301,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 78.70440000000001
+          "value": 78.7044
         },
         "Z": {
           "type": "float",
@@ -157746,7 +157755,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 82.94840000000001
+          "value": 82.9484
         },
         "Z": {
           "type": "float",
@@ -159549,7 +159558,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 77.48180000000001
+          "value": 77.4818
         },
         "Z": {
           "type": "float",
@@ -162879,7 +162888,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 73.78149999999999
+          "value": 73.7815
         },
         "Z": {
           "type": "float",
@@ -168935,7 +168944,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 92.27930000000001
+          "value": 92.2793
         },
         "Z": {
           "type": "float",
@@ -169389,7 +169398,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 86.99590000000001
+          "value": 86.9959
         },
         "Z": {
           "type": "float",
@@ -171205,7 +171214,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 89.67870000000001
+          "value": 89.6787
         },
         "Z": {
           "type": "float",
@@ -171432,7 +171441,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 76.47750000000001
+          "value": 76.4775
         },
         "Z": {
           "type": "float",
@@ -175295,7 +175304,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.414199999999999
+          "value": 9.4142
         }
       },
       {
@@ -175976,7 +175985,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.136699999999999
+          "value": 8.1367
         }
       },
       {
@@ -177998,7 +178007,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.821199999999999
+          "value": 8.8212
         }
       },
       {
@@ -178225,7 +178234,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.968999999999999
+          "value": 8.969
         }
       },
       {
@@ -179568,7 +179577,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.255800000000001
+          "value": 8.2558
         }
       },
       {
@@ -180258,7 +180267,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.753299999999999
+          "value": 9.7533
         }
       },
       {
@@ -183016,7 +183025,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.261100000000001
+          "value": 8.2611
         }
       },
       {
@@ -184614,7 +184623,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.227499999999999
+          "value": 8.2275
         }
       },
       {
@@ -190110,7 +190119,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 74.17489999999999
+          "value": 74.1749
         },
         "Z": {
           "type": "float",
@@ -190338,7 +190347,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 79.97410000000001
+          "value": 79.9741
         },
         "Z": {
           "type": "float",
@@ -200190,7 +200199,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 34273
+          "value": 282
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -200210,7 +200219,7 @@
         },
         "Conversation": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_c_station"
         },
         "CurrentHP": {
           "type": "short",
@@ -200278,7 +200287,7 @@
         },
         "OnClosed": {
           "type": "resref",
-          "value": "cierra_herbolari"
+          "value": ""
         },
         "OnDamaged": {
           "type": "resref",
@@ -200310,7 +200319,7 @@
         },
         "OnOpen": {
           "type": "resref",
-          "value": "abre_herbolario"
+          "value": ""
         },
         "OnSpellCastAt": {
           "type": "resref",
@@ -200326,7 +200335,7 @@
         },
         "OnUsed": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_device_ou"
         },
         "OnUserDefined": {
           "type": "resref",
@@ -200342,7 +200351,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 0
+          "value": 781
         },
         "Ref": {
           "type": "byte",
@@ -200354,11 +200363,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_caldero"
+          "value": "cnrHebCauldron"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_caldero"
+          "value": "cnrHebCauldron"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -200609,6 +200618,10 @@
         "Z": {
           "type": "float",
           "value": 5.0
+        },
+        "VarTable": {
+          "type": "list",
+          "value": []
         }
       },
       {
@@ -201296,7 +201309,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 5184
+          "value": 303
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -201316,7 +201329,7 @@
         },
         "Conversation": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_c_station"
         },
         "CurrentHP": {
           "type": "short",
@@ -201325,7 +201338,8 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "id": 14539
+            "8": "\n\n\nUn serrador podrá convertir leños en tablones en esta tabla de serrería, solamente necesitas las herramientas necesarias.",
+            "id": 68962
           }
         },
         "DisarmDC": {
@@ -201346,7 +201360,7 @@
         },
         "HasInventory": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "HP": {
           "type": "short",
@@ -201354,7 +201368,7 @@
         },
         "Interruptable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "KeyName": {
           "type": "cexostring",
@@ -201393,7 +201407,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x0_o2_potnlow"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -201417,7 +201431,7 @@
         },
         "OnOpen": {
           "type": "resref",
-          "value": "x0_o2_potnlow"
+          "value": ""
         },
         "OnSpellCastAt": {
           "type": "resref",
@@ -201433,7 +201447,7 @@
         },
         "OnUsed": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_device_ou"
         },
         "OnUserDefined": {
           "type": "resref",
@@ -201449,7 +201463,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 10197
+          "value": 789
         },
         "Ref": {
           "type": "byte",
@@ -201461,11 +201475,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "X0_TRES_POTNLOW"
+          "value": "cnrSawTable"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "x0_tres_potnlow"
+          "value": "cnrSawTable"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -201497,7 +201511,7 @@
         },
         "Useable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Will": {
           "type": "byte",
@@ -201514,6 +201528,10 @@
         "Z": {
           "type": "float",
           "value": 5.0
+        },
+        "VarTable": {
+          "type": "list",
+          "value": []
         }
       },
       {
@@ -202416,7 +202434,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 8.586499999999999
+          "value": 8.5865
         }
       },
       {
@@ -204601,7 +204619,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.12779999999999
+          "value": 96.1278
         },
         "Z": {
           "type": "float",
@@ -208206,7 +208224,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -0.7171999999999999
+                "value": -0.7172
               },
               "PointZ": {
                 "type": "float",
@@ -208488,7 +208506,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -9.998699999999999
+                "value": -9.9987
               },
               "PointZ": {
                 "type": "float",
@@ -209638,7 +209656,7 @@
         },
         "XOrientation": {
           "type": "float",
-          "value": -0.9330000000000001
+          "value": -0.933
         },
         "XPosition": {
           "type": "float",
@@ -209650,7 +209668,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 90.35890000000001
+          "value": 90.3589
         },
         "ZPosition": {
           "type": "float",
@@ -209697,7 +209715,7 @@
         },
         "XOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "XPosition": {
           "type": "float",
@@ -209709,7 +209727,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 97.16459999999999
+          "value": 97.1646
         },
         "ZPosition": {
           "type": "float",

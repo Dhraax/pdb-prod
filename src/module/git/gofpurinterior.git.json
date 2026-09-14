@@ -1023,7 +1023,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": -0.06270000000000001
+                "value": -0.0627
               },
               "Z": {
                 "type": "float",
@@ -1230,7 +1230,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": -0.06279999999999999
+                "value": -0.0628
               },
               "Z": {
                 "type": "float",
@@ -1581,7 +1581,7 @@
         },
         "X": {
           "type": "float",
-          "value": 8.708299999999999
+          "value": 8.7083
         },
         "Y": {
           "type": "float",
@@ -1600,7 +1600,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 4882
+          "value": 282
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -1620,7 +1620,7 @@
         },
         "Conversation": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_c_station"
         },
         "CurrentHP": {
           "type": "short",
@@ -1688,7 +1688,7 @@
         },
         "OnClosed": {
           "type": "resref",
-          "value": "cierra_herbolari"
+          "value": ""
         },
         "OnDamaged": {
           "type": "resref",
@@ -1720,7 +1720,7 @@
         },
         "OnOpen": {
           "type": "resref",
-          "value": "abre_herbolario"
+          "value": ""
         },
         "OnSpellCastAt": {
           "type": "resref",
@@ -1736,7 +1736,7 @@
         },
         "OnUsed": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_device_ou"
         },
         "OnUserDefined": {
           "type": "resref",
@@ -1752,7 +1752,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 0
+          "value": 781
         },
         "Ref": {
           "type": "byte",
@@ -1764,11 +1764,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_caldero"
+          "value": "cnrHebCauldron"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_caldero"
+          "value": "cnrHebCauldron"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1817,6 +1817,10 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "VarTable": {
+          "type": "list",
+          "value": []
         }
       },
       {
@@ -1827,461 +1831,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 59
-        },
-        "AutoRemoveKey": {
-          "type": "byte",
-          "value": 0
-        },
-        "Bearing": {
-          "type": "float",
-          "value": -0.589
-        },
-        "BodyBag": {
-          "type": "byte",
-          "value": 0
-        },
-        "CloseLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Conversation": {
-          "type": "resref",
-          "value": ""
-        },
-        "CurrentHP": {
-          "type": "short",
-          "value": 10
-        },
-        "Description": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   En esta marmita puedes cocinar ingredientes a base de plantas..."
-          }
-        },
-        "DisarmDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Faction": {
-          "type": "dword",
-          "value": 1
-        },
-        "Fort": {
-          "type": "byte",
-          "value": 5
-        },
-        "Hardness": {
-          "type": "byte",
-          "value": 5
-        },
-        "HasInventory": {
-          "type": "byte",
-          "value": 1
-        },
-        "HP": {
-          "type": "short",
-          "value": 10
-        },
-        "Interruptable": {
-          "type": "byte",
-          "value": 1
-        },
-        "KeyName": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "KeyRequired": {
-          "type": "byte",
-          "value": 0
-        },
-        "Lockable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Locked": {
-          "type": "byte",
-          "value": 0
-        },
-        "LocName": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "Marmita"
-          }
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnClosed": {
-          "type": "resref",
-          "value": "cierra_cocinero"
-        },
-        "OnDamaged": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDeath": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDisarm": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnHeartbeat": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnInvDisturbed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnLock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnMeleeAttacked": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnOpen": {
-          "type": "resref",
-          "value": "abre_cocinero"
-        },
-        "OnSpellCastAt": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnTrapTriggered": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUnlock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUsed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUserDefined": {
-          "type": "resref",
-          "value": ""
-        },
-        "OpenLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Plot": {
-          "type": "byte",
-          "value": 1
-        },
-        "PortraitId": {
-          "type": "word",
-          "value": 417
-        },
-        "Ref": {
-          "type": "byte",
-          "value": 0
-        },
-        "Static": {
-          "type": "byte",
-          "value": 0
-        },
-        "Tag": {
-          "type": "cexostring",
-          "value": "sute_her_marmita"
-        },
-        "TemplateResRef": {
-          "type": "resref",
-          "value": "sute_her_marmita"
-        },
-        "TrapDetectable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapDetectDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapDisarmable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapFlag": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapOneShot": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapType": {
-          "type": "byte",
-          "value": 0
-        },
-        "Type": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        },
-        "Will": {
-          "type": "byte",
-          "value": 0
-        },
-        "X": {
-          "type": "float",
-          "value": 16.925
-        },
-        "Y": {
-          "type": "float",
-          "value": 13.3669
-        },
-        "Z": {
-          "type": "float",
-          "value": -0.0
-        }
-      },
-      {
-        "__struct_id": 9,
-        "AnimationState": {
-          "type": "byte",
-          "value": 0
-        },
-        "Appearance": {
-          "type": "dword",
-          "value": 2257
-        },
-        "AutoRemoveKey": {
-          "type": "byte",
-          "value": 0
-        },
-        "Bearing": {
-          "type": "float",
-          "value": -2.9452
-        },
-        "BodyBag": {
-          "type": "byte",
-          "value": 0
-        },
-        "CloseLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Conversation": {
-          "type": "resref",
-          "value": ""
-        },
-        "CurrentHP": {
-          "type": "short",
-          "value": 10
-        },
-        "Description": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n\n   En este brasero un cocinero puede preparar los ingredientes necesarios  para el alquimista..."
-          }
-        },
-        "DisarmDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Faction": {
-          "type": "dword",
-          "value": 1
-        },
-        "Fort": {
-          "type": "byte",
-          "value": 5
-        },
-        "Hardness": {
-          "type": "byte",
-          "value": 5
-        },
-        "HasInventory": {
-          "type": "byte",
-          "value": 1
-        },
-        "HP": {
-          "type": "short",
-          "value": 10
-        },
-        "Interruptable": {
-          "type": "byte",
-          "value": 1
-        },
-        "KeyName": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "KeyRequired": {
-          "type": "byte",
-          "value": 0
-        },
-        "Lockable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Locked": {
-          "type": "byte",
-          "value": 0
-        },
-        "LocName": {
-          "type": "cexolocstring",
-          "value": {
-            "8": "Brasero"
-          }
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnClosed": {
-          "type": "resref",
-          "value": "cierra_alq_ayuda"
-        },
-        "OnDamaged": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDeath": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDisarm": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnHeartbeat": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnInvDisturbed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnLock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnMeleeAttacked": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnOpen": {
-          "type": "resref",
-          "value": "abre_alq_ayudant"
-        },
-        "OnSpellCastAt": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnTrapTriggered": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUnlock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUsed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUserDefined": {
-          "type": "resref",
-          "value": ""
-        },
-        "OpenLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Plot": {
-          "type": "byte",
-          "value": 1
-        },
-        "PortraitId": {
-          "type": "word",
-          "value": 415
-        },
-        "Ref": {
-          "type": "byte",
-          "value": 0
-        },
-        "Static": {
-          "type": "byte",
-          "value": 0
-        },
-        "Tag": {
-          "type": "cexostring",
-          "value": "sute_her_brasero"
-        },
-        "TemplateResRef": {
-          "type": "resref",
-          "value": "sute_her_brasero"
-        },
-        "TrapDetectable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapDetectDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapDisarmable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapFlag": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapOneShot": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapType": {
-          "type": "byte",
-          "value": 0
-        },
-        "Type": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        },
-        "Will": {
-          "type": "byte",
-          "value": 0
-        },
-        "X": {
-          "type": "float",
-          "value": 14.9624
-        },
-        "Y": {
-          "type": "float",
-          "value": 8.1907
-        },
-        "Z": {
-          "type": "float",
-          "value": -0.0
-        }
-      },
-      {
-        "__struct_id": 9,
-        "AnimationState": {
-          "type": "byte",
-          "value": 0
-        },
-        "Appearance": {
-          "type": "dword",
-          "value": 43
+          "value": 5520
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -2301,7 +1851,7 @@
         },
         "Conversation": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_c_station"
         },
         "CurrentHP": {
           "type": "short",
@@ -2310,7 +1860,8 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "8": "\n\n\n\n   En esta mesa llena de morteros, redomas y demás utensilios un alquimista podría mezclar diversas pociones y elementos..."
+            "8": "Una mesa de infusiones.",
+            "id": 16810990
           }
         },
         "DisarmDC": {
@@ -2369,7 +1920,7 @@
         },
         "OnClosed": {
           "type": "resref",
-          "value": "cierra_alquimist"
+          "value": ""
         },
         "OnDamaged": {
           "type": "resref",
@@ -2401,7 +1952,7 @@
         },
         "OnOpen": {
           "type": "resref",
-          "value": "abre_alquimista"
+          "value": ""
         },
         "OnSpellCastAt": {
           "type": "resref",
@@ -2417,7 +1968,7 @@
         },
         "OnUsed": {
           "type": "resref",
-          "value": ""
+          "value": "cnr_device_ou"
         },
         "OnUserDefined": {
           "type": "resref",
@@ -2433,7 +1984,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 401
+          "value": 0
         },
         "Ref": {
           "type": "byte",
@@ -2445,11 +1996,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_mesamez"
+          "value": "cnrAlchemyTable"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_mesamez"
+          "value": "cnrAlchemyTable"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2498,6 +2049,10 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "VarTable": {
+          "type": "list",
+          "value": []
         }
       },
       {
@@ -19515,7 +19070,7 @@
         },
         "XOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "XPosition": {
           "type": "float",

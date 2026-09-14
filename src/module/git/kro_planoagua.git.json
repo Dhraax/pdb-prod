@@ -464,7 +464,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": 8.680300000000001
+                "value": 8.6803
               },
               "Z": {
                 "type": "float",
@@ -13488,7 +13488,7 @@
         },
         "X": {
           "type": "float",
-          "value": 9.174200000000001
+          "value": 9.1742
         },
         "Y": {
           "type": "float",
@@ -14173,7 +14173,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 8.779299999999999
+          "value": 8.7793
         },
         "Z": {
           "type": "float",
@@ -19461,9 +19461,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -19549,7 +19547,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -19581,7 +19579,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -19597,11 +19595,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -19642,22 +19640,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -19665,22 +19663,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -19700,6 +19698,12 @@
         "Z": {
           "type": "float",
           "value": 1.5892
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -19738,9 +19742,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -19826,7 +19828,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -19858,7 +19860,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -19874,11 +19876,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -19919,22 +19921,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -19942,22 +19944,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -19977,6 +19979,12 @@
         "Z": {
           "type": "float",
           "value": 0.897
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -20015,9 +20023,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -20103,7 +20109,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -20135,7 +20141,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -20151,11 +20157,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -20196,22 +20202,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -20219,22 +20225,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -20254,6 +20260,12 @@
         "Z": {
           "type": "float",
           "value": 1.5363
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -20292,9 +20304,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -20380,7 +20390,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -20412,7 +20422,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -20428,11 +20438,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -20473,22 +20483,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -20496,22 +20506,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -20531,6 +20541,12 @@
         "Z": {
           "type": "float",
           "value": 1.8485
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -20569,9 +20585,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -20657,7 +20671,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -20689,7 +20703,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -20705,11 +20719,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -20750,22 +20764,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -20773,22 +20787,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -20808,6 +20822,12 @@
         "Z": {
           "type": "float",
           "value": 1.612
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -20846,9 +20866,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -20934,7 +20952,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -20966,7 +20984,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -20982,11 +21000,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21027,22 +21045,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21050,22 +21068,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -21085,6 +21103,12 @@
         "Z": {
           "type": "float",
           "value": 1.5681
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -21123,9 +21147,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21211,7 +21233,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21243,7 +21265,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21259,11 +21281,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21304,22 +21326,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21327,22 +21349,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -21362,6 +21384,12 @@
         "Z": {
           "type": "float",
           "value": 1.5594
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -21400,9 +21428,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21488,7 +21514,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21520,7 +21546,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21536,11 +21562,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21581,22 +21607,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21604,22 +21630,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -21639,6 +21665,12 @@
         "Z": {
           "type": "float",
           "value": 2.7369
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -21677,9 +21709,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21765,7 +21795,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21797,7 +21827,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21813,11 +21843,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21858,22 +21888,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21881,22 +21911,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -21916,6 +21946,12 @@
         "Z": {
           "type": "float",
           "value": 1.8126
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -21954,9 +21990,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22042,7 +22076,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22074,7 +22108,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22090,11 +22124,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22135,22 +22169,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22158,22 +22192,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -22193,6 +22227,12 @@
         "Z": {
           "type": "float",
           "value": 1.7951
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -22231,9 +22271,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22319,7 +22357,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22351,7 +22389,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22367,11 +22405,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22412,22 +22450,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22435,22 +22473,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -22470,6 +22508,12 @@
         "Z": {
           "type": "float",
           "value": 1.1266
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -22508,9 +22552,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22596,7 +22638,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22628,7 +22670,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22644,11 +22686,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22689,22 +22731,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22712,22 +22754,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -22747,6 +22789,12 @@
         "Z": {
           "type": "float",
           "value": 1.2912
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -22785,9 +22833,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22873,7 +22919,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22905,7 +22951,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22921,11 +22967,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22966,22 +23012,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22989,22 +23035,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -23024,6 +23070,12 @@
         "Z": {
           "type": "float",
           "value": 1.465
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       },
       {
@@ -23062,9 +23114,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -23150,7 +23200,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -23182,7 +23232,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -23198,11 +23248,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_diamante"
+          "value": "cnr_gema_diaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -23243,22 +23293,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -23266,22 +23316,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_diam"
               }
             }
           ]
@@ -23301,6 +23351,12 @@
         "Z": {
           "type": "float",
           "value": 1.2166
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de diamantes"
+          }
         }
       }
     ]

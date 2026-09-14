@@ -2091,7 +2091,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 8.928100000000001
+          "value": 8.9281
         },
         "Z": {
           "type": "float",
@@ -3270,9 +3270,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna veta de Metal vivo parece palpitar por las poderosas fuentes de energía vital que ha absorbido el hierro de este depósito de mineral."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3358,7 +3356,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3390,7 +3388,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3406,11 +3404,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m26"
+          "value": "cnr_veta_vivo"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m026"
+          "value": "cnr_veta_vivo"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3451,22 +3449,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 15
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3474,22 +3472,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 420
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaMetalvivo"
               }
             }
           ]
@@ -3509,6 +3507,12 @@
         "Z": {
           "type": "float",
           "value": 0.5
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de metal vivo"
+          }
         }
       }
     ]
@@ -3978,7 +3982,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -9.433299999999999
+                "value": -9.4333
               },
               "PointZ": {
                 "type": "float",
@@ -4220,7 +4224,7 @@
         },
         "YOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "YPosition": {
           "type": "float",

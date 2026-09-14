@@ -994,7 +994,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": 0.5286999999999999
+                "value": 0.5287
               },
               "Z": {
                 "type": "float",
@@ -1827,7 +1827,7 @@
         },
         "X": {
           "type": "float",
-          "value": 64.36539999999999
+          "value": 64.3654
         },
         "Y": {
           "type": "float",
@@ -2054,11 +2054,11 @@
         },
         "X": {
           "type": "float",
-          "value": 89.62779999999999
+          "value": 89.6278
         },
         "Y": {
           "type": "float",
-          "value": 75.36279999999999
+          "value": 75.3628
         },
         "Z": {
           "type": "float",
@@ -3425,7 +3425,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 77.76090000000001
+          "value": 77.7609
         },
         "Z": {
           "type": "float",
@@ -4151,10 +4151,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4241,7 +4238,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4273,7 +4270,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4289,11 +4286,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4334,22 +4331,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4364,15 +4361,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -4392,6 +4389,12 @@
         "Z": {
           "type": "float",
           "value": 5.3033
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       },
       {
@@ -4430,10 +4433,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4520,7 +4520,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4552,7 +4552,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4568,11 +4568,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4613,22 +4613,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4643,15 +4643,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -4671,6 +4671,12 @@
         "Z": {
           "type": "float",
           "value": 5.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       },
       {
@@ -4709,10 +4715,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\nSi dispusieras de un hacha de leñador podrías talar este árbol.",
-            "id": 14746
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4799,7 +4802,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "carp_lenyador"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4831,7 +4834,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4847,11 +4850,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "carp_at1"
+          "value": "cnr_arbol_pino"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4892,22 +4895,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 80
+                "type": "cexostring",
+                "value": "arbol"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOARBOL"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4922,15 +4925,15 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSARBOL"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "carplenyo_pino"
               }
             }
           ]
@@ -4950,6 +4953,12 @@
         "Z": {
           "type": "float",
           "value": 4.85
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Pino"
+          }
         }
       }
     ]
@@ -5210,7 +5219,7 @@
         },
         "ZPosition": {
           "type": "float",
-          "value": 9.949999999999999
+          "value": 9.95
         }
       },
       {
@@ -5330,7 +5339,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 93.48609999999999
+          "value": 93.4861
         },
         "YPosition": {
           "type": "float",
@@ -5970,7 +5979,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 76.87520000000001
+          "value": 76.8752
         },
         "YPosition": {
           "type": "float",
@@ -6102,7 +6111,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 92.70180000000001
+          "value": 92.7018
         },
         "ZPosition": {
           "type": "float",
@@ -7061,7 +7070,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 64.84229999999999
+          "value": 64.8423
         },
         "YOrientation": {
           "type": "float",
@@ -7120,7 +7129,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": 0.07049999999999999
+                "value": 0.0705
               },
               "PointY": {
                 "type": "float",
@@ -7263,7 +7272,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 92.89790000000001
+          "value": 92.8979
         },
         "YOrientation": {
           "type": "float",
@@ -7341,7 +7350,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -9.301399999999999
+                "value": -9.3014
               },
               "PointZ": {
                 "type": "float",
@@ -7480,7 +7489,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 79.01179999999999
+          "value": 79.0118
         },
         "YOrientation": {
           "type": "float",
@@ -7558,7 +7567,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": 0.5741000000000001
+                "value": 0.5741
               },
               "PointZ": {
                 "type": "float",
@@ -8049,7 +8058,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 74.14109999999999
+          "value": 74.1411
         },
         "YOrientation": {
           "type": "float",

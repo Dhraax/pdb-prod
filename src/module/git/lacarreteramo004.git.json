@@ -767,7 +767,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": -8.263199999999999
+                "value": -8.2632
               },
               "Z": {
                 "type": "float",
@@ -1167,7 +1167,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 68.80710000000001
+          "value": 68.8071
         },
         "YPosition": {
           "type": "float",
@@ -1246,7 +1246,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": -0.7364000000000001
+                "value": -0.7364
               },
               "Y": {
                 "type": "float",
@@ -1261,7 +1261,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": -0.7122000000000001
+                "value": -0.7122
               },
               "Y": {
                 "type": "float",
@@ -1536,7 +1536,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": -8.357100000000001
+                "value": -8.3571
               },
               "Z": {
                 "type": "float",
@@ -1562,7 +1562,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": 0.5237000000000001
+                "value": 0.5237
               },
               "Y": {
                 "type": "float",
@@ -3993,7 +3993,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 95.87560000000001
+          "value": 95.8756
         },
         "Z": {
           "type": "float",
@@ -4220,7 +4220,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.52500000000001
+          "value": 96.525
         },
         "Z": {
           "type": "float",
@@ -8306,7 +8306,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 99.46080000000001
+          "value": 99.4608
         },
         "Z": {
           "type": "float",
@@ -11253,7 +11253,7 @@
         },
         "X": {
           "type": "float",
-          "value": 70.75369999999999
+          "value": 70.7537
         },
         "Y": {
           "type": "float",
@@ -11934,7 +11934,7 @@
         },
         "X": {
           "type": "float",
-          "value": 73.77979999999999
+          "value": 73.7798
         },
         "Y": {
           "type": "float",
@@ -12388,7 +12388,7 @@
         },
         "X": {
           "type": "float",
-          "value": 64.90600000000001
+          "value": 64.906
         },
         "Y": {
           "type": "float",
@@ -12615,11 +12615,11 @@
         },
         "X": {
           "type": "float",
-          "value": 82.26479999999999
+          "value": 82.2648
         },
         "Y": {
           "type": "float",
-          "value": 90.98050000000001
+          "value": 90.9805
         },
         "Z": {
           "type": "float",
@@ -13073,7 +13073,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 88.14149999999999
+          "value": 88.1415
         },
         "Z": {
           "type": "float",
@@ -14204,11 +14204,11 @@
         },
         "X": {
           "type": "float",
-          "value": 75.57559999999999
+          "value": 75.5756
         },
         "Y": {
           "type": "float",
-          "value": 98.95359999999999
+          "value": 98.9536
         },
         "Z": {
           "type": "float",
@@ -20910,7 +20910,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 0.09429999999999999
+          "value": 0.0943
         }
       },
       {
@@ -20949,9 +20949,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21037,7 +21035,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21069,7 +21067,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21085,11 +21083,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21130,22 +21128,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21153,22 +21151,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 300
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_bel;bru_orblen;bru_lagrey;bru_picara"
               }
             }
           ]
@@ -21188,6 +21186,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta maravillosa"
+          }
         }
       },
       {
@@ -21226,9 +21230,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21314,7 +21316,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21346,7 +21348,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21362,11 +21364,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21407,22 +21409,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21430,22 +21432,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 300
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_bel;bru_orblen;bru_lagrey;bru_picara"
               }
             }
           ]
@@ -21465,6 +21467,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta maravillosa"
+          }
         }
       },
       {
@@ -21503,9 +21511,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21591,7 +21597,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21623,7 +21629,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21639,11 +21645,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21684,22 +21690,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21707,22 +21713,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 300
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_bel;bru_orblen;bru_lagrey;bru_picara"
               }
             }
           ]
@@ -21742,6 +21748,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta maravillosa"
+          }
         }
       },
       {
@@ -21780,9 +21792,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -21868,7 +21878,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -21900,7 +21910,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -21916,11 +21926,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_maravillosa"
+          "value": "cnr_gema_marav"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -21961,22 +21971,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -21984,22 +21994,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 300
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_bel;bru_orblen;bru_lagrey;bru_picara"
               }
             }
           ]
@@ -22019,6 +22029,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta maravillosa"
+          }
         }
       },
       {
@@ -22057,9 +22073,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de hierrofrío..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22145,7 +22159,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22177,7 +22191,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22193,11 +22207,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22238,22 +22252,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22261,22 +22275,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHierrofrio"
               }
             }
           ]
@@ -22296,6 +22310,12 @@
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hierrofrío"
+          }
         }
       },
       {
@@ -22334,9 +22354,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de hierrofrío..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22422,7 +22440,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22454,7 +22472,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22470,11 +22488,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22515,22 +22533,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22538,22 +22556,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHierrofrio"
               }
             }
           ]
@@ -22573,6 +22591,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hierrofrío"
+          }
         }
       },
       {
@@ -22611,9 +22635,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de hierrofrío..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22699,7 +22721,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -22731,7 +22753,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -22747,11 +22769,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -22792,22 +22814,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -22815,22 +22837,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHierrofrio"
               }
             }
           ]
@@ -22850,6 +22872,12 @@
         "Z": {
           "type": "float",
           "value": 0.01
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hierrofrío"
+          }
         }
       },
       {
@@ -22888,9 +22916,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de hierrofrío..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -22976,7 +23002,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -23008,7 +23034,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -23024,11 +23050,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m05"
+          "value": "cnr_veta_frio"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -23069,22 +23095,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -23092,22 +23118,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 2
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaHierrofrio"
               }
             }
           ]
@@ -23127,6 +23153,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de hierrofrío"
+          }
         }
       }
     ]
@@ -24334,7 +24366,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 71.47790000000001
+          "value": 71.4779
         },
         "YOrientation": {
           "type": "float",

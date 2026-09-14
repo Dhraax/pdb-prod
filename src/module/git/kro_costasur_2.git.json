@@ -337,7 +337,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": 74.31140000000001
+                "value": 74.3114
               },
               "Y": {
                 "type": "float",
@@ -352,7 +352,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": 74.52930000000001
+                "value": 74.5293
               },
               "Y": {
                 "type": "float",
@@ -578,7 +578,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": -0.09039999999999999
+                "value": -0.0904
               },
               "Z": {
                 "type": "float",
@@ -1936,9 +1936,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2024,7 +2022,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2056,7 +2054,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2072,11 +2070,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2117,22 +2115,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2140,22 +2138,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 350
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_jade;bru_amar;bru_barra"
               }
             }
           ]
@@ -2170,11 +2168,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.24460000000001
+          "value": 96.2446
         },
         "Z": {
           "type": "float",
-          "value": -8.704800000000001
+          "value": -8.7048
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta costera"
+          }
         }
       },
       {
@@ -2213,9 +2217,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2301,7 +2303,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2333,7 +2335,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2349,11 +2351,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2394,22 +2396,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2417,22 +2419,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 350
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_jade;bru_amar;bru_barra"
               }
             }
           ]
@@ -2443,7 +2445,7 @@
         },
         "X": {
           "type": "float",
-          "value": 73.70829999999999
+          "value": 73.7083
         },
         "Y": {
           "type": "float",
@@ -2452,6 +2454,12 @@
         "Z": {
           "type": "float",
           "value": -8.574
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta costera"
+          }
         }
       },
       {
@@ -2490,9 +2498,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2578,7 +2584,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2610,7 +2616,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2626,11 +2632,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2671,22 +2677,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2694,22 +2700,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 350
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_jade;bru_amar;bru_barra"
               }
             }
           ]
@@ -2729,6 +2735,12 @@
         "Z": {
           "type": "float",
           "value": -8.4572
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta costera"
+          }
         }
       },
       {
@@ -2767,9 +2779,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -2855,7 +2865,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -2887,7 +2897,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -2903,11 +2913,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -2948,22 +2958,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -2971,22 +2981,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 350
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_jade;bru_amar;bru_barra"
               }
             }
           ]
@@ -3001,11 +3011,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 70.07940000000001
+          "value": 70.0794
         },
         "Z": {
           "type": "float",
           "value": -8.2159
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta costera"
+          }
         }
       },
       {
@@ -6417,7 +6433,7 @@
         },
         "X": {
           "type": "float",
-          "value": 86.61709999999999
+          "value": 86.6171
         },
         "Y": {
           "type": "float",
@@ -6645,11 +6661,11 @@
         },
         "X": {
           "type": "float",
-          "value": 77.39579999999999
+          "value": 77.3958
         },
         "Y": {
           "type": "float",
-          "value": 93.88290000000001
+          "value": 93.8829
         },
         "Z": {
           "type": "float",
@@ -8017,7 +8033,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 80.21939999999999
+          "value": 80.2194
         },
         "Z": {
           "type": "float",
@@ -13021,7 +13037,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 91.59529999999999
+          "value": 91.5953
         },
         "Z": {
           "type": "float",
@@ -13449,7 +13465,7 @@
         },
         "X": {
           "type": "float",
-          "value": 86.51000000000001
+          "value": 86.51
         },
         "Y": {
           "type": "float",
@@ -13885,7 +13901,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 83.87609999999999
+          "value": 83.8761
         },
         "Z": {
           "type": "float",
@@ -15613,7 +15629,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 72.31999999999999
+          "value": 72.32
         },
         "Z": {
           "type": "float",
@@ -16041,7 +16057,7 @@
         },
         "X": {
           "type": "float",
-          "value": 83.79470000000001
+          "value": 83.7947
         },
         "Y": {
           "type": "float",
@@ -17650,7 +17666,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -17878,7 +17894,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -18083,7 +18099,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.84650000000001
+          "value": 96.8465
         },
         "Z": {
           "type": "float",
@@ -18106,7 +18122,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -18771,7 +18787,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 83.79519999999999
+          "value": 83.7952
         },
         "Z": {
           "type": "float",
@@ -19024,7 +19040,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -19229,7 +19245,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.82089999999999
+          "value": 96.8209
         },
         "Z": {
           "type": "float",
@@ -19252,7 +19268,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -19687,7 +19703,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 93.03319999999999
+          "value": 93.0332
         },
         "Z": {
           "type": "float",
@@ -19917,7 +19933,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 88.97709999999999
+          "value": 88.9771
         },
         "Z": {
           "type": "float",
@@ -20377,7 +20393,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 86.09099999999999
+          "value": 86.091
         },
         "Z": {
           "type": "float",
@@ -20400,7 +20416,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -20628,7 +20644,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -20833,7 +20849,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 85.66249999999999
+          "value": 85.6625
         },
         "Z": {
           "type": "float",
@@ -20856,7 +20872,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -21084,7 +21100,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -21289,7 +21305,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 92.01049999999999
+          "value": 92.0105
         },
         "Z": {
           "type": "float",
@@ -21312,7 +21328,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -21540,7 +21556,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -22228,7 +22244,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -22893,7 +22909,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 95.15600000000001
+          "value": 95.156
         },
         "Z": {
           "type": "float",
@@ -23146,7 +23162,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -23811,7 +23827,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 64.79340000000001
+          "value": 64.7934
         },
         "Z": {
           "type": "float",
@@ -26095,7 +26111,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 69.70999999999999
+          "value": 69.71
         },
         "Z": {
           "type": "float",
@@ -26551,7 +26567,7 @@
         },
         "X": {
           "type": "float",
-          "value": 99.87090000000001
+          "value": 99.8709
         },
         "Y": {
           "type": "float",
@@ -27038,7 +27054,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -27266,7 +27282,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -27475,7 +27491,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 9.325900000000001
+          "value": 9.3259
         }
       },
       {
@@ -27494,7 +27510,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -27695,11 +27711,11 @@
         },
         "X": {
           "type": "float",
-          "value": 98.44889999999999
+          "value": 98.4489
         },
         "Y": {
           "type": "float",
-          "value": 76.02549999999999
+          "value": 76.0255
         },
         "Z": {
           "type": "float",
@@ -27722,7 +27738,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -31963,11 +31979,11 @@
         },
         "X": {
           "type": "float",
-          "value": 87.54000000000001
+          "value": 87.54
         },
         "Y": {
           "type": "float",
-          "value": 72.09999999999999
+          "value": 72.1
         },
         "Z": {
           "type": "float",
@@ -32650,7 +32666,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -32855,7 +32871,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 67.08799999999999
+          "value": 67.088
         },
         "Z": {
           "type": "float",
@@ -33311,7 +33327,7 @@
         },
         "X": {
           "type": "float",
-          "value": 96.71080000000001
+          "value": 96.7108
         },
         "Y": {
           "type": "float",
@@ -33338,7 +33354,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -34689,11 +34705,11 @@
         },
         "X": {
           "type": "float",
-          "value": 90.26819999999999
+          "value": 90.2682
         },
         "Y": {
           "type": "float",
-          "value": 94.76220000000001
+          "value": 94.7622
         },
         "Z": {
           "type": "float",
@@ -34919,11 +34935,11 @@
         },
         "X": {
           "type": "float",
-          "value": 68.72750000000001
+          "value": 68.7275
         },
         "Y": {
           "type": "float",
-          "value": 85.56019999999999
+          "value": 85.5602
         },
         "Z": {
           "type": "float",
@@ -35843,7 +35859,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 76.14879999999999
+          "value": 76.1488
         },
         "Z": {
           "type": "float",
@@ -37849,7 +37865,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -38077,7 +38093,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -38305,7 +38321,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -38533,7 +38549,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -38734,7 +38750,7 @@
         },
         "X": {
           "type": "float",
-          "value": 9.568199999999999
+          "value": 9.5682
         },
         "Y": {
           "type": "float",
@@ -38761,7 +38777,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.9572000000000001
+          "value": -0.9572
         },
         "BodyBag": {
           "type": "byte",
@@ -40721,7 +40737,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 91.15000000000001
+          "value": 91.15
         },
         "Z": {
           "type": "float",
@@ -42239,7 +42255,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 8.760899999999999
+          "value": 8.7609
         },
         "Z": {
           "type": "float",
@@ -43037,7 +43053,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 76.77079999999999
+          "value": 76.7708
         },
         "ZPosition": {
           "type": "float",
@@ -43908,7 +43924,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": 0.09470000000000001
+                "value": 0.0947
               },
               "PointZ": {
                 "type": "float",
@@ -44242,7 +44258,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 75.10429999999999
+          "value": 75.1043
         },
         "ZOrientation": {
           "type": "float",
@@ -44308,7 +44324,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": -0.06900000000000001
+                "value": -0.069
               },
               "PointY": {
                 "type": "float",
@@ -44794,7 +44810,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 69.43389999999999
+          "value": 69.4339
         },
         "ZPosition": {
           "type": "float",
@@ -44973,7 +44989,7 @@
         },
         "YOrientation": {
           "type": "float",
-          "value": -0.9330000000000001
+          "value": -0.933
         },
         "YPosition": {
           "type": "float",
@@ -45026,7 +45042,7 @@
         },
         "XOrientation": {
           "type": "float",
-          "value": 0.9330000000000001
+          "value": 0.933
         },
         "XPosition": {
           "type": "float",
@@ -45095,7 +45111,7 @@
         },
         "YOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "YPosition": {
           "type": "float",
@@ -45273,7 +45289,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 72.67740000000001
+          "value": 72.6774
         },
         "YOrientation": {
           "type": "float",
@@ -45333,7 +45349,7 @@
         },
         "XOrientation": {
           "type": "float",
-          "value": -0.9239000000000001
+          "value": -0.9239
         },
         "XPosition": {
           "type": "float",
@@ -45636,7 +45652,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 92.13030000000001
+          "value": 92.1303
         },
         "YOrientation": {
           "type": "float",
@@ -45697,7 +45713,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 91.55240000000001
+          "value": 91.5524
         },
         "YOrientation": {
           "type": "float",
@@ -45943,7 +45959,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 69.39660000000001
+          "value": 69.3966
         },
         "ZPosition": {
           "type": "float",

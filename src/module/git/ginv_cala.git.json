@@ -167,7 +167,7 @@
               "__struct_id": 1,
               "X": {
                 "type": "float",
-                "value": -9.738099999999999
+                "value": -9.7381
               },
               "Y": {
                 "type": "float",
@@ -3202,7 +3202,7 @@
         },
         "X": {
           "type": "float",
-          "value": 8.097899999999999
+          "value": 8.0979
         },
         "Y": {
           "type": "float",
@@ -4789,7 +4789,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 0.06900000000000001
+          "value": 0.069
         }
       },
       {
@@ -5016,7 +5016,7 @@
         },
         "Z": {
           "type": "float",
-          "value": 0.08550000000000001
+          "value": 0.0855
         }
       },
       {
@@ -6030,9 +6030,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "Esta veta parece contener valiosos minerales en su interior."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6118,7 +6116,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minerogemas"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6150,7 +6148,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6166,11 +6164,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "veta_costera"
+          "value": "cnr_gema_costa"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6211,22 +6209,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 6
+                "type": "cexostring",
+                "value": "gema"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6234,22 +6232,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 350
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 38
+                "type": "cexostring",
+                "value": "bru_jade;bru_amar;bru_barra"
               }
             }
           ]
@@ -6260,7 +6258,7 @@
         },
         "X": {
           "type": "float",
-          "value": 9.926600000000001
+          "value": 9.9266
         },
         "Y": {
           "type": "float",
@@ -6268,7 +6266,13 @@
         },
         "Z": {
           "type": "float",
-          "value": -0.5054999999999999
+          "value": -0.5055
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta costera"
+          }
         }
       }
     ]
@@ -6491,7 +6495,7 @@
               "__struct_id": 3,
               "PointX": {
                 "type": "float",
-                "value": 0.07630000000000001
+                "value": 0.0763
               },
               "PointY": {
                 "type": "float",
@@ -6544,7 +6548,7 @@
               },
               "PointZ": {
                 "type": "float",
-                "value": 0.06469999999999999
+                "value": 0.0647
               }
             },
             {
@@ -6555,7 +6559,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -0.6064000000000001
+                "value": -0.6064
               },
               "PointZ": {
                 "type": "float",

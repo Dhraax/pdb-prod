@@ -1142,7 +1142,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 86.01000000000001
+          "value": 86.01
         },
         "Z": {
           "type": "float",
@@ -6078,7 +6078,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 74.99039999999999
+          "value": 74.9904
         },
         "Z": {
           "type": "float",
@@ -6366,11 +6366,11 @@
         },
         "X": {
           "type": "float",
-          "value": 8.395899999999999
+          "value": 8.3959
         },
         "Y": {
           "type": "float",
-          "value": 72.24809999999999
+          "value": 72.2481
         },
         "Z": {
           "type": "float",
@@ -6413,9 +6413,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unos sarmientos que se extienden por las rocas circundantes..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6481,7 +6479,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -6501,7 +6499,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6533,7 +6531,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6549,11 +6547,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p05"
+          "value": "cnr_pl_raiz"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p05"
+          "value": "cnr_pl_raiz"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6594,22 +6592,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6617,22 +6615,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "raizPetrea"
               }
             }
           ]
@@ -6647,11 +6645,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 75.56910000000001
+          "value": 75.5691
         },
         "Z": {
           "type": "float",
           "value": 0.5075
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Raíz pétrea"
+          }
         }
       },
       {
@@ -6690,9 +6694,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Unos sarmientos que se extienden por las rocas circundantes..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6758,7 +6760,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "recolector2"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -6778,7 +6780,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "recolector"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6810,7 +6812,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6826,11 +6828,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_her_p05"
+          "value": "cnr_pl_raiz"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_her_p05"
+          "value": "cnr_pl_raiz"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6871,22 +6873,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPLANTA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 5
+                "type": "cexostring",
+                "value": "planta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6894,22 +6896,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 330
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSPLANTA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 160
+                "type": "cexostring",
+                "value": "raizPetrea"
               }
             }
           ]
@@ -6924,11 +6926,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 80.51609999999999
+          "value": 80.5161
         },
         "Z": {
           "type": "float",
           "value": 0.1855
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Raíz pétrea"
+          }
         }
       },
       {
@@ -7605,7 +7613,7 @@
         },
         "Y": {
           "type": "float",
-          "value": 85.21299999999999
+          "value": 85.213
         },
         "Z": {
           "type": "float",
@@ -8308,7 +8316,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 8.253500000000001
+          "value": 8.2535
         },
         "YPosition": {
           "type": "float",
@@ -9161,7 +9169,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 70.31100000000001
+          "value": 70.311
         },
         "ZPosition": {
           "type": "float",
@@ -9420,7 +9428,7 @@
               },
               "PointY": {
                 "type": "float",
-                "value": -0.08599999999999999
+                "value": -0.086
               },
               "PointZ": {
                 "type": "float",
@@ -10107,7 +10115,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 71.60209999999999
+          "value": 71.6021
         },
         "ZPosition": {
           "type": "float",

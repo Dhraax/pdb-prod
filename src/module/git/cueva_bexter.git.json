@@ -950,7 +950,7 @@
         },
         "X": {
           "type": "float",
-          "value": 94.87090000000001
+          "value": 94.8709
         },
         "Y": {
           "type": "float",
@@ -1177,7 +1177,7 @@
         },
         "X": {
           "type": "float",
-          "value": 97.20569999999999
+          "value": 97.2057
         },
         "Y": {
           "type": "float",
@@ -5246,9 +5246,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Dlarun. Un mineral de color blanco hueso."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5334,7 +5332,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5366,7 +5364,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5382,11 +5380,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5427,22 +5425,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 10
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -5450,22 +5448,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 200
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaDlarun"
               }
             }
           ]
@@ -5485,6 +5483,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de dlarun"
+          }
         }
       },
       {
@@ -5523,9 +5527,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Dlarun. Un mineral de color blanco hueso."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5611,7 +5613,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5643,7 +5645,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5659,11 +5661,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5704,22 +5706,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 10
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -5727,22 +5729,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 200
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaDlarun"
               }
             }
           ]
@@ -5762,6 +5764,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de dlarun"
+          }
         }
       },
       {
@@ -5800,9 +5808,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Dlarun. Un mineral de color blanco hueso."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -5888,7 +5894,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -5920,7 +5926,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -5936,11 +5942,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -5981,22 +5987,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 10
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6004,22 +6010,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 200
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaDlarun"
               }
             }
           ]
@@ -6039,6 +6045,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de dlarun"
+          }
         }
       },
       {
@@ -6077,9 +6089,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\nUna roca con trazas visibles de mineral de Dlarun. Un mineral de color blanco hueso."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -6165,7 +6175,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -6197,7 +6207,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -6213,11 +6223,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m20"
+          "value": "cnr_veta_dlarun"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -6258,22 +6268,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 10
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -6281,22 +6291,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 200
+                "value": 3
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaDlarun"
               }
             }
           ]
@@ -6316,6 +6326,12 @@
         "Z": {
           "type": "float",
           "value": 0.25
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de dlarun"
+          }
         }
       }
     ]
@@ -6712,7 +6728,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 71.11920000000001
+          "value": 71.1192
         },
         "YOrientation": {
           "type": "float",
@@ -7030,7 +7046,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 69.14490000000001
+          "value": 69.1449
         },
         "ZPosition": {
           "type": "float",

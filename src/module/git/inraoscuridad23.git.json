@@ -1757,7 +1757,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": 66.22669999999999
+                "value": 66.2267
               },
               "Z": {
                 "type": "float",
@@ -1776,7 +1776,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": 74.11709999999999
+                "value": 74.1171
               },
               "Z": {
                 "type": "float",
@@ -2496,7 +2496,7 @@
               },
               "Y": {
                 "type": "float",
-                "value": 96.17529999999999
+                "value": 96.1753
               },
               "Z": {
                 "type": "float",
@@ -2519,7 +2519,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 64.76139999999999
+          "value": 64.7614
         },
         "ZPosition": {
           "type": "float",
@@ -2778,7 +2778,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 95.74509999999999
+          "value": 95.7451
         },
         "ZPosition": {
           "type": "float",
@@ -3296,7 +3296,7 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 98.60429999999999
+          "value": 98.6043
         },
         "ZPosition": {
           "type": "float",
@@ -3588,9 +3588,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de adamantita..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3676,7 +3674,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3708,7 +3706,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -3724,11 +3722,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -3769,22 +3767,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -3792,22 +3790,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 520
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaAdamantita"
               }
             }
           ]
@@ -3822,11 +3820,17 @@
         },
         "Y": {
           "type": "float",
-          "value": 96.45010000000001
+          "value": 96.4501
         },
         "Z": {
           "type": "float",
           "value": 0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de adamantita"
+          }
         }
       },
       {
@@ -3865,9 +3869,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de adamantita..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -3953,7 +3955,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -3985,7 +3987,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4001,11 +4003,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4046,22 +4048,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4069,22 +4071,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 520
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaAdamantita"
               }
             }
           ]
@@ -4104,6 +4106,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de adamantita"
+          }
         }
       },
       {
@@ -4142,9 +4150,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de adamantita..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4230,7 +4236,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4262,7 +4268,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4278,11 +4284,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4323,22 +4329,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4346,22 +4352,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 520
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaAdamantita"
               }
             }
           ]
@@ -4381,6 +4387,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de adamantita"
+          }
         }
       },
       {
@@ -4419,9 +4431,7 @@
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "8": "\n\n\n\n   Una roca con trazas visibles de mineral de adamantita..."
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
@@ -4507,7 +4517,7 @@
         },
         "OnMeleeAttacked": {
           "type": "resref",
-          "value": "minero"
+          "value": "cnr_node_hit"
         },
         "OnOpen": {
           "type": "resref",
@@ -4539,7 +4549,7 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -4555,11 +4565,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "sute_met_m08"
+          "value": "cnr_veta_adaman"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -4600,22 +4610,22 @@
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "TIPOPIEDRA"
+                "value": "CNR_NODO"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 8
+                "type": "cexostring",
+                "value": "veta"
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "DIFICULTAD"
+                "value": "CNR_TIER"
               },
               "Type": {
                 "type": "dword",
@@ -4623,22 +4633,22 @@
               },
               "Value": {
                 "type": "int",
-                "value": 520
+                "value": 4
               }
             },
             {
               "__struct_id": 0,
               "Name": {
                 "type": "cexostring",
-                "value": "USOSVETA"
+                "value": "CNR_MATERIAL"
               },
               "Type": {
                 "type": "dword",
-                "value": 1
+                "value": 3
               },
               "Value": {
-                "type": "int",
-                "value": 50
+                "type": "cexostring",
+                "value": "pepitaAdamantita"
               }
             }
           ]
@@ -4658,6 +4668,12 @@
         "Z": {
           "type": "float",
           "value": -0.0
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "8": "Veta de adamantita"
+          }
         }
       }
     ]
