@@ -79,6 +79,16 @@ tools/*
 # Credenciales MySQL: solo se versiona el .example
 config/mysql.env
 !config/mysql.env.example
+# Ficheros de entorno: nunca al repositorio. Solo viajan los .example.
+config/nwserver.env
+!config/nwserver.env.example
+config/grafana.env
+!config/grafana.env.example
+config/influxdb.env
+!config/influxdb.env.example
+cnr-editor/remote.env
+cnr-editor/*.env
+!cnr-editor/*.env.example
 !config/mysql-init/
 !config/mysql-init/**
 
