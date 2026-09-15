@@ -50,10 +50,6 @@
     "type": "byte",
     "value": 5
   },
-  "HP": {
-    "type": "short",
-    "value": 10
-  },
   "Hardness": {
     "type": "byte",
     "value": 5
@@ -61,6 +57,10 @@
   "HasInventory": {
     "type": "byte",
     "value": 1
+  },
+  "HP": {
+    "type": "short",
+    "value": 10
   },
   "Interruptable": {
     "type": "byte",
@@ -74,12 +74,6 @@
     "type": "byte",
     "value": 0
   },
-  "LocName": {
-    "type": "cexolocstring",
-    "value": {
-      "8": "Forja"
-    }
-  },
   "Lockable": {
     "type": "byte",
     "value": 0
@@ -87,6 +81,12 @@
   "Locked": {
     "type": "byte",
     "value": 0
+  },
+  "LocName": {
+    "type": "cexolocstring",
+    "value": {
+      "8": "Forja"
+    }
   },
   "OnClick": {
     "type": "resref",
@@ -180,13 +180,13 @@
     "type": "resref",
     "value": "cnrForgePublic"
   },
-  "TrapDetectDC": {
-    "type": "byte",
-    "value": 0
-  },
   "TrapDetectable": {
     "type": "byte",
     "value": 1
+  },
+  "TrapDetectDC": {
+    "type": "byte",
+    "value": 0
   },
   "TrapDisarmable": {
     "type": "byte",

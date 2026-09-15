@@ -52,10 +52,6 @@
     "type": "byte",
     "value": 16
   },
-  "HP": {
-    "type": "short",
-    "value": 15
-  },
   "Hardness": {
     "type": "byte",
     "value": 5
@@ -63,6 +59,10 @@
   "HasInventory": {
     "type": "byte",
     "value": 1
+  },
+  "HP": {
+    "type": "short",
+    "value": 15
   },
   "Interruptable": {
     "type": "byte",
@@ -76,14 +76,6 @@
     "type": "byte",
     "value": 0
   },
-  "LocName": {
-    "type": "cexolocstring",
-    "value": {
-      "0": "Table, Celtic",
-      "8": "Banco del carpintero",
-      "id": 14551
-    }
-  },
   "Lockable": {
     "type": "byte",
     "value": 0
@@ -91,6 +83,14 @@
   "Locked": {
     "type": "byte",
     "value": 0
+  },
+  "LocName": {
+    "type": "cexolocstring",
+    "value": {
+      "0": "Table, Celtic",
+      "8": "Banco del carpintero",
+      "id": 14551
+    }
   },
   "OnClick": {
     "type": "resref",
@@ -184,13 +184,13 @@
     "type": "resref",
     "value": "cnrCarpsBench"
   },
-  "TrapDetectDC": {
-    "type": "byte",
-    "value": 0
-  },
   "TrapDetectable": {
     "type": "byte",
     "value": 1
+  },
+  "TrapDetectDC": {
+    "type": "byte",
+    "value": 0
   },
   "TrapDisarmable": {
     "type": "byte",
