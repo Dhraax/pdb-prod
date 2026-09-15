@@ -51,6 +51,10 @@
     "type": "byte",
     "value": 16
   },
+  "HP": {
+    "type": "short",
+    "value": 15
+  },
   "Hardness": {
     "type": "byte",
     "value": 5
@@ -58,10 +62,6 @@
   "HasInventory": {
     "type": "byte",
     "value": 1
-  },
-  "HP": {
-    "type": "short",
-    "value": 15
   },
   "Interruptable": {
     "type": "byte",
@@ -75,6 +75,13 @@
     "type": "byte",
     "value": 0
   },
+  "LocName": {
+    "type": "cexolocstring",
+    "value": {
+      "8": "Mesa de marroquinería",
+      "id": 5706
+    }
+  },
   "Lockable": {
     "type": "byte",
     "value": 0
@@ -82,13 +89,6 @@
   "Locked": {
     "type": "byte",
     "value": 0
-  },
-  "LocName": {
-    "type": "cexolocstring",
-    "value": {
-      "8": "Mesa de marroquinería",
-      "id": 5706
-    }
   },
   "OnClick": {
     "type": "resref",
@@ -156,7 +156,7 @@
   },
   "PaletteID": {
     "type": "byte",
-    "value": 0
+    "value": 200
   },
   "Plot": {
     "type": "byte",
@@ -182,13 +182,13 @@
     "type": "resref",
     "value": "cnrTailorsTable"
   },
-  "TrapDetectable": {
-    "type": "byte",
-    "value": 1
-  },
   "TrapDetectDC": {
     "type": "byte",
     "value": 0
+  },
+  "TrapDetectable": {
+    "type": "byte",
+    "value": 1
   },
   "TrapDisarmable": {
     "type": "byte",

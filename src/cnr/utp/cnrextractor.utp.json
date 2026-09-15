@@ -50,6 +50,10 @@
     "type": "byte",
     "value": 5
   },
+  "HP": {
+    "type": "short",
+    "value": 10
+  },
   "Hardness": {
     "type": "byte",
     "value": 5
@@ -57,10 +61,6 @@
   "HasInventory": {
     "type": "byte",
     "value": 1
-  },
-  "HP": {
-    "type": "short",
-    "value": 10
   },
   "Interruptable": {
     "type": "byte",
@@ -74,6 +74,13 @@
     "type": "byte",
     "value": 0
   },
+  "LocName": {
+    "type": "cexolocstring",
+    "value": {
+      "8": "Máquina de extracción de esencias",
+      "id": 16814056
+    }
+  },
   "Lockable": {
     "type": "byte",
     "value": 0
@@ -81,13 +88,6 @@
   "Locked": {
     "type": "byte",
     "value": 0
-  },
-  "LocName": {
-    "type": "cexolocstring",
-    "value": {
-      "8": "Máquina de extracción de esencias",
-      "id": 16814056
-    }
   },
   "OnClick": {
     "type": "resref",
@@ -155,7 +155,7 @@
   },
   "PaletteID": {
     "type": "byte",
-    "value": 0
+    "value": 200
   },
   "Plot": {
     "type": "byte",
@@ -181,13 +181,13 @@
     "type": "resref",
     "value": "cnrExtractor"
   },
-  "TrapDetectable": {
-    "type": "byte",
-    "value": 1
-  },
   "TrapDetectDC": {
     "type": "byte",
     "value": 0
+  },
+  "TrapDetectable": {
+    "type": "byte",
+    "value": 1
   },
   "TrapDisarmable": {
     "type": "byte",
