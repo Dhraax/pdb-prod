@@ -234,21 +234,20 @@ from the XP with `PersistDetermineTradeskillLevel` and writes `skill_level` and
 keys and the book are still removed and the flag is still set: the character is
 told their current trade already beats what they had.
 
-## One legacy key is still read, and it still discriminates
+## The one legacy key that was still read, and no longer is
 
-`ko_kazad_cantera`, the two granite quarries in Kazad, reads `NIVELMINERIA`, and
-the key is still on the container of every character who ever had it: nothing
-writes it any more, but nothing erased it either.
+`ko_kazad_cantera`, the two granite quarries in Kazad and the barbarian cave,
+used to read `NIVELMINERIA` and roll differently on it: `d10() == 10` for a
+character with any mining level, `d20() == 20` for one without. The key is still
+on the container of every character who ever had it -nothing writes it any more,
+but nothing erased it either- so an old character rolled twice as well as a new
+one, forever, on the strength of a trade that no longer exists. The script's own
+comment called both branches 10%, which was wrong for the second.
 
-- a character with any mining level takes the miner branch, `d10() == 10`, one
-  in ten;
-- a character with none takes `d20() == 20`, one in twenty.
-
-The script's own comment calls both 10%, which is wrong for the second. No new
-character can earn the better odds, and **a conversion that wipes `NIVELMINERIA`
-drops that character from one in ten to one in twenty**, so whichever trade ends
-up clearing that key has to account for it. Whether the quarry should read a CNR
-level instead is an open decision the owner has deferred.
+That check is gone. **Everyone rolls `d10() == 10`**, the better of the two, and
+the script no longer includes `mti_libreria`, which it only needed to read the
+key. `NIVELMINERIA` is now read by nothing: `cnr_i_legacy` deletes it when
+Herrería is converted, and that is all.
 
 ## Provenance
 

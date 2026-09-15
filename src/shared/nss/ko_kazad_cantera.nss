@@ -1,5 +1,4 @@
 // modified by: Dhraax
-#include "mti_libreria"
 
 void main()
 {
@@ -33,24 +32,12 @@ void main()
       return;
       }
 
-      // Si no eres minero, es mas dificil conseguir el barril (10%)
-     int iNivelMineria = ObtenerIntPersistente(oPC, "NIVELMINERIA");
-     if(iNivelMineria == 0)
-    {
-      int id20 = d20();
-      if (id20 == 20)
-      {
-      object oGranito = CreateItemOnObject(TipoMineral,GetLastAttacker()); //damos el barrilete
-      }
-
-      return;
-    }
-      //Si eres minero, es mas sencillo conseguirlo (10%)
-      int id10= d10 ();
-      if (id10 == 10)
-      {
-      object oGranito = CreateItemOnObject(TipoMineral,GetLastAttacker()); //damos el barrilete
-      }
+      // Una sola tirada, la misma para todo el mundo: 1 de 10.
+      // Antes preguntaba por NIVELMINERIA, el nivel del oficio de mineria del
+      // sistema viejo. Ese oficio ya no existe y nadie puede volver a subirlo,
+      // pero la clave sigue guardada en la ficha de quien la tuviera, asi que
+      // un personaje antiguo sacaba 1 de 10 y uno nuevo 1 de 20 para siempre.
+      if(d10() == 10) CreateItemOnObject(TipoMineral, oPC); //damos el barrilete
       return;
 
 }
