@@ -1776,6 +1776,13 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "CALIDAD_GUARDADA", ipCalidad);
       SetLocalInt(oObjeto, "PCItem", 1);
 
+      // The arcane trade's own mark: it says this item can be broken down in
+      // the extractor and at which tier. It is deliberately separate from
+      // CALIDAD_GUARDADA so that only loot generated from now on is breakable;
+      // older loot does not carry it and the machine turns it away. Rank 1, the
+      // grey one, yields no essence.
+      if(iRango >= 2) SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango - 1);
+
       if(GetObjectType(oObjetivo) == OBJECT_TYPE_CREATURE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que lo rescataste de las garras de "+GetName(OBJECT_SELF)+". A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
       else if(iTienda == TRUE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que un comerciante te lo vendió. A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
       else SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que lo rescataste del interior de un cofre de tesoro. A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
