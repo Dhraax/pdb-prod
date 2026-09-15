@@ -1,4 +1,4 @@
-# AGENTS.md - Puerta de Baldur (PDB DEV)
+# AGENTS.md - Puerta de Baldur (PDB PROD)
 
 Read `agents-config/AGENTS.md` in full before inspecting or changing this
 repository. Its generic contract is binding. This file owns only PDB-specific
@@ -62,18 +62,26 @@ use normal professional language.
 
 ## Project Scope
 
-This repository contains the **development** module for **Puerta de Baldur
-(PDB)**, built for Neverwinter Nights: Enhanced Edition. The current module is a
-large legacy NWScript and Aurora Toolset asset codebase. Project systems use
+This repository contains the **production** module for **Puerta de Baldur
+(PDB)**, built for Neverwinter Nights: Enhanced Edition. This is the module
+players connect to, so a mistake here is visible to them and a destructive one
+costs character data. The current module is a large legacy NWScript and Aurora
+Toolset asset codebase. Project systems use
 NWScript, NWNX:EE, and the general Neverwinter Nights: Enhanced Edition
 environment provided by the Aurora engine. Nasher unpacks and packages the
 module, while Docker Compose stages the NWN:EE/NWNX:EE server runtime.
 
-Per `nasher.cfg`, the package is named `PGCC PDB EE`, the only target is
-`default` (described as `DEV version`), and the packaged artifact is
-**`PB_EE_PGCC.mod`**. Do not refer to this repository's module as `PB_EE_PROD`
-or `PB_EE`; those names belong to the production repository and to stale legacy
-scripts respectively.
+Per `nasher.cfg`, the package is named `PROD PDB EE`, the only target is
+`default` (described as `PROD version`), and the packaged artifact is
+**`PB_EE_PROD.mod`**. Do not refer to this repository's module as `PB_EE_PGCC`;
+that name belongs to the development repository, `pdb-dev`, which is the source
+of most of what arrives here. `PB_EE` alone is a stale legacy name and belongs
+to neither.
+
+**Work usually flows development to production, slice by slice.** When a change
+exists in both repositories, the development one is normally the original and
+this one is the copy; say which repository a fact comes from rather than
+assuming the two agree. They have drifted before.
 
 The architecture and automation stack will be improved incrementally. Do not
 assume frameworks, services, conventions, migrations, or directory layouts that
@@ -238,9 +246,9 @@ upstream source that another checkout can obtain.
 | `src/shared/` | Bulk of the module's resources, routed by type: scripts, dialogs, blueprints, factions, journals, and palettes |
 | `src/cnr/` | **Everything CNR owns**: `nss/`, `dlg/`, `uti/`, `utp/`. Self-contained on purpose - see the rule below |
 | `src/pwdb/` | PWDB identity subsystem (`nss/`), consumed by module hooks and character-owned systems |
-| `src/nui/` | NUI window system resources (`dlg/`, `nss/`) kept separate from `src/shared/` |
+| `src/cnr/nui/` | The CNR arcane NUI window scripts. Compiled: `linux_build.sh` includes this directory |
 | `src/module/` | Module-specific area and module metadata resources |
-| `modules/` | Unpacked and packaged working artifacts, including `PB_EE_PGCC/`, `PB_EE_PGCC.mod`, and backup/archive files; not the long-term source of truth |
+| `modules/` | Unpacked and packaged working artifacts, including `PB_EE_PROD/`, `PB_EE_PROD.mod`, and `.rar` archives; not the long-term source of truth |
 | `.nasher/` | Nasher cache and package state; generated working data |
 | `documentation/` | Canonical project documentation, split by module |
 | `agents-config/` | Pinned, technology-agnostic agent contract and workflow engine submodule |
@@ -251,15 +259,14 @@ upstream source that another checkout can obtain.
 | `tools/linux/` | Bundled Linux Nasher, NWScript compilers, and Neverwinter utilities |
 | `config/` | Server environment files and Grafana/InfluxDB provisioning |
 | `server/` | Staging/runtime directory populated by launch scripts |
-| `docker-compose.yml` | Production-oriented NWN:EE/NWNX:EE, InfluxDB, and Grafana services |
-| `docker-compose.yml` | Development variant using `config/nwserver.env` |
+| `docker-compose.yml` | The only Compose file here: NWN:EE/NWNX:EE, MySQL, InfluxDB and Grafana. There is no `-dev` variant in this repository |
 | `haks-2da/` | Project 2DA and HAK-related content |
 | `tlk/` | TLK content staged for the server |
 | `erf/` | ERF-related content/artifacts |
 | `logs/` | Runtime diagnostic output |
 
-The repository root also holds a top-level `PB_EE_PGCC.mod` alongside
-`modules/PB_EE_PGCC.mod`. Neither is source; both are generated artifacts.
+The repository root also holds a top-level `PB_EE_PROD.mod` alongside
+`modules/PB_EE_PROD.mod`. Neither is source; both are generated artifacts.
 
 ### CNR is self-contained: put its resources under `src/cnr/`
 
@@ -295,9 +302,10 @@ shared-files = "{dlg,fac,itp,jrl,nss,utc,utd,uti,utm,utp,uts,utt,utw}"
 
 [package.rules]
 "pwdb_*.nss" = "src/pwdb/$ext"
+# Keep new CNR-prefixed resources in the self-contained CNR source tree
+# when unpacking. Existing resources retain their tracked source paths.
+"cnr*.${shared-files}" = "src/cnr/$ext"
 "*.${shared-files}" = "src/shared/$ext"
-"*.${shared-files}" = "src/cnr/$ext"
-"*.${shared-files}" = "src/nui/$ext"
 "*" = "src/module/$ext"
 ```
 
@@ -305,16 +313,13 @@ How Nasher applies this, per the bundled Nasher README:
 
 - Rules are consulted **only during `unpack`**, and only for files that are not
   already present in the source tree. A file already tracked under `src/` is
-  unpacked back to its existing path, so `src/cnr/` and `src/nui/` content stays
-  put.
+  unpacked back to its existing path, so `src/cnr/` content stays put.
 - `pwdb_*.nss` has a specific first rule, so new PWDB scripts unpack to
   `src/pwdb/nss/`.
-- For any other **new** resource, the first matching pattern wins. The three
-  `*.${shared-files}` rules share an identical pattern, so the `src/cnr/` and
-  `src/nui/` lines are unreachable: every new shared-type resource lands in
-  `src/shared/<extension>/`. New files intended for `src/cnr/` or `src/nui/`
-  must be moved there manually, or the rules must be given distinct patterns
-  (for example `"cnr_*.nss"`). Do not change these rules without asking; the
+- **`cnr*` has its own pattern here**, unlike the development repository, so a
+  new CNR-prefixed resource of a shared type unpacks into `src/cnr/<extension>/`
+  instead of `src/shared/`. Every other new shared-type resource lands in
+  `src/shared/<extension>/`. Do not change these rules without asking; the
   routing affects where an unpack scatters hundreds of files.
 - Shared resource types are `dlg`, `fac`, `itp`, `jrl`, `nss`, `utc`, `utd`,
   `uti`, `utm`, `utp`, `uts`, `utt`, and `utw`.
@@ -322,10 +327,10 @@ How Nasher applies this, per the bundled Nasher README:
 - Aurora/GFF resources are stored as JSON in `src/`; NWScript remains `.nss`.
 - Files matching no rule are dropped into an `unknown/` directory in the package
   root. If `unknown/` appears, treat it as a routing failure to sort manually.
-- The configured target writes `PB_EE_PGCC.mod`.
+- The configured target writes `PB_EE_PROD.mod`.
 
 Treat `src/` as authoritative after a successful unpack. Do not edit
-`PB_EE_PGCC.mod`, `modules/PB_EE_PGCC.mod`, or the `.nasher/` cache as a
+`PB_EE_PROD.mod`, `modules/PB_EE_PROD.mod`, or the `.nasher/` cache as a
 substitute for a source change.
 
 ---
@@ -370,10 +375,11 @@ The NWN install path comes from `$NWN_ROOT` or autodetection; do not pass it
 through flags. Default encoding is already `windows-1252`, which matches the
 project's `.nss` files. Parallelism defaults to all CPUs.
 
-Only four directories under `src/` contain `.nss`:
+Only four directories under `src/` contain `.nss`, and they are exactly the
+four `linux_build.sh` passes to the compiler as `SRC_NSS`:
 
 ```
-src/shared/nss   src/cnr/nss   src/pwdb/nss   src/nui
+src/shared/nss   src/cnr/nss   src/cnr/nui   src/pwdb/nss
 ```
 
 `src/module/` holds no scripts. Passing a non-existent include directory aborts
@@ -383,7 +389,7 @@ src/shared/nss   src/cnr/nss   src/pwdb/nss   src/nui
 
 | Script | Purpose |
 |--------|---------|
-| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod` |
+| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PROD.mod` |
 | `linux_build.sh --check [files]` | Verify compilation only; writes nothing |
 | `linux_build.sh --clean` | Clear the cache and rebuild everything |
 | `linux_run_server.sh` | Stage into `server/` and start the stack |
@@ -396,7 +402,7 @@ Normal cycle:
 ./linux_run_server.sh
 ```
 
-`src/` is the only source of truth. Never edit `modules/PB_EE_PGCC/`: it is an
+`src/` is the only source of truth. Never edit `modules/PB_EE_PROD/`: it is an
 unpacked working copy, it is not tracked, and editing it there silently
 diverges from what Nasher builds.
 
@@ -419,7 +425,7 @@ explicitly asks.
 
 | Script | Role |
 |--------|------|
-| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PGCC.mod`. `--check` verifies only, `--clean` rebuilds all |
+| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PROD.mod`. `--check` verifies only, `--clean` rebuilds all |
 | `linux_run_server.sh` | Stage the `.mod`, env files, `mysql-init`, Grafana provisioning and TLK into `server/`; start Compose. Warns when a `.nss` is newer than the `.mod` |
 | `linux_stop_server.sh` | Stop the stack (`--remove-orphans`) |
 
@@ -429,13 +435,14 @@ explicitly asks.
 |--------|------|-------|
 | `linux_nasher_unpack_folder.sh` | Unpack the `.mod` back into `src/` | Windows-1252 GFF decoding, `--removeDeleted`, `--yes`. Destructive to uncommitted source |
 | `win_nasher_unpack_folder.bat` | Windows equivalent | Same warnings |
-| `win_run_server.bat` | Windows build/deploy/start | Repaired for `PB_EE_PGCC`. Blocked until the Compose file stops bind-mounting `/etc/timezone` |
+| `win_run_server.bat` | Windows build/deploy/start | Blocked until the Compose file stops bind-mounting `/etc/timezone` |
 | `win_stop_server.bat` | Stop the Windows-staged stack | Runs from `server/` |
 | `linux_nasher_install.sh` | Legacy install | Uses `--noCompile`: packs **without compiling**. Prefer `linux_build.sh` |
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
-| `rsync.sh` | Mirror staged `server/`, the CNR editor, tools, and remote helpers to the dev host | Defaults to `nwserver@192.168.1.142`. Deletes obsolete deployment files but protects remote databases, vaults, saves, logs, NWSync state, and `cryptographic_secret` |
-| `server-restart.sh` | Restart the NWN stack **on the dev host** (expects `dev-server/`) | High risk: deletes `cryptographic_secret`, enables Master List publication, and `sed`-rewrites `NWN_PLAYERPASSWORD`, `NWN_DMPASSWORD` and `NWN_ADMINPASSWORD` in each staged `config/nwserver*.env` with hardcoded values. Never run locally, never echo its credential lines |
-| `web-restart.sh` | Rebuild and restart only the remote CNR editor stack | Expects `/home/nwserver/cnr-editor/` and the running `dev-server` MySQL network |
+| `server-restart.sh` | Restart the stack from the repository root | Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it. This is the live server: restarting it disconnects whoever is playing |
+| `web-restart.sh` | Rebuild and restart only the CNR editor stack | Expects a staged `cnr-editor/` with its `compose.yml` and `.env` |
+| `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/PB_EE_PROD.mod` on the host. Player-visible the moment it runs |
+| `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
 | `db-backup.sh` | Create a private full-MySQL transfer package under ignored `server/db-transfer/` | Read-only against the running source database; captures live editor changes, identity and CNR progress as well as recipes |
 | `db-restore.sh` | Restore the transferred MySQL package on a new host | Destructive by nature but refuses any non-empty target database; validates checksum and recipe presence before handoff |
 | `db-apply.sh` | Apply `migration/*.sql` in order to a **live** database | Rebuilds the catalogue tables only. Dumps to `<stack>/db-backups/pre-apply-<timestamp>.sql.gz` first, and aborts if the character, tradeskill or setting counts drop. Finds the stack itself: `dev-server/` on the dev host, `server/` locally, and prints both it and the migration directory before asking to confirm |
@@ -443,9 +450,9 @@ explicitly asks.
 The root Compose files currently run `nwnxee/unified:build8193.37` with
 `mysql:8.4`, `influxdb:1.7` and `grafana/grafana:6.0.1`. MySQL holds the
 persistent identity and CNR tables; see `documentation/database/`. Environment-specific server settings
-live in `config/nwserver.env` and `config/nwserver.env`, with
-`config/grafana.env`, `config/influxdb.env`, and
-`config/docker-compose-template.yml` alongside them. Treat environment files as
+live in `config/nwserver.env`, with `config/mysql.env`, `config/grafana.env`
+and `config/influxdb.env` alongside it. Each has a tracked `.example`; the real
+files are ignored and stay out of the repository. Treat environment files as
 sensitive: do not print their values in reports or copy secrets into
 documentation.
 
@@ -500,9 +507,11 @@ environment file.
   is pre-authorized and mandatory after an agent creates or modifies `.nss`
   files. No separate user request is required for that check.
 - Except for that focused check, do not run Nasher install/unpack, an NWScript
-  compiler, module packaging, Docker Compose start/stop, `rsync.sh`,
-  `server-restart.sh`, `web-restart.sh`, `db-backup.sh`, `db-restore.sh`,
-  `db-apply.sh`, or in-game validation unless the user explicitly requests it.
+  compiler, module packaging, Docker Compose start/stop, `server-restart.sh`,
+  `web-restart.sh`, `nwsync.sh`, `linux_apply_sql.sh`, `db-backup.sh`,
+  `db-restore.sh`, `db-apply.sh`, or in-game validation unless the user
+  explicitly requests it. This is the live module: several of those are visible
+  to players the moment they run.
 - Before any unpack or command with `--removeDeleted`, confirm the exact target
   and warn that uncommitted source changes may be removed.
 - Before a destructive command, resolve exact paths and confirm they remain
@@ -595,9 +604,9 @@ optional verification step:
    was not applicable.
 
 `--check` simulates compilation and writes no `.ncs`, cache, or module
-artifact. This policy must be copied into the production repository's
-`AGENTS.md` during DEV-to-PROD migration. If production uses a different build
-wrapper, adapt the command but preserve the invariant: compile only the
+artifact. This is the production copy of that policy; the build wrapper here is
+`linux_build.sh`, without the `-dev` suffix the development repository uses.
+The invariant is the same in both: compile only the
 explicit changed scripts and affected consumers, never the whole module for
 change-level testing.
 
@@ -612,8 +621,10 @@ For each change:
 5. Give a concise manual validation plan when runtime behavior changes.
 
 When `AGENTS.md` or any tracked file under `documentation/` changes, run
-`python3 scripts/check_documentation.py`. A structural documentation failure
-blocks handoff just like another deterministic check.
+`python3 scripts/check_documentation.py`. **That script does not exist in this
+repository yet**; it is one of the pieces still to be brought over from
+development. Until it does, say in the handoff that the structural
+documentation check could not be run, rather than claiming it passed.
 
 The user owns full-module compilation, packing, server restart, and in-game
 validation unless they explicitly delegate those actions. The mandatory

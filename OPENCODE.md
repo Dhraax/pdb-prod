@@ -1,4 +1,4 @@
-# OPENCODE.md - Puerta de Baldur (PDB DEV)
+# OPENCODE.md - Puerta de Baldur (PDB PROD)
 
 Read and follow `AGENTS.md`. Add only repository-approved OpenCode-specific
 behavior below this line.
