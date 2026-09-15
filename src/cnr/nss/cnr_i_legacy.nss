@@ -12,7 +12,9 @@
 ///
 ///          A character at 70 of 100 in the old carpentry becomes level 14 of
 ///          20, because 70 * 20 / 100 is 14. Integer division is the rounding:
-///          it always goes down, which is what was asked for.
+///          it always goes down, which is what was asked for. The character is
+///          written at the XP floor of that level, so the row in the database
+///          carries both the level and the experience that belongs to it.
 ///
 ///          Nothing runs on login. A trade master offers the conversion in
 ///          conversation, the player accepts, and from then on a flag in the
@@ -95,7 +97,7 @@ string CnrLegacy_MainKey(int nSkill)
         case 1: return "NIVELHERRERIA";      // Herreria
         case 2: return "NIVELCARPINTERIA";   // Carpinteria
         case 3: return "Profesion12";        // Peleteria, old marroquineria
-        case 4: return "NIVELALQUIMIA";      // Alquimia
+        case 4: return "NIVELHERBOLOGIA";    // Alquimia, old herboristeria
         case 5: return "NIVELENGARZADOR";    // Joyeria, old engarce
         case 6: return "Profesion15";        // Arcano, old artesania urdimbrica
     }
@@ -245,20 +247,31 @@ int CnrLegacy_Convert(object oPC, int nSkill)
     int nXP = GetLocalInt(GetModule(), "CnrTradeXPLevel" + IntToString(nLevel));
     int nHaveXP = CnrSkill_GetXP(oPC, nSkill);
 
+    // Ask before touching anything. CnrSkill_CanSetXP is what refuses a third
+    // trade of level 2 or more, and it tells the player why itself. Checking it
+    // here rather than letting CnrSkill_SetXP fail keeps the guarantee simple:
+    // when the conversion is not possible, nothing of the player's is removed.
+    if (!CnrSkill_CanSetXP(oPC, nSkill, nXP))
+    {
+        SendMessageToPC(oPC, "No se convierte nada: conservas tu " + sSkill
+            + " antigua y su manual, y puedes convertir otro oficio.");
+        return FALSE;
+    }
+
     if (nXP > nHaveXP)
     {
-        // CnrSkill_SetXP refuses a third trained profession and says so itself,
-        // so the old data is left untouched and the player can convert another
-        // trade instead.
         if (!CnrSkill_SetXP(oPC, nSkill, nXP))
         {
+            SendMessageToPC(oPC, "No se pudo escribir tu oficio. No se ha "
+                + "retirado nada; avisa a un DM.");
             return FALSE;
         }
 
         SendMessageToPC(oPC, "Tu " + sSkill + " antigua era nivel "
             + IntToString(nLegacy) + " de " + IntToString(CNR_LEGACY_MAX)
             + ". En el oficio nuevo eso son " + IntToString(nLevel)
-            + " de " + IntToString(CNR_MAX_TRADESKILL_LEVEL) + ".");
+            + " de " + IntToString(CNR_MAX_TRADESKILL_LEVEL) + ", con "
+            + IntToString(nXP) + " de experiencia.");
         PlaySound("gui_level_up");
     }
     else

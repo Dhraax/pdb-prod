@@ -190,23 +190,38 @@ fed it:
 | Herrería | `NIVELHERRERIA` | `NIVELMINERIA`, `NIVELFUNDICION`, `NIVELAFILADURA` | `libroHerreria` |
 | Carpintería | `NIVELCARPINTERIA` | `NIVELLENYADOR`, `NIVELSERRERIA`, `NIVELEBANISTA` | `carp_libro` |
 | Peletería | `Profesion12`, marroquinería | `Profesion9`, `NIVELDESOLLADOR`, both XP keys | `sapocuelib` |
-| Alquimia | `NIVELALQUIMIA` | `NIVELHERBOLOGIA`, `NIVELRECOLECCION`, `NIVELCOCINA` | `libroHerboristeria` |
+| Alquimia | `NIVELHERBOLOGIA` | `NIVELALQUIMIA`, `NIVELRECOLECCION`, `NIVELCOCINA` | `libroHerboristeria` |
 | Joyería | `NIVELENGARZADOR` | `NIVELTALLADOR`, `NIVELORFEBREESP`, `NIVELORFEBREARC` | `orf_libro` |
 | Arcano | `Profesion15`, artesanía urdímbrica | `Profesion8`, `Profesion11`, their XP keys, `2AJUSTE_ARTESANIA_URD_BETA` | `pb_ofi_man_artes`, `sapoaralib` |
 | Sastrería | none | | |
 
-Sastrería did not exist in the old system, so no master offers the line for it.
+Alquimia takes the old **herbalism** level, not the old alchemy one: the trade
+that was Herboristería is the one that became Alquimia, and the old alchemy level
+was a later step inside it. Sastrería did not exist in the old system at all, so
+no master offers the line and every tailor starts at zero.
 
 **Once only.** On success the conversion writes `CNR_CONV_<trade>` to the same
 variable container and then removes every key in the row above and destroys the
 books. Two independent stops, so a lost flag still cannot convert a second time:
 there is nothing left to read.
 
-**What it refuses.** The two-profession cap is enforced by
-`CnrSkill_CanSetXP`, which says so to the player itself. When it refuses, the
-conversion aborts **without** consuming anything, so the character can convert a
-different trade instead. `CnrSkill_Load` failing aborts the same way, because a
-conversion that cannot read the current level might silently lower it.
+**It warns before it acts.** The master's line does nothing by itself: it opens
+a node that spells out the two-profession cap, that Alquimia does not take a
+slot, that the level is rounded down and that the old notes and book will be
+gone. Only the reply under that warning runs `cnr_ofi_conv`. The choice is
+irreversible and the player is told so before making it.
+
+**What it refuses.** The two-profession cap is checked by `CnrSkill_CanSetXP`
+**before anything of the player's is touched**, not by letting the write fail
+afterwards. A character who already holds two trades at level 2 or more, Alquimia
+aside, is told so and keeps every old level and every old book. `CnrSkill_Load`
+failing aborts the same way, because a conversion that cannot read the current
+level might silently lower it.
+
+**The row it writes carries both numbers.** `CnrSkill_SetXP` derives the level
+from the XP with `PersistDetermineTradeskillLevel` and writes `skill_level` and
+`skill_xp` in the same statement, so a converted character is level 14 with the
+9,875 XP that level 14 starts at, never level 14 with a token value.
 
 **When the new level is already higher**, nothing is written to CNR, but the old
 keys and the book are still removed and the flag is still set: the character is
