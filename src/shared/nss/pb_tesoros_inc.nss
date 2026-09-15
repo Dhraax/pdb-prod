@@ -3,6 +3,7 @@
 //:: SCRIPT: LIBRERIA DEL SISTEMA DE REGENERACION DE TESOROS EN COFRES Y PNJS
 //:: Creado por: Monti
 //:: Creado el: 20/09/11
+//:: modified by: Dhraax
 //::////////////////////////////////////////////////////////////////////////////
 
 #include "x2_inc_itemprop"
@@ -1777,11 +1778,18 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "PCItem", 1);
 
       // The arcane trade's own mark: it says this item can be broken down in
-      // the extractor and at which tier. It is deliberately separate from
-      // CALIDAD_GUARDADA so that only loot generated from now on is breakable;
-      // older loot does not carry it and the machine turns it away. Rank 1, the
-      // grey one, yields no essence.
-      if(iRango >= 2) SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango - 1);
+      // the extractor and at which tier. Three conditions, all of them
+      // deliberate: the target has to be a loot container, which only
+      // GenerarTesoroEnCriaturas and the two GenerarTesoroEnUbicados flag, so
+      // shop stock and quest rewards built by these same functions are never
+      // marked; it has to be loot generated from now on, which is why the mark
+      // is separate from CALIDAD_GUARDADA and old stashes are refused; and rank
+      // 1, the grey one, yields no essence.
+      if(iRango >= 2 && iTienda == FALSE &&
+         GetLocalInt(oObjetivo, "CNR_LOOT_SOURCE") == TRUE)
+      {
+          SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango - 1);
+      }
 
       if(GetObjectType(oObjetivo) == OBJECT_TYPE_CREATURE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que lo rescataste de las garras de "+GetName(OBJECT_SELF)+". A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
       else if(iTienda == TRUE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que un comerciante te lo vendió. A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
@@ -4140,6 +4148,10 @@ void Crear1ObjetoAleatorio(object oDestino, int iRango, int iMejoraTesoro=1)
 
 void GenerarTesoroEnCriaturas()
 {
+  // Everything this container is about to receive is loot, and only loot
+  // may be broken down in the arcane extractor. The creature carries it.
+  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
+
   int iDebugMess = 0;
   int iRango, iTirada;
 
@@ -4321,6 +4333,10 @@ void GenerarTesoroEnCriaturas()
 
 void GenerarTesoroEnUbicados(object oPC, int iCalidad=1)
 {
+  // Everything this container is about to receive is loot, and only loot
+  // may be broken down in the arcane extractor. The chest carries it.
+  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
+
   // Anti spam
   if(GetLocalInt(OBJECT_SELF, "TESOROGENERADO") == TRUE) return;
 
@@ -4364,6 +4380,10 @@ void GenerarTesoroEnUbicados(object oPC, int iCalidad=1)
 
 void GenerarTesoroEnUbicadosBoss(object oPC, int iCalidad)
 {
+  // Everything this container is about to receive is loot, and only loot
+  // may be broken down in the arcane extractor. The boss chest carries it.
+  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
+
   // Anti spam
   if(GetLocalInt(OBJECT_SELF, "TESOROGENERADO") == TRUE) return;
 
