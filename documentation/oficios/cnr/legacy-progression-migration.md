@@ -103,11 +103,14 @@ The XP curve, set in `cnr_trade_init.nss`:
 | 9 | 3,625 | 19 | 22,000 |
 | 10 | 4,625 | 20 | 25,000 |
 
-A level-for-share conversion therefore looks like: take the old level `L` out of
-100, work out the share, and write `25000 * L / 100` XP, letting
-`PersistDetermineTradeskillLevel` decide the level that share lands on. Level 50
-of the old scale becomes 12,500 XP, which is level 14. Whether that is the right
-generosity is a design decision, not a technical one.
+There are two ways to spend an old level here and they do not agree. Sharing the
+**XP** writes `25000 * L / 100`: level 50 becomes 12,500 XP, which the descending
+lookup resolves to level **15**, because level 15 starts at 11,975. Sharing the
+**level** writes `20 * L / 100`: level 50 becomes level 10, whose floor is 4,625
+XP. The curve is not linear, so the two answers diverge by five levels in the
+middle of the scale. **What was built shares the level**, which is what the owner
+asked for; the XP-sharing version is recorded here only so nobody rediscovers it
+and assumes it was the plan.
 
 ## The precedent worth copying
 
@@ -124,8 +127,12 @@ of `bolsaplanar`, the area every player passes through on login:
   is set to the floor of the new level so the character keeps the level and
   loses only the progress inside it.
 - **A floor of 1**, so nobody is converted down to nothing.
-- **A second, later branch** for characters already adjusted once, which only
-  touched levels above 53 and compressed the excess by half.
+- **A second branch for the characters the first one missed.** It is the `else`
+  of the manual check, so it ran only when the old manual was **not** present,
+  and it additionally required `2AJUSTE_ARTESANIA_URD_BETA` to be 0 and at least
+  one of the three levels to be above 53. It then compressed only the part above
+  50 by half. Read the whole guard before copying it: manual absent, flag unset,
+  level above 53.
 - **Swap the item and tell the player**, on a four second delay so the message
   is not lost in the login noise:
   `DestroyObject(oAntiguoManualArtesania); CreateItemOnObject("pb_ofi_man_artes", oPC);`
@@ -155,10 +162,25 @@ ten `cuero_*` materials. The only thing worth taking from the old branch is the
 `PIEL` 1-10 scale, which `skinning-inventory.md` already records, and the
 `NIVELDESOLLADOR` value, which is in the table above.
 
+## One legacy key is still read, and it still discriminates
+
+`ko_kazad_cantera`, the two granite quarries in Kazad, reads `NIVELMINERIA`, and
+the key is still on the container of every character who ever had it: nothing
+writes it any more, but nothing erased it either.
+
+- a character with any mining level takes the miner branch, `d10() == 10`, one
+  in ten;
+- a character with none takes `d20() == 20`, one in twenty.
+
+The script's own comment calls both 10%, which is wrong for the second. No new
+character can earn the better odds, and **a conversion that wipes `NIVELMINERIA`
+drops that character from one in ten to one in twenty**, so whichever trade ends
+up clearing that key has to account for it. Whether the quarry should read a CNR
+level instead is an open decision the owner has deferred.
+
 ## Provenance
 
-Both paths were read and removed in production on 2026-09-15. The code quoted
-here is from `src/shared/nss/wrap_bp.nss` lines 68-122 and
+Both paths were read and removed by the commit that adds this document. The code
+quoted here is from `src/shared/nss/wrap_bp.nss` lines 68-122 and
 `src/shared/nss/pb_mod_activate.nss` lines 2586-2884 as they stood at commit
-`b165a1c7`. Development still holds both files unchanged, so the original is
-recoverable there as well as from Git history.
+`b165a1c7`, which is where to recover the originals from.
