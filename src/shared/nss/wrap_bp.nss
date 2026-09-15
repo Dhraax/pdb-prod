@@ -63,63 +63,6 @@ void main()
       else if(iNivel == 21 && iXP > 236775) SetXP(oPC, 236775);
       else if(iNivel == 23 && iXP > 282900) SetXP(oPC, 282900);
       else if(iNivel == 25 && iXP > 331500) SetXP(oPC, 331500);
-
-
-      // Temporal: Adaptar antiguo oficio de Artesania Urdímbrica
-      object oAntiguoManualArtesania = GetItemPossessedBy(oPC, "sapoaralib");
-      int iProfesion8  = ObtenerIntPersistente(oPC, "Profesion8");
-      int iProfesion11 = ObtenerIntPersistente(oPC, "Profesion11");
-      int iProfesion15 = ObtenerIntPersistente(oPC, "Profesion15");
-      int iSegundoAjusteBeta = ObtenerIntPersistente(oPC, "2AJUSTE_ARTESANIA_URD_BETA");
-      if(GetIsObjectValid(oAntiguoManualArtesania))
-      {
-          if(iProfesion8 > 0 || iProfesion11 > 0 || iProfesion15 > 0)
-          {
-              iProfesion8  = iProfesion8 / 2;
-              iProfesion11 = iProfesion11 / 2;
-              iProfesion15 = iProfesion15 / 2;
-
-              if(iProfesion8  < 1) iProfesion8  = 1;
-              if(iProfesion11 < 1) iProfesion11 = 1;
-              if(iProfesion15 < 1) iProfesion15 = 1;
-
-              GuardarIntPersistente(oPC, "Profesion8", iProfesion8);
-              GuardarIntPersistente(oPC, "Profesion8XP", CalculoSiguienteNivelXPEsenciacion2(iProfesion8 - 1));
-              GuardarIntPersistente(oPC, "Profesion11", iProfesion11);
-              GuardarIntPersistente(oPC, "Profesion11XP", CalculoSiguienteNivelXPInfusionamiento2(iProfesion11 - 1));
-              GuardarIntPersistente(oPC, "Profesion15", iProfesion15);
-              GuardarIntPersistente(oPC, "Profesion15XP", CalculoSiguienteNivelXPArtesaniaUrdimbrica2(iProfesion15 - 1));
-
-              DestroyObject(oAntiguoManualArtesania);
-              CreateItemOnObject("pb_ofi_man_artes", oPC);
-              GuardarIntPersistente(oPC, "2AJUSTE_ARTESANIA_URD_BETA", 1);
-              DelayCommand(4.0, SendMessageToPC(oPC, "<c´þd>El oficio de Artesanía Urdímbrica ha cambiado drásticamente y se te ha ajustado el nivel, la experiencia y el manual dicho oficio. Consulta el foro para conocer más detalles.</c>"));
-          }
-      }
-      else if(iSegundoAjusteBeta == 0 && (iProfesion8 > 53 || iProfesion11 > 53 || iProfesion15 > 53))
-      {
-          if(iProfesion8 > 53)
-          {
-              int iAjuste8 = (iProfesion8 - 50) / 2;
-              GuardarIntPersistente(oPC, "Profesion8", 50 + iAjuste8);
-              GuardarIntPersistente(oPC, "Profesion8XP", CalculoSiguienteNivelXPEsenciacion2(49 + iAjuste8));
-          }
-          if(iProfesion11 > 53)
-          {
-              int iAjuste11 = (iProfesion11 - 50) / 2;
-              GuardarIntPersistente(oPC, "Profesion11", 50 + iAjuste11);
-              GuardarIntPersistente(oPC, "Profesion11XP", CalculoSiguienteNivelXPInfusionamiento2(49 + iAjuste11));
-          }
-          if(iProfesion15 > 53)
-          {
-              int iAjuste15 = (iProfesion15 - 50) / 2;
-              GuardarIntPersistente(oPC, "Profesion15", 50 + iAjuste15);
-              GuardarIntPersistente(oPC, "Profesion15XP", CalculoSiguienteNivelXPArtesaniaUrdimbrica2(49 + iAjuste15));
-          }
-
-          GuardarIntPersistente(oPC, "2AJUSTE_ARTESANIA_URD_BETA", 1);
-          DelayCommand(4.0, SendMessageToPC(oPC, "<c´þd>Ajuste de XP y niveles del oficio de Artesanía Urdímbrica aplicado. Más info en el foro.</c>"));
-      }
   }
 
   //DUPLICAR EL TAMAÑO DE ALGUNOS UBICADOS

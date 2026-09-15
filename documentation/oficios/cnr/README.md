@@ -51,6 +51,7 @@ which owns the order, backups, validation and rollback.
 | [`base-items.md`](base-items.md) | **Léelo antes de escribir una receta.** Los 17 objetos base del CNR: qué resref usar para cada arma, armadura, escudo y munición, y por qué nunca se coge uno del juego |
 | [`harvesting-nodes.md`](harvesting-nodes.md) | **Activo.** El sistema de recolección: los 44 nodos, sus herramientas, el enfriamiento, el agotamiento y la recarga. Implementado el 2026-08-18 y **sin validar en juego** |
 | [`skinning-inventory.md`](skinning-inventory.md) | **Activo.** El desollado: qué suelta cada criatura, cómo el cadáver se comporta como un nodo, los manejadores de muerte reasignados y las pieles retiradas del botín el 2026-09-13 |
+| [`legacy-progression-migration.md`](legacy-progression-migration.md) | **Referencia.** Dónde vive el nivel de oficio del sistema viejo, qué claves lo guardan, qué espera el CNR al otro lado y el precedente de migración que conviene copiar |
 | [`weapon-variants-plan.md`](weapon-variants-plan.md) | **Historical implementation record.** One recipe per material with a product variant selector; current behavior lives in `crafting-system.md` section 4b |
 | [`open-issues.md`](open-issues.md) | **Running log of findings, technical debt and parked ideas.** Add to it as things are discovered; delete entries when they are closed |
 | [`plan-de-pruebas.md`](plan-de-pruebas.md) | Tester-facing test plan in Spanish, split by profession, with what each tester must be given to start |

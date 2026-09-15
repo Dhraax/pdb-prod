@@ -248,21 +248,6 @@ int GetArmorType(object oArmor)
     return nType;
 }
 
-int CalculoSiguienteNivelXPEsenciacion2(int iNivelArtesano)
-{
-  return iNivelArtesano * (iNivelArtesano + 1) * 50;
-}
-
-int CalculoSiguienteNivelXPInfusionamiento2(int iNivelArtesano)
-{
-  return iNivelArtesano * (iNivelArtesano + 1) * 75;
-}
-
-int CalculoSiguienteNivelXPArtesaniaUrdimbrica2(int iNivelArtesano)
-{
-  return iNivelArtesano * (iNivelArtesano + 1) * 100;
-}
-
 void EliminarEfectosSobrenaturales(object oPC)
 {
   effect eEfecto = GetFirstEffect(oPC);

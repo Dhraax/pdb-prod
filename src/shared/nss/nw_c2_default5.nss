@@ -15,7 +15,6 @@
 #include "hench_i0_ai"
 #include "nw_i0_2q4luskan"
 #include "mti_libreria"
-#include "sute_libreria"
 
 
 void main()
