@@ -1,13 +1,12 @@
 # Legacy trade progression: where it lives and how to carry it into CNR
 
-**Status: reference, nothing implemented.** This document exists because the two
-last live pieces of the old trade system were removed from production on
-2026-09-15 and the owner asked that their mechanics be recorded first: the plan
-is to convert each character's legacy trade level into the equivalent share of a
-CNR tradeskill level.
+**Status: implemented on 2026-09-15.** The conversion lives in
+`cnr_i_legacy.nss` and a trade master offers it in conversation. The reference
+sections below are what it was built from; the section **What was built** states
+what it actually does.
 
-Read this before writing that conversion. The numbers here come from the code as
-it was on the day it was deleted; the commit that removed it is named at the end.
+The numbers here come from the code as it was on the day it was deleted; the
+commit that removed it is named at the end.
 
 ## Where the old progression is stored
 
@@ -154,6 +153,70 @@ a node with three deliveries and a ten second cooldown, and the hides are the
 ten `cuero_*` materials. The only thing worth taking from the old branch is the
 `PIEL` 1-10 scale, which `skinning-inventory.md` already records, and the
 `NIVELDESOLLADOR` value, which is in the table above.
+
+## What was built
+
+One conversion per trade, offered by the trade master, never on login.
+
+**Where it lives**
+
+| Resource | Role |
+|----------|------|
+| `src/cnr/nss/cnr_i_legacy.nss` | The whole conversion: the mapping, the arithmetic, the cleanup |
+| `src/cnr/nss/cnr_ofi_conv_c.nss` | `StartingConditional`: shows the line only to a player who still has old progression in that trade |
+| `src/cnr/nss/cnr_ofi_conv.nss` | The action that converts |
+
+Both scripts take the trade as the conversation parameter `oficio`, numbered the
+way `CnrSkill_*` numbers it: 1 Herrería, 2 Carpintería, 3 Peletería, 4 Alquimia,
+5 Joyería, 6 Arcano, 7 Sastrería. That is the same shape `ofi_abre_tienda`
+already uses, so adding a master needs a dialogue line, not another script.
+
+**The arithmetic.** The old level, counted out of 100, becomes the same share of
+the twenty CNR levels, rounded down by integer division:
+
+```nss
+int nLevel = (nLegacy * CNR_MAX_TRADESKILL_LEVEL) / CNR_LEGACY_MAX;
+```
+
+70 of 100 gives 14 of 20. So does 74. The character is then written at the **XP
+floor** of that level, `CnrTradeXPLevel<n>`, so they keep the level and start it
+empty rather than inheriting progress they never earned.
+
+**Which old level counts.** The trade's end product, not the gathering step that
+fed it:
+
+| CNR trade | Old key taken as the level | Old keys wiped with it | Book destroyed |
+|-----------|----------------------------|------------------------|----------------|
+| Herrería | `NIVELHERRERIA` | `NIVELMINERIA`, `NIVELFUNDICION`, `NIVELAFILADURA` | `libroHerreria` |
+| Carpintería | `NIVELCARPINTERIA` | `NIVELLENYADOR`, `NIVELSERRERIA`, `NIVELEBANISTA` | `carp_libro` |
+| Peletería | `Profesion12`, marroquinería | `Profesion9`, `NIVELDESOLLADOR`, both XP keys | `sapocuelib` |
+| Alquimia | `NIVELALQUIMIA` | `NIVELHERBOLOGIA`, `NIVELRECOLECCION`, `NIVELCOCINA` | `libroHerboristeria` |
+| Joyería | `NIVELENGARZADOR` | `NIVELTALLADOR`, `NIVELORFEBREESP`, `NIVELORFEBREARC` | `orf_libro` |
+| Arcano | `Profesion15`, artesanía urdímbrica | `Profesion8`, `Profesion11`, their XP keys, `2AJUSTE_ARTESANIA_URD_BETA` | `pb_ofi_man_artes`, `sapoaralib` |
+| Sastrería | none | | |
+
+Sastrería did not exist in the old system, so no master offers the line for it.
+
+**Once only.** On success the conversion writes `CNR_CONV_<trade>` to the same
+variable container and then removes every key in the row above and destroys the
+books. Two independent stops, so a lost flag still cannot convert a second time:
+there is nothing left to read.
+
+**What it refuses.** The two-profession cap is enforced by
+`CnrSkill_CanSetXP`, which says so to the player itself. When it refuses, the
+conversion aborts **without** consuming anything, so the character can convert a
+different trade instead. `CnrSkill_Load` failing aborts the same way, because a
+conversion that cannot read the current level might silently lower it.
+
+**When the new level is already higher**, nothing is written to CNR, but the old
+keys and the book are still removed and the flag is still set: the character is
+told their current trade already beats what they had.
+
+**Left behind on purpose.** `ko_kazad_cantera`, the two granite quarries in
+Kazad, still reads `NIVELMINERIA`. Converting Herrería wipes that key, so a
+converted character keeps falling into the quarry's 10% branch exactly like
+everyone else already does since nothing writes it any more. Whether the quarry
+should read a CNR level instead is an open decision.
 
 ## Provenance
 
