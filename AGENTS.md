@@ -439,7 +439,7 @@ explicitly asks.
 | `win_stop_server.bat` | Stop the Windows-staged stack | Runs from `server/` |
 | `linux_nasher_install.sh` | Legacy install | Uses `--noCompile`: packs **without compiling**. Prefer `linux_build.sh` |
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
-| `server-restart.sh` | Restart the stack from the repository root | Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it. This is the live server: restarting it disconnects whoever is playing |
+| `server-restart.sh` | Restart **only the `pb-server` service**, from the repository root | Validates the Compose file, brings `mysql`, `influxdb` and `grafana` up if they are not running and leaves them alone if they are, then stops `pb-server` with a 120 second timeout and recreates it. This is the live server: recreating it disconnects whoever is playing. It does **not** restart the database or the dashboards, so it is not the command for a MySQL problem. Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it |
 | `web-restart.sh` | Rebuild and restart only the CNR editor stack | Expects a staged `cnr-editor/` with its `compose.yml` and `.env` |
 | `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/PB_EE_PROD.mod` on the host. Player-visible the moment it runs |
 | `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
