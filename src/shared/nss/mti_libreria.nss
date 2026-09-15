@@ -248,30 +248,6 @@ int GetArmorType(object oArmor)
     return nType;
 }
 
-void ManualHerboristeria(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Recolección: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELRECOLECCION")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Cocina: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELCOCINA")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Herbología: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELHERBOLOGIA")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Alquimia: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELALQUIMIA")) + "</c></c>");
-}
-
-void ManualHerreria(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Minería: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELMINERIA")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Fundición: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELFUNDICION")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Herrería: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELHERRERIA")) + "</c></c>");
-}
-
-void ManualCarpinteria(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Tala de árboles: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELLENYADOR")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Serrería: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELSERRERIA")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Carpintería: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELCARPINTERIA")) + "</c></c>");
-}
-
-void ManualOrfebreria(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Tallado de gemas: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELTALLADOR")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Engarce: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELENGARZADOR")) + "</c></c>");
-}
-
 int CalculoSiguienteNivelXPEsenciacion2(int iNivelArtesano)
 {
   return iNivelArtesano * (iNivelArtesano + 1) * 50;
@@ -285,22 +261,6 @@ int CalculoSiguienteNivelXPInfusionamiento2(int iNivelArtesano)
 int CalculoSiguienteNivelXPArtesaniaUrdimbrica2(int iNivelArtesano)
 {
   return iNivelArtesano * (iNivelArtesano + 1) * 100;
-}
-
-void ManualArtesaniaUrdimbrica(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Esenciación: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "Profesion8")) + "</c></c>");
-   SendMessageToPC(oPC,"<cÍþ>Experiencia en Esenciación: <c´þd>"+IntToString(ObtenerIntPersistente(oPC, "Profesion8XP"))+"/"+IntToString(CalculoSiguienteNivelXPEsenciacion2(ObtenerIntPersistente(oPC, "Profesion8")))+".</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Infusión: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "Profesion11")) + "</c></c>");
-   SendMessageToPC(oPC,"<cÍþ>Experiencia en Infusión: <c´þd>"+IntToString(ObtenerIntPersistente(oPC, "Profesion11XP"))+"/"+IntToString(CalculoSiguienteNivelXPInfusionamiento2(ObtenerIntPersistente(oPC, "Profesion11")))+".</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Artesania Urdímbrica: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "Profesion15")) + "</c></c>");
-   SendMessageToPC(oPC,"<cÍþ>Experiencia en Artesania Urdímbrica: <c´þd>"+IntToString(ObtenerIntPersistente(oPC, "Profesion15XP"))+"/"+IntToString(CalculoSiguienteNivelXPArtesaniaUrdimbrica2(ObtenerIntPersistente(oPC, "Profesion15")))+".</c></c>");
-}
-
-void ManualPeleteria(object oPC){
-   SendMessageToPC(oPC, "<cþ>Puntuación en Despellejador: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "NIVELDESOLLADOR")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Curtiduría: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "Profesion9")) + "</c></c>");
-   SendMessageToPC(oPC, "<cþ>Puntuación en Marroquinería: <c´þd>"+ IntToString(ObtenerIntPersistente(oPC, "Profesion12")) + "</c></c>");
-
 }
 
 void EliminarEfectosSobrenaturales(object oPC)

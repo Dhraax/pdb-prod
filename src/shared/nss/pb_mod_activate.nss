@@ -117,13 +117,6 @@ void main()
 
   // OFICIOS
   if(GetStringLeft(sTagDelObjeto, 8) == "sute_her") { usarPocionHerboristeria(oPC, sTagDelObjeto); return; }
-  if(sTagDelObjeto == "pb_ofi_varita_es")   { ExecuteScript("pb_ofi_esencia_a", OBJECT_SELF); return; }
-  if(sTagDelObjeto == "libroHerboristeria") { ManualHerboristeria(oPC);  return; }
-  if(sTagDelObjeto == "libroHerreria")      { ManualHerreria(oPC);       return; }
-  if(sTagDelObjeto == "carp_libro")         { ManualCarpinteria(oPC);    return; }
-  if(sTagDelObjeto == "orf_libro")          { ManualOrfebreria(oPC);     return; }
-  if(sTagDelObjeto == "pb_ofi_man_artes")   { ManualArtesaniaUrdimbrica(oPC);       return; }
-  if(sTagDelObjeto == "sapocuelib")         { ManualPeleteria(oPC);          return; }
 
   //Bersker Frenetico
   if(GetHasFeatEffect(1443,oPC))
