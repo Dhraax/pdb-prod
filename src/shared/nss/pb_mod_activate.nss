@@ -117,6 +117,15 @@ void main()
 
   // OFICIOS
   if(GetStringLeft(sTagDelObjeto, 8) == "sute_her") { usarPocionHerboristeria(oPC, sTagDelObjeto); return; }
+  // The seven objects of the old trade system. Their handlers are gone and
+  // the objects stay in whatever inventory holds them, so activating one has
+  // to end here: without this the tag would fall through to the generic
+  // handlers below, which answer during Frenzy and run three unrelated
+  // scripts. Doing nothing means doing nothing.
+  if(sTagDelObjeto == "pb_ofi_varita_es"   || sTagDelObjeto == "libroHerboristeria" ||
+     sTagDelObjeto == "libroHerreria"      || sTagDelObjeto == "carp_libro"         ||
+     sTagDelObjeto == "orf_libro"          || sTagDelObjeto == "pb_ofi_man_artes"   ||
+     sTagDelObjeto == "sapocuelib") return;
 
   //Bersker Frenetico
   if(GetHasFeatEffect(1443,oPC))
