@@ -92,8 +92,9 @@ carpentry does with `nw_wbwln001`.
 
 ## Sewing templates
 
-Not consumed: `retain_on_fail` and `retain_on_success` are both 1 on all 100
-recipes.
+A template survives a failed attempt and is consumed by a successful one:
+`retain_on_fail` is 1 and `retain_on_success` is 0 on all 100 recipes, in both
+`cnrTailorsTable` and `cnrSewingTable`.
 
 | Tag | ResRef | Item |
 |---|---|---|
@@ -102,12 +103,13 @@ recipes.
 | `sapo_plnt12_bra` | `sapo_plnt12_bra` | Plantilla para brazales |
 | `sapo_plnt12_capa` | `sapo_plnt12_capa` | Plantilla para capa |
 | `sapo_plnt12_cint` | `sapo_plnt12_cint` | Plantilla para cinto |
-| **`sapo_plnt12_guan`** | `sapo_plnt12_capu` | Plantilla para guantes |
+| `sapo_plnt12_capu` | `sapo_plnt12_capu` | Plantilla para guantes |
 
-The glove template's blueprint was tagged `sapo_plnt12_capu` while being named
-"Plantilla para guantes". **Components match by tag**, so a template made from
-that blueprint would never have satisfied the ten glove recipes — and station
-tools are enforced, so this was not cosmetic. The tag was corrected to
-`sapo_plnt12_guan`, matching both its own name and the instance already placed
-in `_basefaccione001`. Its resref and file name are unchanged, and nothing else
-referenced the old tag.
+The glove template's blueprint is tagged `sapo_plnt12_capu`, the same as its
+resref, while being named "Plantilla para guantes". The ten glove recipes asked
+for `sapo_plnt12_guan`, which no blueprint and no placed item carries, and
+**components match by tag**, so none of the ten gloves could be made; the
+leatherworker's shop offered the same missing tag. The recipes and the shop
+entry in `_basefaccione001` were corrected to `sapo_plnt12_capu`. The blueprint
+was left as it is on purpose: renaming its tag would have stranded any template
+already in an inventory or on a shelf.
