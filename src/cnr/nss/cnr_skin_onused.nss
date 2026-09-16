@@ -7,6 +7,7 @@
 //  Desc:  The OnUsed handler for skinnable corpses.
 //
 //  Author: David Bobeck 18Feb03
+//  modified by: Dhraax
 //
 /////////////////////////////////////////////////////////
 #include "cnr_config_inc"
