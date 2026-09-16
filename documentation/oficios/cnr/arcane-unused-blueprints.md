@@ -1,13 +1,13 @@
 # Arcano — blueprints sin uso
 
-Los `cnr_e_*` / `cnr_cristal*` que hay en paleta y **ningún material del diseño reclama**,
+Los `cnr_e_*` / `cnr_c_*` que hay en paleta y **ningún material del diseño reclama**,
 una vez `arcano.json` quedó emparejado con la paleta por `material_resref`.
 
 **No se borra nada todavía.** Esta lista existe para tenerlos localizados; el
 borrado va al final, cuando el oficio esté montado y probado en juego. Hasta
 entonces cualquiera de ellos puede acabar teniendo sitio.
 
-De los 133 blueprints `cnr_e_*` / `cnr_cristal*`, el diseño usa **95** y sobran **38**.
+De los 133 blueprints `cnr_e_*` / `cnr_c_*`, el diseño usa **95** y sobran **38**.
 
 Antes de borrar, comprobar por cada uno: que ninguna receta del catálogo lo
 nombre, que no esté colocado en ningún contenedor ni tienda, y que no lo cite

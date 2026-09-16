@@ -90,7 +90,7 @@ against the base item of the blueprint each one names:
 | Alchemy (table and cauldron) | Potions and poisons share a blueprint on purpose, and the essences are their own product |
 | Jewellery | One blueprint per gem and per metal, each with its own look. None shared |
 
-**No recipe uses a different blueprint while a `cnr_base_` of that type
+**No recipe uses a different blueprint while a `cnr_b_` of that type
 exists.** All 51 variants point at a `cnr_b_*` that is on disk, and no two
 variants share a base item type.
 
@@ -417,8 +417,8 @@ Aviso para quien lo edite: el mapa compara en minúsculas y **no** con
 
 1. Sacar el blueprint del juego con `nwn_resman_extract -p <resref>`.
 2. Pasarlo a JSON con `nwn_gff`, dejarlo sin propiedades, con
-   `Tag = TemplateResRef = cnr_base_<tipo>` y su nombre en castellano.
-3. Guardarlo en `src/cnr/uti/cnr_base_<tipo>.uti.json`.
+   `Tag = TemplateResRef = cnr_b_<tipo>` y su nombre en castellano.
+3. Guardarlo en `src/cnr/uti/cnr_b_<tipo>.uti.json`.
 4. Añadirlo a la paleta custom de objetos, junto al resto del CNR.
 5. Añadir la línea a `CNR_BASE_ITEMS` y regenerar con `build_catalogue.py`.
 6. Añadirlo a la tabla de arriba.

@@ -161,7 +161,7 @@ inert:
 |---|---|---|
 | `pb_ofi_artesa` | "Mesa de artesania urdimbrica", the old station | `OnUsed` empty, `OnClosed` points at `pb_ofi_artesa_c`, **which does not exist in `src/`**. Placed twice in `testarea_oficios`, where it does nothing |
 | `pb_ofi_varita_es` | "Varita esenciadora", the wand meant to capture essences | Casts spell 329, which `spells.2da` calls `DELETED_PRO_Elec`. It casts elemental protection, not essence capture. Two placed in the shop area |
-| `sapo_esencia_enc` | "Alas de Pixie", enchantment-school essence powder | Old naming, and the `cnr_esen*` family already carries a Polvo de encantamiento |
+| `sapo_esencia_enc` | "Alas de Pixie", enchantment-school essence powder | Old naming, and the `cnr_e_*` family already carries a Polvo de encantamiento |
 | `sapo_vendobj` | Placeable for selling crafted goods | Old profession system |
 
 The two `pb_ofi_*` are placed in areas and would confuse a player who walks
@@ -169,7 +169,7 @@ into them expecting the working table. The two `sapo_*` need a decision rather
 than a deletion.
 
 Related: [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) lists the
-53 `cnr_esen*` / `cnr_cristal*` blueprints no material claims, which is the same
+53 `cnr_e_*` / `cnr_c_*` blueprints no material claims, which is the same
 kind of cleanup and waits on the same thing — the trade being played enough to
 know what is really unused.
 

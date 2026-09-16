@@ -265,7 +265,7 @@ CREATE TABLE cnr_arcane_property (
   display_name   VARCHAR(96)       NOT NULL,
   group_id       SMALLINT UNSIGNED NOT NULL,
   tier           TINYINT           NOT NULL,   -- 1..4, from the loot rarity
-  essence_resref VARCHAR(16)       NOT NULL,   -- cnr_esen*, tag = resref
+  essence_resref VARCHAR(16)       NOT NULL,   -- cnr_e_*, tag = resref
   essence_name   VARCHAR(96)       NOT NULL,   -- como lo ve el jugador
   crystal_resref VARCHAR(16)       NOT NULL,   -- cnr_c_1..6
   crystal_name   VARCHAR(96)       NOT NULL,

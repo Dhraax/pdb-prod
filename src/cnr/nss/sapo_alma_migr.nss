@@ -23,6 +23,13 @@
 /// Written to the player's variable container once the store has been converted.
 const string ALM_MIGRADO = "CNR_ALMACEN_MIGRADO";
 
+/// Written once the essences and crystals have been moved to the short keys.
+const string ALM_RENOMBRADO = "CNR_ALMACEN_RENOMBRADO";
+
+/// How many essences and crystals exist, so the rename knows what to look for.
+const int ALM_NUM_ESENCIAS = 129;
+const int ALM_NUM_CRISTALES = 6;
+
 /// @brief Move a stored quantity from an old key to its CNR equivalent.
 /// @param oPC The player.
 /// @param sVieja The old persistent key.
@@ -63,10 +70,75 @@ int AlmRetiraUno(object oPC, string sVieja, string sNombre)
     return nCantidad;
 }
 
+/// @brief Move a stored quantity from one key to another, without saying so.
+/// @param oPC The player.
+/// @param sVieja The old persistent key.
+/// @param sNueva The key that replaces it.
+/// @returns The quantity moved, 0 when there was nothing stored.
+int AlmMueveClave(object oPC, string sVieja, string sNueva)
+{
+    int nCantidad = ObtenerIntPersistente(oPC, sVieja);
+    BorrarIntPersistente(oPC, sVieja);
+    if (nCantidad <= 0)
+    {
+        return 0;
+    }
+
+    GuardarIntPersistente(oPC, sNueva,
+        ObtenerIntPersistente(oPC, sNueva) + nCantidad);
+    return nCantidad;
+}
+
+/// @brief Carry the stored essences and crystals over to the short CNR keys.
+///
+///        The store first accepted them as cnr_esen<n> and cnr_cristal<n>. The
+///        naming normalisation renamed both families to cnr_e_<n> and
+///        cnr_c_<n>, and the key a quantity lives under is the resref, so a
+///        quantity stored under the old key would no longer be read. This pass
+///        moves it. It is the same material either way, so it says nothing to
+///        the player beyond the total.
+///
+///        It has its own flag because the old-trade conversion may already have
+///        run under ALM_MIGRADO, and the old keys are deleted as they are read,
+///        so a lost flag cannot move anything twice.
+/// @param oPC The player who opened the store.
+void AlmRenombrar(object oPC)
+{
+    if (ObtenerIntPersistente(oPC, ALM_RENOMBRADO) > 0)
+    {
+        return;
+    }
+
+    int nMovidas = 0;
+    int i;
+
+    for (i = 1; i <= ALM_NUM_ESENCIAS; i++)
+    {
+        nMovidas += AlmMueveClave(oPC, "cnr_esen" + IntToString(i),
+                                       "cnr_e_" + IntToString(i));
+    }
+
+    for (i = 1; i <= ALM_NUM_CRISTALES; i++)
+    {
+        nMovidas += AlmMueveClave(oPC, "cnr_cristal" + IntToString(i),
+                                       "cnr_c_" + IntToString(i));
+    }
+
+    GuardarIntPersistente(oPC, ALM_RENOMBRADO, 1);
+
+    if (nMovidas > 0)
+    {
+        SendMessageToPC(oPC, "Almacen: " + IntToString(nMovidas)
+            + " unidad(es) de esencias y cristales pasan al nombre nuevo.");
+    }
+}
+
 /// @brief Convert this character's store, once.
 /// @param oPC The player who opened the store.
 void AlmMigrar(object oPC)
 {
+    AlmRenombrar(oPC);
+
     if (ObtenerIntPersistente(oPC, ALM_MIGRADO) > 0)
     {
         return;
