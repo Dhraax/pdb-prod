@@ -280,8 +280,12 @@ The blocking invariants are:
 - station tag, resref and filename are identical;
 - a product repeated per material is represented by a variant group, not by
   duplicated recipes;
-- repeated craftable item types use the clean `cnr_base_*` blueprints listed in
+- repeated craftable item types use the clean `cnr_b_*` blueprints listed in
   `documentation/oficios/cnr/base-items.md`, never a stock or shared named item;
+- every blueprint CNR owns is named `cnr_*` with tag equal to resref, except the
+  `sute_her_*` potions and the shared station-tool tags; the scheme and its
+  exceptions live in
+  `documentation/pending-changes/cnr-naming-normalisation.md`;
 - any player-visible catalogue change updates the affected guide under
   `documentation/oficios/cnr/oficios/` in the same change and is checked against
   the generated SQL and its reviewed design source.
