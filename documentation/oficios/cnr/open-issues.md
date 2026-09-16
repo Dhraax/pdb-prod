@@ -422,7 +422,7 @@ el que ya tenían; ahora reciben el tercero.
    721.
 
 2. **Un molde por familia.** Todas las armas de herrería piden
-   `molde_esplarga`. Funciona, pero un molde de espada para hacer un hacha
+   `cnr_t_mo_arma`. Funciona, pero un molde de espada para hacer un hacha
    chirría. Serían cinco o seis moldes nuevos, en la paleta y en
    `tienda_herreria`.
 3. **El látigo no tiene propiedades.** Las de peletería se buscan por tipo de

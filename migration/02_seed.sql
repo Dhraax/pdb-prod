@@ -36,17 +36,17 @@ INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VA
 INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrSawTable',2,'Tabla de serrería','material','cnr_carp_anim');
 INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrCarpsBench',2,'Banco de carpintero','product','cnr_carp_anim');
 
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'martillo_herrero','Martillo ligero de herrero','equipped',4.0,1 FROM cnr_station WHERE tag='cnrAnvilSmith';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'guantesFundidor','Guantes de Fundidor','equipped',4.0,1 FROM cnr_station WHERE tag='cnrForgePublic';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'aguja_cost','Aguja grande','equipped',4.0,1 FROM cnr_station WHERE tag='cnrTailorsTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'sapo_kitcuero','Kit de herramientas para trabajar el cuero','inventory',4.0,2 FROM cnr_station WHERE tag='cnrTailorsTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'guantesAlquimista','Guantes de Alquimista','equipped',4.0,1 FROM cnr_station WHERE tag='cnrAlchemyTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'guantesCocinero','Guantes de Cocinero','equipped',4.0,1 FROM cnr_station WHERE tag='cnrHebCauldron';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'aguja_cost','Aguja grande','equipped',4.0,1 FROM cnr_station WHERE tag='cnrSewingTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'sapo_kitsas','Kit de herramientas del Sastre','inventory',4.0,2 FROM cnr_station WHERE tag='cnrSewingTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'carp_kitserr','Kit de herramientas del serrador','inventory',4.0,1 FROM cnr_station WHERE tag='cnrSawTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'carp_sierra','Sierra del serrador','inventory',4.0,2 FROM cnr_station WHERE tag='cnrSawTable';
-INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'carp_kitcarp','Kit de herramientas del carpintero','inventory',4.0,1 FROM cnr_station WHERE tag='cnrCarpsBench';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_martligero','Martillo ligero de herrero','equipped',4.0,1 FROM cnr_station WHERE tag='cnrAnvilSmith';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_gu_fundid','Guantes de Fundidor','equipped',4.0,1 FROM cnr_station WHERE tag='cnrForgePublic';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_aguja','Aguja grande','equipped',4.0,1 FROM cnr_station WHERE tag='cnrTailorsTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_kit_cuero','Kit de herramientas para trabajar el cuero','inventory',4.0,2 FROM cnr_station WHERE tag='cnrTailorsTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_gu_alquim','Guantes de Alquimista','equipped',4.0,1 FROM cnr_station WHERE tag='cnrAlchemyTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_gu_cocina','Guantes de Cocinero','equipped',4.0,1 FROM cnr_station WHERE tag='cnrHebCauldron';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_aguja','Aguja grande','equipped',4.0,1 FROM cnr_station WHERE tag='cnrSewingTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_kit_sastre','Kit de herramientas del Sastre','inventory',4.0,2 FROM cnr_station WHERE tag='cnrSewingTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_kit_serr','Kit de herramientas del serrador','inventory',4.0,1 FROM cnr_station WHERE tag='cnrSawTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_sierra','Sierra del serrador','inventory',4.0,2 FROM cnr_station WHERE tag='cnrSawTable';
+INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_kit_carp','Kit de herramientas del carpintero','inventory',4.0,1 FROM cnr_station WHERE tag='cnrCarpsBench';
 
 INSERT INTO cnr_material (profession_id,code,display_name,tier,sort_order,enabled) VALUES (1,'Cobre','Cobre',1,1,1);
 INSERT INTO cnr_material (profession_id,code,display_name,tier,sort_order,enabled) VALUES (1,'Hierro','Hierro',1,2,1);

@@ -104,18 +104,18 @@ A template survives a failed attempt and is consumed by a successful one:
 
 | Tag | ResRef | Item |
 |---|---|---|
-| `sapo_plnt12_armd` | `sapo_plnt12_armd` | Plantilla para armadura — the four armour classes and Ropas |
-| `sapo_plnt12_bota` | `sapo_plnt12_bota` | Plantilla para botas |
-| `sapo_plnt12_bra` | `sapo_plnt12_bra` | Plantilla para brazales |
-| `sapo_plnt12_capa` | `sapo_plnt12_capa` | Plantilla para capa |
-| `sapo_plnt12_cint` | `sapo_plnt12_cint` | Plantilla para cinto |
-| `sapo_plnt12_capu` | `sapo_plnt12_capu` | Plantilla para guantes |
+| `cnr_t_pl_armad` | `cnr_t_pl_armad` | Plantilla para armadura — the four armour classes and Ropas |
+| `cnr_t_pl_botas` | `cnr_t_pl_botas` | Plantilla para botas |
+| `cnr_t_pl_braz` | `cnr_t_pl_braz` | Plantilla para brazales |
+| `cnr_t_pl_capa` | `cnr_t_pl_capa` | Plantilla para capa |
+| `cnr_t_pl_cinto` | `cnr_t_pl_cinto` | Plantilla para cinto |
+| `cnr_t_pl_guantes` | `cnr_t_pl_guantes` | Plantilla para guantes |
 
-The glove template's blueprint is tagged `sapo_plnt12_capu`, the same as its
+The glove template's blueprint is tagged `cnr_t_pl_guantes`, the same as its
 resref, while being named "Plantilla para guantes". The ten glove recipes asked
 for `sapo_plnt12_guan`, which no blueprint and no placed item carries, and
 **components match by tag**, so none of the ten gloves could be made; the
 leatherworker's shop offered the same missing tag. The recipes and the shop
-entry in `_basefaccione001` were corrected to `sapo_plnt12_capu`. The blueprint
+entry in `_basefaccione001` were corrected to `cnr_t_pl_guantes`. The blueprint
 was left as it is on purpose: renaming its tag would have stranded any template
 already in an inventory or on a shelf.

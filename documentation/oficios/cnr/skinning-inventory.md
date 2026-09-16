@@ -17,16 +17,16 @@ corresponden uno a uno, y en orden, con los diez cueros de peleteria.
 
 | PIEL | Material CNR | Tag | Tier | Criaturas | Entrega hoy |
 |------|--------------|-----|------|-----------|-------------|
-| 1 | Cuero de roedor | `cuero_roedor` | 1 | 11 | `pellejoderata` |
-| 2 | Cuero de herbivoro | `cuero_herbivoro` | 1 | 14 | `pepitaCobre` |
-| 3 | Cuero de bestia salvaje | `cuero_bestia` | 2 | 27 | `pepitaAcero` |
-| 4 | Cuero de bestia salvaje grande | `cuero_bestiag` | 2 | 10 | `pepitaPlata` |
-| 5 | Cuero de bestia mitica | `cuero_mitica` | 3 | 22 | `pepitaHierrofrio` |
-| 6 | Cuero de bestia mitica gruesa | `cuero_miticag` | 3 | 14 | `pepitaOro` |
-| 7 | Cuero de dragon de fuego | `cuero_dragof` | 4 | 6 | `pepitaMithril` |
-| 8 | Cuero de dragon de hielo | `cuero_dragoh` | 4 | 6 | `pepitaAdamantita` |
-| 9 | Cuero de dragon de acido | `cuero_dragoa` | 4 | 7 | `pepitaAdamantita` |
-| 10 | Cuero de dragon de rayo | `cuero_dragor` | 4 | 6 | `pepitaAdamantita` |
+| 1 | Cuero de roedor | `cnr_m_cu_roedor` | 1 | 11 | `pellejoderata` |
+| 2 | Cuero de herbivoro | `cnr_m_cu_herbiv` | 1 | 14 | `cnr_m_pe_cobre` |
+| 3 | Cuero de bestia salvaje | `cnr_m_cu_bestia` | 2 | 27 | `cnr_m_pe_acero` |
+| 4 | Cuero de bestia salvaje grande | `cnr_m_cu_bestiag` | 2 | 10 | `cnr_m_pe_plata` |
+| 5 | Cuero de bestia mitica | `cnr_m_cu_mitica` | 3 | 22 | `cnr_m_pe_frio` |
+| 6 | Cuero de bestia mitica gruesa | `cnr_m_cu_miticag` | 3 | 14 | `cnr_m_pe_oro` |
+| 7 | Cuero de dragon de fuego | `cnr_m_cu_dracof` | 4 | 6 | `cnr_m_pe_mithril` |
+| 8 | Cuero de dragon de hielo | `cnr_m_cu_dracoh` | 4 | 6 | `cnr_m_pe_adaman` |
+| 9 | Cuero de dragon de acido | `cnr_m_cu_dracoa` | 4 | 7 | `cnr_m_pe_adaman` |
+| 10 | Cuero de dragon de rayo | `cnr_m_cu_dracor` | 4 | 6 | `cnr_m_pe_adaman` |
 
 ### Detalle por valor
 

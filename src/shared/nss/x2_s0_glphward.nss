@@ -49,14 +49,14 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_ABJURATION);
           if(GetHasFeat(1200, OBJECT_SELF) == TRUE) SendMessageToPC(OBJECT_SELF, "<c��d>Gracias a la dote 'Abestenci�n de materiales' puedes lanzar el conjuro sin necesitar ning�n componente.</c>");
           else
           {
-              if(GetItemPossessedBy(OBJECT_SELF, "polvo_dia")==OBJECT_INVALID)
+              if(GetItemPossessedBy(OBJECT_SELF, "cnr_p_po_diam")==OBJECT_INVALID)
               {
                   SendMessageToPC(OBJECT_SELF,"�Necesitas un poco de polvo de diamante para lanzar el conjuro!");
                   return;
               }
               else
               {
-                  object oIngrediente = GetItemPossessedBy(OBJECT_SELF,"polvo_dia");
+                  object oIngrediente = GetItemPossessedBy(OBJECT_SELF,"cnr_p_po_diam");
                   int iUsosIngrediente = GetLocalInt(oIngrediente, "USOS");
 
                   if(iUsosIngrediente == 0)

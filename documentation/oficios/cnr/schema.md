@@ -102,7 +102,7 @@ CREATE TABLE cnr_station (
 station is a placeable plus a row, no compile.
 
 `cnrSewingTable` is the Sastrería station. It uses `cnr_tailor_anim`, requires
-the inventory tools `aguja_cost` and `sapo_kitcuero`, and intentionally has no
+the inventory tools `cnr_t_aguja` and `cnr_t_kit_cuero`, and intentionally has no
 categories or recipes until its design is authored.
 
 Tools are a child collection rather than columns on `cnr_station`, because the
@@ -251,7 +251,7 @@ blueprint passed to `CreateItemOnObject`; `output_tag` is applied afterwards:
 |------|-----------------|-----------|
 | Smithing item | `wswls002` long swords, `ashlw002` large shields | **none** — only alchemy sets `output_tag` |
 | Potion | `sute_her_tra_b` | `sute_her_010_015_n` |
-| Poison | `cerr_ven_her` | `Saquitodeveneno_001` |
+| Poison | `cnr_b_veneno_her` | `Saquitodeveneno_001` |
 
 Alchemy still resolves effects by final tag, but that does not change how NWN
 creates the item. `sPocionBase` supplies the resref and `sCustomTag` supplies

@@ -93,21 +93,21 @@ STATION_TOOLS = (
     # values were 0.3 and 0.1, written as if they were percentages but read by
     # the old engine as a third of one percent and a tenth, so tools never
     # broke at all. 4% sits between the two: about twenty-five crafts per tool.
-    ("cnrAnvilSmith", "martillo_herrero", "equipped", 4.0, 1),
-    ("cnrForgePublic", "guantesFundidor", "equipped", 4.0, 1),
+    ("cnrAnvilSmith", "cnr_t_martligero", "equipped", 4.0, 1),
+    ("cnrForgePublic", "cnr_t_gu_fundid", "equipped", 4.0, 1),
     # Only for cutting: setting a stone into a blank does not need the kit.
-    ("cnrJewelersBench", "tall_kittall", "inventory", 4.0, 1, "Tallado"),
+    ("cnrJewelersBench", "cnr_t_kit_orfeb", "inventory", 4.0, 1, "Tallado"),
     # The needle is held, not carried: both trades sew with it in hand.
-    ("cnrTailorsTable", "aguja_cost", "equipped", 4.0, 1),
-    ("cnrTailorsTable", "sapo_kitcuero", "inventory", 4.0, 2),
-    ("cnrAlchemyTable", "guantesAlquimista", "equipped", 4.0, 1),
-    ("cnrHebCauldron", "guantesCocinero", "equipped", 4.0, 1),
-    ("cnrSewingTable", "aguja_cost", "equipped", 4.0, 1),
+    ("cnrTailorsTable", "cnr_t_aguja", "equipped", 4.0, 1),
+    ("cnrTailorsTable", "cnr_t_kit_cuero", "inventory", 4.0, 2),
+    ("cnrAlchemyTable", "cnr_t_gu_alquim", "equipped", 4.0, 1),
+    ("cnrHebCauldron", "cnr_t_gu_cocina", "equipped", 4.0, 1),
+    ("cnrSewingTable", "cnr_t_aguja", "equipped", 4.0, 1),
     # Sastreria has its own kit; the leather one stays with Peleteria.
-    ("cnrSewingTable", "sapo_kitsas", "inventory", 4.0, 2),
-    ("cnrSawTable", "carp_kitserr", "inventory", 4.0, 1),
-    ("cnrSawTable", "carp_sierra", "inventory", 4.0, 2),
-    ("cnrCarpsBench", "carp_kitcarp", "inventory", 4.0, 1),
+    ("cnrSewingTable", "cnr_t_kit_sastre", "inventory", 4.0, 2),
+    ("cnrSawTable", "cnr_t_kit_serr", "inventory", 4.0, 1),
+    ("cnrSawTable", "cnr_t_sierra", "inventory", 4.0, 2),
+    ("cnrCarpsBench", "cnr_t_kit_carp", "inventory", 4.0, 1),
 )
 
 # The number the player types is allocated from the station's own base, not
@@ -694,6 +694,11 @@ CNR_BASE_ITEMS: Dict[str, str] = {
 }
 
 
+# joyeria.json names the blank's metal as the design does; the blueprints are named
+# after what the player sees, and the bronce blanks are shown as copper.
+JEWELRY_BLANK_METAL = {"bronce": "cobre", "oro": "oro", "platino": "platino"}
+
+
 def apply_cnr_base_item(base_resref: str) -> str:
     """Send a stock base blueprint to the CNR's own equivalent.
 
@@ -983,7 +988,7 @@ def build_materials(
         add(7, name, name, leather_tiers[name])
 
     # Carpentry. The wood's own name is the material code, as in smithing. The
-    # carplenyo_*/carptablon_* tags do NOT name their wood, so the binding lives
+    # cnr_m_le_*/cnr_m_ta_* tags name the wood the player sees, but the binding lives
     # in carpinteria.json and must never be re-derived from a tag.
     for row in carpentry_json:
         add(2, row["madera"], row["madera"], row["tier"])
@@ -1406,21 +1411,21 @@ def main() -> int:
         component_quantities = {
             component.tag: component.quantity for component in source.components
         }
-        if component_quantities.get("pepitaCarbon") != 1:
+        if component_quantities.get("cnr_m_pe_carbon") != 1:
             raise ValueError(f"Forge recipe {source.display_name!r} must consume one coal nugget")
         metal_quantities = [
             quantity
             for tag, quantity in component_quantities.items()
             # Coal is the fuel and the smith's oil is a reagent; neither is the
             # metal this guard counts.
-            if tag not in ("pepitaCarbon", "AceiteHerrero")
+            if tag not in ("cnr_m_pe_carbon", "cnr_p_aceite")
         ]
         # The forge does two things. It smelts three nuggets into an ingot, which
         # is every recipe here bar one, and it alloys one nugget into another -
         # steel, the only metal with no vein in the map. The two shapes are
         # guarded separately rather than by loosening the first, so a smelting
         # recipe that lost two of its nuggets is still caught.
-        if (source.legacy_code or "").lower().startswith("pepita"):
+        if (source.legacy_code or "").lower().startswith("cnr_m_pe_"):
             if metal_quantities != [1]:
                 raise ValueError(
                     f"Forge alloy {source.display_name!r} must consume one metal nugget"
@@ -1499,8 +1504,9 @@ def main() -> int:
             raise ValueError(f"Jewelry tag {row['tag']!r} has no local UTI blueprint")
         # The whole chain is named here, so a missing blueprint is caught once
         # rather than 84 times as an unresolvable recipe.
+        blank = JEWELRY_BLANK_METAL[row["metal"]]
         chain = [row["tallada"], row["anillo"], row["colgante"],
-                 row["metal"] + "_aro", row["metal"] + "_cadena"]
+                 "cnr_p_ar_" + blank, "cnr_p_ca_" + blank]
         if row.get("arenilla"):
             chain.append(row["arenilla"])
         for resref in chain:
@@ -1520,7 +1526,7 @@ def main() -> int:
 
     for source in source_recipes:
         for component in source.components:
-            if component.tag.startswith("molde_") and component.tag not in module_tags:
+            if component.tag.startswith("cnr_t_mo_") and component.tag not in module_tags:
                 raise ValueError(
                     f"Recipe {source.display_name!r} references mold tag "
                     f"{component.tag!r}, which is absent from module area inventories"
@@ -1726,7 +1732,7 @@ def main() -> int:
                 material_code = material_from_name(display_name, smith_names)
                 if (
                     source.station.source == "cnrforgepublic"
-                    and source.legacy_code == "lingoteDerretido"
+                    and source.legacy_code == "cnr_m_li_enardec"
                 ):
                     material_code = "Hierro Enardecido"
             elif profession_id == 2:

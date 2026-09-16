@@ -7,7 +7,7 @@ void main()
 
   object oBaston = GetItemPossessedBy(oPC, "bastndemadera");
   object oAnillo = GetItemPossessedBy(oPC, "anillodemaderaco");
-  object oPlanta = GetItemPossessedBy(oPC, "florLuminosa");
+  object oPlanta = GetItemPossessedBy(oPC, "cnr_p_flor");
 
   if(GetIsObjectValid(oBaston)) DestroyObject(oBaston);
   if(GetIsObjectValid(oAnillo)) DestroyObject(oAnillo);

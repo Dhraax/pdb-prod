@@ -233,8 +233,8 @@ resources themselves remain available, but the area is not a valid promotion
 fixture until those instances are replaced by a tested CNR fixture.
 
 The item palette was updated only to remove the 28 book/manual/diagram entries.
-The retained carpentry tool entries (`carp_kitcarp`, `carp_kitserr`,
-`carp_sierra`) and the material/potion entries remain available for CNR and for
+The retained carpentry tool entries (`cnr_t_kit_carp`, `cnr_t_kit_serr`,
+`cnr_t_sierra`) and the material/potion entries remain available for CNR and for
 the later collection decision.
 
 Some remaining NPC/dialog resources still reference deleted historical

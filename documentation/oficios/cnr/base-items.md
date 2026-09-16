@@ -202,7 +202,7 @@ Los látigos siguen siendo diez recetas propias porque son una sola arma, y sale
 sin propiedades: las de peletería se buscan por tipo de prenda y un látigo no es
 una.
 
-**Pendiente**: todas las armas de herrería usan `molde_esplarga`, el molde que
+**Pendiente**: todas las armas de herrería usan `cnr_t_mo_arma`, el molde que
 se vende en `tienda_herreria`. Funciona, pero un molde por familia —espadas,
 hachas, contundentes, astas— sería lo suyo.
 

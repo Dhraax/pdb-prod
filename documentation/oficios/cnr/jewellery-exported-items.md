@@ -44,10 +44,10 @@ nombre, apariencia (`ModelPart1`), base item y coste.
 | Anillo de platino de zafiro estrella | `cnr_j_an_zafe` | `cnr_j_an_zafe` |
 | Anillo de oro de zafiro negro | `cnr_j_an_zafn` | `cnr_j_an_zafn` |
 | Anillo de oro de zendalur | `cnr_j_an_zen` | `cnr_j_an_zen` |
-| Aro de cobre | `bronce_aro` | `bronce_aro` |
-| Aro de oro | `oro_aro` | `oro_aro` |
+| Aro de cobre | `cnr_p_ar_cobre` | `cnr_p_ar_cobre` |
+| Aro de oro | `cnr_p_ar_oro` | `cnr_p_ar_oro` |
 | Aro de plata | `plata_aro` | `plata_aro` |
-| Aro de platino | `platino_aro` | `platino_aro` |
+| Aro de platino | `cnr_p_ar_platino` | `cnr_p_ar_platino` |
 
 ## COLGANTES-> Miscellaneous / Necklace  (32)
 
@@ -81,10 +81,10 @@ nombre, apariencia (`ModelPart1`), base item y coste.
 | Amuleto de platino zafiro estrella | `cnr_j_am_zafe` | `cnr_j_am_zafe` |
 | Amuleto de oro de zafiro negro | `cnr_j_am_zafn` | `cnr_j_am_zafn` |
 | Amuleto de oro de zendalur | `cnr_j_am_zen` | `cnr_j_am_zen` |
-| Cadena de cobre | `bronce_cadena` | `bronce_cadena` |
-| Cadena de oro | `oro_cadena` | `oro_cadena` |
+| Cadena de cobre | `cnr_p_ca_cobre` | `cnr_p_ca_cobre` |
+| Cadena de oro | `cnr_p_ca_oro` | `cnr_p_ca_oro` |
 | Cadena de plata | `plata_cadena` | `plata_cadena` |
-| Cadena de platino | `platino_cadena` | `platino_cadena` |
+| Cadena de platino | `cnr_p_ca_platino` | `cnr_p_ca_platino` |
 
 ## GEMAS    -> carpeta de bayaacuosa (Custom 1)  (35)
 

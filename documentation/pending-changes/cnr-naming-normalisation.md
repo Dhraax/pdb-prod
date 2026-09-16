@@ -25,7 +25,11 @@ than by a check:
 ## The scheme
 
 A resref is capped at **16 characters**, so the prefix has to be short and the
-rest is an abbreviation. Tag and resref are always identical from now on.
+rest is an abbreviation. Tag and resref are identical, with one owner-approved
+kind of exception: several blueprints that must all satisfy one station tool
+share that tool's tag. Today that is the four light hammers (`cnr_t_martligero`,
+`cnr_t_martlig_2..4`, tag `cnr_t_martligero`) and the two needles
+(`cnr_t_aguja`, `cnr_t_aguja_peq`, tag `cnr_t_aguja`).
 
 | Prefix | What | Count |
 |--------|------|-------|
@@ -36,9 +40,15 @@ rest is an abbreviation. Tag and resref are always identical from now on.
 | `cnr_q_*` | cut gem | 28 |
 | `cnr_j_an_*` | ring, one per gem | 28 |
 | `cnr_j_am_*` | amulet, one per gem | 28 |
-| `cnr_m_*` | material: ingot, nugget, log, plank, hide, leather | 67 |
-| `cnr_p_*` | component and processed stock | 71 |
-| `cnr_t_*` | tool, mould, template | 24 |
+| `cnr_m_*` | material: nugget `pe`, ingot `li`, hide `pi`, leather `cu`, log `le`, plank `ta` | 67 |
+| `cnr_p_*` | component and processed stock: plants, reagents, grit `po`, rods `ci`, rings `ar`, chains `ca`, carpentry and smithing parts | 50 |
+| `cnr_b_veneno_*` | poison flask bases | 4 |
+| `cnr_t_*` | tool, mould `mo`, template `pl`, kit, work gloves `gu`, hammers, needles | 32 |
+
+Metals take the code of the vein that drops them (`oscuro`, `enardec`, `frio`,
+`vivo`...), so nugget, ingot and vein agree. Woods and gems take the name the
+player sees, not the legacy tag's: `carplenyo_cipres` is shown as cedar and is
+now `cnr_m_le_cedro`.
 
 **One exception: the potions.** `sute_her_*` keep their names because
 `pb_mod_activate` dispatches on the tag prefix, and renaming them means rewriting
@@ -90,10 +100,21 @@ Each one is a commit of its own, with its changelog entry and its audit.
    red tear was `bru_lagrimar` while the king's tear was `bru_lagrey` and
    `anillo_lagrimrey`. Both now read `amat`, `lagroj` and `lagrey` wherever they
    appear.
-4. **Rename the materials, components and tools**: 162.
+4. **Rename the materials, components and tools.** Done. 153 blueprints. It
+   was preceded by three separate commits: the old carpenter's 49 unreachable
+   dialogue scripts were deleted, ten module items that had been filed as CNR
+   (four named armours and shields with Bioware tags, the module tailor's
+   helmet, and five pieces of leather gear) went back to `src/shared/uti`, and
+   the catalogue generator's jewellery ordering, left empty by slice 3, was
+   repaired. The rename itself also reached scripts outside the trade that name
+   its materials: the three spells that consume gem grit, the mortar in
+   `pb_mod_activate`, the treasure tables and one NPC.
 5. **Close the door.** `build_catalogue.py --check` fails when a CNR blueprint
-   has no `cnr_` prefix, a tag that differs from its resref, a name over 16
-   characters, or lives outside `src/cnr`.
+   has no `cnr_` prefix, a tag that differs from its resref outside the
+   documented shared-tool exceptions, a name over 16 characters, or lives
+   outside `src/cnr`. It must also cover the failure slices 3 and 4 found: a
+   rule that recognises a family by a name prefix, or builds a name by
+   concatenation, keeps compiling and silently stops matching after a rename.
 
 ## What each slice has to update, every time
 
@@ -109,9 +130,16 @@ Each one is a commit of its own, with its changelog entry and its audit.
 
 ## How each slice is verified
 
-- a dangling-reference sweep: no name that disappeared may survive anywhere;
+- a dangling-reference sweep: no name that disappeared may survive anywhere,
+  searched as whole identifiers **and** as prefixes built by concatenation, in
+  scripts and in the generators (`"pb_ofi_artdiag" + n`, `row["metal"] + "_aro"`);
+- a search of both generators for rules that recognise a family by its name
+  (`startswith("bru_")`), because they keep compiling after a rename;
 - `python3 migration/build_catalogue.py --check`, which compares against the
-  committed catalogue and refuses a recipe that changes identity or is lost;
+  committed catalogue and refuses a recipe that changes identity or is lost. It
+  does **not** compare tier, level, DC or XP, so the regenerated SQL is also
+  compared with the committed SQL after translating the renamed names, and the
+  two must be byte-identical;
 - the focused NWScript compilation for whatever `.nss` changed;
 - for the store, the check that every entry resolves to a blueprint, that no two
   entries share a persistent key, and that every old key is either converted or

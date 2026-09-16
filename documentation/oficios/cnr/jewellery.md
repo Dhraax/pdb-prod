@@ -29,7 +29,7 @@ que se compran en tienda.
 
 | Herramienta | Alcance | Modo | Rotura |
 |---|---|---|---|
-| `tall_kittall` | sólo la categoría **Tallado** | inventario | 4% |
+| `cnr_t_kit_orfeb` | sólo la categoría **Tallado** | inventario | 4% |
 
 Tallar exige el kit; engarzar no. Es el único caso del sistema donde una
 herramienta se limita a una categoría, y para eso existe

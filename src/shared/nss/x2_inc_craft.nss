@@ -378,7 +378,7 @@ int ComprobarIngredientesConjuro(object oCreator, int nClass, int nSpellID, stri
           if(GetHasFeat(1200, OBJECT_SELF) == TRUE) SendMessageToPC(OBJECT_SELF, "<c´þd>Gracias a la dote 'Abestención de materiales' puedes "+sObjeto+" sin necesitar ningún componente.</c>");
           else
           {
-              object oExtracto = GetItemPossessedBy(oCreator,"polvo_dia");
+              object oExtracto = GetItemPossessedBy(oCreator,"cnr_p_po_diam");
               if(oExtracto == OBJECT_INVALID)
               {
                   SendMessageToPC(oCreator,"<cþ<<>Necesitas arenilla de diamante para "+sObjeto+".</c>");

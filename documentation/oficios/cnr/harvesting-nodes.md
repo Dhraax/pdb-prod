@@ -77,14 +77,14 @@ es el índice, y estas son las tablas tal como estaban escritas.
 
 | Ubicado | `TIPOARBOL` | Soltaba | Tablón que sale de él | Madera del oficio |
 |---|--:|---|---|---|
-| `carp_at1` | 1 | `carplenyo_pino` | `carptablon_pino` | Pino |
-| `carp_at2` | 2 | `carplenyo_cipres` | `carptablon_cipre` | Cedro |
-| `carp_at3` | 3 | `carplenyo_abeto` | `carptablon_abeto` | Abeto |
-| `carp_at4` | 4 | `carplenyo_cedro` | `carptablon_cedro` | Roble |
-| `carp_at5` | 5 | `carplenyo_alamo` | `carptablon_alamo` | Sombralto |
-| `carp_at6` | 6 | `carplenyo_olmo` | `carptablon_olmo` | Leñocaso |
-| `carp_at7` | 7 | `carplenyo_roble` | `carptablon_roble` | Zalantar |
-| `carp_at8` | 8 | `carplenyo_fresno` | `carptablon_fresn` | Maderadique |
+| `carp_at1` | 1 | `cnr_m_le_pino` | `cnr_m_ta_pino` | Pino |
+| `carp_at2` | 2 | `cnr_m_le_cedro` | `cnr_m_ta_cedro` | Cedro |
+| `carp_at3` | 3 | `cnr_m_le_abeto` | `cnr_m_ta_abeto` | Abeto |
+| `carp_at4` | 4 | `cnr_m_le_roble` | `cnr_m_ta_roble` | Roble |
+| `carp_at5` | 5 | `cnr_m_le_sombra` | `cnr_m_ta_sombra` | Sombralto |
+| `carp_at6` | 6 | `cnr_m_le_lenoca` | `cnr_m_ta_lenoca` | Leñocaso |
+| `carp_at7` | 7 | `cnr_m_le_zalant` | `cnr_m_ta_zalant` | Zalantar |
+| `carp_at8` | 8 | `cnr_m_le_maderad` | `cnr_m_ta_maderad` | Maderadique |
 
 Los ocho, completos. El nombre interno del leño y el de la madera del oficio no
 coinciden —el leño de ciprés es la madera "Cedro", el de cedro es "Roble"— pero
@@ -95,22 +95,22 @@ usan las recetas de carpintería.
 
 | Ubicado | `TIPOPIEDRA` | Soltaba |
 |---|--:|---|
-| `sute_met_m01` | 1 | `pepitaHierro` |
-| `sute_met_m02` | 2 | `pepitaCobre` |
-| — falta el nodo — | 3 | `pepitaAcero` |
-| `sute_met_m04` | 4 | `pepitaPlata` |
-| `sute_met_m05` | 5 | `pepitaHierrofrio` |
-| `sute_met_m06` | 6 | `pepitaOro` |
-| `sute_met_m07` | 7 | `pepitaMithril` |
-| `sute_met_m08` | 8 | `pepitaAdamantita` |
-| `sute_met_m20` | 10 | `pepitaDlarun` |
-| `sute_met_m021` | 11 | `pepitaHizagkuur` |
-| `sute_met_m024` | 12 | `pepitaAceroscuro` |
-| `sute_met_m023` | 13 | `pepitaPlatino` |
-| `sute_met_m025` | 14 | `pepitaArandur` |
-| `sute_met_m026` | 15 | `pepitaMetalvivo` |
-| `sute_met_m027` | 16 | `pepitaCarbon` |
-| `sute_met_m022` | 17 | `pepitaDerretido` |
+| `sute_met_m01` | 1 | `cnr_m_pe_hierro` |
+| `sute_met_m02` | 2 | `cnr_m_pe_cobre` |
+| — falta el nodo — | 3 | `cnr_m_pe_acero` |
+| `sute_met_m04` | 4 | `cnr_m_pe_plata` |
+| `sute_met_m05` | 5 | `cnr_m_pe_frio` |
+| `sute_met_m06` | 6 | `cnr_m_pe_oro` |
+| `sute_met_m07` | 7 | `cnr_m_pe_mithril` |
+| `sute_met_m08` | 8 | `cnr_m_pe_adaman` |
+| `sute_met_m20` | 10 | `cnr_m_pe_dlarun` |
+| `sute_met_m021` | 11 | `cnr_m_pe_hizag` |
+| `sute_met_m024` | 12 | `cnr_m_pe_oscuro` |
+| `sute_met_m023` | 13 | `cnr_m_pe_platino` |
+| `sute_met_m025` | 14 | `cnr_m_pe_arandur` |
+| `sute_met_m026` | 15 | `cnr_m_pe_vivo` |
+| `sute_met_m027` | 16 | `cnr_m_pe_carbon` |
+| `sute_met_m022` | 17 | `cnr_m_pe_enardec` |
 
 Los quince ubicados que hay cubren quince entradas. **Falta el tipo 3, el
 acero**: no hay nodo en el mapa. Y el tipo 16 es carbón, que no es un metal del
@@ -145,14 +145,14 @@ vetas cada una.
 
 | Ubicado | `TIPOPLANTA` | Soltaba | Nombre en juego | Condición |
 |---|--:|---|---|---|
-| `sute_her_p01`, `_1` | 1 | `bayaAcuosa` | Baya Acuosa | |
-| `sute_her_p02`, `_2` | 2 | `brisaSusurrante` | Brisa Susurrante | |
-| `sute_her_p03`, `_3` | 3 | `resinaSubterranea` | Resina Subterránea | |
-| `sute_her_p04`, `_4` | 4 | `ardorDesertico` | Ardor Desértico | |
-| `sute_her_p05` | 5 | `raizPetrea` | Raíz Pétrea | |
-| `sute_her_p06`, `_6` | 6 | `florLuminosa` | Flor Luminosa | **sólo de día** |
-| `sute_her_p07` | 7 | `setaNocturna` | Seta Nocturna | **sólo de noche** |
-| `sute_her_p08` | 8 | `frutoFantasma` | Fruto Fantasma | **hay que ver invisible** |
+| `sute_her_p01`, `_1` | 1 | `cnr_p_baya` | Baya Acuosa | |
+| `sute_her_p02`, `_2` | 2 | `cnr_p_brisa` | Brisa Susurrante | |
+| `sute_her_p03`, `_3` | 3 | `cnr_p_resina` | Resina Subterránea | |
+| `sute_her_p04`, `_4` | 4 | `cnr_p_ardor` | Ardor Desértico | |
+| `sute_her_p05` | 5 | `cnr_p_raiz` | Raíz Pétrea | |
+| `sute_her_p06`, `_6` | 6 | `cnr_p_flor` | Flor Luminosa | **sólo de día** |
+| `sute_her_p07` | 7 | `cnr_p_seta` | Seta Nocturna | **sólo de noche** |
+| `sute_her_p08` | 8 | `cnr_p_fruto` | Fruto Fantasma | **hay que ver invisible** |
 
 Las ocho, completas, y con las tres condiciones especiales que llevaban.
 
@@ -531,14 +531,14 @@ Detalles de la implementación que conviene saber:
 
 | Nuevo | Nombre | Familia | Tier | Suelta | Era |
 |---|---|---|--:|---|---|
-| `cnr_arbol_abeto` | Abeto | arbol | 2 | `carplenyo_abeto` | `carp_at3` |
-| `cnr_arbol_alamo` | Alamo | arbol | 3 | `carplenyo_alamo` | `carp_at5` |
-| `cnr_arbol_cedro` | Cedro | arbol | 2 | `carplenyo_cedro` | `carp_at4` |
-| `cnr_arbol_cipres` | Cipres | arbol | 1 | `carplenyo_cipres` | `carp_at2` |
-| `cnr_arbol_fresno` | Fresno | arbol | 4 | `carplenyo_fresno` | `carp_at8` |
-| `cnr_arbol_olmo` | Olmo | arbol | 3 | `carplenyo_olmo` | `carp_at6` |
-| `cnr_arbol_pino` | Pino | arbol | 1 | `carplenyo_pino` | `carp_at1` |
-| `cnr_arbol_roble` | Roble | arbol | 4 | `carplenyo_roble` | `carp_at7` |
+| `cnr_arbol_abeto` | Abeto | arbol | 2 | `cnr_m_le_abeto` | `carp_at3` |
+| `cnr_arbol_alamo` | Alamo | arbol | 3 | `cnr_m_le_sombra` | `carp_at5` |
+| `cnr_arbol_cedro` | Cedro | arbol | 2 | `cnr_m_le_roble` | `carp_at4` |
+| `cnr_arbol_cipres` | Cipres | arbol | 1 | `cnr_m_le_cedro` | `carp_at2` |
+| `cnr_arbol_fresno` | Fresno | arbol | 4 | `cnr_m_le_maderad` | `carp_at8` |
+| `cnr_arbol_olmo` | Olmo | arbol | 3 | `cnr_m_le_lenoca` | `carp_at6` |
+| `cnr_arbol_pino` | Pino | arbol | 1 | `cnr_m_le_pino` | `carp_at1` |
+| `cnr_arbol_roble` | Roble | arbol | 4 | `cnr_m_le_zalant` | `carp_at7` |
 | `cnr_gema_berilo` | Veta de berilos | gema | 2 | `cnr_g_amat;cnr_g_top;cnr_g_esme` | `veta_berilo` |
 | `cnr_gema_corind` | Veta de corindones | gema | 3 | `cnr_g_zaf;cnr_g_rubi;cnr_g_jac;cnr_g_zafn;cnr_g_zafe;cnr_g_rubie` | `veta_corindon` |
 | `cnr_gema_costa` | Veta costera | gema | 3 | `cnr_g_jade;cnr_g_amar;cnr_g_barra` | `veta_costera` |
@@ -547,34 +547,34 @@ Detalles de la implementación que conviene saber:
 | `cnr_gema_marav` | Veta maravillosa | gema | 2 | `cnr_g_bel;cnr_g_orblen;cnr_g_lagrey;cnr_g_pic` | `veta_maravillosa` |
 | `cnr_gema_meta` | Veta metamorfica | gema | 1 | `cnr_g_cuar;cnr_g_obs;cnr_g_aza;cnr_g_amat;cnr_g_cor` | `veta_meta` |
 | `cnr_gema_opalo` | Veta de opalos | gema | 1 | `cnr_g_opalo;cnr_g_opaloa;cnr_g_opalof;cnr_g_opalon` | `veta_opalos` |
-| `cnr_pl_ardor` | Ardor desertico | planta | 2 | `ardorDesertico` | `sute_her_p04` |
-| `cnr_pl_ardora` | Ardor desertico | planta | 2 | `ardorDesertico` | `sute_her_p04_4` |
-| `cnr_pl_baya` | Baya acuosa | planta | 1 | `bayaAcuosa` | `sute_her_p01` |
-| `cnr_pl_bayaa` | Baya acuosa | planta | 1 | `bayaAcuosa` | `sute_her_p01_1` |
-| `cnr_pl_brisa` | Brisa susurrante | planta | 1 | `brisaSusurrante` | `sute_her_p02` |
-| `cnr_pl_brisaa` | Brisa susurrante | planta | 1 | `brisaSusurrante` | `sute_her_p02_2` |
-| `cnr_pl_flor` | Flor luminosa | planta | 3 | `florLuminosa` | `sute_her_p06` |
-| `cnr_pl_flora` | Flor luminosa | planta | 3 | `florLuminosa` | `sute_her_p06_6` |
-| `cnr_pl_fruto` | Fruto fantasma | planta | 4 | `frutoFantasma` | `sute_her_p08` |
-| `cnr_pl_raiz` | Raiz petrea | planta | 3 | `raizPetrea` | `sute_her_p05` |
-| `cnr_pl_resina` | Resina subterranea | planta | 2 | `resinaSubterranea` | `sute_her_p03` |
-| `cnr_pl_resinaa` | Resina subterranea | planta | 2 | `resinaSubterranea` | `sute_her_p03_3` |
-| `cnr_pl_seta` | Seta nocturna | planta | 4 | `setaNocturna` | `sute_her_p07` |
-| `cnr_veta_adaman` | Veta de adamantita | veta | 4 | `pepitaAdamantita` | `sute_met_m08` |
-| `cnr_veta_arandur` | Veta de arandur | veta | 3 | `pepitaArandur` | `sute_met_m025` |
-| `cnr_veta_carbon` | Veta de carbon | veta | 1 | `pepitaCarbon` | `sute_met_m027` |
-| `cnr_veta_cobre` | Veta de cobre | veta | 1 | `pepitaCobre` | `sute_met_m02` |
-| `cnr_veta_dlarun` | Veta de dlarun | veta | 3 | `pepitaDlarun` | `sute_met_m20` |
-| `cnr_veta_enardec` | Veta de hierro enardecido | veta | 2 | `pepitaDerretido` | `sute_met_m022` |
-| `cnr_veta_frio` | Veta de hierrofrio | veta | 2 | `pepitaHierrofrio` | `sute_met_m05` |
-| `cnr_veta_hierro` | Veta de hierro | veta | 1 | `pepitaHierro` | `sute_met_m01` |
-| `cnr_veta_hizag` | Veta de hizagkuur | veta | 3 | `pepitaHizagkuur` | `sute_met_m021` |
-| `cnr_veta_mithril` | Veta de mithril | veta | 4 | `pepitaMithril` | `sute_met_m07` |
-| `cnr_veta_oro` | Veta de oro | veta | 2 | `pepitaOro` | `sute_met_m06` |
-| `cnr_veta_oscuro` | Veta de aceroscuro | veta | 3 | `pepitaAceroscuro` | `sute_met_m024` |
-| `cnr_veta_plata` | Veta de plata | veta | 2 | `pepitaPlata` | `sute_met_m04` |
-| `cnr_veta_platino` | Veta de platino | veta | 2 | `pepitaPlatino` | `sute_met_m023` |
-| `cnr_veta_vivo` | Veta de metal vivo | veta | 4 | `pepitaMetalvivo` | `sute_met_m026` |
+| `cnr_pl_ardor` | Ardor desertico | planta | 2 | `cnr_p_ardor` | `sute_her_p04` |
+| `cnr_pl_ardora` | Ardor desertico | planta | 2 | `cnr_p_ardor` | `sute_her_p04_4` |
+| `cnr_pl_baya` | Baya acuosa | planta | 1 | `cnr_p_baya` | `sute_her_p01` |
+| `cnr_pl_bayaa` | Baya acuosa | planta | 1 | `cnr_p_baya` | `sute_her_p01_1` |
+| `cnr_pl_brisa` | Brisa susurrante | planta | 1 | `cnr_p_brisa` | `sute_her_p02` |
+| `cnr_pl_brisaa` | Brisa susurrante | planta | 1 | `cnr_p_brisa` | `sute_her_p02_2` |
+| `cnr_pl_flor` | Flor luminosa | planta | 3 | `cnr_p_flor` | `sute_her_p06` |
+| `cnr_pl_flora` | Flor luminosa | planta | 3 | `cnr_p_flor` | `sute_her_p06_6` |
+| `cnr_pl_fruto` | Fruto fantasma | planta | 4 | `cnr_p_fruto` | `sute_her_p08` |
+| `cnr_pl_raiz` | Raiz petrea | planta | 3 | `cnr_p_raiz` | `sute_her_p05` |
+| `cnr_pl_resina` | Resina subterranea | planta | 2 | `cnr_p_resina` | `sute_her_p03` |
+| `cnr_pl_resinaa` | Resina subterranea | planta | 2 | `cnr_p_resina` | `sute_her_p03_3` |
+| `cnr_pl_seta` | Seta nocturna | planta | 4 | `cnr_p_seta` | `sute_her_p07` |
+| `cnr_veta_adaman` | Veta de adamantita | veta | 4 | `cnr_m_pe_adaman` | `sute_met_m08` |
+| `cnr_veta_arandur` | Veta de arandur | veta | 3 | `cnr_m_pe_arandur` | `sute_met_m025` |
+| `cnr_veta_carbon` | Veta de carbon | veta | 1 | `cnr_m_pe_carbon` | `sute_met_m027` |
+| `cnr_veta_cobre` | Veta de cobre | veta | 1 | `cnr_m_pe_cobre` | `sute_met_m02` |
+| `cnr_veta_dlarun` | Veta de dlarun | veta | 3 | `cnr_m_pe_dlarun` | `sute_met_m20` |
+| `cnr_veta_enardec` | Veta de hierro enardecido | veta | 2 | `cnr_m_pe_enardec` | `sute_met_m022` |
+| `cnr_veta_frio` | Veta de hierrofrio | veta | 2 | `cnr_m_pe_frio` | `sute_met_m05` |
+| `cnr_veta_hierro` | Veta de hierro | veta | 1 | `cnr_m_pe_hierro` | `sute_met_m01` |
+| `cnr_veta_hizag` | Veta de hizagkuur | veta | 3 | `cnr_m_pe_hizag` | `sute_met_m021` |
+| `cnr_veta_mithril` | Veta de mithril | veta | 4 | `cnr_m_pe_mithril` | `sute_met_m07` |
+| `cnr_veta_oro` | Veta de oro | veta | 2 | `cnr_m_pe_oro` | `sute_met_m06` |
+| `cnr_veta_oscuro` | Veta de aceroscuro | veta | 3 | `cnr_m_pe_oscuro` | `sute_met_m024` |
+| `cnr_veta_plata` | Veta de plata | veta | 2 | `cnr_m_pe_plata` | `sute_met_m04` |
+| `cnr_veta_platino` | Veta de platino | veta | 2 | `cnr_m_pe_platino` | `sute_met_m023` |
+| `cnr_veta_vivo` | Veta de metal vivo | veta | 4 | `cnr_m_pe_vivo` | `sute_met_m026` |
 
 **En producción** hay que sustituir los viejos por los nuevos por resref, con
 un script que recorra las áreas: la correspondencia es la última columna.

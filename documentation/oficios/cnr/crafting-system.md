@@ -656,7 +656,7 @@ Different effect ids, different schools, different tiers.
 
 Components come straight from the design's three `componente` columns, mapped to
 the cauldron's own output tags and summed when a column repeats. A drinkable
-result also consumes `x2_it_cfm_pbottl`, retained on failure, the way every
+result also consumes `cnr_p_botella`, retained on failure, the way every
 authored potion and Pure Water already did; food does not, the way the Magic
 Cookie already did not.
 
@@ -715,11 +715,11 @@ and an unusable recipe cannot break one.
 Every `cnr_station_tool` row is a requirement (**AND semantics**). An
 `inventory` tool may be inside a nested container or equipped; an `equipped`
 tool must occupy an equipment slot. This deliberately resolves tailoring as
-requiring both `aguja_cost` and `sapo_kitcuero`; the legacy module-local API
+requiring both `cnr_t_aguja` and `cnr_t_kit_cuero`; the legacy module-local API
 could store only one inventory tool and silently overwrote the first call.
 
 A tool with `category_id` set is required only by the recipes in that
-category; `NULL` still means the whole station. The jeweller's `tall_kittall`
+category; `NULL` still means the whole station. The jeweller's `cnr_t_kit_orfeb`
 uses it: cutting a stone needs the kit, setting one does not. The scoped rows
 are written by `03_catalogue.sql` rather than `02_seed.sql`, because the
 categories they point at do not exist until the catalogue builds them.
@@ -796,7 +796,7 @@ Create an inventory-bearing placeable with these exact values:
 | OnOpen / OnClosed | empty |
 
 This mirrors the existing Peletería inventory flow. The station is registered,
-uses `cnr_tailor_anim`, and requires both `aguja_cost` and `sapo_kitcuero` in
+uses `cnr_tailor_anim`, and requires both `cnr_t_aguja` and `cnr_t_kit_cuero` in
 the player's inventory. It opens successfully but shows no categories until
 Sastrería recipes are authored in `migration/catalogue/cnrsewingtable.json`.
 

@@ -29,8 +29,8 @@ the status summary above and the completed-slice record below.
 |--------|-----------|
 | Logs | `carplenyo_*` × 8 |
 | Planks | `carptablon_*` × 8 |
-| Tools | `carp_kitserr`, `carp_sierra`, `carp_kitcarp` |
-| Components | `carpac2_plumas`, `carpacc_puntas1`, `carpacc_puntas2`, `carpacc_aros`, `carpacc_cuerda1`, `carpacc_cuerda2`, `carpacc_mangoc`, `carpacc_plancha1`, `carpacc_plancha2` |
+| Tools | `cnr_t_kit_serr`, `cnr_t_sierra`, `cnr_t_kit_carp` |
+| Components | `cnr_p_plumas`, `cnr_p_puntasfle`, `cnr_p_puntasvir`, `cnr_p_aroshierro`, `cnr_p_cuerdaarco`, `cnr_p_cuerdabal`, `cnr_p_mangoclava`, `cnr_p_planchapeq`, `cnr_p_planchagra` |
 | Harvesting | `carp_at1`..`carp_at8` (fellable trees), `carp_hl` / `carp_hlp` (axes) |
 
 Product blueprints are **not** needed per material. Smithing already proves the
@@ -62,16 +62,16 @@ in the CSV's own top-to-bottom order:
 
 | CSV material | Tier | Log tag | Log name | Plank tag | Plank name |
 |---|:-:|---|---|---|---|
-| Pino | 1 | `carplenyo_pino` | Leño de pino | `carptablon_pino` | Tablones de pino |
-| Cedro | 1 | `carplenyo_cipres` | Leño de cedro | `carptablon_cipre` | Tablones de cedro |
-| Abeto | 2 | `carplenyo_abeto` | Leño de abeto | `carptablon_abeto` | Tablones de abeto |
-| Roble | 2 | `carplenyo_cedro` | Leño de roble | `carptablon_cedro` | Tablones de roble |
-| Sombralto | 3 | `carplenyo_alamo` | Leño de sombralto | `carptablon_alamo` | Tablones de sombralto |
-| Leñocaso | 3 | `carplenyo_olmo` | Leño de Leñocaso | `carptablon_olmo` | Tablones de Leñocaso |
-| Zalantar | 4 | `carplenyo_roble` | Leño de zalantar | `carptablon_roble` | Tablones de zalantar |
-| Maderadique | 4 | `carplenyo_fresno` | Leño de maderadique | `carptablon_fresn` | Tablones de maderadique |
+| Pino | 1 | `cnr_m_le_pino` | Leño de pino | `cnr_m_ta_pino` | Tablones de pino |
+| Cedro | 1 | `cnr_m_le_cedro` | Leño de cedro | `cnr_m_ta_cedro` | Tablones de cedro |
+| Abeto | 2 | `cnr_m_le_abeto` | Leño de abeto | `cnr_m_ta_abeto` | Tablones de abeto |
+| Roble | 2 | `cnr_m_le_roble` | Leño de roble | `cnr_m_ta_roble` | Tablones de roble |
+| Sombralto | 3 | `cnr_m_le_sombra` | Leño de sombralto | `cnr_m_ta_sombra` | Tablones de sombralto |
+| Leñocaso | 3 | `cnr_m_le_lenoca` | Leño de Leñocaso | `cnr_m_ta_lenoca` | Tablones de Leñocaso |
+| Zalantar | 4 | `cnr_m_le_zalant` | Leño de zalantar | `cnr_m_ta_zalant` | Tablones de zalantar |
+| Maderadique | 4 | `cnr_m_le_maderad` | Leño de maderadique | `cnr_m_ta_maderad` | Tablones de maderadique |
 
-Note `carplenyo_roble` is **Zalantar**, not oak — oak is `carplenyo_cedro`.
+Note `cnr_m_le_zalant` is **Zalantar**, not oak — oak is `cnr_m_le_roble`.
 Writing recipes from the tags would silently pair every wood with the wrong
 properties. Recipes must be authored from this table.
 
@@ -84,7 +84,7 @@ Decided: **no tag is changed.** The tag is an opaque key, and the table above is
 the authority for pairing one with its design row.
 
 **Reversed on 2026-08-23 for the names.** The original decision left three
-blueprints reading a wood the design does not have: `carptablon_cipre` said
+blueprints reading a wood the design does not have: `cnr_m_ta_cedro` said
 "Tablones de ciprés", and the Leñocaso pair said "del crepúsculo". The reasoning
 was that recipes bind by tag, so the display text costs nothing. It cost a
 tester an afternoon: making cedar items, every component list asked for cypress
@@ -122,7 +122,7 @@ product. The database already models this with `cnr_station.produces`.
 |---|---|---|
 | Tag | `cnrSawTable` | `cnrCarpsBench` |
 | `produces` | `material` | `product` |
-| Tools | `carp_kitserr` (medium breakage), `carp_sierra` (low) | `carp_kitcarp` (low) |
+| Tools | `cnr_t_kit_serr` (medium breakage), `cnr_t_sierra` (low) | `cnr_t_kit_carp` (low) |
 | Recipes | 8 | 78 |
 | XP | ×0.30, as every material station | full |
 
@@ -138,20 +138,20 @@ both roll their own breakage chance.
 ## 3. Recipe families
 
 The bench's material is the **plank**. Every recipe also requires
-`carp_kitcarp`, which is never consumed.
+`cnr_t_kit_carp`, which is never consumed.
 
 | Category | Extra components | Planks | Output |
 |---|---|:-:|---|
-| Flechas | `carpac2_plumas`, `carpacc_puntas1` | 1 | 99 arrows |
-| Virotes | `carpacc_puntas2`, `carpacc_aros` | 1 | 99 bolts |
-| Arcos cortos | `carpacc_cuerda1` | 1 | short bow |
-| Arcos largos | `carpacc_cuerda1` | 2 | long bow |
-| Ballestas ligeras | `carpacc_cuerda2` | 2 | light crossbow |
-| Ballestas pesadas | `carpacc_cuerda2` | 4 | heavy crossbow |
-| Clavas | `carpacc_mangoc` | 2 | club |
-| Bastones | `carpacc_aros` ×2 | 2 | quarterstaff |
-| Escudos grandes | `carpacc_plancha2` | 3 | large shield |
-| Escudos pequeños | `carpacc_plancha1` | 2 | small shield |
+| Flechas | `cnr_p_plumas`, `cnr_p_puntasfle` | 1 | 99 arrows |
+| Virotes | `cnr_p_puntasvir`, `cnr_p_aroshierro` | 1 | 99 bolts |
+| Arcos cortos | `cnr_p_cuerdaarco` | 1 | short bow |
+| Arcos largos | `cnr_p_cuerdaarco` | 2 | long bow |
+| Ballestas ligeras | `cnr_p_cuerdabal` | 2 | light crossbow |
+| Ballestas pesadas | `cnr_p_cuerdabal` | 4 | heavy crossbow |
+| Clavas | `cnr_p_mangoclava` | 2 | club |
+| Bastones | `cnr_p_aroshierro` ×2 | 2 | quarterstaff |
+| Escudos grandes | `cnr_p_planchagra` | 3 | large shield |
+| Escudos pequeños | `cnr_p_planchapeq` | 2 | small shield |
 
 Ten families × 8 woods = 80, **minus 2**: Sombralto makes no arrows and no
 bolts, so those recipes do not exist rather than existing without properties.
@@ -174,7 +174,7 @@ Every question this plan opened has been answered.
 | "Reforzado 2/3/4" | **Mighty** |
 | "Afiladura" | **Keen**, the same as "Afilado" |
 | Sombralto arrows and bolts | They **do not exist**. 78 bench recipes, not 80 |
-| Misnamed tags and `carptablon_cipre` | Left as they are; §1 is the binding map |
+| Misnamed tags and `cnr_m_ta_cedro` | Left as they are; §1 is the binding map |
 | `cnrcarpelf` | Not the sawing table. It is a stale tag on one test-area instance, wired only to report that it is unregistered. The station is `cnrSawTable` |
 
 Still to settle when the stations are wired, not blocking any slice:
@@ -230,7 +230,7 @@ Result:
 - 8 woods in `cnr_material` for profession 2, tiers straight from the CSV's own
   `Nivel 1`..`Nivel 4` headers.
 - `cnrSawTable` registered: profession 2, `produces = material`,
-  `cnr_carp_anim`. Tools `carp_kitserr` at 0.3 and `carp_sierra` at 0.1 — 0.3 is
+  `cnr_carp_anim`. Tools `cnr_t_kit_serr` at 0.3 and `cnr_t_sierra` at 0.1 — 0.3 is
   the rate every other tool in the system uses, so it reads as the house
   "medium", and the saw is deliberately a third of that.
 - `migration/catalogue/cnrsawtable.json` — 8 recipes, 3 logs → 1 plank.
@@ -250,7 +250,7 @@ palette were also aligned with the Cedro and Leñocaso blueprint names.
 
 **The generator will not silently mis-pair a wood again.** The mapping lives in
 `carpinteria.json` and the plank exception is declared explicitly rather than
-matched by name, so `carptablon_cipre` cannot drift onto the wrong wood.
+matched by name, so `cnr_m_ta_cedro` cannot drift onto the wrong wood.
 
 The placeable's old `OnOpen` / `OnClosed` pointed at `carp_serrador_a` /
 `carp_serrador_c`, a self-contained legacy sawing system with its own
@@ -261,14 +261,14 @@ were subsequently removed by the legacy-profession cleanup recorded in
 
 *Verified:* all 8 recipes checked row by row against the design — material code,
 tier, output resref and the exact log consumed, including the pairs that read
-wrong (`Roble` → `carplenyo_cedro`, `Zalantar` → `carplenyo_roble`). Applied to
+wrong (`Roble` → `cnr_m_le_roble`, `Zalantar` → `cnr_m_le_zalant`). Applied to
 MySQL; generator idempotent; `--check` compiles 5410 successful, 0 errored.
 
 DC runs 10→35 and XP 4→14 across the eight, the material-station 0.30 factor
 already applied.
 
 #### Original scope
-- Fix `carptablon_cipre`'s name to "Tablones de cedro".
+- Fix `cnr_m_ta_cedro`'s name to "Tablones de cedro".
 - Add the 8 woods to `cnr_material` for profession 2, tiers from the CSV.
 - New `migration/catalogue/cnrsawtable.json`: 8 recipes, 3 logs → 1 plank,
   both tools with their breakage.
@@ -310,7 +310,7 @@ visible in its description.
 
 ### Slice 3 — Bench recipes without properties — **DONE 2026-08-11**
 
-78 recipes in ten categories, `cnrCarpsBench` registered with `carp_kitcarp` at
+78 recipes in ten categories, `cnrCarpsBench` registered with `cnr_t_kit_carp` at
 0.1, the placeable wired like the sawing table. Ammunition is 7 rather than 8:
 Sombralto makes none.
 
@@ -342,7 +342,7 @@ Generator idempotent. No `.nss` changed, so nothing to compile.
 #### Original scope
 - Register the bench station and wire its placeable.
 - New `migration/catalogue/cnrcarpsbench.json`: the 78 recipes, correct
-  components and quantities, `carp_kitcarp` on every one.
+  components and quantities, `cnr_t_kit_carp` on every one.
 
 *Exit:* 78 recipes browsable in ten categories; components resolve to real
 blueprints; a craft consumes the right planks and returns the tool.

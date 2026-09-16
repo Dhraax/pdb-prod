@@ -469,7 +469,7 @@ void CnrNode_Strike(object oPC, object oNode)
     {
         if (Random(100) < CNR_NODE_COAL_CHANCE)
         {
-            CreateItemOnObject("pepitacarbon", oPC, 1);
+            CreateItemOnObject("cnr_m_pe_carbon", oPC, 1);
         }
     }
 

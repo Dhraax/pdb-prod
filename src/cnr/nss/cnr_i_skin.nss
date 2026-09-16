@@ -66,16 +66,16 @@ string CnrSkin_Material(int nPiel)
 {
     switch (nPiel)
     {
-        case 1:  return "cuero_roedor";
-        case 2:  return "cuero_herbivoro";
-        case 3:  return "cuero_bestia";
-        case 4:  return "cuero_bestiag";
-        case 5:  return "cuero_mitica";
-        case 6:  return "cuero_miticag";
-        case 7:  return "cuero_dragof";
-        case 8:  return "cuero_dragoh";
-        case 9:  return "cuero_dragoa";
-        case 10: return "cuero_dragor";
+        case 1:  return "cnr_m_cu_roedor";
+        case 2:  return "cnr_m_cu_herbiv";
+        case 3:  return "cnr_m_cu_bestia";
+        case 4:  return "cnr_m_cu_bestiag";
+        case 5:  return "cnr_m_cu_mitica";
+        case 6:  return "cnr_m_cu_miticag";
+        case 7:  return "cnr_m_cu_dracof";
+        case 8:  return "cnr_m_cu_dracoh";
+        case 9:  return "cnr_m_cu_dracoa";
+        case 10: return "cnr_m_cu_dracor";
     }
     return "";
 }

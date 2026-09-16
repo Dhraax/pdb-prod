@@ -40,7 +40,7 @@ SetLocalInt(OBJECT_SELF, "X2_L_LAST_SPELLSCHOOL_VAR", SPELL_SCHOOL_EVOCATION);
 
 //Int de Vgzchapuza y pentaculo:
 object oItm = GetSpellCastItem();
-    if(oItm == OBJECT_INVALID && GetItemPossessedBy(OBJECT_SELF, "polvo_per")!= OBJECT_INVALID)
+    if(oItm == OBJECT_INVALID && GetItemPossessedBy(OBJECT_SELF, "cnr_p_po_amat")!= OBJECT_INVALID)
     {
      pentaculo(GetLocation(OBJECT_SELF),VFX_BEAM_LIGHTNING,1.0);
      SendMessageToPC(OBJECT_SELF,ColorToken(33,33,180) + "!El conjuro parece haberse potenciado con la arenilla de amatista!</c>");
@@ -92,12 +92,12 @@ object oItm = GetSpellCastItem();
                         //Vgzchapu
                     int iExtra = 0;
                     int iDano = 0;
-                    if(oItm == OBJECT_INVALID && GetItemPossessedBy(OBJECT_SELF, "polvo_per")!= OBJECT_INVALID)
+                    if(oItm == OBJECT_INVALID && GetItemPossessedBy(OBJECT_SELF, "cnr_p_po_amat")!= OBJECT_INVALID)
                     {
                     iDano = d6(2);
                     iExtra = 12;
 
-                    object oIngrediente = GetItemPossessedBy(OBJECT_SELF,"polvo_per");
+                    object oIngrediente = GetItemPossessedBy(OBJECT_SELF,"cnr_p_po_amat");
                     DestroyObject(oIngrediente);
                     effect eUki = EffectVisualEffect(77);//electrico
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, eUki, oTarget);

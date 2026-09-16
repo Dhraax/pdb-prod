@@ -29,6 +29,10 @@ const string ALM_RENOMBRADO = "CNR_ALMACEN_RENOMBRADO";
 /// Written once the gems have been moved to the short keys.
 const string ALM_GEMAS = "CNR_ALMACEN_GEMAS";
 
+/// Written once the materials, components and tools have been moved to the
+/// short keys.
+const string ALM_MATERIALES = "CNR_ALMACEN_MATERIALES";
+
 /// How many essences and crystals exist, so the rename knows what to look for.
 const int ALM_NUM_ESENCIAS = 129;
 const int ALM_NUM_CRISTALES = 6;
@@ -222,12 +226,109 @@ void AlmRenombrarGemas(object oPC)
     }
 }
 
+/// @brief Carry the stored materials and components over to the short CNR keys.
+///
+///        Slice 4 of the naming normalisation renamed nuggets, ingots, hides,
+///        leathers, logs, planks, plants, reagents and the jeweller's and
+///        carpenter's stock. Sixty-seven of the store's entries kept their
+///        quantity under the old resref and move here, one line each because
+///        the new names follow the displayed wood and the vein, not a prefix.
+///        The entries whose key was never the resref (lenyo*, tablon*,
+///        polvo*) keep that key and need nothing.
+/// @param oPC The player who opened the store.
+void AlmRenombrarMateriales(object oPC)
+{
+    if (ObtenerIntPersistente(oPC, ALM_MATERIALES) > 0)
+    {
+        return;
+    }
+
+    int nMovidas = 0;
+
+    nMovidas += AlmMueveClave(oPC, "ardordesertico", "cnr_p_ardor");
+    nMovidas += AlmMueveClave(oPC, "bayaacuosa", "cnr_p_baya");
+    nMovidas += AlmMueveClave(oPC, "brisasusurrante", "cnr_p_brisa");
+    nMovidas += AlmMueveClave(oPC, "cuero_bestiag", "cnr_m_cu_bestiag");
+    nMovidas += AlmMueveClave(oPC, "cuero_miticag", "cnr_m_cu_miticag");
+    nMovidas += AlmMueveClave(oPC, "cuero_mitica", "cnr_m_cu_mitica");
+    nMovidas += AlmMueveClave(oPC, "cuero_bestia", "cnr_m_cu_bestia");
+    nMovidas += AlmMueveClave(oPC, "cuero_dragoa", "cnr_m_cu_dracoa");
+    nMovidas += AlmMueveClave(oPC, "cuero_dragof", "cnr_m_cu_dracof");
+    nMovidas += AlmMueveClave(oPC, "cuero_dragoh", "cnr_m_cu_dracoh");
+    nMovidas += AlmMueveClave(oPC, "cuero_dragor", "cnr_m_cu_dracor");
+    nMovidas += AlmMueveClave(oPC, "cuero_herbivoro", "cnr_m_cu_herbiv");
+    nMovidas += AlmMueveClave(oPC, "cuero_roedor", "cnr_m_cu_roedor");
+    nMovidas += AlmMueveClave(oPC, "esenciainvisible", "cnr_p_esencinv");
+    nMovidas += AlmMueveClave(oPC, "especiasulfurosa", "cnr_p_especia");
+    nMovidas += AlmMueveClave(oPC, "florluminosa", "cnr_p_flor");
+    nMovidas += AlmMueveClave(oPC, "frutofantasma", "cnr_p_fruto");
+    nMovidas += AlmMueveClave(oPC, "humogaseoso", "cnr_p_humo");
+    nMovidas += AlmMueveClave(oPC, "limoputrefacto", "cnr_p_limo");
+    nMovidas += AlmMueveClave(oPC, "lingoteaceroscur", "cnr_m_li_oscuro");
+    nMovidas += AlmMueveClave(oPC, "lingoteadamantit", "cnr_m_li_adaman");
+    nMovidas += AlmMueveClave(oPC, "lingoteArandur", "cnr_m_li_arandur");
+    nMovidas += AlmMueveClave(oPC, "lingoteDlarun", "cnr_m_li_dlarun");
+    nMovidas += AlmMueveClave(oPC, "lingoteDerretido", "cnr_m_li_enardec");
+    nMovidas += AlmMueveClave(oPC, "lingotehierrofri", "cnr_m_li_frio");
+    nMovidas += AlmMueveClave(oPC, "lingoteHizagkuur", "cnr_m_li_hizag");
+    nMovidas += AlmMueveClave(oPC, "lingoteMetalvivo", "cnr_m_li_vivo");
+    nMovidas += AlmMueveClave(oPC, "lingotePlatino", "cnr_m_li_platino");
+    nMovidas += AlmMueveClave(oPC, "lingoteacero", "cnr_m_li_acero");
+    nMovidas += AlmMueveClave(oPC, "lingotecobre", "cnr_m_li_cobre");
+    nMovidas += AlmMueveClave(oPC, "lingotehierro", "cnr_m_li_hierro");
+    nMovidas += AlmMueveClave(oPC, "lingotemithril", "cnr_m_li_mithril");
+    nMovidas += AlmMueveClave(oPC, "lingoteoro", "cnr_m_li_oro");
+    nMovidas += AlmMueveClave(oPC, "lingoteplata", "cnr_m_li_plata");
+    nMovidas += AlmMueveClave(oPC, "pastaterrosa", "cnr_p_pasta");
+    nMovidas += AlmMueveClave(oPC, "pepitaArandur", "cnr_m_pe_arandur");
+    nMovidas += AlmMueveClave(oPC, "pepitaCarbon", "cnr_m_pe_carbon");
+    nMovidas += AlmMueveClave(oPC, "pepitaDlarun", "cnr_m_pe_dlarun");
+    nMovidas += AlmMueveClave(oPC, "pepitaAceroscuro", "cnr_m_pe_oscuro");
+    nMovidas += AlmMueveClave(oPC, "pepitaHizagkuur", "cnr_m_pe_hizag");
+    nMovidas += AlmMueveClave(oPC, "pepitaDerretido", "cnr_m_pe_enardec");
+    nMovidas += AlmMueveClave(oPC, "pepitaMetalvivo", "cnr_m_pe_vivo");
+    nMovidas += AlmMueveClave(oPC, "pepitaPlatino", "cnr_m_pe_platino");
+    nMovidas += AlmMueveClave(oPC, "pepitaacero", "cnr_m_pe_acero");
+    nMovidas += AlmMueveClave(oPC, "pepitaadamantita", "cnr_m_pe_adaman");
+    nMovidas += AlmMueveClave(oPC, "pepitacobre", "cnr_m_pe_cobre");
+    nMovidas += AlmMueveClave(oPC, "pepitahierro", "cnr_m_pe_hierro");
+    nMovidas += AlmMueveClave(oPC, "pepitahierrofrio", "cnr_m_pe_frio");
+    nMovidas += AlmMueveClave(oPC, "pepitamithril", "cnr_m_pe_mithril");
+    nMovidas += AlmMueveClave(oPC, "pepitaoro", "cnr_m_pe_oro");
+    nMovidas += AlmMueveClave(oPC, "pepitaplata", "cnr_m_pe_plata");
+    nMovidas += AlmMueveClave(oPC, "picadarocosa", "cnr_p_picada");
+    nMovidas += AlmMueveClave(oPC, "pielbestiag", "cnr_m_pi_bestiag");
+    nMovidas += AlmMueveClave(oPC, "pielmiticag", "cnr_m_pi_miticag");
+    nMovidas += AlmMueveClave(oPC, "pielmitica", "cnr_m_pi_mitica");
+    nMovidas += AlmMueveClave(oPC, "pielbestia", "cnr_m_pi_bestia");
+    nMovidas += AlmMueveClave(oPC, "pieldracoa", "cnr_m_pi_dracoa");
+    nMovidas += AlmMueveClave(oPC, "pieldracof", "cnr_m_pi_dracof");
+    nMovidas += AlmMueveClave(oPC, "pieldracoh", "cnr_m_pi_dracoh");
+    nMovidas += AlmMueveClave(oPC, "pieldracor", "cnr_m_pi_dracor");
+    nMovidas += AlmMueveClave(oPC, "pielherbivoro", "cnr_m_pi_herbiv");
+    nMovidas += AlmMueveClave(oPC, "pielroedor", "cnr_m_pi_roedor");
+    nMovidas += AlmMueveClave(oPC, "raizpetrea", "cnr_p_raiz");
+    nMovidas += AlmMueveClave(oPC, "resinasubterrane", "cnr_p_resina");
+    nMovidas += AlmMueveClave(oPC, "setanocturna", "cnr_p_seta");
+    nMovidas += AlmMueveClave(oPC, "virutasresplande", "cnr_p_virutas");
+    nMovidas += AlmMueveClave(oPC, "zumoacuoso", "cnr_p_zumo");
+
+    GuardarIntPersistente(oPC, ALM_MATERIALES, 1);
+
+    if (nMovidas > 0)
+    {
+        SendMessageToPC(oPC, "Almacen: " + IntToString(nMovidas)
+            + " material(es) pasan al nombre nuevo.");
+    }
+}
+
 /// @brief Convert this character's store, once.
 /// @param oPC The player who opened the store.
 void AlmMigrar(object oPC)
 {
     AlmRenombrar(oPC);
     AlmRenombrarGemas(oPC);
+    AlmRenombrarMateriales(oPC);
 
     if (ObtenerIntPersistente(oPC, ALM_MIGRADO) > 0)
     {
@@ -241,33 +342,33 @@ void AlmMigrar(object oPC)
     // The four ingots and the resin whose resref was cut to sixteen
     // characters move to the corrected key, which is where the list now
     // reads them from.
-    nConv += AlmMigraUno(oPC, "cuerocani", "cuero_mitica", "Cueros de can infernal:");
-    nConv += AlmMigraUno(oPC, "cuerocierv", "cuero_herbivoro", "Cueros de ciervo:");
-    nConv += AlmMigraUno(oPC, "cuerojabal", "cuero_bestia", "Cueros de jabalí:");
-    nConv += AlmMigraUno(oPC, "cuerolagar", "cuero_bestia", "Cueros de lagarto:");
-    nConv += AlmMigraUno(oPC, "cueroloboi", "cuero_mitica", "Cueros de lobo invernal:");
-    nConv += AlmMigraUno(oPC, "cuerolobo", "cuero_bestia", "Cueros de lobo:");
-    nConv += AlmMigraUno(oPC, "cueromurci", "cuero_roedor", "Cueros de murciélago:");
-    nConv += AlmMigraUno(oPC, "cuerooso", "cuero_bestiag", "Cueros de oso:");
-    nConv += AlmMigraUno(oPC, "cuerorata", "cuero_roedor", "Cueros de rata:");
-    nConv += AlmMigraUno(oPC, "cuerorothe", "cuero_herbivoro", "Cueros de rothé:");
-    nConv += AlmMigraUno(oPC, "cueroserpi", "cuero_bestia", "Cueros de serpiente:");
-    nConv += AlmMigraUno(oPC, "lingoteAceroscuro", "lingoteaceroscur", "Lingote de aceroscuro:");
-    nConv += AlmMigraUno(oPC, "lingoteadamantita", "lingoteadamantit", "Lingotes de adamantita:");
-    nConv += AlmMigraUno(oPC, "lingotehierrofrio", "lingotehierrofri", "Lingotes de hierrofrío:");
-    nConv += AlmMigraUno(oPC, "pellejorata", "pielroedor", "Pellejos de rata:");
-    nConv += AlmMigraUno(oPC, "pielcani", "pielmitica", "Pieles de can infernal:");
-    nConv += AlmMigraUno(oPC, "pielcierv", "pielherbivoro", "Pieles de ciervo:");
-    nConv += AlmMigraUno(oPC, "pieljabal", "pielbestia", "Pieles de jabali:");
-    nConv += AlmMigraUno(oPC, "piellagar", "pielbestia", "Pieles de lagarto:");
-    nConv += AlmMigraUno(oPC, "pielloboi", "pielmitica", "Pieles de lobo invernal:");
-    nConv += AlmMigraUno(oPC, "piellobo", "pielbestia", "Pieles de lobo:");
-    nConv += AlmMigraUno(oPC, "pielmurci", "pielroedor", "Pieles de murcielago:");
-    nConv += AlmMigraUno(oPC, "pieloso", "pielbestiag", "Pieles de oso:");
-    nConv += AlmMigraUno(oPC, "pielrata", "pielroedor", "Pieles de rata:");
-    nConv += AlmMigraUno(oPC, "pielrothe", "pielherbivoro", "Pieles de rothe:");
-    nConv += AlmMigraUno(oPC, "pielserpi", "pielbestia", "Pieles de serpiente:");
-    nConv += AlmMigraUno(oPC, "virutasresplandecientes", "virutasresplande", "Virutas resplandecientes:");
+    nConv += AlmMigraUno(oPC, "cuerocani", "cnr_m_cu_mitica", "Cueros de can infernal:");
+    nConv += AlmMigraUno(oPC, "cuerocierv", "cnr_m_cu_herbiv", "Cueros de ciervo:");
+    nConv += AlmMigraUno(oPC, "cuerojabal", "cnr_m_cu_bestia", "Cueros de jabalí:");
+    nConv += AlmMigraUno(oPC, "cuerolagar", "cnr_m_cu_bestia", "Cueros de lagarto:");
+    nConv += AlmMigraUno(oPC, "cueroloboi", "cnr_m_cu_mitica", "Cueros de lobo invernal:");
+    nConv += AlmMigraUno(oPC, "cuerolobo", "cnr_m_cu_bestia", "Cueros de lobo:");
+    nConv += AlmMigraUno(oPC, "cueromurci", "cnr_m_cu_roedor", "Cueros de murciélago:");
+    nConv += AlmMigraUno(oPC, "cuerooso", "cnr_m_cu_bestiag", "Cueros de oso:");
+    nConv += AlmMigraUno(oPC, "cuerorata", "cnr_m_cu_roedor", "Cueros de rata:");
+    nConv += AlmMigraUno(oPC, "cuerorothe", "cnr_m_cu_herbiv", "Cueros de rothé:");
+    nConv += AlmMigraUno(oPC, "cueroserpi", "cnr_m_cu_bestia", "Cueros de serpiente:");
+    nConv += AlmMigraUno(oPC, "lingoteAceroscuro", "cnr_m_li_oscuro", "Lingote de aceroscuro:");
+    nConv += AlmMigraUno(oPC, "lingoteadamantita", "cnr_m_li_adaman", "Lingotes de adamantita:");
+    nConv += AlmMigraUno(oPC, "lingotehierrofrio", "cnr_m_li_frio", "Lingotes de hierrofrío:");
+    nConv += AlmMigraUno(oPC, "pellejorata", "cnr_m_pi_roedor", "Pellejos de rata:");
+    nConv += AlmMigraUno(oPC, "pielcani", "cnr_m_pi_mitica", "Pieles de can infernal:");
+    nConv += AlmMigraUno(oPC, "pielcierv", "cnr_m_pi_herbiv", "Pieles de ciervo:");
+    nConv += AlmMigraUno(oPC, "pieljabal", "cnr_m_pi_bestia", "Pieles de jabali:");
+    nConv += AlmMigraUno(oPC, "piellagar", "cnr_m_pi_bestia", "Pieles de lagarto:");
+    nConv += AlmMigraUno(oPC, "pielloboi", "cnr_m_pi_mitica", "Pieles de lobo invernal:");
+    nConv += AlmMigraUno(oPC, "piellobo", "cnr_m_pi_bestia", "Pieles de lobo:");
+    nConv += AlmMigraUno(oPC, "pielmurci", "cnr_m_pi_roedor", "Pieles de murcielago:");
+    nConv += AlmMigraUno(oPC, "pieloso", "cnr_m_pi_bestiag", "Pieles de oso:");
+    nConv += AlmMigraUno(oPC, "pielrata", "cnr_m_pi_roedor", "Pieles de rata:");
+    nConv += AlmMigraUno(oPC, "pielrothe", "cnr_m_pi_herbiv", "Pieles de rothe:");
+    nConv += AlmMigraUno(oPC, "pielserpi", "cnr_m_pi_bestia", "Pieles de serpiente:");
+    nConv += AlmMigraUno(oPC, "virutasresplandecientes", "cnr_p_virutas", "Virutas resplandecientes:");
 
     // Materials the CNR does not use. Nothing replaces them, so they go,
     // and the player is told what was in there rather than finding it gone.

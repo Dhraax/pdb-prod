@@ -1954,7 +1954,7 @@ else if(sTagDelObjeto == "polvoardiente")
   {
       AssignCommand(oPC,PlaySound("as_na_grassmove3"));
       string sTagDelObjetivo = GetTag(oTarget);
-      if(GetTag(oTarget) == "bayaAcuosa")
+      if(GetTag(oTarget) == "cnr_p_baya")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("extractobaya",oPC);
@@ -1964,7 +1964,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una baya acuosa en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "brisaSusurrante")
+      else if(sTagDelObjetivo == "cnr_p_brisa")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("polvobrisa",oPC);
@@ -1974,7 +1974,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una brisa susurrante en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "resinaSubterranea")
+      else if(sTagDelObjetivo == "cnr_p_resina")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("arenillaresi",oPC);
@@ -1984,7 +1984,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una resina subterranea en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "ardorDesertico")
+      else if(sTagDelObjetivo == "cnr_p_ardor")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("polvoardor",oPC);
@@ -1994,7 +1994,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas un ardor desertico en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "raizPetrea")
+      else if(sTagDelObjetivo == "cnr_p_raiz")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("raizmolida",oPC);
@@ -2004,7 +2004,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una raiz petrea en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "florLuminosa")
+      else if(sTagDelObjetivo == "cnr_p_flor")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("extractoflorlum",oPC);
@@ -2014,7 +2014,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una flor luminosa en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "setaNocturna")
+      else if(sTagDelObjetivo == "cnr_p_seta")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("polvoseta",oPC);
@@ -2024,7 +2024,7 @@ else if(sTagDelObjeto == "polvoardiente")
           SendMessageToPC(oPC,"*Machacas una seta nocturna en el mortero.*");
           return;
       }
-      else if(sTagDelObjetivo == "frutoFantasma")
+      else if(sTagDelObjetivo == "cnr_p_fruto")
       {
           DestroyObject(oTarget);
           CreateItemOnObject("extractofantasma",oPC);
