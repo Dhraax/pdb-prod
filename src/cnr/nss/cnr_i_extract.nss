@@ -434,7 +434,7 @@ int CnrExt_Break(object oPC, object oMachine, object oItem, int bAlone = TRUE)
     int bCrystal = FALSE;
     if (Random(100) < CNR_EXT_CRYSTAL_CHANCE)
     {
-        CnrExt_Book(oPC, "cnr_cristal"
+        CnrExt_Book(oPC, "cnr_c_"
                          + IntToString(Random(CNR_EXT_CRYSTAL_COUNT) + 1));
         bCrystal = TRUE;
     }
