@@ -33,18 +33,24 @@ set one.
 
 ## Peletería / Sastrería
 
-| Family | Tag (given) | **ResRef (used)** | Profession |
-|---|---|---|---|
-| Ropas | `NW_CLOTH027` | **`cloth029`** | Sastrería |
-| Armadura 1/8 | `NW_AARCL009` | **`aarcl013`** | Peletería |
-| Armadura 2/6 | `NW_AARCL001` | **`aarcl004`** | Peletería |
-| Armadura 3/5 | `NW_AARCL008` | **`aarcl013`** | Peletería |
-| Armadura 4/4 | `NW_AARCL012` | **`aarcl013`** | Peletería |
-| Cintos | `cinturndecuero` | **`cinturndecuero`** | Peletería |
-| Botas | `botasdecuero` | **`botasdecuero`** | Peletería |
-| Brazales | `brazalcuero` | **`brazalcuero`** | Sastrería |
-| Capa | `capadepiel` | **`capadepiel002`** | Sastrería |
-| Guantes para monje | `guantesdecuero` | **`guantesdecuero`** | Peletería |
+| Family | Tag (given) | Originally built from | **ResRef (used)** | Profession |
+|---|---|---|---|---|
+| Ropas | `NW_CLOTH027` | `cloth029` | **`cnr_b_cloth`** | Sastrería |
+| Armadura 1/8 | `NW_AARCL009` | `aarcl013` | **`cnr_b_padded`** | Peletería |
+| Armadura 2/6 | `NW_AARCL001` | `aarcl004` | **`cnr_b_leather`** | Peletería |
+| Armadura 3/5 | `NW_AARCL008` | `aarcl013` | **`cnr_b_studded`** | Peletería |
+| Armadura 4/4 | `NW_AARCL012` | `aarcl013` | **`cnr_b_hide`** | Peletería |
+| Cintos | `cinturndecuero` | `cinturndecuero` | **`cnr_b_belt`** | Peletería |
+| Botas | `botasdecuero` | `botasdecuero` | **`cnr_b_boots`** | Peletería |
+| Brazales | `brazalcuero` | `brazalcuero` | **`cnr_b_bracer`** | Sastrería |
+| Capa | `capadepiel` | `capadepiel002` | **`cnr_b_cloak`** | Sastrería |
+| Guantes para monje | `guantesdecuero` | `guantesdecuero` | **`cnr_b_gloves`** | Peletería |
+
+Every family now builds on the trade's own `cnr_b_*` blueprint; see
+[`base-items.md`](base-items.md). The named pieces in the middle column are
+module items, not the trade's: `cinturndecuero`, `botasdecuero`, `brazalcuero`,
+`capadepiel002` and `guantesdecuero` live in `src/shared/uti/`, where treasure
+tables and NPCs use them.
 
 `1/8`, `2/6`, `3/5`, `4/4` read as AC bonus / max dexterity — padded, leather,
 studded leather and the next step up.
