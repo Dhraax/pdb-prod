@@ -214,8 +214,8 @@ hacer.
 
 ### The trees are named after the wood they give — 2026-08-23
 
-The blueprints keep their legacy tags, which are real-world woods, but a player
-never sees a tag. They saw the node's name, and it was the tag's wood rather
+On 2026-08-23 the blueprints still carried legacy tags named after real-world
+woods (`cnr_arbol_cipres`, `cnr_arbol_cedro`...), and a player never sees a tag. They saw the node's name, and it was the tag's wood rather
 than the design's: chopping **Ciprés** yielded a *Leño de cedro*, and five other
 trees did the same. Six blueprints and their six placed instances were renamed
 to the wood the design names, which is the wood their log and every carpentry
@@ -223,16 +223,18 @@ recipe already used.
 
 | Blueprint | Was called | Now |
 |---|---|---|
-| `cnr_arbol_cipres` | Ciprés | **Cedro** |
-| `cnr_arbol_cedro` | Cedro | **Roble** |
-| `cnr_arbol_alamo` | Álamo | **Sombralto** |
-| `cnr_arbol_olmo` | Olmo | **Leñocaso** |
-| `cnr_arbol_roble` | Roble | **Zalantar** |
-| `cnr_arbol_fresno` | Fresno | **Maderadique** |
+| `cnr_arb_cedro` | Ciprés | **Cedro** |
+| `cnr_arb_roble` | Cedro | **Roble** |
+| `cnr_arb_sombra` | Álamo | **Sombralto** |
+| `cnr_arb_lenoca` | Olmo | **Leñocaso** |
+| `cnr_arb_zalant` | Roble | **Zalantar** |
+| `cnr_arb_maderad` | Fresno | **Maderadique** |
 
-Pino and Abeto already agreed. Only the display name moved: tags, resrefs and
-the material each node drops are untouched, so nothing in a chest, a recipe or a
-player's pack notices.
+Pino and Abeto already agreed. Only the display name moved then. On 2026-09-16
+the naming normalisation renamed the blueprints, their tags and all 370 placed
+trees to the same wood, so the table's left column already shows the final
+names: a tree is now called after the wood it shows and the log it drops
+(`cnr_arb_cedro` drops `cnr_m_le_cedro`).
 
 Renamed on the blueprint **and** on the instance, as this document's own rule
 requires: a placed placeable keeps its own copy, and the instance's name lives
@@ -531,14 +533,14 @@ Detalles de la implementación que conviene saber:
 
 | Nuevo | Nombre | Familia | Tier | Suelta | Era |
 |---|---|---|--:|---|---|
-| `cnr_arbol_abeto` | Abeto | arbol | 2 | `cnr_m_le_abeto` | `carp_at3` |
-| `cnr_arbol_alamo` | Alamo | arbol | 3 | `cnr_m_le_sombra` | `carp_at5` |
-| `cnr_arbol_cedro` | Cedro | arbol | 2 | `cnr_m_le_roble` | `carp_at4` |
-| `cnr_arbol_cipres` | Cipres | arbol | 1 | `cnr_m_le_cedro` | `carp_at2` |
-| `cnr_arbol_fresno` | Fresno | arbol | 4 | `cnr_m_le_maderad` | `carp_at8` |
-| `cnr_arbol_olmo` | Olmo | arbol | 3 | `cnr_m_le_lenoca` | `carp_at6` |
-| `cnr_arbol_pino` | Pino | arbol | 1 | `cnr_m_le_pino` | `carp_at1` |
-| `cnr_arbol_roble` | Roble | arbol | 4 | `cnr_m_le_zalant` | `carp_at7` |
+| `cnr_arb_abeto` | Abeto | arbol | 2 | `cnr_m_le_abeto` | `carp_at3` |
+| `cnr_arb_sombra` | Alamo | arbol | 3 | `cnr_m_le_sombra` | `carp_at5` |
+| `cnr_arb_roble` | Cedro | arbol | 2 | `cnr_m_le_roble` | `carp_at4` |
+| `cnr_arb_cedro` | Cipres | arbol | 1 | `cnr_m_le_cedro` | `carp_at2` |
+| `cnr_arb_maderad` | Fresno | arbol | 4 | `cnr_m_le_maderad` | `carp_at8` |
+| `cnr_arb_lenoca` | Olmo | arbol | 3 | `cnr_m_le_lenoca` | `carp_at6` |
+| `cnr_arb_pino` | Pino | arbol | 1 | `cnr_m_le_pino` | `carp_at1` |
+| `cnr_arb_zalant` | Roble | arbol | 4 | `cnr_m_le_zalant` | `carp_at7` |
 | `cnr_gema_berilo` | Veta de berilos | gema | 2 | `cnr_g_amat;cnr_g_top;cnr_g_esme` | `veta_berilo` |
 | `cnr_gema_corind` | Veta de corindones | gema | 3 | `cnr_g_zaf;cnr_g_rubi;cnr_g_jac;cnr_g_zafn;cnr_g_zafe;cnr_g_rubie` | `veta_corindon` |
 | `cnr_gema_costa` | Veta costera | gema | 3 | `cnr_g_jade;cnr_g_amar;cnr_g_barra` | `veta_costera` |

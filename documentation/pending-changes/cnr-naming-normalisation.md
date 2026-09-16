@@ -48,7 +48,9 @@ share that tool's tag. Today that is the four light hammers (`cnr_t_martligero`,
 Metals take the code of the vein that drops them (`oscuro`, `enardec`, `frio`,
 `vivo`...), so nugget, ingot and vein agree. Woods and gems take the name the
 player sees, not the legacy tag's: `carplenyo_cipres` is shown as cedar and is
-now `cnr_m_le_cedro`.
+now `cnr_m_le_cedro`. The eight tree nodes follow their wood too: `cnr_arb_*`
+(`cnr_arbol_cipres` became `cnr_arb_cedro`), shortened from `cnr_arbol_` so
+`cnr_arb_maderad` fits in sixteen characters.
 
 **One exception: the potions.** `sute_her_*` keep their names because
 `pb_mod_activate` dispatches on the tag prefix, and renaming them means rewriting
