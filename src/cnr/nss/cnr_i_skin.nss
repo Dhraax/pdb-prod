@@ -21,7 +21,7 @@
 //                                  Constants
 // -----------------------------------------------------------------------------
 /// The knife the player has to hold. Sold by the leatherworking store.
-const string CNR_SKIN_KNIFE     = "cnrSkinningKnife";
+const string CNR_SKIN_KNIFE     = "cnr_t_desollador";
 /// What the creature blueprint calls the hide it carries.
 const string CNR_SKIN_CREATURE  = "PIEL";
 /// The placeable a skinnable creature leaves behind.

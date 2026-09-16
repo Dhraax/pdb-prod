@@ -52,7 +52,7 @@ now `cnr_m_le_cedro`.
 
 **One exception: the potions.** `sute_her_*` keep their names because
 `pb_mod_activate` dispatches on the tag prefix, and renaming them means rewriting
-that dispatch. 34 blueprints, all under `src/cnr/uti`.
+that dispatch. 31 blueprints, all under `src/cnr/uti`.
 
 The generated map is 507 names, all unique, none over 16 characters.
 

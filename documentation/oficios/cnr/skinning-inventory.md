@@ -234,7 +234,7 @@ lobo invernal y can, y 6 para las de oso y wyrm. Tres de ellas corrian
 ## Lo que cambio el 2026-09-13
 
 El desollado pasa al CNR y se comporta como un nodo: el cadaver lleva encima su
-tier y su material, exige el cuchillo `cnrSkinningKnife`, responde una vez cada
+tier y su material, exige el cuchillo `cnr_t_desollador`, responde una vez cada
 diez segundos, da tres entregas y se agota. No da experiencia ni pide nivel de
 oficio, igual que picar o talar. El reparto es 1d4 por intento en tier 1 y 2,
 2d4 en tier 3 y 3d4 en tier 4, y el cuchillo se gasta como cualquier otra

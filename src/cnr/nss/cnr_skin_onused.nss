@@ -28,7 +28,7 @@ void main()
   object oItem = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oUser);
   if (GetIsObjectValid(oItem))
   {
-    if (GetTag(oItem) == "cnrSkinningKnife")
+    if (GetTag(oItem) == "cnr_t_desollador")
     {
       bHasKnife = TRUE;
     }
@@ -39,7 +39,7 @@ void main()
     oItem = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oUser);
     if (GetIsObjectValid(oItem))
     {
-      if (GetTag(oItem) == "cnrSkinningKnife")
+      if (GetTag(oItem) == "cnr_t_desollador")
       {
         bHasKnife = TRUE;
       }

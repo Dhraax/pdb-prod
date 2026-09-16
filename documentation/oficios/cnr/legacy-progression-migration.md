@@ -155,7 +155,7 @@ destroyed under 6), rolled against a difficulty of 50 to 420 by `PIEL` type,
 handed out the ten legacy hides through `FuncionCrearObjetoYTag`, and levelled
 `NIVELDESOLLADOR` up to 100 with a third roll.
 
-CNR replaced all of it: `cnrSkinningKnife` and `cnr_i_skin` treat the corpse as
+CNR replaced all of it: `cnr_t_desollador` and `cnr_i_skin` treat the corpse as
 a node with three deliveries and a ten second cooldown, and the hides are the
 ten `cuero_*` materials. The only thing worth taking from the old branch is the
 `PIEL` 1-10 scale, which `skinning-inventory.md` already records, and the
