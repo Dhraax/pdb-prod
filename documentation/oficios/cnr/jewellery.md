@@ -6,8 +6,9 @@ validar en juego.
 El oficio son tres pasos y tres escalones. La cadena de producción está
 construida; lo que queda es jugarla.
 
-Compañero: [`jewellery-exported-items.md`](jewellery-exported-items.md), la
-lista de los 99 blueprints que salieron de `contenedor_engar`.
+Compañero: [`jewellery-exported-items.md`](jewellery-exported-items.md), el
+registro de los 99 blueprints que salieron de `contenedor_engar` en DEV; 62
+están en producción.
 
 ---
 

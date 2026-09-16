@@ -56,7 +56,7 @@ which owns the order, backups, validation and rollback.
 | [`open-issues.md`](open-issues.md) | **Running log of findings, technical debt and parked ideas.** Add to it as things are discovered; delete entries when they are closed |
 | [`plan-de-pruebas.md`](plan-de-pruebas.md) | Tester-facing test plan in Spanish, split by profession, with what each tester must be given to start |
 | [`jewellery.md`](jewellery.md) | Current jewellery: three steps, three metal tiers, where the gem properties live and why the metal is cosmetic |
-| [`jewellery-exported-items.md`](jewellery-exported-items.md) | The 99 blueprints exported from `contenedor_engar`, Name/tag/resref, and their cross-check against the jewellery recipes |
+| [`jewellery-exported-items.md`](jewellery-exported-items.md) | Record of the DEV export of 99 blueprints from `contenedor_engar`, and their cross-check against the jewellery recipes. 62 are in production under `src/cnr/uti`; 37 never came across |
 | [`carpentry-plan.md`](carpentry-plan.md) | Historical Carpentry implementation record. Current behavior and anything still open are owned elsewhere in this index |
 | [`arcane-build-log.md`](arcane-build-log.md) | **Active.** What is built, what is pending, what still has to be checked in game, and the decisions already taken |
 | [`arcane-plan.md`](arcane-plan.md) | **Active.** How the arcane trade works: crystal as catalyst, essences as quantity, the per-family scaling, the tier taken from loot rarity, and what the engine still cannot do |

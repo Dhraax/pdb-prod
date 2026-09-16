@@ -3,6 +3,15 @@
 Blueprints nuevos en `src/shared/uti/`, **sin propiedades**, conservando
 nombre, apariencia (`ModelPart1`), base item y coste.
 
+> **Registro de la exportación, no lista viva.** Se hizo en DEV. En producción
+> quedan **62** de estos blueprints, todos en `src/cnr/uti/` con el nombre de la
+> [normalización](../../pending-changes/cnr-naming-normalisation.md) (los
+> nombres de las tablas ya son esos) y en la paleta bajo `CNR - Joyeria`, no en
+> las carpetas que dicen los títulos. Los otros **37 nunca llegaron a
+> producción**: las 28 gemas pulidas `pu_*`, las 7 `gema_*` y los aros
+> `plata_aro` y `plata_cadena`. La lista viva es la paleta y
+> [`joyeria.json`](../joyeria.json).
+
 ## ANILLOS  -> Miscellaneous / Rings  (32)
 
 | Name | Tag | ResRef |
