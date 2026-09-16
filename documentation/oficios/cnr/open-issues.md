@@ -348,6 +348,44 @@ Static checks do not prove engine behaviour. Still to cover:
 - Pure Water, Edible Roots, Magic Juice and the FoodRICH Magic Cookie producing
   no potion effect.
 
+### D6. `cnr_m_utils` is orphaned, and 17 of its 28 gem branches can never match
+
+`src/cnr/nss/cnr_m_utils.nss` holds the masterwork logic for smithing and for
+set jewellery. **Nothing under `src/` includes it**, so none of it runs, and its
+header still names it `cnr_masterwork_utils.nss`.
+
+`MasterworkApplyJewelry` switches on the gem's tag with one branch per gem, all
+28 of them. Eleven name a tag a blueprint carries, and were renamed with the
+gems in `5c747baf`: `cnr_g_cuar`, `_obs`, `_top`, `_amat`, `_aza`, `_jade`,
+`_opalo`, `_orblen`, `_orlo`, `_esme`, `_rubi`. The other **seventeen name tags
+no blueprint has ever carried**, before or after the rename, so they were dead
+already and were left untouched:
+
+| Branch tag | The gem it means |
+|------------|------------------|
+| `bru_lagrima_roja` | `cnr_g_lagroj` |
+| `bru_opalo_negro` | `cnr_g_opalon` |
+| `bru_opalo_fuego` | `cnr_g_opalof` |
+| `bru_corvidar` | `cnr_g_cor` |
+| `bru_beljuril` | `cnr_g_bel` |
+| `bru_zafiro` | `cnr_g_zaf` |
+| `bru_opalo_agua` | `cnr_g_opaloa` |
+| `bru_zendalur` | `cnr_g_zen` |
+| `bru_barra_lunar` | `cnr_g_barra` |
+| `bru_jacinto` | `cnr_g_jac` |
+| `bru_amarazha` | `cnr_g_amar` |
+| `bru_piedra_picara` | `cnr_g_pic` |
+| `bru_zafiro_negro` | `cnr_g_zafn` |
+| `bru_diamante` | `cnr_g_diam` |
+| `bru_lagrima_rey` | `cnr_g_lagrey` |
+| `bru_zafiro_estrella` | `cnr_g_zafe` |
+| `bru_rubi_estrella` | `cnr_g_rubie` |
+
+Renaming them would not change what runs today, because nothing includes the
+file, but it would decide on the owner's behalf that those seventeen gems give a
+masterwork result the day it is wired. Close this entry either by wiring the
+include and correcting the seventeen together, or by deleting the file.
+
 ---
 
 ## Parked ideas
