@@ -100,7 +100,8 @@ Each one is a commit of its own, with its changelog entry and its audit.
    red tear was `bru_lagrimar` while the king's tear was `bru_lagrey` and
    `anillo_lagrimrey`. Both now read `amat`, `lagroj` and `lagrey` wherever they
    appear.
-4. **Rename the materials, components and tools.** Done. 153 blueprints. It
+4. **Rename the materials, components and tools.** Done. 153 blueprints, listed
+   one by one in [`cnr-naming-slice4-map.md`](cnr-naming-slice4-map.md). It
    was preceded by three separate commits: the old carpenter's 49 unreachable
    dialogue scripts were deleted, ten module items that had been filed as CNR
    (four named armours and shields with Bioware tags, the module tailor's
