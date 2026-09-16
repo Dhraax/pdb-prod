@@ -9,8 +9,8 @@ self-contained and can be lifted into another module without rebuilding it.
 The catalogue was assembled from three older systems and kept their names. Today
 `src/cnr/uti` holds 507 blueprints of which **266 carry no `cnr_` prefix**:
 `amu_`, `anillo_`, `bru_`, `sute_`, `cuero_`, `sapo_`, `molde_`, `carpacc_`,
-`carplenyo_`, `polvo_`, `pb_`. Another **152 materials the trades use are not
-even under `src/cnr`**; they sit in `src/shared/uti`.
+`carplenyo_`, `polvo_`, `pb_`. The material store, which is now CNR's,
+was still scattered across `src/shared/`.
 
 That inconsistency has already cost real defects, each found by accident rather
 than by a check:
@@ -69,9 +69,12 @@ aborts if they drop.
 
 Each one is a commit of its own, with its changelog entry and its audit.
 
-1. **Move into `src/cnr`.** The 152 materials still in `src/shared/uti`, and any
-   `.utc`, `.utm` or `.dlg` the trades own. No name changes, so nothing can
-   break: only the path moves.
+1. **Move into `src/cnr`.** Done. Three blueprints the catalogue needs
+   (`martillo_herrero`, `sapo_plnt12_capu`, the jeweller's kit), the eight
+   scripts of the material store and the store opener, and the store's two
+   placeables. No name changes, so nothing can break: only the path moves.
+   The figure of 152 in the first draft of this document was wrong; it came
+   from the material store's old ingredient list, which no longer exists.
 2. **Rename what is already `cnr_*`**: the 76 bases, 129 essences and 6 crystals
    shorten to `cnr_b_*`, `cnr_e_*`, `cnr_c_*`.
 3. **Rename the gems and the jewellery**: 28 rough, 28 cut, 56 pieces.
