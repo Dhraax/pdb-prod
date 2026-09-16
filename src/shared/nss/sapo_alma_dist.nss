@@ -23,6 +23,27 @@ const int ALM_PILA = 10;
 /// Gold charged for each unit taken out.
 const int ALM_PRECIO = 5;
 
+/// @brief Whether the chest already shows this material.
+/// @param oCofre The invisible chest.
+/// @param oExcluir The item being deposited, which is about to be destroyed.
+/// @param sBuscado The material's resref, lower case.
+/// @returns TRUE when a stack of it is already on display.
+int AlmHayMuestra(object oCofre, object oExcluir, string sBuscado)
+{
+    object oItem = GetFirstItemInInventory(oCofre);
+    while (GetIsObjectValid(oItem))
+    {
+        if (oItem != oExcluir
+            && (GetStringLowerCase(GetResRef(oItem)) == sBuscado
+                || GetStringLowerCase(GetTag(oItem)) == sBuscado))
+        {
+            return TRUE;
+        }
+        oItem = GetNextItemInInventory(oCofre);
+    }
+    return FALSE;
+}
+
 void GuardarIngrediente(object oJugador, string sVariable, string sNombre, int nCantidad)
 {
     GuardarIntPersistente(oJugador, sVariable,
@@ -43,7 +64,6 @@ void main()
     object oPC = GetLastDisturbed();
     object oUbicado = OBJECT_SELF;
     object oIngOficios = GetInventoryDisturbItem();
-    string sTagIngOficio = GetTag(oIngOficios);
 
     // A container inside the chest would hide its contents from the count.
     object oTest = GetFirstItemInInventory(oIngOficios);
@@ -67,6 +87,15 @@ void main()
         nPila = 1;
     }
 
+    // The list keys on the blueprint resref, because that is what
+    // CreateItemOnObject needs. An item carries both a resref and a tag and the
+    // two are not always the same string: 43 materials differ only in case and
+    // five have a tag longer than the sixteen characters a resref allows.
+    // Comparing only the tag, as this handler used to, silently refused those
+    // 48 on the way in and let them out without charging on the way out.
+    string sResItem = GetStringLowerCase(GetResRef(oIngOficios));
+    string sTagItem = GetStringLowerCase(GetTag(oIngOficios));
+
     int nCount;
     for (nCount = 1; nCount <= NUM_DIST_INGRED; nCount++)
     {
@@ -77,10 +106,8 @@ void main()
             continue;
         }
 
-        // The list keys on the blueprint resref; what arrives carries its tag.
-        // They match for every material in the list, and the check below is
-        // what keeps anything else out.
-        if (sTagIngOficio != sTag)
+        string sBuscado = GetStringLowerCase(sTag);
+        if (sResItem != sBuscado && sTagItem != sBuscado)
         {
             continue;
         }
@@ -92,16 +119,21 @@ void main()
             GuardarIngrediente(oPC, sVar, sNom, nPila);
             DestroyObject(oIngOficios, 0.0);
 
-            // Show the next stack, so the chest always offers what is left.
-            int nQueda = ObtenerIntPersistente(oPC, sVar);
-            if (nQueda > 0)
+            // Exactly one stack is on show at a time. Creating another here
+            // without looking would leave two on display against a single
+            // count, and the player could take both.
+            if (!AlmHayMuestra(oUbicado, oIngOficios, sBuscado))
             {
-                int nMuestra = nQueda;
-                if (nMuestra > ALM_PILA)
+                int nQueda = ObtenerIntPersistente(oPC, sVar);
+                if (nQueda > 0)
                 {
-                    nMuestra = ALM_PILA;
+                    int nMuestra = nQueda;
+                    if (nMuestra > ALM_PILA)
+                    {
+                        nMuestra = ALM_PILA;
+                    }
+                    CreateItemOnObject(sTag, oUbicado, nMuestra);
                 }
-                CreateItemOnObject(sTag, oUbicado, nMuestra);
             }
             return;
         }
