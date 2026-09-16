@@ -50,124 +50,124 @@ REPLACE INTO recipe_metadata VALUES ('recipe_mithril_ammo', 'Mithril', 'Municion
 REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_ammo', 'Adamantita', 'Municion', '', 'nw_wambu001', 'Bala de adamantita', '');
 
 -- ARMADURAS INTERMEDIAS (Cota de escamas)
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_cota', 'Hierro', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_cota', 'Acero', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_cota', 'Plata', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_cota', 'Hierrofrio', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_cota', 'Oro', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_cota', 'Platino', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_cota', 'Hierro Enardecido', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_cota', 'Aceroscuro', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_cota', 'Dlarun', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_cota', 'Hizagkuur', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_cota', 'Arandur', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_cota', 'Metal Vivo', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_cota', 'Mithril', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_cota', 'Adamantita', 'Armadura', '', 'cnr_base_scale', 'Cota de escamas de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_cota', 'Hierro', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_cota', 'Acero', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_cota', 'Plata', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_cota', 'Hierrofrio', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_cota', 'Oro', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_cota', 'Platino', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_cota', 'Hierro Enardecido', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_cota', 'Aceroscuro', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_cota', 'Dlarun', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_cota', 'Hizagkuur', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_cota', 'Arandur', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_cota', 'Metal Vivo', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_cota', 'Mithril', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_cota', 'Adamantita', 'Armadura', '', 'cnr_b_scale', 'Cota de escamas de adamantita', '');
 
 -- ARMADURA COMPLETA
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_completa', 'Hierro', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_completa', 'Acero', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_completa', 'Plata', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_completa', 'Hierrofrio', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_completa', 'Oro', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_completa', 'Platino', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_completa', 'Hierro Enardecido', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_completa', 'Aceroscuro', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_completa', 'Dlarun', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_completa', 'Hizagkuur', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_completa', 'Arandur', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_completa', 'Metal Vivo', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_completa', 'Mithril', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_completa', 'Adamantita', 'Armadura', '', 'cnr_base_plate', 'Armadura completa de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_completa', 'Hierro', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_completa', 'Acero', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_completa', 'Plata', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_completa', 'Hierrofrio', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_completa', 'Oro', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_completa', 'Platino', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_completa', 'Hierro Enardecido', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_completa', 'Aceroscuro', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_completa', 'Dlarun', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_completa', 'Hizagkuur', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_completa', 'Arandur', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_completa', 'Metal Vivo', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_completa', 'Mithril', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_completa', 'Adamantita', 'Armadura', '', 'cnr_b_plate', 'Armadura completa de adamantita', '');
 
 -- ESCUDOS GRANDES
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudogra', 'Hierro', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudogra', 'Acero', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudogra', 'Plata', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudogra', 'Hierrofrio', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudogra', 'Oro', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudogra', 'Platino', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudogra', 'Hierro Enardecido', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudogra', 'Aceroscuro', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudogra', 'Dlarun', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudogra', 'Hizagkuur', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudogra', 'Arandur', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudogra', 'Metal Vivo', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudogra', 'Mithril', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudogra', 'Adamantita', 'Escudo', '', 'cnr_base_lshield', 'Escudo grande de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudogra', 'Hierro', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudogra', 'Acero', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudogra', 'Plata', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudogra', 'Hierrofrio', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudogra', 'Oro', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudogra', 'Platino', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudogra', 'Hierro Enardecido', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudogra', 'Aceroscuro', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudogra', 'Dlarun', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudogra', 'Hizagkuur', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudogra', 'Arandur', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudogra', 'Metal Vivo', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudogra', 'Mithril', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudogra', 'Adamantita', 'Escudo', '', 'cnr_b_lshield', 'Escudo grande de adamantita', '');
 
 -- ESCUDOS PEQUEÑOS
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudopeq', 'Hierro', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudopeq', 'Acero', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudopeq', 'Plata', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudopeq', 'Hierrofrio', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudopeq', 'Oro', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudopeq', 'Platino', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudopeq', 'Hierro Enardecido', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudopeq', 'Aceroscuro', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudopeq', 'Dlarun', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudopeq', 'Hizagkuur', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudopeq', 'Arandur', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopeq', 'Metal Vivo', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopeq', 'Mithril', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopeq', 'Adamantita', 'Escudo', '', 'cnr_base_sshield', 'Escudo pequeño de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudopeq', 'Hierro', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudopeq', 'Acero', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudopeq', 'Plata', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudopeq', 'Hierrofrio', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudopeq', 'Oro', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudopeq', 'Platino', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudopeq', 'Hierro Enardecido', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudopeq', 'Aceroscuro', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudopeq', 'Dlarun', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudopeq', 'Hizagkuur', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudopeq', 'Arandur', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopeq', 'Metal Vivo', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopeq', 'Mithril', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopeq', 'Adamantita', 'Escudo', '', 'cnr_b_sshield', 'Escudo pequeño de adamantita', '');
 
 -- PAVES
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudopav', 'Hierro', 'Escudo', '', 'cnr_base_tshield', 'Paves de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudopav', 'Acero', 'Escudo', '', 'cnr_base_tshield', 'Paves de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudopav', 'Plata', 'Escudo', '', 'cnr_base_tshield', 'Paves de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudopav', 'Hierrofrio', 'Escudo', '', 'cnr_base_tshield', 'Paves de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudopav', 'Oro', 'Escudo', '', 'cnr_base_tshield', 'Paves de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudopav', 'Platino', 'Escudo', '', 'cnr_base_tshield', 'Paves de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudopav', 'Hierro Enardecido', 'Escudo', '', 'cnr_base_tshield', 'Paves de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudopav', 'Aceroscuro', 'Escudo', '', 'cnr_base_tshield', 'Paves de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudopav', 'Dlarun', 'Escudo', '', 'cnr_base_tshield', 'Paves de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudopav', 'Hizagkuur', 'Escudo', '', 'cnr_base_tshield', 'Paves de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudopav', 'Arandur', 'Escudo', '', 'cnr_base_tshield', 'Paves de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopav', 'Metal Vivo', 'Escudo', '', 'cnr_base_tshield', 'Paves de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopav', 'Mithril', 'Escudo', '', 'cnr_base_tshield', 'Paves de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopav', 'Adamantita', 'Escudo', '', 'cnr_base_tshield', 'Paves de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_escudopav', 'Hierro', 'Escudo', '', 'cnr_b_tshield', 'Paves de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_escudopav', 'Acero', 'Escudo', '', 'cnr_b_tshield', 'Paves de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_escudopav', 'Plata', 'Escudo', '', 'cnr_b_tshield', 'Paves de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_escudopav', 'Hierrofrio', 'Escudo', '', 'cnr_b_tshield', 'Paves de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_escudopav', 'Oro', 'Escudo', '', 'cnr_b_tshield', 'Paves de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_escudopav', 'Platino', 'Escudo', '', 'cnr_b_tshield', 'Paves de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_escudopav', 'Hierro Enardecido', 'Escudo', '', 'cnr_b_tshield', 'Paves de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_escudopav', 'Aceroscuro', 'Escudo', '', 'cnr_b_tshield', 'Paves de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_escudopav', 'Dlarun', 'Escudo', '', 'cnr_b_tshield', 'Paves de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_escudopav', 'Hizagkuur', 'Escudo', '', 'cnr_b_tshield', 'Paves de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_escudopav', 'Arandur', 'Escudo', '', 'cnr_b_tshield', 'Paves de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopav', 'Metal Vivo', 'Escudo', '', 'cnr_b_tshield', 'Paves de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopav', 'Mithril', 'Escudo', '', 'cnr_b_tshield', 'Paves de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopav', 'Adamantita', 'Escudo', '', 'cnr_b_tshield', 'Paves de adamantita', '');
 
 -- YELMOS
-REPLACE INTO recipe_metadata VALUES ('recipe_hierro_yelmo', 'Hierro', 'Casco', '', 'cnr_base_helmet', 'Yelmo de hierro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_acero_yelmo', 'Acero', 'Casco', '', 'cnr_base_helmet', 'Yelmo de acero', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_plata_yelmo', 'Plata', 'Casco', '', 'cnr_base_helmet', 'Yelmo de plata', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_yelmo', 'Hierrofrio', 'Casco', '', 'cnr_base_helmet', 'Yelmo de hierrofrío', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_oro_yelmo', 'Oro', 'Casco', '', 'cnr_base_helmet', 'Yelmo de oro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_platino_yelmo', 'Platino', 'Casco', '', 'cnr_base_helmet', 'Yelmo de platino', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_yelmo', 'Hierro Enardecido', 'Casco', '', 'cnr_base_helmet', 'Yelmo de hierro enardecido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_yelmo', 'Aceroscuro', 'Casco', '', 'cnr_base_helmet', 'Yelmo de aceroscuro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_yelmo', 'Dlarun', 'Casco', '', 'cnr_base_helmet', 'Yelmo de dlarun', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_yelmo', 'Hizagkuur', 'Casco', '', 'cnr_base_helmet', 'Yelmo de hizagkuur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_arandur_yelmo', 'Arandur', 'Casco', '', 'cnr_base_helmet', 'Yelmo de arandur', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_yelmo', 'Metal Vivo', 'Casco', '', 'cnr_base_helmet', 'Yelmo de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_yelmo', 'Mithril', 'Casco', '', 'cnr_base_helmet', 'Yelmo de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_yelmo', 'Adamantita', 'Casco', '', 'cnr_base_helmet', 'Yelmo de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierro_yelmo', 'Hierro', 'Casco', '', 'cnr_b_helmet', 'Yelmo de hierro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_acero_yelmo', 'Acero', 'Casco', '', 'cnr_b_helmet', 'Yelmo de acero', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_plata_yelmo', 'Plata', 'Casco', '', 'cnr_b_helmet', 'Yelmo de plata', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierrofrio_yelmo', 'Hierrofrio', 'Casco', '', 'cnr_b_helmet', 'Yelmo de hierrofrío', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_oro_yelmo', 'Oro', 'Casco', '', 'cnr_b_helmet', 'Yelmo de oro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_platino_yelmo', 'Platino', 'Casco', '', 'cnr_b_helmet', 'Yelmo de platino', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hierroenardecido_yelmo', 'Hierro Enardecido', 'Casco', '', 'cnr_b_helmet', 'Yelmo de hierro enardecido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_aceroscuro_yelmo', 'Aceroscuro', 'Casco', '', 'cnr_b_helmet', 'Yelmo de aceroscuro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_dlarun_yelmo', 'Dlarun', 'Casco', '', 'cnr_b_helmet', 'Yelmo de dlarun', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_hizagkuur_yelmo', 'Hizagkuur', 'Casco', '', 'cnr_b_helmet', 'Yelmo de hizagkuur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_arandur_yelmo', 'Arandur', 'Casco', '', 'cnr_b_helmet', 'Yelmo de arandur', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_yelmo', 'Metal Vivo', 'Casco', '', 'cnr_b_helmet', 'Yelmo de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_yelmo', 'Mithril', 'Casco', '', 'cnr_b_helmet', 'Yelmo de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_yelmo', 'Adamantita', 'Casco', '', 'cnr_b_helmet', 'Yelmo de adamantita', '');
 
 -- PIEZAS LIGERAS DE CA 4
 -- The design CSV gives every tier-4 metal "4 o 5 CA" with the same second
 -- property. Only the 5 AC piece existed; these are the 4 AC ones, which keep
 -- the material's second property and cost one ingot less. Their own item
 -- types keep the 5 AC rows untouched.
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_cota_ca4', 'Metal Vivo', 'Armadura CA4', '', 'cnr_base_scale', 'Cota de escamas ligera de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_completa_ca4', 'Metal Vivo', 'Armadura CA4', '', 'cnr_base_plate', 'Armadura completa ligera de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudogra_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_base_lshield', 'Escudo grande ligero de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopeq_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_base_sshield', 'Escudo pequeño ligero de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopav_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_base_tshield', 'Paves ligero de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_yelmo_ca4', 'Metal Vivo', 'Casco CA4', '', 'cnr_base_helmet', 'Yelmo ligero de metal vivo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_cota_ca4', 'Mithril', 'Armadura CA4', '', 'cnr_base_scale', 'Cota de escamas ligera de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_completa_ca4', 'Mithril', 'Armadura CA4', '', 'cnr_base_plate', 'Armadura completa ligera de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudogra_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_base_lshield', 'Escudo grande ligero de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopeq_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_base_sshield', 'Escudo pequeño ligero de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopav_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_base_tshield', 'Paves ligero de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_mithril_yelmo_ca4', 'Mithril', 'Casco CA4', '', 'cnr_base_helmet', 'Yelmo ligero de mithril', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_cota_ca4', 'Adamantita', 'Armadura CA4', '', 'cnr_base_scale', 'Cota de escamas ligera de adamantita', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_completa_ca4', 'Adamantita', 'Armadura CA4', '', 'cnr_base_plate', 'Armadura completa ligera de adamantita', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudogra_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_base_lshield', 'Escudo grande ligero de adamantita', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopeq_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_base_sshield', 'Escudo pequeño ligero de adamantita', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopav_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_base_tshield', 'Paves ligero de adamantita', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_yelmo_ca4', 'Adamantita', 'Casco CA4', '', 'cnr_base_helmet', 'Yelmo ligero de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_cota_ca4', 'Metal Vivo', 'Armadura CA4', '', 'cnr_b_scale', 'Cota de escamas ligera de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_completa_ca4', 'Metal Vivo', 'Armadura CA4', '', 'cnr_b_plate', 'Armadura completa ligera de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudogra_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_b_lshield', 'Escudo grande ligero de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopeq_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_b_sshield', 'Escudo pequeño ligero de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_escudopav_ca4', 'Metal Vivo', 'Escudo CA4', '', 'cnr_b_tshield', 'Paves ligero de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_metalvivo_yelmo_ca4', 'Metal Vivo', 'Casco CA4', '', 'cnr_b_helmet', 'Yelmo ligero de metal vivo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_cota_ca4', 'Mithril', 'Armadura CA4', '', 'cnr_b_scale', 'Cota de escamas ligera de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_completa_ca4', 'Mithril', 'Armadura CA4', '', 'cnr_b_plate', 'Armadura completa ligera de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudogra_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_b_lshield', 'Escudo grande ligero de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopeq_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_b_sshield', 'Escudo pequeño ligero de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_escudopav_ca4', 'Mithril', 'Escudo CA4', '', 'cnr_b_tshield', 'Paves ligero de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_mithril_yelmo_ca4', 'Mithril', 'Casco CA4', '', 'cnr_b_helmet', 'Yelmo ligero de mithril', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_cota_ca4', 'Adamantita', 'Armadura CA4', '', 'cnr_b_scale', 'Cota de escamas ligera de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_completa_ca4', 'Adamantita', 'Armadura CA4', '', 'cnr_b_plate', 'Armadura completa ligera de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudogra_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_b_lshield', 'Escudo grande ligero de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopeq_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_b_sshield', 'Escudo pequeño ligero de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_escudopav_ca4', 'Adamantita', 'Escudo CA4', '', 'cnr_b_tshield', 'Paves ligero de adamantita', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_adamantita_yelmo_ca4', 'Adamantita', 'Casco CA4', '', 'cnr_b_helmet', 'Yelmo ligero de adamantita', '');
 
 -- POCIONES
 REPLACE INTO recipe_metadata VALUES ('recipe_agua_pura', 'Pocion', 'Consumible', '', 'sute_her_DM1', 'Agua Pura', 'sute_her_DM1');
@@ -390,39 +390,39 @@ REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_armadura_reforzada', '
 REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_armadura_reforzada', 'Cuero de dragón de rayo', 'Armadura de Cuero Reforzada', '', 'NW_AARCL002', 'Armadura reforzada de cuero de dragón de rayo', '');
 
 -- GUANTES DE CUERO (CNR)
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_guantes', 'Cuero de roedor', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de roedor', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_guantes', 'Cuero de herbívoro', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de herbívoro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_guantes', 'Cuero de bestia salvaje', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de bestia salvaje', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_guantes', 'Cuero de bestia salvaje grande', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de bestia salvaje grande', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_guantes', 'Cuero de bestia mítica', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de bestia mítica', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_guantes', 'Cuero de bestia mítica gruesa', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de bestia mítica gruesa', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_guantes', 'Cuero de dragón de fuego', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de dragón de fuego', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_guantes', 'Cuero de dragón de hielo', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de dragón de hielo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_guantes', 'Cuero de dragón de ácido', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de dragón de ácido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_guantes', 'Cuero de dragón de rayo', 'Guantes de cuero', '', 'cnr_base_gloves', 'Guantes de cuero de dragón de rayo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_guantes', 'Cuero de roedor', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de roedor', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_guantes', 'Cuero de herbívoro', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de herbívoro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_guantes', 'Cuero de bestia salvaje', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de bestia salvaje', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_guantes', 'Cuero de bestia salvaje grande', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de bestia salvaje grande', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_guantes', 'Cuero de bestia mítica', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de bestia mítica', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_guantes', 'Cuero de bestia mítica gruesa', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de bestia mítica gruesa', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_guantes', 'Cuero de dragón de fuego', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de dragón de fuego', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_guantes', 'Cuero de dragón de hielo', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de dragón de hielo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_guantes', 'Cuero de dragón de ácido', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de dragón de ácido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_guantes', 'Cuero de dragón de rayo', 'Guantes de cuero', '', 'cnr_b_gloves', 'Guantes de cuero de dragón de rayo', '');
 
 -- BRAZALES DE CUERO (CNR)
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_brazales', 'Cuero de roedor', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de roedor', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_brazales', 'Cuero de herbívoro', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de herbívoro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_brazales', 'Cuero de bestia salvaje', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de bestia salvaje', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_brazales', 'Cuero de bestia salvaje grande', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de bestia salvaje grande', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_brazales', 'Cuero de bestia mítica', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de bestia mítica', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_brazales', 'Cuero de bestia mítica gruesa', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de bestia mítica gruesa', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_brazales', 'Cuero de dragón de fuego', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de dragón de fuego', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_brazales', 'Cuero de dragón de hielo', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de dragón de hielo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_brazales', 'Cuero de dragón de ácido', 'Brazales de cuero', '', 'cnr_base_bracer', 'Brazales de cuero de dragón de ácido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_brazales', 'Cuero de roedor', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de roedor', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_brazales', 'Cuero de herbívoro', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de herbívoro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_brazales', 'Cuero de bestia salvaje', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de bestia salvaje', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_brazales', 'Cuero de bestia salvaje grande', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de bestia salvaje grande', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_brazales', 'Cuero de bestia mítica', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de bestia mítica', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_brazales', 'Cuero de bestia mítica gruesa', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de bestia mítica gruesa', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_brazales', 'Cuero de dragón de fuego', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de dragón de fuego', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_brazales', 'Cuero de dragón de hielo', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de dragón de hielo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_brazales', 'Cuero de dragón de ácido', 'Brazales de cuero', '', 'cnr_b_bracer', 'Brazales de cuero de dragón de ácido', '');
 
 -- BOTAS DE CUERO (CNR)
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_botas', 'Cuero de roedor', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de roedor', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_botas', 'Cuero de herbívoro', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de herbívoro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_botas', 'Cuero de bestia salvaje', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de bestia salvaje', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_botas', 'Cuero de bestia salvaje grande', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de bestia salvaje grande', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_botas', 'Cuero de bestia mítica', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de bestia mítica', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_botas', 'Cuero de bestia mítica gruesa', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de bestia mítica gruesa', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_botas', 'Cuero de dragón de fuego', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de dragón de fuego', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_botas', 'Cuero de dragón de hielo', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de dragón de hielo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_botas', 'Cuero de dragón de ácido', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de dragón de ácido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_botas', 'Cuero de dragón de rayo', 'Botas de cuero', '', 'cnr_base_boots', 'Botas de cuero de dragón de rayo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_botas', 'Cuero de roedor', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de roedor', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_botas', 'Cuero de herbívoro', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de herbívoro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_botas', 'Cuero de bestia salvaje', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de bestia salvaje', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_botas', 'Cuero de bestia salvaje grande', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de bestia salvaje grande', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_botas', 'Cuero de bestia mítica', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de bestia mítica', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_botas', 'Cuero de bestia mítica gruesa', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de bestia mítica gruesa', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_botas', 'Cuero de dragón de fuego', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de dragón de fuego', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_botas', 'Cuero de dragón de hielo', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de dragón de hielo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_botas', 'Cuero de dragón de ácido', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de dragón de ácido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_botas', 'Cuero de dragón de rayo', 'Botas de cuero', '', 'cnr_b_boots', 'Botas de cuero de dragón de rayo', '');
 
 -- CAPA DE PIEL (CNR)
 REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_capa', 'Cuero de roedor', 'Capa de piel', '', 'capadepiel', 'Capa de piel de roedor', '');
@@ -437,16 +437,16 @@ REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_capa', 'Cuero de drag�
 REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_capa', 'Cuero de dragón de rayo', 'Capa de piel', '', 'capadepiel', 'Capa de piel de dragón de rayo', '');
 
 -- CINTURÓN DE CUERO (CNR)
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_cinturon', 'Cuero de roedor', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de roedor', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_cinturon', 'Cuero de herbívoro', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de herbívoro', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_cinturon', 'Cuero de bestia salvaje', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de bestia salvaje', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_cinturon', 'Cuero de bestia salvaje grande', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de bestia salvaje grande', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_cinturon', 'Cuero de bestia mítica', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de bestia mítica', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_cinturon', 'Cuero de bestia mítica gruesa', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de bestia mítica gruesa', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_cinturon', 'Cuero de dragón de fuego', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de dragón de fuego', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_cinturon', 'Cuero de dragón de hielo', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de dragón de hielo', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_cinturon', 'Cuero de dragón de ácido', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de dragón de ácido', '');
-REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_cinturon', 'Cuero de dragón de rayo', 'Cinturón de cuero', '', 'cnr_base_belt', 'Cinturón de cuero de dragón de rayo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_roedor_cinturon', 'Cuero de roedor', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de roedor', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_herbivoro_cinturon', 'Cuero de herbívoro', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de herbívoro', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestia_cinturon', 'Cuero de bestia salvaje', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de bestia salvaje', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_bestiag_cinturon', 'Cuero de bestia salvaje grande', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de bestia salvaje grande', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_mitica_cinturon', 'Cuero de bestia mítica', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de bestia mítica', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_miticag_cinturon', 'Cuero de bestia mítica gruesa', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de bestia mítica gruesa', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragof_cinturon', 'Cuero de dragón de fuego', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de dragón de fuego', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoh_cinturon', 'Cuero de dragón de hielo', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de dragón de hielo', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragoa_cinturon', 'Cuero de dragón de ácido', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de dragón de ácido', '');
+REPLACE INTO recipe_metadata VALUES ('recipe_cuero_dragor_cinturon', 'Cuero de dragón de rayo', 'Cinturón de cuero', '', 'cnr_b_belt', 'Cinturón de cuero de dragón de rayo', '');
 
 -- Hierro
 REPLACE INTO material_properties VALUES ('Hierro', 'Arma', '', 'EnhancementBonus', 0, 1, 0);

@@ -674,20 +674,20 @@ def parse_carpentry_clause(clausula: str):
 # The list, with what each one is and which recipes use it, is in
 # documentation/oficios/cnr/base-items.md.
 CNR_BASE_ITEMS: Dict[str, str] = {
-    "nw_wswls001": "cnr_base_lsword",     # espada larga
-    "nw_ashlw001": "cnr_base_lshield",    # escudo grande
-    "nw_ashsw001": "cnr_base_sshield",    # escudo pequeno
-    "nw_wamar001": "cnr_base_arrow",      # flechas
-    "nw_wambo001": "cnr_base_bolt",       # virotes
-    "nw_wambu001": "cnr_base_bullet",     # balas de honda
-    "nw_wbwsh001": "cnr_base_sbow",       # arco corto
-    "nw_wbwln001": "cnr_base_lbow",       # arco largo
-    "nw_wbwxl001": "cnr_base_lxbow",      # ballesta ligera
-    "nw_wbwxh001": "cnr_base_hxbow",      # ballesta pesada
-    "nw_wblcl001": "cnr_base_club",       # clava
-    "nw_wdbqs001": "cnr_base_qstaff",     # baston
-    "nw_cloth029": "cnr_base_cloth",      # ropa, CA 0
-    "nw_aarcl004": "cnr_base_leather",    # armadura de cuero, CA 2
+    "nw_wswls001": "cnr_b_lsword",     # espada larga
+    "nw_ashlw001": "cnr_b_lshield",    # escudo grande
+    "nw_ashsw001": "cnr_b_sshield",    # escudo pequeno
+    "nw_wamar001": "cnr_b_arrow",      # flechas
+    "nw_wambo001": "cnr_b_bolt",       # virotes
+    "nw_wambu001": "cnr_b_bullet",     # balas de honda
+    "nw_wbwsh001": "cnr_b_sbow",       # arco corto
+    "nw_wbwln001": "cnr_b_lbow",       # arco largo
+    "nw_wbwxl001": "cnr_b_lxbow",      # ballesta ligera
+    "nw_wbwxh001": "cnr_b_hxbow",      # ballesta pesada
+    "nw_wblcl001": "cnr_b_club",       # clava
+    "nw_wdbqs001": "cnr_b_qstaff",     # baston
+    "nw_cloth029": "cnr_b_cloth",      # ropa, CA 0
+    "nw_aarcl004": "cnr_b_leather",    # armadura de cuero, CA 2
     # nw_aarcl013 no esta aqui a proposito: era una capa magica que servia a
     # tres familias de armadura a la vez, y cada una fue a su propio blueprint
     # en los ficheros de catalogo. Un mapa 1 a 1 no puede deshacer eso.
@@ -1930,7 +1930,7 @@ def main() -> int:
     # The rule exists because the opposite was believed to be true for six days
     # and was not. base-items.md said its table was "todo lo que el CNR puede
     # fabricar" and AGENTS.md said every weapon, armour, shield and ammunition
-    # type had its own cnr_base_*, while the scale mail, the full plate, the
+    # type had its own cnr_b_*, while the scale mail, the full plate, the
     # pavise, the helmet, the gloves, the boots, the belt, the bracers and the
     # cloak were still built from named blueprints the rest of the module uses -
     # guantesdecuero is handed out by the treasure scripts, capadepiel is worn by
@@ -1950,11 +1950,11 @@ def main() -> int:
                              encoding="utf-8")
     # Matched between the quotes of the JSON value, and with the underscore in
     # the character class. Reading the bare name stopped at the next underscore,
-    # so a palette entry for "cnr_base_lsword_x" was read as "cnr_base_lsword"
+    # so a palette entry for "cnr_b_lsword_x" was read as "cnr_b_lsword"
     # and an object that does not exist passed the check.
-    in_palette = set(re.findall(r'"(cnr_base_[a-z0-9_]+)"', palette_text))
+    in_palette = set(re.findall(r'"(cnr_b_[a-z0-9_]+)"', palette_text))
     on_disk = {path.name[: -len(".uti.json")]
-               for path in (ROOT / "src" / "cnr" / "uti").glob("cnr_base_*.uti.json")}
+               for path in (ROOT / "src" / "cnr" / "uti").glob("cnr_b_*.uti.json")}
     missing_from_palette = sorted(on_disk - in_palette)
     missing_from_disk = sorted(in_palette - on_disk)
     if missing_from_palette:
@@ -1988,14 +1988,14 @@ def main() -> int:
     }
     borrowed = []
     for resref, uses in sorted(shared_bases.items()):
-        if uses < 2 or resref.startswith("cnr_base_"):
+        if uses < 2 or resref.startswith("cnr_b_"):
             continue
         blueprint = blueprints_by_resref.get(normalize(resref))
         if blueprint and blueprint.base_item in SHARED_CONSUMABLE_BASE_ITEMS:
             continue
         borrowed.append(f"{resref} ({uses} recipes)")
     for resref, code in sorted(variant_bases.items()):
-        if resref.startswith("cnr_base_"):
+        if resref.startswith("cnr_b_"):
             continue
         blueprint = blueprints_by_resref.get(normalize(resref))
         if blueprint and blueprint.base_item in SHARED_CONSUMABLE_BASE_ITEMS:
@@ -2004,7 +2004,7 @@ def main() -> int:
     if borrowed:
         raise ValueError(
             "These base blueprints are shared by several recipes and are not the "
-            "trade's own; give each type a cnr_base_* copy: " + ", ".join(borrowed)
+            "trade's own; give each type a cnr_b_* copy: " + ", ".join(borrowed)
         )
 
     copper_recipes = [

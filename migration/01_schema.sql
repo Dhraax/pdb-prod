@@ -267,7 +267,7 @@ CREATE TABLE cnr_arcane_property (
   tier           TINYINT           NOT NULL,   -- 1..4, from the loot rarity
   essence_resref VARCHAR(16)       NOT NULL,   -- cnr_esen*, tag = resref
   essence_name   VARCHAR(96)       NOT NULL,   -- como lo ve el jugador
-  crystal_resref VARCHAR(16)       NOT NULL,   -- cnr_cristal1..6
+  crystal_resref VARCHAR(16)       NOT NULL,   -- cnr_c_1..6
   crystal_name   VARCHAR(96)       NOT NULL,
   -- Donde cae la esencia, tal cual lo escribio el diseno. La ventana lo
   -- muestra para que el jugador sepa que romper.

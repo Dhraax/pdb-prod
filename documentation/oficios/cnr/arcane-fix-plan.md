@@ -177,14 +177,14 @@ property of each tier:**
 
 | Essence | Material | Tier 2 use | Tier 3 use |
 |---|---|---|---|
-| `cnr_esen63` | Pesuño de bestia de Málar | Cortante, immunity | Daño cortante |
-| `cnr_esen64` | Colmillo de abishái | Perforante, immunity | Daño perforante |
-| `cnr_esen65` | Vellosidad de alaghi | Contundente, immunity | Daño contundente |
-| `cnr_esen66` | Espolón de dragónido | Fuego, immunity | Fuego, damage |
-| `cnr_esen67` | Claridad de nyzh | Trueno, immunity | Trueno, damage |
-| `cnr_esen68` | Hálito de dragón del canto | Relámpago, immunity | Relámpago, damage |
-| `cnr_esen69` | Escama de asabi | Ácido, immunity | Ácido, damage |
-| `cnr_esen70` | Gotas de ábalin | Frío, immunity | Frío, damage |
+| `cnr_e_63` | Pesuño de bestia de Málar | Cortante, immunity | Daño cortante |
+| `cnr_e_64` | Colmillo de abishái | Perforante, immunity | Daño perforante |
+| `cnr_e_65` | Vellosidad de alaghi | Contundente, immunity | Daño contundente |
+| `cnr_e_66` | Espolón de dragónido | Fuego, immunity | Fuego, damage |
+| `cnr_e_67` | Claridad de nyzh | Trueno, immunity | Trueno, damage |
+| `cnr_e_68` | Hálito de dragón del canto | Relámpago, immunity | Relámpago, damage |
+| `cnr_e_69` | Escama de asabi | Ácido, immunity | Ácido, damage |
+| `cnr_e_70` | Gotas de ábalin | Frío, immunity | Frío, damage |
 
 The same material either wards off a damage type or adds it, and the two uses
 sit at different tiers. Recolouring them to goldenrod would have mislabelled

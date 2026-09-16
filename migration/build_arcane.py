@@ -214,12 +214,12 @@ GROUPS: List[Tuple[str, str, str, List[int], bool]] = [
 DOUBLE_CRYSTAL = {"arma_toda_x2": [51, 42, 53]}
 
 CRYSTALS = {
-    "Nishruu": "cnr_cristal1",
-    "Fénix": "cnr_cristal2",
-    "Hada": "cnr_cristal3",
-    "Dragón": "cnr_cristal4",
-    "Contemplador": "cnr_cristal5",
-    "Sombra": "cnr_cristal6",
+    "Nishruu": "cnr_c_1",
+    "Fénix": "cnr_c_2",
+    "Hada": "cnr_c_3",
+    "Dragón": "cnr_c_4",
+    "Contemplador": "cnr_c_5",
+    "Sombra": "cnr_c_6",
 }
 
 # Immunity is an index into iprp_immuncost.2da, not a percentage: 5% is 1,

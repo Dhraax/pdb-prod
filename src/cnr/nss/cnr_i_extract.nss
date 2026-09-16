@@ -67,7 +67,7 @@ const float CNR_EXT_SEAL_SECONDS = 6.0f;
 /// Chance, per broken item, of also yielding one crystal.
 const int CNR_EXT_CRYSTAL_CHANCE = 20;
 
-/// How many crystals exist. Their resrefs are cnr_cristal1..6.
+/// How many crystals exist. Their resrefs are cnr_c_1..6.
 const int CNR_EXT_CRYSTAL_COUNT = 6;
 
 /// How many items the machine takes in one go. Three, and it refuses the whole

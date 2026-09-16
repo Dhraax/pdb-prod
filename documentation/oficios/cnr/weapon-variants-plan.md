@@ -80,7 +80,7 @@ Tabla nueva, en `migration/01_schema.sql`:
 CREATE TABLE cnr_variant (
   variant_id   INT          NOT NULL AUTO_INCREMENT,
   group_code   VARCHAR(32)  NOT NULL,   -- 'smith_weapon', 'wood_weapon'
-  base_resref  VARCHAR(16)  NOT NULL,   -- cnr_base_dagger
+  base_resref  VARCHAR(16)  NOT NULL,   -- cnr_b_dagger
   display_name VARCHAR(64)  NOT NULL,   -- 'Daga'
   sort_order   INT          NOT NULL DEFAULT 0,
   PRIMARY KEY (variant_id),
@@ -187,7 +187,7 @@ Se repasan todas las de `cnr_i_craft.nss` y las nuevas:
 - `migration/catalogue/cnrcarpsbench.json`: igual con las 16.
 - Fichero nuevo `migration/catalogue/variants.json` con las 49 variantes, que es
   lo que genera la tabla. Son 50 desde el 2026-08-27: la daga de hechicería
-  (`cnr_base_sdagger`, base 514) entró al grupo para que la mesa arcana pudiera
+  (`cnr_b_sdagger`, base 514) entró al grupo para que la mesa arcana pudiera
   aceptarla, y añadir un producto al grupo no crea ninguna receta ni mueve un
   solo `public_id`.
 - `build_catalogue.py` emite `cnr_variant` y la columna nueva, y se actualizan

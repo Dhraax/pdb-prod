@@ -61,7 +61,7 @@ which owns the order, backups, validation and rollback.
 | [`arcane-build-log.md`](arcane-build-log.md) | **Active.** What is built, what is pending, what still has to be checked in game, and the decisions already taken |
 | [`arcane-plan.md`](arcane-plan.md) | **Active.** How the arcane trade works: crystal as catalyst, essences as quantity, the per-family scaling, the tier taken from loot rarity, and what the engine still cannot do |
 | [`arcane-fix-plan.md`](arcane-fix-plan.md) | Historical implementation record for the 2026-08-23 Arcane corrections; in-game regression remains tracked in the active build log and changelog |
-| [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 53 `cnr_esen*` / `cnr_cristal*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
+| [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 53 `cnr_e_*` / `cnr_cristal*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
 | [`material-properties-reference.md`](material-properties-reference.md) | Numeric item-property contracts used to audit and generate recipe properties |
 | [`history/`](history/README.md) | Completed CNR investigations retained for provenance, not current behavior |
 | [`../../../migration/legacy-catalogue-seed.sql`](../../../migration/legacy-catalogue-seed.sql) | Archive of the retired legacy seed; never apply it to a live database |

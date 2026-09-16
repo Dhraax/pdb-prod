@@ -17,8 +17,8 @@ validation; avoid copying its volatile counts here.
 
 | Recurso | Estado |
 |---|---|
-| **129 esencias** `cnr_esen1..129` | En paleta, tag = resref = fichero. 93 en alguna bolsa, 36 sin uso |
-| **6 cristales** `cnr_cristal1..6` | Nishruu, Fénix, Hada, Dragón, Contemplador, Sombra. Los dos últimos creados; Hada y Dragón eran Quimera y Leviatán |
+| **129 esencias** `cnr_e_1..129` | En paleta, tag = resref = fichero. 93 en alguna bolsa, 36 sin uso |
+| **6 cristales** `cnr_c_1..6` | Nishruu, Fénix, Hada, Dragón, Contemplador, Sombra. Los dos últimos creados; Hada y Dragón eran Quimera y Leviatán |
 | **La mesa** `cnrArcaneTable` | Blueprint normalizado, colocado y cableado al runtime de Arcano |
 | **La máquina de extracción** | Implementada como `cnrExtractor`; sus comprobaciones pendientes viven en el build log |
 | `documentation/oficios/arcano.json` | 105 filas con `tier`, `orden`, `dc`, `min_level`, `xp`, el contrato numérico de la propiedad, y `material_tag`/`material_resref` de cada esencia |
@@ -350,7 +350,7 @@ Eso no es un conflicto: **salen por las dos vías y por tanto son más
 frecuentes**, que es justo lo que corresponde, porque también son las que
 demandan dos familias de recetas en vez de una.
 
-En total, 93 de los 129 blueprints `cnr_esen*` están en alguna bolsa.
+En total, 93 de los 129 blueprints `cnr_e_*` están en alguna bolsa.
 
 Que la esencia salga al azar dentro de su bolsa es lo que empuja el comercio:
 un jugador que busca *Piruetas* romperá objetos y le irán saliendo *Saltar* y
@@ -474,7 +474,7 @@ Al escribir la tabla de tipos, dos que no son obvios:
   craftear; nada más la pone. `item_dagahechi` es botín, así que meter la 514 en
   el grupo no habría bastado: la mesa habría seguido rechazando la daga que el
   jugador trae. Entró como producto número 50 de `smith_weapon`, con blueprint
-  propio `cnr_base_sdagger` limpio de propiedades. Añadir un producto a un grupo
+  propio `cnr_b_sdagger` limpio de propiedades. Añadir un producto a un grupo
   de variantes no crea ninguna receta ni mueve un `public_id`. Ver
   [`base-items.md`](base-items.md), que registra la decisión que esto revierte.
 
