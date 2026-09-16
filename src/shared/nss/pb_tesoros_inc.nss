@@ -642,7 +642,7 @@ void CrearBasura(object oObjetivo, int iRango, int iTienda = FALSE)
 {
   string sResref;
 
-  switch(Random(210)+1)
+  switch(Random(196)+1)
   {
       case 1: sResref = "nw_it_thnmisc00" + IntToString(Random(4)+1); break; // botellas vacías (4 tipos)
       case 2: sResref = "nw_it_mmidmisc05"; break;   // carne
@@ -839,37 +839,23 @@ void CrearBasura(object oObjetivo, int iRango, int iTienda = FALSE)
       case 177: sResref = "receta08" + IntToString(Random(3)+1); break;
       case 178: sResref = "receta098"; break;
       case 179: sResref = "raizdenara"; break;
-      case 180: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+1); break;   // Diagramas de artesanía urdimbrica (son 25)
-      case 181: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+3); break;
-      case 182: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+5); break;
-      case 183: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+7); break;
-      case 184: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+9); break;
-      case 185: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+11); break;
-      case 186: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+13); break;
-      case 187: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+15); break;
-      case 188: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+17); break;
-      case 189: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+19); break;
-      case 190: sResref = "pb_ofi_artdiag" + IntToString(Random(2)+21); break;
-      case 191: sResref = "pb_ofi_artdiag" + IntToString(Random(3)+23); break;
-      case 192: sResref = "pb_artesa_polvo" + IntToString(Random(4)+1); break;  // Polvos de escuelas magicas (son 8)
-      case 193: sResref = "pb_artesa_polvo" + IntToString(Random(4)+5); break;
-      case 194: sResref = "pb_artesa_car" + IntToString(Random(3)); break;      // Esencias de caracteristicas (son 6)
-      case 195: sResref = "pb_artesa_car" + IntToString(Random(3)+3); break;
-      case 196: sResref = "libro_veneno"; break;
-      case 197: sResref = "libro_veneno_001"; break;
-      case 198: sResref = "libro_veneno_002"; break;
-      case 199: sResref = "libro_veneno_003"; break;
-      case 200: sResref = "libro_veneno_006"; break;
-      case 201: sResref = "libro_veneno_007"; break;
-      case 202: sResref = "libro_veneno_008"; break;
-      case 203: sResref = "libro_veneno_009"; break;
-      case 204: sResref = "libro_veneno_011"; break;
-      case 205: sResref = "libro_veneno_019"; break;
-      case 206: sResref = "libro_veneno_020"; break;
-      case 207: sResref = "libro_veneno_025"; break;
-      case 208: sResref = "rec_fundidor_" + IntToString(Random(6)+1); break; // Recetas de fundición
-      case 209: sResref = "rec_curtidor_" + IntToString(Random(3)+1); break; // Recetas de curtiduría
-      case 210: sResref = "rec_marroquineri"; break; // Receta de marroquineríaa
+      case 180: sResref = "pb_artesa_polvo" + IntToString(Random(4)+1); break;  // Polvos de escuelas magicas (son 8)
+      case 181: sResref = "pb_artesa_polvo" + IntToString(Random(4)+5); break;
+      case 182: sResref = "pb_artesa_car" + IntToString(Random(3)); break;      // Esencias de caracteristicas (son 6)
+      case 183: sResref = "pb_artesa_car" + IntToString(Random(3)+3); break;
+      case 184: sResref = "libro_veneno"; break;
+      case 185: sResref = "libro_veneno_001"; break;
+      case 186: sResref = "libro_veneno_002"; break;
+      case 187: sResref = "libro_veneno_003"; break;
+      case 188: sResref = "libro_veneno_006"; break;
+      case 189: sResref = "libro_veneno_007"; break;
+      case 190: sResref = "libro_veneno_008"; break;
+      case 191: sResref = "libro_veneno_009"; break;
+      case 192: sResref = "libro_veneno_011"; break;
+      case 193: sResref = "libro_veneno_019"; break;
+      case 194: sResref = "libro_veneno_020"; break;
+      case 195: sResref = "libro_veneno_025"; break;
+      case 196: sResref = "rec_marroquineri"; break; // Receta de marroquineríaa
 
   }
 
