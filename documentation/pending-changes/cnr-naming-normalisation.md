@@ -41,7 +41,7 @@ rest is an abbreviation. Tag and resref are always identical from now on.
 
 **One exception: the potions.** `sute_her_*` keep their names because
 `pb_mod_activate` dispatches on the tag prefix, and renaming them means rewriting
-that dispatch. 22 blueprints.
+that dispatch. 34 blueprints, all under `src/cnr/uti`.
 
 The generated map is 507 names, all unique, none over 16 characters.
 
@@ -69,12 +69,16 @@ aborts if they drop.
 
 Each one is a commit of its own, with its changelog entry and its audit.
 
-1. **Move into `src/cnr`.** Done. Three blueprints the catalogue needs
-   (`martillo_herrero`, `sapo_plnt12_capu`, the jeweller's kit), the eight
-   scripts of the material store and the store opener, and the store's two
-   placeables. No name changes, so nothing can break: only the path moves.
-   The figure of 152 in the first draft of this document was wrong; it came
-   from the material store's old ingredient list, which no longer exists.
+1. **Move into `src/cnr`.** Done. Fifteen blueprints: the three the catalogue
+   names that were still in `src/shared/uti` (`martillo_herrero`,
+   `sapo_plnt12_capu`, the jeweller's kit), and the twelve `sute_her_*` of the
+   alchemy family that were still there while their 22 siblings were already in
+   `src/cnr/uti`. Then the eight scripts of the material
+   store and the store opener, and the store's two placeables. No name changes,
+   so nothing can break: only the path moves. The potions are exempt from the
+   `cnr_` name, never from the location. The figure of 152 in the first draft
+   of this document was wrong; it came from the material store's old ingredient
+   list, which no longer exists.
 2. **Rename what is already `cnr_*`**: the 76 bases, 129 essences and 6 crystals
    shorten to `cnr_b_*`, `cnr_e_*`, `cnr_c_*`.
 3. **Rename the gems and the jewellery**: 28 rough, 28 cut, 56 pieces.
