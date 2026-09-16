@@ -1530,8 +1530,17 @@ def main() -> int:
     jewelry_gem_names = [
         material.code
         for material in materials
-        if material.profession_id == 5 and material.code.startswith("bru_")
+        if material.profession_id == 5 and material.code.startswith("cnr_g_")
     ]
+    # This list orders the jewellery recipes by gem. Filtered by a name prefix,
+    # it went silently empty when the rough gems were renamed from bru_* to
+    # cnr_g_*, and every jewellery recipe fell back to its position on the bench
+    # for tier, level, DC and XP: a cut emerald went from level 16 to level 4.
+    # An empty list is not a valid state, so it is not allowed to be one.
+    if len(jewelry_gem_names) != 28:
+        raise ValueError(
+            f"Expected 28 jewellery gem materials named cnr_g_*, found {len(jewelry_gem_names)}"
+        )
     leather_names = [material.code for material in materials if material.profession_id == 3]
     carpentry_names = [material.code for material in materials if material.profession_id == 2]
     sewing_names = [material.code for material in materials if material.profession_id == 7]
