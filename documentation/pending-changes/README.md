@@ -17,3 +17,4 @@ move to that module's history or are folded into its current documentation.
 | [**Caster level**](caster-level.md) | Partially implemented: the engine-facing prestige modifier is live in source; consolidation of the module calculation, the cast gate and remaining probes is still open. Current behavior is in `../rules/caster-level.md` |
 | [Loot weapon distribution](loot-weapon-distribution.md) | Pending review |
 | [`cnr-naming-normalisation.md`](cnr-naming-normalisation.md) | **Aceptado, en curso.** Llevar todo lo del CNR bajo `src/cnr` y a nombres `cnr_*`, resref y tag iguales: el esquema, lo que toca, las cinco fases y cómo se verifica cada una |
+| [`cnr-naming-slice4-map.md`](cnr-naming-slice4-map.md) | La tabla exacta de la fase 4: resref y tag viejos y nuevos de cada uno de los 153 blueprints renombrados |
