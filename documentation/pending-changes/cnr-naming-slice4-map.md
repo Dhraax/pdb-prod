@@ -8,6 +8,9 @@ price copies of the light hammer were byte-identical apart from their resref, so
 
 Tag equals resref except in the owner-approved shared-tool families, marked **shared**.
 
+`cnr_t_martpesado`, the heavy hammer, was removed after this slice: no station,
+recipe, area or creature used it. Its row stays as the record of the rename.
+
 ## Materials `cnr_m_*`
 
 | Old resref | Old tag | New resref | New tag | Displayed name |

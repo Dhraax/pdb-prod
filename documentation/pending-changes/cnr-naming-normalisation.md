@@ -43,7 +43,7 @@ share that tool's tag. Today that is the four light hammers (`cnr_t_martligero`,
 | `cnr_m_*` | material: nugget `pe`, ingot `li`, hide `pi`, leather `cu`, log `le`, plank `ta` | 67 |
 | `cnr_p_*` | component and processed stock: plants, reagents, grit `po`, rods `ci`, rings `ar`, chains `ca`, carpentry and smithing parts | 50 |
 | `cnr_b_veneno_*` | poison flask bases | 4 |
-| `cnr_t_*` | tool, mould `mo`, template `pl`, kit, work gloves `gu`, hammers, needles | 32 |
+| `cnr_t_*` | tool, mould `mo`, template `pl`, kit, work gloves `gu`, hammers, needles | 31 |
 
 Metals take the code of the vein that drops them (`oscuro`, `enardec`, `frio`,
 `vivo`...), so nugget, ingot and vein agree. Woods and gems take the name the
