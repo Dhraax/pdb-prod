@@ -8,6 +8,7 @@
 //         executed from "cnr_module_oml".
 //
 //  Author: David Bobeck 08May03
+//  modified by: Dhraax
 //
 /////////////////////////////////////////////////////////
 #include "cnr_source_inc"

@@ -1,3 +1,4 @@
+// modified by: Dhraax
 int StartingConditional()
 {
 object oPC = GetPCSpeaker();
