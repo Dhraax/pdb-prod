@@ -26,6 +26,9 @@ const string ALM_MIGRADO = "CNR_ALMACEN_MIGRADO";
 /// Written once the essences and crystals have been moved to the short keys.
 const string ALM_RENOMBRADO = "CNR_ALMACEN_RENOMBRADO";
 
+/// Written once the gems have been moved to the short keys.
+const string ALM_GEMAS = "CNR_ALMACEN_GEMAS";
+
 /// How many essences and crystals exist, so the rename knows what to look for.
 const int ALM_NUM_ESENCIAS = 129;
 const int ALM_NUM_CRISTALES = 6;
@@ -133,11 +136,98 @@ void AlmRenombrar(object oPC)
     }
 }
 
+/// @brief Carry the stored gems over to the short CNR keys.
+///
+///        Slice 3 of the naming normalisation renamed the 28 rough stones and
+///        the 28 cut ones. The legacy suffixes did not agree with each other -
+///        the rough amethyst was bru_per and the rough red tear bru_lagrimar
+///        while the king's tear was bru_lagrey - so this is a table, not a
+///        prefix rule, and it is written out one line per stone.
+/// @param oPC The player who opened the store.
+void AlmRenombrarGemas(object oPC)
+{
+    if (ObtenerIntPersistente(oPC, ALM_GEMAS) > 0)
+    {
+        return;
+    }
+
+    int nMovidas = 0;
+
+    // The rough stones, out of a vein.
+    nMovidas += AlmMueveClave(oPC, "bru_amar", "cnr_g_amar");
+    nMovidas += AlmMueveClave(oPC, "bru_per", "cnr_g_amat");
+    nMovidas += AlmMueveClave(oPC, "bru_aza", "cnr_g_aza");
+    nMovidas += AlmMueveClave(oPC, "bru_barra", "cnr_g_barra");
+    nMovidas += AlmMueveClave(oPC, "bru_bel", "cnr_g_bel");
+    nMovidas += AlmMueveClave(oPC, "bru_cor", "cnr_g_cor");
+    nMovidas += AlmMueveClave(oPC, "bru_cuarzo", "cnr_g_cuar");
+    nMovidas += AlmMueveClave(oPC, "bru_diam", "cnr_g_diam");
+    nMovidas += AlmMueveClave(oPC, "bru_esme", "cnr_g_esme");
+    nMovidas += AlmMueveClave(oPC, "bru_jac", "cnr_g_jac");
+    nMovidas += AlmMueveClave(oPC, "bru_jade", "cnr_g_jade");
+    nMovidas += AlmMueveClave(oPC, "bru_lagrey", "cnr_g_lagrey");
+    nMovidas += AlmMueveClave(oPC, "bru_lagrimar", "cnr_g_lagroj");
+    nMovidas += AlmMueveClave(oPC, "bru_obs", "cnr_g_obs");
+    nMovidas += AlmMueveClave(oPC, "bru_opalo", "cnr_g_opalo");
+    nMovidas += AlmMueveClave(oPC, "bru_opaloa", "cnr_g_opaloa");
+    nMovidas += AlmMueveClave(oPC, "bru_opalof", "cnr_g_opalof");
+    nMovidas += AlmMueveClave(oPC, "bru_opalon", "cnr_g_opalon");
+    nMovidas += AlmMueveClave(oPC, "bru_orblen", "cnr_g_orblen");
+    nMovidas += AlmMueveClave(oPC, "bru_orlo", "cnr_g_orlo");
+    nMovidas += AlmMueveClave(oPC, "bru_picara", "cnr_g_pic");
+    nMovidas += AlmMueveClave(oPC, "bru_rubi", "cnr_g_rubi");
+    nMovidas += AlmMueveClave(oPC, "bru_rubiestre", "cnr_g_rubie");
+    nMovidas += AlmMueveClave(oPC, "bru_top", "cnr_g_top");
+    nMovidas += AlmMueveClave(oPC, "bru_zaf", "cnr_g_zaf");
+    nMovidas += AlmMueveClave(oPC, "bru_zafestre", "cnr_g_zafe");
+    nMovidas += AlmMueveClave(oPC, "bru_zafnegro", "cnr_g_zafn");
+    nMovidas += AlmMueveClave(oPC, "bru_zen", "cnr_g_zen");
+
+    // The cut stones, off the jeweller's bench.
+    nMovidas += AlmMueveClave(oPC, "cnr_amar", "cnr_q_amar");
+    nMovidas += AlmMueveClave(oPC, "cnr_per", "cnr_q_amat");
+    nMovidas += AlmMueveClave(oPC, "cnr_aza", "cnr_q_aza");
+    nMovidas += AlmMueveClave(oPC, "cnr_barra", "cnr_q_barra");
+    nMovidas += AlmMueveClave(oPC, "cnr_bel", "cnr_q_bel");
+    nMovidas += AlmMueveClave(oPC, "cnr_cor", "cnr_q_cor");
+    nMovidas += AlmMueveClave(oPC, "cnr_cuarzo", "cnr_q_cuar");
+    nMovidas += AlmMueveClave(oPC, "cnr_diam", "cnr_q_diam");
+    nMovidas += AlmMueveClave(oPC, "cnr_esme", "cnr_q_esme");
+    nMovidas += AlmMueveClave(oPC, "cnr_jac", "cnr_q_jac");
+    nMovidas += AlmMueveClave(oPC, "cnr_jade", "cnr_q_jade");
+    nMovidas += AlmMueveClave(oPC, "cnr_lagrey", "cnr_q_lagrey");
+    nMovidas += AlmMueveClave(oPC, "cnr_lagrimar", "cnr_q_lagroj");
+    nMovidas += AlmMueveClave(oPC, "cnr_obs", "cnr_q_obs");
+    nMovidas += AlmMueveClave(oPC, "cnr_opalo", "cnr_q_opalo");
+    nMovidas += AlmMueveClave(oPC, "cnr_opaloa", "cnr_q_opaloa");
+    nMovidas += AlmMueveClave(oPC, "cnr_opalof", "cnr_q_opalof");
+    nMovidas += AlmMueveClave(oPC, "cnr_opalon", "cnr_q_opalon");
+    nMovidas += AlmMueveClave(oPC, "cnr_orblen", "cnr_q_orblen");
+    nMovidas += AlmMueveClave(oPC, "cnr_orlo", "cnr_q_orlo");
+    nMovidas += AlmMueveClave(oPC, "cnr_picara", "cnr_q_pic");
+    nMovidas += AlmMueveClave(oPC, "cnr_rubi", "cnr_q_rubi");
+    nMovidas += AlmMueveClave(oPC, "cnr_rubiestre", "cnr_q_rubie");
+    nMovidas += AlmMueveClave(oPC, "cnr_top", "cnr_q_top");
+    nMovidas += AlmMueveClave(oPC, "cnr_zaf", "cnr_q_zaf");
+    nMovidas += AlmMueveClave(oPC, "cnr_zafestre", "cnr_q_zafe");
+    nMovidas += AlmMueveClave(oPC, "cnr_zafnegro", "cnr_q_zafn");
+    nMovidas += AlmMueveClave(oPC, "cnr_zen", "cnr_q_zen");
+
+    GuardarIntPersistente(oPC, ALM_GEMAS, 1);
+
+    if (nMovidas > 0)
+    {
+        SendMessageToPC(oPC, "Almacen: " + IntToString(nMovidas)
+            + " gema(s) pasan al nombre nuevo.");
+    }
+}
+
 /// @brief Convert this character's store, once.
 /// @param oPC The player who opened the store.
 void AlmMigrar(object oPC)
 {
     AlmRenombrar(oPC);
+    AlmRenombrarGemas(oPC);
 
     if (ObtenerIntPersistente(oPC, ALM_MIGRADO) > 0)
     {

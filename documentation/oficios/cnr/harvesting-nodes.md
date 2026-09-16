@@ -129,16 +129,16 @@ Cada veta da varias, elegida al azar entre las suyas:
 
 | Ubicado | `TIPOPIEDRA` | Soltaba |
 |---|--:|---|
-| `veta_meta` | 1 | `bru_cuarzo`, `bru_obs`, `bru_aza`, `bru_per`, `bru_cor` |
-| `veta_berilo` | 2 | `bru_per`, `bru_top`, `bru_esme` |
-| `veta_opalos` | 3 | `bru_opalo`, `bru_opaloa`, `bru_opalof`, `bru_opalon` |
-| `veta_cristal` | 4 | `bru_lagrimar`, `bru_orblen`, `bru_orlo`, `bru_zen` |
-| `veta_maravillosa` | 5 | `bru_bel`, `bru_orblen`, `bru_lagrey`, `bru_picara` |
-| `veta_costera` | 6 | `bru_jade`, `bru_amar`, `bru_barra` |
-| `veta_corindon` | 7 | `bru_zaf`, `bru_rubi`, `bru_jac`, `bru_zafnegro`, `bru_zafestre`, `bru_rubiestre` |
-| `veta_diamante` | 8 | `bru_diam` |
+| `veta_meta` | 1 | `cnr_g_cuar`, `cnr_g_obs`, `cnr_g_aza`, `cnr_g_amat`, `cnr_g_cor` |
+| `veta_berilo` | 2 | `cnr_g_amat`, `cnr_g_top`, `cnr_g_esme` |
+| `veta_opalos` | 3 | `cnr_g_opalo`, `cnr_g_opaloa`, `cnr_g_opalof`, `cnr_g_opalon` |
+| `veta_cristal` | 4 | `cnr_g_lagroj`, `cnr_g_orblen`, `cnr_g_orlo`, `cnr_g_zen` |
+| `veta_maravillosa` | 5 | `cnr_g_bel`, `cnr_g_orblen`, `cnr_g_lagrey`, `cnr_g_pic` |
+| `veta_costera` | 6 | `cnr_g_jade`, `cnr_g_amar`, `cnr_g_barra` |
+| `veta_corindon` | 7 | `cnr_g_zaf`, `cnr_g_rubi`, `cnr_g_jac`, `cnr_g_zafn`, `cnr_g_zafe`, `cnr_g_rubie` |
+| `veta_diamante` | 8 | `cnr_g_diam` |
 
-Son 28 salidas para 28 gemas del oficio, con `bru_per` y `bru_orblen` en dos
+Son 28 salidas para 28 gemas del oficio, con `cnr_g_amat` y `cnr_g_orblen` en dos
 vetas cada una.
 
 ### Plantas — herboristería
@@ -539,14 +539,14 @@ Detalles de la implementación que conviene saber:
 | `cnr_arbol_olmo` | Olmo | arbol | 3 | `carplenyo_olmo` | `carp_at6` |
 | `cnr_arbol_pino` | Pino | arbol | 1 | `carplenyo_pino` | `carp_at1` |
 | `cnr_arbol_roble` | Roble | arbol | 4 | `carplenyo_roble` | `carp_at7` |
-| `cnr_gema_berilo` | Veta de berilos | gema | 2 | `bru_per;bru_top;bru_esme` | `veta_berilo` |
-| `cnr_gema_corind` | Veta de corindones | gema | 3 | `bru_zaf;bru_rubi;bru_jac;bru_zafnegro;bru_zafestre;bru_rubiestre` | `veta_corindon` |
-| `cnr_gema_costa` | Veta costera | gema | 3 | `bru_jade;bru_amar;bru_barra` | `veta_costera` |
-| `cnr_gema_cristal` | Veta de cristal | gema | 2 | `bru_lagrimar;bru_orblen;bru_orlo;bru_zen` | `veta_cristal` |
-| `cnr_gema_diaman` | Veta de diamantes | gema | 2 | `bru_diam` | `veta_diamante` |
-| `cnr_gema_marav` | Veta maravillosa | gema | 2 | `bru_bel;bru_orblen;bru_lagrey;bru_picara` | `veta_maravillosa` |
-| `cnr_gema_meta` | Veta metamorfica | gema | 1 | `bru_cuarzo;bru_obs;bru_aza;bru_per;bru_cor` | `veta_meta` |
-| `cnr_gema_opalo` | Veta de opalos | gema | 1 | `bru_opalo;bru_opaloa;bru_opalof;bru_opalon` | `veta_opalos` |
+| `cnr_gema_berilo` | Veta de berilos | gema | 2 | `cnr_g_amat;cnr_g_top;cnr_g_esme` | `veta_berilo` |
+| `cnr_gema_corind` | Veta de corindones | gema | 3 | `cnr_g_zaf;cnr_g_rubi;cnr_g_jac;cnr_g_zafn;cnr_g_zafe;cnr_g_rubie` | `veta_corindon` |
+| `cnr_gema_costa` | Veta costera | gema | 3 | `cnr_g_jade;cnr_g_amar;cnr_g_barra` | `veta_costera` |
+| `cnr_gema_cristal` | Veta de cristal | gema | 2 | `cnr_g_lagroj;cnr_g_orblen;cnr_g_orlo;cnr_g_zen` | `veta_cristal` |
+| `cnr_gema_diaman` | Veta de diamantes | gema | 2 | `cnr_g_diam` | `veta_diamante` |
+| `cnr_gema_marav` | Veta maravillosa | gema | 2 | `cnr_g_bel;cnr_g_orblen;cnr_g_lagrey;cnr_g_pic` | `veta_maravillosa` |
+| `cnr_gema_meta` | Veta metamorfica | gema | 1 | `cnr_g_cuar;cnr_g_obs;cnr_g_aza;cnr_g_amat;cnr_g_cor` | `veta_meta` |
+| `cnr_gema_opalo` | Veta de opalos | gema | 1 | `cnr_g_opalo;cnr_g_opaloa;cnr_g_opalof;cnr_g_opalon` | `veta_opalos` |
 | `cnr_pl_ardor` | Ardor desertico | planta | 2 | `ardorDesertico` | `sute_her_p04` |
 | `cnr_pl_ardora` | Ardor desertico | planta | 2 | `ardorDesertico` | `sute_her_p04_4` |
 | `cnr_pl_baya` | Baya acuosa | planta | 1 | `bayaAcuosa` | `sute_her_p01` |

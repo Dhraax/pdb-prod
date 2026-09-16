@@ -34,7 +34,8 @@ rest is an abbreviation. Tag and resref are always identical from now on.
 | `cnr_c_*` | arcane crystal | 6 |
 | `cnr_g_*` | rough gem, out of a vein | 28 |
 | `cnr_q_*` | cut gem | 28 |
-| `cnr_j_*` | jewellery, amulets and rings | 56 |
+| `cnr_j_an_*` | ring, one per gem | 28 |
+| `cnr_j_am_*` | amulet, one per gem | 28 |
 | `cnr_m_*` | material: ingot, nugget, log, plank, hide, leather | 67 |
 | `cnr_p_*` | component and processed stock | 71 |
 | `cnr_t_*` | tool, mould, template | 24 |
@@ -75,9 +76,16 @@ Each one is a commit of its own, with its changelog entry and its audit.
    placeables. No name changes, so nothing can break: only the path moves.
    The figure of 152 in the first draft of this document was wrong; it came
    from the material store's old ingredient list, which no longer exists.
-2. **Rename what is already `cnr_*`**: the 76 bases, 129 essences and 6 crystals
-   shorten to `cnr_b_*`, `cnr_e_*`, `cnr_c_*`.
-3. **Rename the gems and the jewellery**: 28 rough, 28 cut, 56 pieces.
+2. **Rename what is already `cnr_*`.** Done. The 76 bases, 129 essences and 6
+   crystals shortened to `cnr_b_*`, `cnr_e_*`, `cnr_c_*`.
+3. **Rename the gems and the jewellery.** Done. 28 rough to `cnr_g_*`, 28 cut to
+   `cnr_q_*`, 28 rings to `cnr_j_an_*` and 28 amulets to `cnr_j_am_*`. One
+   canonical code per gem across the four families, taken from the blueprints'
+   own display names: the legacy suffixes disagreed with each other, so the
+   rough amethyst was `bru_per` while the ring was `anillo_amatista`, and the
+   red tear was `bru_lagrimar` while the king's tear was `bru_lagrey` and
+   `anillo_lagrimrey`. Both now read `amat`, `lagroj` and `lagrey` wherever they
+   appear.
 4. **Rename the materials, components and tools**: 162.
 5. **Close the door.** `build_catalogue.py --check` fails when a CNR blueprint
    has no `cnr_` prefix, a tag that differs from its resref, a name over 16

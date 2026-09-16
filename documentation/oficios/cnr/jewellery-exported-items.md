@@ -7,34 +7,34 @@ nombre, apariencia (`ModelPart1`), base item y coste.
 
 | Name | Tag | ResRef |
 |---|---|---|
-| Anillo de oro de amarazha | `anillo_amarazha` | `anillo_amarazha` |
-| Anillo cobrizo de amatista | `anillo_amatista` | `anillo_amatista` |
-| Anillo cobrizo de azabache | `anillo_azabache` | `anillo_azabache` |
-| Anillo de oro de barra lunar | `anillo_barra` | `anillo_barra` |
-| Anillo de plata de beljuril | `anillo_beljuril` | `anillo_beljuril` |
-| Anillo de plata de corvidar | `anillo_corvidar` | `anillo_corvidar` |
-| Anillo cobrizo de cuarzo hialino | `anillo_cuarzo` | `anillo_cuarzo` |
-| Anillo de oro de diamante | `anillo_diamante` | `anillo_diamante` |
-| Anillo de oro de esmeralda | `anillo_esmeralda` | `anillo_esmeralda` |
-| Anillo de oro de jacinto | `anillo_jacinto` | `anillo_jacinto` |
-| Anillo de plata de jade de tumba | `anillo_jade` | `anillo_jade` |
-| Anillo de plata de lágrima roja | `anillo_lagrimar` | `anillo_lagrimar` |
-| Anillo de oro de lágrima del rey | `anillo_lagrimrey` | `anillo_lagrimrey` |
-| Anillo cobrizo de obsidiana | `anillo_obsidiana` | `anillo_obsidiana` |
-| Anillo de plata de ópalo | `anillo_opalo` | `anillo_opalo` |
-| Anillo de plata de ópalo de agua | `anillo_opaloa` | `anillo_opaloa` |
-| Anillo de plata de ópalo de fuego | `anillo_opalof` | `anillo_opalof` |
-| Anillo de plata de ópalo negro | `anillo_opalon` | `anillo_opalon` |
-| Anillo de plata de orblen | `anillo_orblen` | `anillo_orblen` |
-| Anillo de plata de orlo | `anillo_orlo` | `anillo_orlo` |
-| Anillo de oro de piedra pícara | `anillo_picara` | `anillo_picara` |
-| Anillo de oro de rubí | `anillo_rubi` | `anillo_rubi` |
-| Anillo de platino de rubí estrella | `anillo_rubie` | `anillo_rubie` |
-| Anillo cobrizo de topacio | `anillo_topacio` | `anillo_topacio` |
-| Anillo de plata de zafiro | `anillo_zafiro` | `anillo_zafiro` |
-| Anillo de platino de zafiro estrella | `anillo_zafiroe` | `anillo_zafiroe` |
-| Anillo de oro de zafiro negro | `anillo_zafiron` | `anillo_zafiron` |
-| Anillo de oro de zendalur | `anillo_zendalur` | `anillo_zendalur` |
+| Anillo de oro de amarazha | `cnr_j_an_amar` | `cnr_j_an_amar` |
+| Anillo cobrizo de amatista | `cnr_j_an_amat` | `cnr_j_an_amat` |
+| Anillo cobrizo de azabache | `cnr_j_an_aza` | `cnr_j_an_aza` |
+| Anillo de oro de barra lunar | `cnr_j_an_barra` | `cnr_j_an_barra` |
+| Anillo de plata de beljuril | `cnr_j_an_bel` | `cnr_j_an_bel` |
+| Anillo de plata de corvidar | `cnr_j_an_cor` | `cnr_j_an_cor` |
+| Anillo cobrizo de cuarzo hialino | `cnr_j_an_cuar` | `cnr_j_an_cuar` |
+| Anillo de oro de diamante | `cnr_j_an_diam` | `cnr_j_an_diam` |
+| Anillo de oro de esmeralda | `cnr_j_an_esme` | `cnr_j_an_esme` |
+| Anillo de oro de jacinto | `cnr_j_an_jac` | `cnr_j_an_jac` |
+| Anillo de plata de jade de tumba | `cnr_j_an_jade` | `cnr_j_an_jade` |
+| Anillo de plata de lágrima roja | `cnr_j_an_lagroj` | `cnr_j_an_lagroj` |
+| Anillo de oro de lágrima del rey | `cnr_j_an_lagrey` | `cnr_j_an_lagrey` |
+| Anillo cobrizo de obsidiana | `cnr_j_an_obs` | `cnr_j_an_obs` |
+| Anillo de plata de ópalo | `cnr_j_an_opalo` | `cnr_j_an_opalo` |
+| Anillo de plata de ópalo de agua | `cnr_j_an_opaloa` | `cnr_j_an_opaloa` |
+| Anillo de plata de ópalo de fuego | `cnr_j_an_opalof` | `cnr_j_an_opalof` |
+| Anillo de plata de ópalo negro | `cnr_j_an_opalon` | `cnr_j_an_opalon` |
+| Anillo de plata de orblen | `cnr_j_an_orblen` | `cnr_j_an_orblen` |
+| Anillo de plata de orlo | `cnr_j_an_orlo` | `cnr_j_an_orlo` |
+| Anillo de oro de piedra pícara | `cnr_j_an_pic` | `cnr_j_an_pic` |
+| Anillo de oro de rubí | `cnr_j_an_rubi` | `cnr_j_an_rubi` |
+| Anillo de platino de rubí estrella | `cnr_j_an_rubie` | `cnr_j_an_rubie` |
+| Anillo cobrizo de topacio | `cnr_j_an_top` | `cnr_j_an_top` |
+| Anillo de plata de zafiro | `cnr_j_an_zaf` | `cnr_j_an_zaf` |
+| Anillo de platino de zafiro estrella | `cnr_j_an_zafe` | `cnr_j_an_zafe` |
+| Anillo de oro de zafiro negro | `cnr_j_an_zafn` | `cnr_j_an_zafn` |
+| Anillo de oro de zendalur | `cnr_j_an_zen` | `cnr_j_an_zen` |
 | Aro de cobre | `bronce_aro` | `bronce_aro` |
 | Aro de oro | `oro_aro` | `oro_aro` |
 | Aro de plata | `plata_aro` | `plata_aro` |
@@ -44,34 +44,34 @@ nombre, apariencia (`ModelPart1`), base item y coste.
 
 | Name | Tag | ResRef |
 |---|---|---|
-| Amuleto de oro de amarazha | `amu_amarazha` | `amu_amarazha` |
-| Amuleto de cobre de amatista | `amu_amatista` | `amu_amatista` |
-| Amuleto de cobre de azabache | `amu_azabache` | `amu_azabache` |
-| Amuleto de oro de barra lunar | `amu_barra` | `amu_barra` |
-| Amuleto de plata de beljuril | `amu_beljuril` | `amu_beljuril` |
-| Amuleto de plata de corvidar | `amu_corvidar` | `amu_corvidar` |
-| Amuleto de cobre de cuarzo hialino | `amu_cuarzo` | `amu_cuarzo` |
-| Amuleto de oro de diamante | `amu_diamante` | `amu_diamante` |
-| Amuleto de oro de esmeralda | `amu_esmeralda` | `amu_esmeralda` |
-| Amuleto de oro de jacinto | `amu_jacinto` | `amu_jacinto` |
-| Amuleto de plata de jade de tumba | `amu_jade` | `amu_jade` |
-| Amuleto de plata de lágrima roja | `amu_lagrimar` | `amu_lagrimar` |
-| Amuleto de oro de lágrima del rey | `amu_lagrimrey` | `amu_lagrimrey` |
-| Amuleto de cobre de obsidiana | `amu_obsidiana` | `amu_obsidiana` |
-| Amuleto de plata de ópalo | `amu_opalo` | `amu_opalo` |
-| Amuleto de plata de ópalo de agua | `amu_opaloa` | `amu_opaloa` |
-| Amuleto de plata de ópalo de fuego | `amu_opalof` | `amu_opalof` |
-| Amuleto de plata de ópalo negro | `amu_opalon` | `amu_opalon` |
-| Amuleto de plata de orblen | `amu_orblen` | `amu_orblen` |
-| Amuleto de plata de orlo | `amu_orlo` | `amu_orlo` |
-| Amuleto de oro de piedra pícara | `amu_picara` | `amu_picara` |
-| Amuleto de oro de rubí | `amu_rubi` | `amu_rubi` |
-| Amuleto de platino de rubí estrella | `amu_rubie` | `amu_rubie` |
-| Amuleto de cobre de topacio | `amu_topacio` | `amu_topacio` |
-| Amuleto de plata de zafiro | `amu_zafiro` | `amu_zafiro` |
-| Amuleto de platino zafiro estrella | `amu_zafiroe` | `amu_zafiroe` |
-| Amuleto de oro de zafiro negro | `amu_zafiron` | `amu_zafiron` |
-| Amuleto de oro de zendalur | `amu_zendalur` | `amu_zendalur` |
+| Amuleto de oro de amarazha | `cnr_j_am_amar` | `cnr_j_am_amar` |
+| Amuleto de cobre de amatista | `cnr_j_am_amat` | `cnr_j_am_amat` |
+| Amuleto de cobre de azabache | `cnr_j_am_aza` | `cnr_j_am_aza` |
+| Amuleto de oro de barra lunar | `cnr_j_am_barra` | `cnr_j_am_barra` |
+| Amuleto de plata de beljuril | `cnr_j_am_bel` | `cnr_j_am_bel` |
+| Amuleto de plata de corvidar | `cnr_j_am_cor` | `cnr_j_am_cor` |
+| Amuleto de cobre de cuarzo hialino | `cnr_j_am_cuar` | `cnr_j_am_cuar` |
+| Amuleto de oro de diamante | `cnr_j_am_diam` | `cnr_j_am_diam` |
+| Amuleto de oro de esmeralda | `cnr_j_am_esme` | `cnr_j_am_esme` |
+| Amuleto de oro de jacinto | `cnr_j_am_jac` | `cnr_j_am_jac` |
+| Amuleto de plata de jade de tumba | `cnr_j_am_jade` | `cnr_j_am_jade` |
+| Amuleto de plata de lágrima roja | `cnr_j_am_lagroj` | `cnr_j_am_lagroj` |
+| Amuleto de oro de lágrima del rey | `cnr_j_am_lagrey` | `cnr_j_am_lagrey` |
+| Amuleto de cobre de obsidiana | `cnr_j_am_obs` | `cnr_j_am_obs` |
+| Amuleto de plata de ópalo | `cnr_j_am_opalo` | `cnr_j_am_opalo` |
+| Amuleto de plata de ópalo de agua | `cnr_j_am_opaloa` | `cnr_j_am_opaloa` |
+| Amuleto de plata de ópalo de fuego | `cnr_j_am_opalof` | `cnr_j_am_opalof` |
+| Amuleto de plata de ópalo negro | `cnr_j_am_opalon` | `cnr_j_am_opalon` |
+| Amuleto de plata de orblen | `cnr_j_am_orblen` | `cnr_j_am_orblen` |
+| Amuleto de plata de orlo | `cnr_j_am_orlo` | `cnr_j_am_orlo` |
+| Amuleto de oro de piedra pícara | `cnr_j_am_pic` | `cnr_j_am_pic` |
+| Amuleto de oro de rubí | `cnr_j_am_rubi` | `cnr_j_am_rubi` |
+| Amuleto de platino de rubí estrella | `cnr_j_am_rubie` | `cnr_j_am_rubie` |
+| Amuleto de cobre de topacio | `cnr_j_am_top` | `cnr_j_am_top` |
+| Amuleto de plata de zafiro | `cnr_j_am_zaf` | `cnr_j_am_zaf` |
+| Amuleto de platino zafiro estrella | `cnr_j_am_zafe` | `cnr_j_am_zafe` |
+| Amuleto de oro de zafiro negro | `cnr_j_am_zafn` | `cnr_j_am_zafn` |
+| Amuleto de oro de zendalur | `cnr_j_am_zen` | `cnr_j_am_zen` |
 | Cadena de cobre | `bronce_cadena` | `bronce_cadena` |
 | Cadena de oro | `oro_cadena` | `oro_cadena` |
 | Cadena de plata | `plata_cadena` | `plata_cadena` |

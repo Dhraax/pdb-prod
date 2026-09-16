@@ -304,16 +304,16 @@ Gem rows must mirror how the **recipes** declare them, because
 `gem` values:
 
 ```sql
--- recipe_metadata: ('recipe_bru_cuarzo_ring', 'Gem', 'Anillo', 'bru_cuarzo', ...)
+-- recipe_metadata: ('recipe_bru_cuarzo_ring', 'Gem', 'Anillo', 'cnr_g_cuar', ...)
 -- so material_properties needs:
-('Gem', 'Anillo',   'bru_cuarzo', 'SavingThrowBonusVs', 3, 3, 0)
-('Gem', 'Colgante', 'bru_cuarzo', 'SavingThrowBonusVs', 3, 3, 0)
+('Gem', 'Anillo',   'cnr_g_cuar', 'SavingThrowBonusVs', 3, 3, 0)
+('Gem', 'Colgante', 'cnr_g_cuar', 'SavingThrowBonusVs', 3, 3, 0)
 ```
 
 Every gem therefore needs **two rows**, one per jewellery type.
 
 The gem tag must be the **blueprint tag** in `src/shared/uti/bru_*.uti.json`
-(short form: `bru_zafestre`, `bru_picara`), not a long descriptive name.
+(short form: `cnr_g_zafe`, `cnr_g_pic`), not a long descriptive name.
 `recipe_metadata` originally used long names for 17 gems and matched nothing.
 
 `AttachGemToRing` (`cnr_sql_c_item.nss:182`) is a separate path for socketing

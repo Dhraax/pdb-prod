@@ -946,10 +946,11 @@ Stations without a material family otherwise use their authored recipe order.
   output, profession JSON or display-name metadata. Every migrated recipe now
   has a non-empty creation resref.
 - **The gem recipes were rebuilt from the design.** The legacy scripts asked
-  for 22 gems no blueprint has — `bru_diamante` where the item is `bru_diam`,
-  plus twenty real-world gems this server simply does not have — while 20 real
-  gems had no recipe at all. `documentation/oficios/joyeria.json` names 28 gems
-  and every one matches a blueprint, so the 60 gem recipes became 56, two per
+  for 22 gems no blueprint has — `bru_diamante` where the item was `bru_diam`,
+  today `cnr_g_diam` — plus twenty real-world gems this server simply does not
+  have, while 20 real gems had no recipe at all.
+  `documentation/oficios/joyeria.json` names 28 gems and every one matches a
+  blueprint, so the 60 gem recipes became 56, two per
   gem, driven by that file. All 56 now resolve an Etapa-2 property; the count
   used to be 20 of 60.
 - **Alchemy progression combines its two authored difficulty sources.** Potion

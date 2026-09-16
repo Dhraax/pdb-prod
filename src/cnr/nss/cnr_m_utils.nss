@@ -20,7 +20,7 @@ int MasterworkApplyAdamantite(object oItem, string sTipo, object oPC);
 
 /// @brief Aplica la lógica de obra maestra para joyería engarzada.
 /// @param oItem El objeto de joyería
-/// @param sGemTag El tag de la gema engarzada (ej: bru_cuarzo)
+/// @param sGemTag El tag de la gema engarzada (ej: cnr_g_cuar)
 /// @param oPC El jugador que engarza
 /// @returns TRUE si fue obra maestra, FALSE si no
 int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC);
@@ -83,7 +83,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
     }
     SetLocalInt(oItem, "MASTERWORK_ENGARCE", 1); // Es obra maestra
     // Aplicar propiedad especial según la gema
-    if (sGemTag == "bru_cuarzo")
+    if (sGemTag == "cnr_g_cuar")
     {
         if (4 >= SAVING_THROW_ALL && 4 <= SAVING_THROW_WILL)
         {
@@ -94,7 +94,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusSavingThrowVsX(4, 5), oItem);
         }
     }
-    else if (sGemTag == "bru_obs")
+    else if (sGemTag == "cnr_g_obs")
     {
         if (2 >= SAVING_THROW_ALL && 2 <= SAVING_THROW_WILL)
         {
@@ -105,7 +105,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusSavingThrowVsX(2, 5), oItem);
         }
     }
-    else if (sGemTag == "bru_top")
+    else if (sGemTag == "cnr_g_top")
     {
         if (4 >= SAVING_THROW_ALL && 4 <= SAVING_THROW_WILL)
         {
@@ -116,7 +116,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusSavingThrowVsX(4, 5), oItem);
         }
     }
-    else if (sGemTag == "bru_per")
+    else if (sGemTag == "cnr_g_amat")
     {
         if (3 >= SAVING_THROW_ALL && 3 <= SAVING_THROW_WILL)
         {
@@ -127,7 +127,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusSavingThrowVsX(3, 5), oItem);
         }
     }
-    else if (sGemTag == "bru_aza")
+    else if (sGemTag == "cnr_g_aza")
     {
         if (8 >= SAVING_THROW_ALL && 8 <= SAVING_THROW_WILL)
         {
@@ -138,7 +138,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusSavingThrowVsX(8, 5), oItem);
         }
     }
-    else if (sGemTag == "bru_jade")
+    else if (sGemTag == "cnr_g_jade")
     {
         // Conjuro Bardo Esfera 7 /2
         int i;
@@ -147,7 +147,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusLevelSpell(CLASS_TYPE_BARD, 7), oItem);
         }
     }
-    else if (sGemTag == "bru_opalo")
+    else if (sGemTag == "cnr_g_opalo")
     {
         // Conjuro Hechicero Esfera 8/2
         int i;
@@ -174,7 +174,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusLevelSpell(CLASS_TYPE_CLERIC, 8), oItem);
         }
     }
-    else if (sGemTag == "bru_orblen")
+    else if (sGemTag == "cnr_g_orblen")
     {
         // Conjuro Mago Esfera 8/2
         int i;
@@ -195,7 +195,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
     {
         AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyDamageImmunity(DAMAGE_TYPE_ELECTRICAL, 50), oItem); // Inmune Eléctrico 50% (aprox)
     }
-    else if (sGemTag == "bru_orlo")
+    else if (sGemTag == "cnr_g_orlo")
     {
         AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyDamageImmunity(DAMAGE_TYPE_COLD, 50), oItem); // Inmune Frío 50% (aprox)
     }
@@ -256,7 +256,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
             AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyBonusLevelSpell(CLASS_TYPE_BARD, 8), oItem);
         }
     }
-    else if (sGemTag == "bru_esme")
+    else if (sGemTag == "cnr_g_esme")
     {
         // Conjuro Hechicero Esfera 9/2
         int i;
@@ -278,7 +278,7 @@ int MasterworkApplyJewelry(object oItem, string sGemTag, object oPC)
     {
         AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyACBonus(6), oItem);
     }
-    else if (sGemTag == "bru_rubi")
+    else if (sGemTag == "cnr_g_rubi")
     {
         AddItemProperty(DURATION_TYPE_PERMANENT, ItemPropertyDamageImmunity(DAMAGE_TYPE_SLASHING, 30), oItem); // Inmunidad Cortante 30% (aprox)
     }
