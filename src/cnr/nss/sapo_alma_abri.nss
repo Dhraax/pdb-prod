@@ -41,7 +41,7 @@ void main()
     // anything is listed, so the totals shown are the ones that survive.
     AlmMigrar(oPJ);
 
-    object oCofre = CreateObject(OBJECT_TYPE_PLACEABLE, "sapo_alma_u", GetLocation(oUbicado));
+    object oCofre = CreateObject(OBJECT_TYPE_PLACEABLE, "cnr_almacen_u", GetLocation(oUbicado));
     SetLocalObject(oCofre, "chest_use", oUbicado);
     SetLocalObject(oCofre, "user", oPJ);
 
