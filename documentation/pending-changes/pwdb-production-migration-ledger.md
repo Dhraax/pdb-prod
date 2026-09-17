@@ -314,7 +314,7 @@ It records player-state row counts before and after and fails if identity or CNR
 progress shrinks. On an empty database the initial counts are zero.
 
 After that baseline exists, the panel API entrypoint runs Alembic in order from
-`0001_editor_identity.py` through `0019_account_access_security.py`.
+`0001_editor_identity.py` through `0022_level_unlock_applied.py`.
 
 No migration, dump, restore or database initialization was executed during this
 work.
@@ -325,7 +325,7 @@ Status: application files present; Compose configuration verified; panel not
 built or started.
 
 The copied panel includes its backend, frontend, container definitions, tests
-and all Alembic revisions through `0019`. The relevant administration behavior
+and all Alembic revisions through `0022`. The relevant administration behavior
 includes:
 
 - historical CD keys and IPs per account;
@@ -340,10 +340,25 @@ includes:
 
 The panel joins `server_default` and reaches the MySQL service as `mysql`.
 `cnr-editor/.env.example` is ready for a local rehearsal with
-`http://localhost:8088` and insecure cookies. For a host deployment, the exact
-public HTTPS origin must replace it and `CNR_EDITOR_COOKIE_SECURE` must be true.
-`cnr-editor/remote.env` intentionally contains a non-routable placeholder origin
-so it fails closed until the real host URL is supplied.
+`http://localhost:8088` and insecure cookies. The ignored `cnr-editor/remote.env`
+describes the development host and is not a production template.
+
+The production host uses the tracked `cnr-editor/host.env.example`, copied to
+`cnr-editor/.env` inside the host's server directory, next to
+`docker-compose.yml`, `config/` and `web-restart.sh`. It:
+
+- binds the web container to `127.0.0.1:8088`, so the panel is never published
+  on the host's public interface;
+- reads `../config/mysql.env`, the game stack's own credential file, which also
+  carries `CNR_EDITOR_MFA_ENCRYPTION_KEY`;
+- joins `server_default`, the network of the Compose project `server`;
+- keeps catalogue writes disabled.
+
+Its default access is an SSH tunnel (`ssh -L 8088:127.0.0.1:8088`) to
+`http://localhost:8088`: the transport is encrypted by SSH and nothing new is
+exposed. A public name instead needs DNS and an HTTPS reverse proxy pointed at
+`127.0.0.1:8088`, with that exact `https://` origin and
+`CNR_EDITOR_COOKIE_SECURE=true`.
 
 `CNR_EDITOR_FRONTEND_ORIGIN` is an application origin/CORS setting, not a
 listening-address setting. A public URL additionally requires DNS and an HTTPS
@@ -416,7 +431,7 @@ This is the intended order, not a record of commands already executed:
    writes disabled initially.
 4. Build `modules/PB_EE_PROD.mod` with the production Nasher wrapper.
 5. Run `db-apply.sh` and review its printed paths before confirming `APPLY`.
-6. Start the panel so its API applies Alembic through `0019`.
+6. Start the panel so its API applies Alembic through `0022`.
 7. Bootstrap the sole initial production administrator interactively.
 8. Start or recreate NWN with `server-restart.sh`.
 9. Execute the manual runtime tests below.
@@ -445,8 +460,9 @@ This is the intended order, not a record of commands already executed:
   runtime log archival.
 - Restart after a deliberately stopped/crashed NWN process and confirm the
   console and runtime logs survive the container lifecycle.
-- Confirm the panel works through its final HTTPS URL with secure cookies and
-  rejects an unexpected browser origin.
+- Confirm the panel works through the SSH tunnel, or through its final HTTPS
+  URL with secure cookies, and rejects an unexpected browser origin. From outside
+  the host, port 8088 must not answer.
 
 ## Preliminary host upload manifest
 
@@ -463,14 +479,13 @@ This is the intended order, not a record of commands already executed:
 
 ### Host runtime
 
-- the built `modules/PB_EE_PROD.mod`;
+- the built `modules/Puerta de Baldur 5E.mod`;
 - `docker-compose.yml`;
 - `run-server.sh`;
 - `server-restart.sh`;
 - `config/nwserver.env` with host values;
 - private `config/mysql.env` with host values;
 - `config/mysql-init/`;
-- `config/grafana.env`, `config/influxdb.env` and Grafana provisioning;
 - existing PROD module/vault/override/TLK/HAK content already owned by the host.
 
 ### Database and panel
@@ -479,7 +494,8 @@ This is the intended order, not a record of commands already executed:
 - `db-apply.sh`;
 - `cnr-editor/`;
 - `web-restart.sh`;
-- a host-specific `cnr-editor/.env` with the exact HTTPS origin.
+- `cnr-editor/.env` created from `cnr-editor/host.env.example`;
+- not `cnr-editor/frontend/node_modules/` or `dist/`: the images build them.
 
 ### Local rehearsal only
 

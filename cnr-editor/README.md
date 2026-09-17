@@ -82,8 +82,9 @@ TOTP enrollment requires `CNR_EDITOR_MFA_ENCRYPTION_KEY` in the ignored
 `config/mysql.env` file. The API already receives that file as its secret
 environment source. Generate a Fernet key without writing it to the terminal
 history, store it beside the database credentials, and preserve it in the same
-private backup policy. Do not add the key to `cnr-editor/.env` or
-`cnr-editor/remote.env`, which hold non-secret deployment controls. The panel
+private backup policy. Do not add the key to `cnr-editor/.env`,
+`cnr-editor/remote.env` or `cnr-editor/host.env.example`, which hold non-secret
+deployment controls. The panel
 continues to accept password-only accounts when the key is absent, but it
 refuses MFA enrollment and fails closed for accounts that already require MFA.
 
@@ -91,6 +92,11 @@ The current plain-HTTP development endpoint is not an acceptable production
 transport for passwords, session cookies, or MFA codes. Put the panel behind
 HTTPS and set `CNR_EDITOR_COOKIE_SECURE=true` before exposing it outside the
 trusted development network.
+
+On the production host, start from `cnr-editor/host.env.example`. It binds the
+panel to `127.0.0.1:8088`, reads the stack's `../config/mysql.env` and is
+reached through an SSH tunnel; the file itself says what to change for a public
+HTTPS name.
 
 Create the first administrator interactively after the services are healthy:
 
