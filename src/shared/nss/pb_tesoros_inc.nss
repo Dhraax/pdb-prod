@@ -642,7 +642,7 @@ void CrearBasura(object oObjetivo, int iRango, int iTienda = FALSE)
 {
   string sResref;
 
-  switch(Random(196)+1)
+  switch(Random(181)+1)
   {
       case 1: sResref = "nw_it_thnmisc00" + IntToString(Random(4)+1); break; // botellas vacías (4 tipos)
       case 2: sResref = "nw_it_mmidmisc05"; break;   // carne
@@ -818,44 +818,29 @@ void CrearBasura(object oObjetivo, int iRango, int iTienda = FALSE)
       case 156: sResref = "libroespecial0" + IntToString(Random(3)+2); break;
       case 157: sResref = "libroespecial0" + IntToString(Random(2)+8); break;
       case 158: sResref = "item012"; break;
-      case 159: sResref = "formula008"; break;
-      case 160: sResref = "formula12"; break;
-      case 161: sResref = "formula19"; break;
-      case 162: sResref = "formula02" + IntToString(Random(2)+2); break;
-      case 163: sResref = "formula026"; break;
-      case 164: sResref = "formula039"; break;
-      case 165: sResref = "librodeconvocaci"; break;
-      case 166: sResref = "nota23"; break;
-      case 167: sResref = "notasmarr"; break;
-      case 168: sResref = "receta006"; break;
-      case 169: sResref = "receta012"; break;
-      case 170: sResref = "receta022"; break;
-      case 171: sResref = "receta024"; break;
-      case 172: sResref = "receta02" + IntToString(Random(4)+6); break;
-      case 173: sResref = "receta035"; break;
-      case 174: sResref = "receta049"; break;
-      case 175: sResref = "receta05" + IntToString(Random(2)+1); break;
-      case 176: sResref = "receta075"; break;
-      case 177: sResref = "receta08" + IntToString(Random(3)+1); break;
-      case 178: sResref = "receta098"; break;
-      case 179: sResref = "raizdenara"; break;
-      case 180: sResref = "pb_artesa_polvo" + IntToString(Random(4)+1); break;  // Polvos de escuelas magicas (son 8)
-      case 181: sResref = "pb_artesa_polvo" + IntToString(Random(4)+5); break;
-      case 182: sResref = "pb_artesa_car" + IntToString(Random(3)); break;      // Esencias de caracteristicas (son 6)
-      case 183: sResref = "pb_artesa_car" + IntToString(Random(3)+3); break;
-      case 184: sResref = "libro_veneno"; break;
-      case 185: sResref = "libro_veneno_001"; break;
-      case 186: sResref = "libro_veneno_002"; break;
-      case 187: sResref = "libro_veneno_003"; break;
-      case 188: sResref = "libro_veneno_006"; break;
-      case 189: sResref = "libro_veneno_007"; break;
-      case 190: sResref = "libro_veneno_008"; break;
-      case 191: sResref = "libro_veneno_009"; break;
-      case 192: sResref = "libro_veneno_011"; break;
-      case 193: sResref = "libro_veneno_019"; break;
-      case 194: sResref = "libro_veneno_020"; break;
-      case 195: sResref = "libro_veneno_025"; break;
-      case 196: sResref = "rec_marroquineri"; break; // Receta de marroquineríaa
+      case 159: sResref = "formula12"; break;
+      case 160: sResref = "formula19"; break;
+      case 161: sResref = "librodeconvocaci"; break;
+      case 162: sResref = "nota23"; break;
+      case 163: sResref = "notasmarr"; break;
+      case 164: sResref = "raizdenara"; break;
+      case 165: sResref = "pb_artesa_polvo" + IntToString(Random(4)+1); break;  // Polvos de escuelas magicas (son 8)
+      case 166: sResref = "pb_artesa_polvo" + IntToString(Random(4)+5); break;
+      case 167: sResref = "pb_artesa_car" + IntToString(Random(3)); break;      // Esencias de caracteristicas (son 6)
+      case 168: sResref = "pb_artesa_car" + IntToString(Random(3)+3); break;
+      case 169: sResref = "libro_veneno"; break;
+      case 170: sResref = "libro_veneno_001"; break;
+      case 171: sResref = "libro_veneno_002"; break;
+      case 172: sResref = "libro_veneno_003"; break;
+      case 173: sResref = "libro_veneno_006"; break;
+      case 174: sResref = "libro_veneno_007"; break;
+      case 175: sResref = "libro_veneno_008"; break;
+      case 176: sResref = "libro_veneno_009"; break;
+      case 177: sResref = "libro_veneno_011"; break;
+      case 178: sResref = "libro_veneno_019"; break;
+      case 179: sResref = "libro_veneno_020"; break;
+      case 180: sResref = "libro_veneno_025"; break;
+      case 181: sResref = "rec_marroquineri"; break; // Receta de marroquineríaa
 
   }
 
