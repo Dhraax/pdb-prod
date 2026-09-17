@@ -79,7 +79,7 @@ cd "$repo_root"
 
 # nwn_nwsync_write is not sent: the host keeps its own NWSync tools beside
 # nwsync.sh, which calls whatever binary sits in its directory.
-stack_scripts=(run-server.sh server-restart.sh web-restart.sh db-apply.sh nwsync.sh)
+stack_scripts=(run-server.sh server.sh server-restart.sh web-restart.sh db-apply.sh db-reset-players.sh nwsync.sh)
 
 for path in docker-compose.yml "${stack_scripts[@]}" "$module_file" cnr-editor/compose.yml; do
     [[ -f "$path" ]] || fail "required file is missing: $path"

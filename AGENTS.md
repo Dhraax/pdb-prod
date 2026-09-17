@@ -449,6 +449,8 @@ explicitly asks.
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
 | `server-restart.sh` | Restart **only the `pb-server` service**, from the repository root | Validates the Compose file, brings `mysql` up if it is not running and leaves it alone if it is, then stops `pb-server` with a 120 second timeout and recreates it. This is the live server: recreating it disconnects whoever is playing. It does **not** restart the database, so it is not the command for a MySQL problem, and it never starts the metrics services. Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it |
 | `host-sync.sh` | Send the production periphery to the host's server directory (`/home/baldurs/nwneeserver` by default) | Compose file, entrypoint and host scripts, `config/nwserver.env` and `config/mysql.env` (or their per-file `config/host/` overrides), `config/mysql-init/`, `migration/`, `cnr-editor/` and the `.mod`. Never touches haks, TLK, server vault, NWN database or logs; starts nothing. `--dry-run` lists the changes. See `documentation/repository/host-sync.md` |
+| `server.sh` | `start`, `stop`, `restart` or `status` of the NWN server only | `stop` leaves MySQL running; `restart` is `server-restart.sh`. Never touches the control panel |
+| `db-reset-players.sh` | Delete all player data from a **live** database, keeping the CNR catalogue and the panel's system users | Refuses while `pb-server` runs or with an unclassified table; asks for `RESET`; dumps to `db-backups/pre-reset-<timestamp>.sql.gz` first. Does not touch `servervault/`. See `documentation/repository/host-sync.md` |
 | `web-restart.sh` | Rebuild and restart only the CNR editor stack | Expects a staged `cnr-editor/` with its `compose.yml` and `.env` |
 | `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/Puerta de Baldur 5E.mod` beside the script, or `modules/Puerta de Baldur 5E.mod` when the script sits in the server directory itself. Player-visible the moment it runs |
 | `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
@@ -519,7 +521,7 @@ environment file.
   files. No separate user request is required for that check.
 - Except for that focused check, do not run Nasher install/unpack, an NWScript
   compiler, module packaging, Docker Compose start/stop, `host-sync.sh`,
-  `server-restart.sh`, `web-restart.sh`, `nwsync.sh`, `linux_apply_sql.sh`, `db-backup.sh`,
+  `server.sh`, `db-reset-players.sh`, `server-restart.sh`, `web-restart.sh`, `nwsync.sh`, `linux_apply_sql.sh`, `db-backup.sh`,
   `db-restore.sh`, `db-apply.sh`, or in-game validation unless the user
   explicitly requests it. This is the live module: several of those are visible
   to players the moment they run.

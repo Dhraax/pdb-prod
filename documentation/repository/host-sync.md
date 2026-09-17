@@ -21,7 +21,7 @@ connection, so a password is asked once.
 | Local source | On the host | Mode | Removed files |
 |--------------|-------------|------|---------------|
 | `docker-compose.yml` | `docker-compose.yml` | 644 | - |
-| `run-server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `nwsync.sh` | same names | 755 | - |
+| `run-server.sh`, `server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `db-reset-players.sh`, `nwsync.sh` | same names | 755 | - |
 | `config/nwserver.env`, or `config/host/nwserver.env` when present | `config/nwserver.env` | 600 | - |
 | `config/mysql.env`, or `config/host/mysql.env` when present | `config/mysql.env` | 600 | - |
 | `config/mysql-init/` | `config/mysql-init/` | 755 | deleted on the host |
@@ -128,6 +128,41 @@ The script prints this at the end. Everything runs in the server directory.
 | The module | `./nwsync.sh`, then `./server-restart.sh` |
 | `docker-compose.yml` or `config/nwserver.env` | `./server-restart.sh` |
 | `cnr-editor/` | `./web-restart.sh` |
+
+## Host operations
+
+Both run in the server directory and need Docker Compose v2.
+
+**`./server.sh start|stop|restart|status`** handles only the NWN server.
+`start` brings up MySQL and `pb-server`; `stop` stops `pb-server` with a
+120-second grace period and leaves MySQL running; `restart` is
+`server-restart.sh`; `status` is `docker compose ps`. The control panel is a
+separate Compose project and is never started, stopped or rebuilt by it.
+
+**`./db-reset-players.sh`** empties the player data at the end of a test phase
+and keeps what the launch needs. It refuses to run while `pb-server` is running
+or MySQL is not, lists what it will delete with row counts, asks for `RESET`,
+takes a dump to `db-backups/pre-reset-<timestamp>.sql.gz`, deletes in one
+transaction, resets the id counters and then checks that the player tables are
+empty and every kept table has the rows it had.
+
+| Deleted | Kept |
+|---------|------|
+| `pwdb_account` and its CD-key, name and IP history, CD-key resets and management rows; `pwdb_character` with its profile, classes and level unlocks; `pwdb_cd_key_ban`; `pwdb_identity_revision`; `cnr_tradeskill`, `cnr_character_setting` | The CNR catalogue (`cnr_profession` to `cnr_arcane_step`) and `cnr_catalogue_revision`; every `cnr_editor_*` table, which is the panel's users, permissions, MFA, sessions and audit; `pwdb_class_definition`; `pwdb_dm_cd_key_whitelist` and its revisions; `alembic_version` |
+
+Any table in neither column stops the script before it deletes anything; a new
+table has to be classified in the script first. `servervault/` and the NWN
+`database/` directory are files and are not touched: test progress stored in
+the characters themselves goes only by restoring a copy of `servervault/` taken
+before the test phase.
+
+Verified on 2026-09-17 against a throwaway MySQL 8.4 loaded with a dump of the
+local production rehearsal database: 3 accounts, 7 characters and 42 tradeskill
+rows went to 0; 559 recipes and 2 panel users stayed, with `CHECKSUM TABLE`
+identical for the recipes, components, arcane properties, panel users, panel
+permissions and class definitions; the id counter restarted; the dump held the
+deleted rows. It refused an unclassified table, a running `pb-server` and any
+confirmation other than `RESET`.
 
 ## Verification record
 
