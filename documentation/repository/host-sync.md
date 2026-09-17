@@ -114,10 +114,8 @@ The script prints this at the end. Everything runs in the server directory.
    that file.
 2. `./db-apply.sh`. It starts MySQL and, on the empty database, creates the
    whole schema and catalogue.
-3. `./nwsync.sh`, after confirming that `/var/www/html/nwsync` is the host's
-   NWSync web root.
-4. `docker compose up -d`.
-5. `./web-restart.sh`, then create the first administrator with
+3. `./server.sh start`.
+4. `./web-restart.sh`, then create the first administrator with
    `docker compose --env-file cnr-editor/.env -f cnr-editor/compose.yml run --rm api control-panel-bootstrap-admin`.
 
 **Later syncs**, only for what changed:
@@ -125,9 +123,13 @@ The script prints this at the end. Everything runs in the server directory.
 | Changed | Run |
 |---------|-----|
 | `migration/` | `./db-apply.sh` |
-| The module | `./nwsync.sh`, then `./server-restart.sh` |
+| The module | `./server.sh restart` |
 | `docker-compose.yml` or `config/nwserver.env` | `./server-restart.sh` |
 | `cnr-editor/` | `./web-restart.sh` |
+
+NWSync is not part of a module change. It hands clients the haks and the TLK;
+the `.mod` stays on the server and players never download it. `./nwsync.sh` is
+needed only when a hak or the TLK changes, and this script sends neither.
 
 ## Host operations
 

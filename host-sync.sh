@@ -308,11 +308,10 @@ Sync complete. Nothing was started, stopped or migrated on the host.
 On the host, in $remote_dir:
   first deployment:  docker stop -t 120 nwnee_baldur && docker rm nwnee_baldur
                      ./db-apply.sh
-                     ./nwsync.sh
-                     docker compose up -d
+                     ./server.sh start
                      ./web-restart.sh
   later, as needed:  migration/ changed      ./db-apply.sh
-                     module changed          ./nwsync.sh, then ./server-restart.sh
+                     module changed          ./server.sh restart
                      Compose or env changed  ./server-restart.sh
                      cnr-editor/ changed     ./web-restart.sh
 NEXT
