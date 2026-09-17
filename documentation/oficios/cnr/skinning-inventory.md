@@ -13,20 +13,22 @@ piel correspondiente. Desollar un ciervo da cobre.
 ## Las 123 criaturas con variable PIEL
 
 La variable ya codifica el material correcto del CNR: los diez valores de PIEL
-corresponden uno a uno, y en orden, con los diez cueros de peleteria.
+corresponden uno a uno, y en orden, con las diez pieles de peleteria. El cadaver
+entrega la **piel**; la tina de curtido la convierte en el cuero de la misma
+fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 
-| PIEL | Material CNR | Tag | Tier | Criaturas | Entrega hoy |
-|------|--------------|-----|------|-----------|-------------|
-| 1 | Cuero de roedor | `cnr_m_cu_roedor` | 1 | 11 | `pellejoderata` |
-| 2 | Cuero de herbivoro | `cnr_m_cu_herbiv` | 1 | 14 | `cnr_m_pe_cobre` |
-| 3 | Cuero de bestia salvaje | `cnr_m_cu_bestia` | 2 | 27 | `cnr_m_pe_acero` |
-| 4 | Cuero de bestia salvaje grande | `cnr_m_cu_bestiag` | 2 | 10 | `cnr_m_pe_plata` |
-| 5 | Cuero de bestia mitica | `cnr_m_cu_mitica` | 3 | 22 | `cnr_m_pe_frio` |
-| 6 | Cuero de bestia mitica gruesa | `cnr_m_cu_miticag` | 3 | 14 | `cnr_m_pe_oro` |
-| 7 | Cuero de dragon de fuego | `cnr_m_cu_dracof` | 4 | 6 | `cnr_m_pe_mithril` |
-| 8 | Cuero de dragon de hielo | `cnr_m_cu_dracoh` | 4 | 6 | `cnr_m_pe_adaman` |
-| 9 | Cuero de dragon de acido | `cnr_m_cu_dracoa` | 4 | 7 | `cnr_m_pe_adaman` |
-| 10 | Cuero de dragon de rayo | `cnr_m_cu_dracor` | 4 | 6 | `cnr_m_pe_adaman` |
+| PIEL | Piel que entrega | Tag | Cuero que sale en la tina | Tier | Criaturas | Entrega hoy |
+|------|------------------|-----|---------------------------|------|-----------|-------------|
+| 1 | Piel de roedor | `cnr_m_pi_roedor` | Cuero de roedor | 1 | 11 | `pellejoderata` |
+| 2 | Piel de herbivoro | `cnr_m_pi_herbiv` | Cuero de herbivoro | 1 | 14 | `cnr_m_pe_cobre` |
+| 3 | Piel de bestia | `cnr_m_pi_bestia` | Cuero de bestia salvaje | 2 | 27 | `cnr_m_pe_acero` |
+| 4 | Piel de bestia grande | `cnr_m_pi_bestiag` | Cuero de bestia salvaje grande | 2 | 10 | `cnr_m_pe_plata` |
+| 5 | Piel de bestia mitica | `cnr_m_pi_mitica` | Cuero de bestia mitica | 3 | 22 | `cnr_m_pe_frio` |
+| 6 | Piel de bestia mitica gruesa | `cnr_m_pi_miticag` | Cuero de bestia mitica gruesa | 3 | 14 | `cnr_m_pe_oro` |
+| 7 | Piel de draco de fuego | `cnr_m_pi_dracof` | Cuero de dragon de fuego | 4 | 6 | `cnr_m_pe_mithril` |
+| 8 | Piel de draco de hielo | `cnr_m_pi_dracoh` | Cuero de dragon de hielo | 4 | 6 | `cnr_m_pe_adaman` |
+| 9 | Piel de draco de acido | `cnr_m_pi_dracoa` | Cuero de dragon de acido | 4 | 7 | `cnr_m_pe_adaman` |
+| 10 | Piel de draco de rayo | `cnr_m_pi_dracor` | Cuero de dragon de rayo | 4 | 6 | `cnr_m_pe_adaman` |
 
 ### Detalle por valor
 

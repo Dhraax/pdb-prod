@@ -7,7 +7,7 @@
 ///
 ///          The creature already says what it is worth. Its blueprint carries
 ///          the local int PIEL, and those ten values map one to one, in order,
-///          onto the ten leatherworking materials: 1 and 2 are tier 1, 3 and 4
+///          onto the ten leatherworking hides: 1 and 2 are tier 1, 3 and 4
 ///          tier 2, 5 and 6 tier 3, and 7 to 10 the four dragon hides of tier
 ///          4. Nothing has to be retagged; the corpse copies the value and the
 ///          material out of the creature that died.
@@ -34,7 +34,7 @@ const float  CNR_SKIN_FADE       = 600.0f;
 //                              Function Prototypes
 // -----------------------------------------------------------------------------
 
-/// @brief The leather material a PIEL value stands for.
+/// @brief The hide a PIEL value stands for.
 /// @param nPiel The creature's PIEL value, 1 to 10.
 /// @returns The blueprint resref of the hide, or "" when the value is unknown.
 string CnrSkin_Material(int nPiel);
@@ -66,16 +66,16 @@ string CnrSkin_Material(int nPiel)
 {
     switch (nPiel)
     {
-        case 1:  return "cnr_m_cu_roedor";
-        case 2:  return "cnr_m_cu_herbiv";
-        case 3:  return "cnr_m_cu_bestia";
-        case 4:  return "cnr_m_cu_bestiag";
-        case 5:  return "cnr_m_cu_mitica";
-        case 6:  return "cnr_m_cu_miticag";
-        case 7:  return "cnr_m_cu_dracof";
-        case 8:  return "cnr_m_cu_dracoh";
-        case 9:  return "cnr_m_cu_dracoa";
-        case 10: return "cnr_m_cu_dracor";
+        case 1:  return "cnr_m_pi_roedor";
+        case 2:  return "cnr_m_pi_herbiv";
+        case 3:  return "cnr_m_pi_bestia";
+        case 4:  return "cnr_m_pi_bestiag";
+        case 5:  return "cnr_m_pi_mitica";
+        case 6:  return "cnr_m_pi_miticag";
+        case 7:  return "cnr_m_pi_dracof";
+        case 8:  return "cnr_m_pi_dracoh";
+        case 9:  return "cnr_m_pi_dracoa";
+        case 10: return "cnr_m_pi_dracor";
     }
     return "";
 }
