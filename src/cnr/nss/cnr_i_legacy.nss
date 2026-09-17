@@ -152,11 +152,18 @@ int CnrLegacy_TargetLevel(int nLegacy)
 void CnrLegacy_DestroyBook(object oPC, string sTag)
 {
     // A character may hold more than one copy, so empty the inventory of them.
+    // DestroyObject only takes effect once this script ends: searching again
+    // would return the same book until the engine aborted the script with
+    // TOO MANY INSTRUCTIONS. Retagging it first moves the search on. The cap
+    // keeps a book that refused the new tag from looping all the same.
+    int nGuard = 0;
     object oBook = GetItemPossessedBy(oPC, sTag);
-    while (GetIsObjectValid(oBook))
+    while (GetIsObjectValid(oBook) && nGuard < 50)
     {
+        SetTag(oBook, "cnr_legacy_destroyed");
         DestroyObject(oBook);
         oBook = GetItemPossessedBy(oPC, sTag);
+        nGuard++;
     }
 }
 
@@ -276,8 +283,11 @@ int CnrLegacy_Convert(object oPC, int nSkill)
     }
     else
     {
-        SendMessageToPC(oPC, "Tu " + sSkill + " en el oficio nuevo ya esta por "
-            + "encima de lo que tenias en el antiguo, asi que se queda como esta.");
+        SendMessageToPC(oPC, "Tu " + sSkill + " antigua era nivel "
+            + IntToString(nLegacy) + " de " + IntToString(CNR_LEGACY_MAX)
+            + ", que en el oficio nuevo son " + IntToString(nLevel) + " de "
+            + IntToString(CNR_MAX_TRADESKILL_LEVEL) + ". Ya tienes eso o mas, "
+            + "asi que se queda como esta.");
     }
 
     GuardarIntPersistente(oPC, CNR_LEGACY_FLAG + sSkill, 1);

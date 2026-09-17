@@ -106,6 +106,27 @@ formula, not a documented limitation.
 the same three windows (`Plugins/Creature/Creature.cpp:1684-1770`); a modifier of
 zero removes the stored value.
 
+## DestroyObject takes effect after the running script, not at the call
+
+`DestroyObject(oItem)` with the default delay does not remove the object at the
+call. The object stays valid, keeps its tag and is still returned by
+`GetItemPossessedBy` until the script that called it has finished. The engine
+comment in `nwscript.nss` says only "Destroy oObject (irrevocably)".
+
+Evidence: probe by failure on the production host, build
+`nwnxee/unified:build8193.37`, 2026-09-17. `cnr_i_legacy.nss` emptied an
+inventory of a book with
+`while (GetIsObjectValid(oBook)) { DestroyObject(oBook); oBook = GetItemPossessedBy(oPC, sTag); }`.
+Every conversion that reached that loop ran until the engine aborted it with
+`Script cnr_ofi_conv ... ERROR: TOO MANY INSTRUCTIONS`, and the client showed
+`Lost Item: Manual de Herreria` only after the abort. The loop found the same
+book on every pass.
+
+**The consequence:** never loop on a search that the destroy is expected to
+change. Change something the search reads first -`SetTag(oItem, ...)` before
+`DestroyObject` moves `GetItemPossessedBy` on- or walk the inventory once with
+`GetFirstItemInInventory`/`GetNextItemInInventory`, and cap the loop regardless.
+
 ## NWNX serialization does not carry non-persistent plugin variables
 
 `NWNX_Object_Serialize` preserves ordinary object locals, because it goes through
