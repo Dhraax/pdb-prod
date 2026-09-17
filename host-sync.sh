@@ -9,7 +9,8 @@ set -euo pipefail
 # this repository owns:
 #
 #   docker-compose.yml, run-server.sh and the host helper scripts
-#   config/nwserver.env and config/mysql.env, taken from the private config/host/
+#   config/nwserver.env and config/mysql.env, the same files the local stack
+#   uses, or their overrides in config/host/ when those exist
 #   config/mysql-init/
 #   migration/, read by db-apply.sh
 #   cnr-editor/ and its cnr-editor/.env
@@ -76,7 +77,9 @@ cd "$repo_root"
 # Local checks. Environment values are compared, never printed.
 # ---------------------------------------------------------------------------
 
-stack_scripts=(run-server.sh server-restart.sh web-restart.sh db-apply.sh nwsync.sh nwn_nwsync_write)
+# nwn_nwsync_write is not sent: the host keeps its own NWSync tools beside
+# nwsync.sh, which calls whatever binary sits in its directory.
+stack_scripts=(run-server.sh server-restart.sh web-restart.sh db-apply.sh nwsync.sh)
 
 for path in docker-compose.yml "${stack_scripts[@]}" "$module_file" cnr-editor/compose.yml; do
     [[ -f "$path" ]] || fail "required file is missing: $path"
@@ -85,15 +88,19 @@ for path in config/mysql-init migration cnr-editor/backend cnr-editor/frontend; 
     [[ -d "$path" ]] || fail "required directory is missing: $path"
 done
 
+# The host runs with the same environment files as the local stack. A file in
+# the ignored config/host/ replaces its counterpart for the host only.
 host_nwserver_env="config/host/nwserver.env"
 host_mysql_env="config/host/mysql.env"
 host_panel_env="config/host/cnr-editor.env"
+[[ -f "$host_nwserver_env" ]] || host_nwserver_env="config/nwserver.env"
+[[ -f "$host_mysql_env" ]] || host_mysql_env="config/mysql.env"
 [[ -f "$host_panel_env" ]] || host_panel_env="cnr-editor/host.env.example"
 
 [[ -f "$host_nwserver_env" ]] \
-    || fail "$host_nwserver_env is missing; create it from config/nwserver.env.example with the host's values"
+    || fail "$host_nwserver_env is missing; create it from config/nwserver.env.example"
 [[ -f "$host_mysql_env" ]] \
-    || fail "$host_mysql_env is missing; create it from config/mysql.env.example with the host's credentials"
+    || fail "$host_mysql_env is missing; create it from config/mysql.env.example"
 
 # Raw value of a key as Compose's env-file reader finds it: the last assignment
 # wins, an "export " prefix and blanks around "=" are ignored, and an unquoted
@@ -143,21 +150,6 @@ done
 reject_placeholder "$host_mysql_env" CNR_EDITOR_MFA_ENCRYPTION_KEY
 if [[ -z "$value" ]]; then
     echo "WARNING: CNR_EDITOR_MFA_ENCRYPTION_KEY is empty in $host_mysql_env; the panel will refuse MFA enrolment." >&2
-fi
-
-# The host's secrets must not be the workstation's, whatever else differs
-# between the two files: comments, order or non-secret values.
-if [[ -f config/mysql.env ]]; then
-    for key in MYSQL_ROOT_PASSWORD MYSQL_PASSWORD CNR_EDITOR_MFA_ENCRYPTION_KEY; do
-        read_plain "$host_mysql_env" "$key"
-        local_value="$(env_value config/mysql.env "$key")"
-        local_value="${local_value#[\"\']}"
-        local_value="${local_value%[\"\']}"
-        if [[ -n "$value" && "$value" == "$local_value" ]]; then
-            fail "$key in $host_mysql_env is the same as in the local config/mysql.env; the host needs its own"
-        fi
-    done
-    unset local_value
 fi
 
 require_equal "$host_panel_env" CNR_EDITOR_MYSQL_ENV_FILE ../config/mysql.env
@@ -314,7 +306,7 @@ fi
 cat <<NEXT
 Sync complete. Nothing was started, stopped or migrated on the host.
 On the host, in $remote_dir:
-  first deployment:  docker compose -f docker-compose-pdb.yml down
+  first deployment:  docker stop -t 120 nwnee_baldur && docker rm nwnee_baldur
                      ./db-apply.sh
                      ./nwsync.sh
                      docker compose up -d

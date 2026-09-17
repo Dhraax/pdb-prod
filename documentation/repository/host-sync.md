@@ -21,9 +21,9 @@ connection, so a password is asked once.
 | Local source | On the host | Mode | Removed files |
 |--------------|-------------|------|---------------|
 | `docker-compose.yml` | `docker-compose.yml` | 644 | - |
-| `run-server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `nwsync.sh`, `nwn_nwsync_write` | same names | 755 | - |
-| `config/host/nwserver.env` | `config/nwserver.env` | 600 | - |
-| `config/host/mysql.env` | `config/mysql.env` | 600 | - |
+| `run-server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `nwsync.sh` | same names | 755 | - |
+| `config/nwserver.env`, or `config/host/nwserver.env` when present | `config/nwserver.env` | 600 | - |
+| `config/mysql.env`, or `config/host/mysql.env` when present | `config/mysql.env` | 600 | - |
 | `config/mysql-init/` | `config/mysql-init/` | 755 | deleted on the host |
 | `migration/` | `migration/` | 644 | deleted on the host |
 | `cnr-editor/`, without `node_modules/`, `dist/`, caches or `*.env` | `cnr-editor/` | 644 | deleted on the host, except its `.env` |
@@ -33,29 +33,44 @@ connection, so a password is asked once.
 Only the three trees the repository owns entirely - `config/mysql-init/`,
 `migration/` and `cnr-editor/` - mirror deletions. Nothing is synchronized at
 the top of the server directory as a tree, so `hak/`, `tlk/`, `servervault/`,
-`database/`, `logs/`, `override/`, `portraits/`, `saves/`, `nwsync/`,
-`cryptographic_secret`, `settings.tml`, `nwn.ini`, `db-backups/`, other modules
-and the old `docker-compose-pdb.yml` are never listed, overwritten or deleted.
+`database/`, `logs/`, `override/`, `development/`, `portraits/`, `saves/`,
+`nwsync/`, `nwnx/`, `bin/`, `data/`, `temp/`, `cryptographic_secret`,
+`settings.tml`, `nwn.ini`, `nwnplayer.ini`, `db-backups/`, other modules, the
+host's own `nwn_nwsync_*` tools and any older Compose file are never listed,
+overwritten or deleted. Of the module content, only
+`modules/Puerta de Baldur 5E.mod` travels.
+
+`nwn_nwsync_write` is deliberately not sent: the host keeps its own NWSync tools
+in the server directory, and `nwsync.sh` calls the binary beside it. The host's
+existing `run-server.sh` **is** replaced, because the new Compose file starts
+the server through it.
 Grafana and InfluxDB files do not travel: they belong to the `metrics` profile,
 which the host does not run.
 
 The module is written to a temporary file and renamed into place, so a running
 server keeps the file it loaded.
 
-## The private host files
+## The environment files
 
-The host's values live in `config/host/`, which is ignored, so the local
-`config/nwserver.env` and `config/mysql.env` keep serving the local stack:
+The host runs with the same `config/nwserver.env` and `config/mysql.env` as the
+local stack: one copy, edited in one place, and the local rehearsal exercises
+exactly the values the host receives. Both are ignored by Git.
 
 | File | Created from | Must hold |
 |------|--------------|-----------|
-| `config/host/nwserver.env` | `config/nwserver.env.example` | The host's player, DM and admin passwords; `NWN_MODULE=Puerta de Baldur 5E`; `NWNX_SQL_SKIP=n` |
-| `config/host/mysql.env` | `config/mysql.env.example` | Host-only `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` and `CNR_EDITOR_MFA_ENCRYPTION_KEY` |
-| `config/host/cnr-editor.env` | `cnr-editor/host.env.example` | Optional; only when the panel's host controls differ from the template |
+| `config/nwserver.env` | `config/nwserver.env.example` | The server's player, DM and admin passwords; `NWN_MODULE=Puerta de Baldur 5E`; `NWNX_SQL_SKIP=n` |
+| `config/mysql.env` | `config/mysql.env.example` | `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` and `CNR_EDITOR_MFA_ENCRYPTION_KEY` |
+
+The ignored `config/host/` holds optional overrides. A `config/host/nwserver.env`
+or `config/host/mysql.env` there is sent instead of its counterpart, and a
+`config/host/cnr-editor.env` instead of `cnr-editor/host.env.example`. Moving the
+main files into `config/host/` instead of copying them leaves the local stack
+without its environment: `linux_run_server.sh` fails with `env file ... not
+found`.
 
 MySQL applies `MYSQL_*` only when it initialises an empty volume. Changing them
-in `config/host/mysql.env` afterwards does not change the users inside the
-database; that needs an explicit MySQL operation. The MFA key cannot be
+in `config/mysql.env` afterwards does not change the users inside an existing
+database, local or remote; that needs an explicit MySQL operation. The MFA key cannot be
 regenerated either without locking out every account that enrolled.
 
 ## What the script refuses
@@ -75,9 +90,6 @@ Before connecting:
 - an empty `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` or
   `MYSQL_PASSWORD`;
 - `NWN_MODULE` other than the module it sends, or `NWNX_SQL_SKIP` other than `n`;
-- `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` or `CNR_EDITOR_MFA_ENCRYPTION_KEY`
-  equal to the same key in the local `config/mysql.env`, whatever else differs
-  between the two files;
 - a panel environment that does not read `../config/mysql.env`, does not join
   `server_default`, or publishes the panel on anything but `127.0.0.1`;
 - a module older than some `.nss` under `src/`: asked interactively, refused with
@@ -95,9 +107,11 @@ The script prints this at the end. Everything runs in the server directory.
 
 **First deployment:**
 
-1. `docker compose -f docker-compose-pdb.yml down`. The old and new Compose
-   files both name the container `nwnee_baldur`, so the new one cannot start
-   while the old container exists.
+1. `docker stop -t 120 nwnee_baldur && docker rm nwnee_baldur`. The old and new
+   Compose files both name the container `nwnee_baldur`, so the new one cannot
+   start while the old container exists. The old Compose file is not in the
+   server directory, so the container is stopped by name rather than through
+   that file.
 2. `./db-apply.sh`. It starts MySQL and, on the empty database, creates the
    whole schema and catalogue.
 3. `./nwsync.sh`, after confirming that `/var/www/html/nwsync` is the host's
@@ -127,6 +141,9 @@ an SSH stand-in that runs commands locally:
   untouched;
 - a second run transferred nothing;
 - every refusal above, including a host without `rsync`, was triggered and
-  stopped the script before any transfer; an empty MFA key only warned.
+  stopped the script before any transfer; an empty MFA key only warned;
+- with no `config/host/`, the script sent `config/*.env` and the host's
+  `config/mysql.env` matched the local file byte for byte; an override in
+  `config/host/` was sent in its place; with neither present it refused.
 
 It has not yet been run against the real host.
