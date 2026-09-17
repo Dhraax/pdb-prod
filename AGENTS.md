@@ -277,7 +277,8 @@ under `haks-2da/`.
 
 The blocking invariants are:
 
-- station tag, resref and filename are identical;
+- station tag and resref are identical, and the file name is the resref in
+  lower case, as unpacking writes it;
 - a product repeated per material is represented by a variant group, not by
   duplicated recipes;
 - repeated craftable item types use the clean `cnr_b_*` blueprints listed in

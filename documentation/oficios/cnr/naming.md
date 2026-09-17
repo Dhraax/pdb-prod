@@ -50,14 +50,18 @@ Script file names are not blueprints and are not part of the contract.
   from its resref, outside the exceptions above. An exception that names a
   blueprint no longer on disk is refused too.
 - A placeable under `src/cnr/utp` with the same faults, where the name may also
-  follow the station convention.
-- A `cnr_*` item or placeable, or a `sute_her_*` item, under `src/shared`.
+  follow the station convention. A `cnr_*` placeable's file name is exactly its
+  resref; a station's is its resref in lower case (`cnrAnvilSmith` lives in
+  `cnranvilsmith.utp.json`), because unpacking writes file names in lower case.
+- A `cnr_*` item or placeable, or a `sute_her_*` item, under `src/shared`, judged
+  by the blueprint's own resref as well as its file name.
 - A recipe base, extra product or component, a station tool, a material store
   entry, or a `CNR_MATERIAL` drop on a node blueprint or a placed node, that names
   no CNR item.
 - A CNR blueprint with no palette entry, or a CNR item palette entry that names
   nothing.
-- In any script under `src/*/nss`, comments excluded: a `"cnr_..." +` or
+- In any script under `src`, including the NUI scripts in `src/cnr/nui`,
+  comments excluded: a `"cnr_..." +` or
   `"sute_her_..." +` concatenation that prefixes no existing blueprint, or a
   literal in an item namespace that names no CNR item.
 - In either generator, a string ending in `_` that is a `cnr_`/`sute_her_`

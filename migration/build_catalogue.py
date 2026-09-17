@@ -1287,6 +1287,7 @@ _CNR_MATERIAL_VALUE = re.compile(
     r'"Type":\s*\{[^}]*\},\s*"Value":\s*\{\s*"type":\s*"cexostring",\s*"value":\s*"([^"]*)"',
     re.S,
 )
+_TEMPLATE_RESREF = re.compile(r'"TemplateResRef":\s*\{\s*"type":\s*"resref",\s*"value":\s*"([^"]*)"')
 _PALETTE_RESREF = re.compile(r'"RESREF":\s*\{\s*"type":\s*"resref",\s*"value":\s*"([^"]+)"')
 
 
@@ -1332,8 +1333,12 @@ def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
         resref = data.get("TemplateResRef", {}).get("value", "")
         tag = data.get("Tag", {}).get("value", "")
         placeables[resref.lower()] = tag
-        if resref.lower() != stem:
-            errors.append(f"placeable {stem}: TemplateResRef {resref!r} differs from its file name")
+        # A cnr_* placeable is named exactly as its file. The engine's CamelCase
+        # stations cannot be: unpacking writes file names in lower case, so their
+        # file name is the resref lower-cased.
+        expected_stem = resref.lower() if ENGINE_PLACEABLE.match(resref) else resref
+        if stem != expected_stem:
+            errors.append(f"placeable {stem}: TemplateResRef {resref!r} does not match its file name")
         if len(resref) > RESREF_MAX:
             errors.append(f"placeable {resref}: longer than {RESREF_MAX} characters")
         if tag != resref:
@@ -1345,8 +1350,9 @@ def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
     # counts for items only: sute_her_mesamez is a static decoration.
     for folder, prefixes in ((SHARED_UTI, ("cnr_", POTION_PREFIX)), (SHARED_UTP, ("cnr_",))):
         for path in sorted(folder.glob("*.json")):
-            stem = path.name.split(".")[0]
-            if stem.startswith(prefixes):
+            match = _TEMPLATE_RESREF.search(path.read_bytes().decode("latin-1"))
+            names = {path.name.split(".")[0].lower(), (match.group(1) if match else "").lower()}
+            if any(name.startswith(prefixes) for name in names):
                 errors.append(f"{path.relative_to(ROOT)}: CNR blueprints live under src/cnr")
 
     # What the catalogue, the stations, the store and the nodes name must exist there.
@@ -1390,17 +1396,17 @@ def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
     # Scripts: a name built by concatenation must still prefix something, and a
     # literal in an item namespace must still name something.
     all_resrefs = set(items) | set(placeables)
-    for folder in sorted((ROOT / "src").glob("*/nss")):
-        for path in sorted(folder.glob("*.nss")):
-            if path.name == STORE_KEY_MIGRATION:
-                continue
-            code = _strip_nss_comments(path.read_bytes().decode("latin-1"))
-            for prefix in re.findall(r'"((?:cnr_|sute_her_)[A-Za-z0-9_]*)"\s*\+', code):
-                if not any(r.startswith(prefix.lower()) for r in all_resrefs):
-                    errors.append(f'{path.relative_to(ROOT)}: "{prefix}" + ... builds no existing blueprint name')
-            for literal in re.findall(r'"([^"\n]*)"', code):
-                if ITEM_NAMESPACE.match(literal) and literal.lower() not in items and literal not in item_tags:
-                    errors.append(f"{path.relative_to(ROOT)}: {literal!r} names no CNR item")
+    # Every script under src, not only */nss: the NUI scripts live in src/cnr/nui.
+    for path in sorted((ROOT / "src").rglob("*.nss")):
+        if path.name == STORE_KEY_MIGRATION:
+            continue
+        code = _strip_nss_comments(path.read_bytes().decode("latin-1"))
+        for prefix in re.findall(r'"((?:cnr_|sute_her_)[A-Za-z0-9_]*)"\s*\+', code):
+            if not any(r.startswith(prefix.lower()) for r in all_resrefs):
+                errors.append(f'{path.relative_to(ROOT)}: "{prefix}" + ... builds no existing blueprint name')
+        for literal in re.findall(r'"([^"\n]*)"', code):
+            if ITEM_NAMESPACE.match(literal) and literal.lower() not in items and literal not in item_tags:
+                errors.append(f"{path.relative_to(ROOT)}: {literal!r} names no CNR item")
 
     # The generators: a family recognised by prefix, or named literally. Only
     # real string tokens are read, so comments cannot trip it; a literal ending
