@@ -2,8 +2,11 @@ name: cnr-editor
 
 services:
   api:
+    # Builds on the host's network: on the production host, containers on
+    # Docker's bridge have no outbound route, and pip and npm need one.
     build:
       context: backend
+      network: host
     container_name: pdb_cnr_editor_api
     env_file:
       - ${CNR_EDITOR_MYSQL_ENV_FILE:-../server/config/mysql.env}
@@ -28,6 +31,7 @@ services:
   web:
     build:
       context: frontend
+      network: host
       args:
         CONTROL_PANEL_TITLE: ${CONTROL_PANEL_TITLE:-Control Panel}
         CONTROL_PANEL_SUBTITLE: ${CONTROL_PANEL_SUBTITLE:-System management}
