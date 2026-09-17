@@ -285,7 +285,7 @@ The blocking invariants are:
 - every blueprint CNR owns is named `cnr_*` with tag equal to resref, except the
   `sute_her_*` potions and the shared station-tool tags; the scheme and its
   exceptions live in
-  `documentation/pending-changes/cnr-naming-normalisation.md`;
+  `documentation/oficios/cnr/naming.md`, enforced by `build_catalogue.py --check`;
 - any player-visible catalogue change updates the affected guide under
   `documentation/oficios/cnr/oficios/` in the same change and is checked against
   the generated SQL and its reviewed design source.

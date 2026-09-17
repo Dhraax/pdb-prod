@@ -1,6 +1,10 @@
 # Normalising the CNR names
 
-**Status: accepted, in progress.** Every resource the CNR owns moves under
+**Status: completed 2026-09-17.** The contract it produced is
+[`../naming.md`](../naming.md), enforced by `build_catalogue.py --check`. This
+record keeps how it was reached.
+
+Every resource the CNR owns moves under
 `src/cnr/` and takes a `cnr_` name, resref and tag alike, so the system is
 self-contained and can be lifted into another module without rebuilding it.
 
@@ -112,12 +116,13 @@ Each one is a commit of its own, with its changelog entry and its audit.
    repaired. The rename itself also reached scripts outside the trade that name
    its materials: the three spells that consume gem grit, the mortar in
    `pb_mod_activate`, the treasure tables and one NPC.
-5. **Close the door.** `build_catalogue.py --check` fails when a CNR blueprint
-   has no `cnr_` prefix, a tag that differs from its resref outside the
-   documented shared-tool exceptions, a name over 16 characters, or lives
-   outside `src/cnr`. It must also cover the failure slices 3 and 4 found: a
-   rule that recognises a family by a name prefix, or builds a name by
-   concatenation, keeps compiling and silently stops matching after a rename.
+5. **Close the door.** Done. `build_catalogue.py --check` refuses any breach of
+   the contract, including the failures slices 3 and 4 found: a rule that
+   recognises a family by a name prefix, or builds a name by concatenation, and
+   silently stops matching after a rename. Before the guard, the store's two
+   placeables were renamed to `cnr_almacen` and `cnr_almacen_u`. Every rule was
+   proved to fire by breaking the tree one way at a time. The rules and the
+   complete exception list are in [`../naming.md`](../naming.md).
 
 ## What each slice has to update, every time
 

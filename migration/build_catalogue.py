@@ -11,11 +11,13 @@ for dynamic smithing metadata.
 from __future__ import annotations
 
 import argparse
+import ast
 import csv
 import json
 import re
 import subprocess
 import sys
+import tokenize
 import unicodedata
 from collections import OrderedDict, defaultdict
 from dataclasses import dataclass
@@ -31,6 +33,41 @@ LEGACY_SEED_PATH = ROOT / "migration" / "legacy-catalogue-seed.sql"
 SEED_PATH = ROOT / "migration" / "02_seed.sql"
 CATALOGUE_PATH = ROOT / "migration" / "03_catalogue.sql"
 MODULE_GIT = ROOT / "src" / "module" / "git"
+
+# -----------------------------------------------------------------------------
+# Naming contract. Every blueprint CNR owns lives under src/cnr and is named
+# cnr_*, with tag equal to resref, so a rename is mechanical and checkable and the
+# trade can be lifted into another module whole. documentation/oficios/cnr/
+# naming.md owns the scheme; the exceptions below are the complete list.
+# -----------------------------------------------------------------------------
+CNR_UTI = ROOT / "src" / "cnr" / "uti"
+CNR_UTP = ROOT / "src" / "cnr" / "utp"
+SHARED_UTI = ROOT / "src" / "shared" / "uti"
+SHARED_UTP = ROOT / "src" / "shared" / "utp"
+ITEM_PALETTE = ROOT / "src" / "shared" / "itp" / "itempalcus.itp.json"
+PLACEABLE_PALETTE = ROOT / "src" / "shared" / "itp" / "placeablepalcus.itp.json"
+STORE_LIST = NSS / "sapo_cons_alma.nss"
+RESREF_MAX = 16
+# pb_mod_activate dispatches potions on the "sute_her" tag prefix and their tags
+# carry codes such as sute_her_DM1, so potions keep both their names and tags.
+POTION_PREFIX = "sute_her_"
+# Blueprints that must all satisfy one station tool share that tool's tag. Owner
+# decision, 2026-09-16.
+SHARED_TOOL_TAGS = {
+    "cnr_t_martlig_2": "cnr_t_martligero",
+    "cnr_t_martlig_3": "cnr_t_martligero",
+    "cnr_t_martlig_4": "cnr_t_martligero",
+    "cnr_t_aguja_peq": "cnr_t_aguja",
+}
+# The engine's stations and resource chests keep CNR's own convention, cnr +
+# CamelCase: that tag is the key cnr_station and the scripts look them up by.
+ENGINE_PLACEABLE = re.compile(r"^cnr[A-Z][A-Za-z]+$")
+# Identifiers in the trade's item namespaces. A literal in one of them that names
+# no blueprint is exactly what a rename leaves behind. Essences and crystals are
+# numbered, which keeps them apart from the engine's cnr_c_* conversations.
+ITEM_NAMESPACE = re.compile(r"^cnr_(?:[bgjmpqt]_[a-z0-9_]+|[ce]_[0-9]+)$")
+# Converts persisted store keys, so it names retired identifiers on purpose.
+STORE_KEY_MIGRATION = "sapo_alma_migr.nss"
 
 ALCHEMY_PROFESSION_ID = 4   # potions are not enchantable goods
 DC_MIN = 10
@@ -1231,6 +1268,163 @@ def verify_no_recipe_regression(catalogue_sql: str, accept: bool) -> None:
     )
 
 
+def _read_gff(path: Path) -> dict:
+    for encoding in ("utf-8", "cp1252"):
+        try:
+            return load_json(path, encoding)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            continue
+    raise ValueError(f"{path.relative_to(ROOT)} is not readable GFF JSON")
+
+
+def _strip_nss_comments(text: str) -> str:
+    text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+    return re.sub(r"//[^\n]*", "", text)
+
+
+_CNR_MATERIAL_VALUE = re.compile(
+    r'"Name":\s*\{\s*"type":\s*"cexostring",\s*"value":\s*"CNR_MATERIAL"\s*\},\s*'
+    r'"Type":\s*\{[^}]*\},\s*"Value":\s*\{\s*"type":\s*"cexostring",\s*"value":\s*"([^"]*)"',
+    re.S,
+)
+_PALETTE_RESREF = re.compile(r'"RESREF":\s*\{\s*"type":\s*"resref",\s*"value":\s*"([^"]+)"')
+
+
+def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
+    """Refuse a tree that breaks the CNR naming contract.
+
+    Slices 2 to 4 of the naming normalisation each found a rule that kept
+    working after a rename and silently stopped matching: a generator filter on
+    "bru_", a script concatenating "cnr_cristal" + n, a Python
+    row["metal"] + "_aro". Names alone are not enough; what names them is
+    checked too.
+    """
+    errors: List[str] = []
+
+    items: Dict[str, str] = {}      # resref -> tag, CNR items
+    item_tags: set = set()
+    for path in sorted(CNR_UTI.glob("*.uti.json")):
+        data = _read_gff(path)
+        stem = path.name[: -len(".uti.json")]
+        resref = data.get("TemplateResRef", {}).get("value", "")
+        tag = data.get("Tag", {}).get("value", "")
+        items[resref.lower()] = tag
+        item_tags.add(tag)
+        if resref != stem:
+            errors.append(f"item {stem}: TemplateResRef {resref!r} differs from its file name")
+        if len(resref) > RESREF_MAX:
+            errors.append(f"item {resref}: longer than {RESREF_MAX} characters")
+        if resref.startswith(POTION_PREFIX):
+            continue
+        if not resref.startswith("cnr_"):
+            errors.append(f"item {resref}: CNR items are named cnr_*")
+        expected = SHARED_TOOL_TAGS.get(resref, resref)
+        if tag != expected:
+            errors.append(f"item {resref}: tag {tag!r} should be {expected!r}")
+    for resref in SHARED_TOOL_TAGS:
+        if resref not in items:
+            errors.append(f"shared-tool exception {resref} names no blueprint")
+
+    placeables: Dict[str, str] = {}
+    for path in sorted(CNR_UTP.glob("*.utp.json")):
+        data = _read_gff(path)
+        stem = path.name[: -len(".utp.json")]
+        resref = data.get("TemplateResRef", {}).get("value", "")
+        tag = data.get("Tag", {}).get("value", "")
+        placeables[resref.lower()] = tag
+        if resref.lower() != stem:
+            errors.append(f"placeable {stem}: TemplateResRef {resref!r} differs from its file name")
+        if len(resref) > RESREF_MAX:
+            errors.append(f"placeable {resref}: longer than {RESREF_MAX} characters")
+        if tag != resref:
+            errors.append(f"placeable {resref}: tag {tag!r} should equal its resref")
+        if not (resref.startswith("cnr_") or ENGINE_PLACEABLE.match(resref)):
+            errors.append(f"placeable {resref}: CNR placeables are named cnr_* or cnr + CamelCase")
+
+    # Location: nothing of the trade's is left in src/shared. The potion prefix
+    # counts for items only: sute_her_mesamez is a static decoration.
+    for folder, prefixes in ((SHARED_UTI, ("cnr_", POTION_PREFIX)), (SHARED_UTP, ("cnr_",))):
+        for path in sorted(folder.glob("*.json")):
+            stem = path.name.split(".")[0]
+            if stem.startswith(prefixes):
+                errors.append(f"{path.relative_to(ROOT)}: CNR blueprints live under src/cnr")
+
+    # What the catalogue, the stations, the store and the nodes name must exist there.
+    def need_resref(value: Optional[str], where: str) -> None:
+        if value and value.lower() not in items:
+            errors.append(f"{where} names resref {value!r}, which is no item under src/cnr/uti")
+
+    def need_tag(value: Optional[str], where: str) -> None:
+        if value and value not in item_tags:
+            errors.append(f"{where} names tag {value!r}, which no item under src/cnr/uti carries")
+
+    for recipe in recipe_rows:
+        where = f"recipe {recipe.display_name!r}"
+        need_resref(recipe.base_resref, where)
+        need_resref(recipe.source.extra_resref, where)
+        for component in recipe.source.components:
+            need_tag(component.tag, where)
+    for row in STATION_TOOLS:
+        need_tag(row[1], f"station tool of {row[0]}")
+    store_text = STORE_LIST.read_bytes().decode("latin-1")
+    for resref in re.findall(r'"sTagIngOficio", \d+, "([^"]+)"', store_text):
+        need_resref(resref, "material store")
+    node_sources = sorted(CNR_UTP.glob("*.utp.json")) + sorted(MODULE_GIT.glob("*.git.json"))
+    for path in node_sources:
+        text = path.read_bytes().decode("latin-1")
+        for value in _CNR_MATERIAL_VALUE.findall(text):
+            for material in filter(None, value.split(";")):
+                if material.lower() not in items and material not in item_tags:
+                    errors.append(f"{path.relative_to(ROOT)}: CNR_MATERIAL {material!r} names no CNR item")
+
+    # Palette: every CNR blueprint can be found, and no CNR entry points at nothing.
+    item_palette = {r.lower() for r in _PALETTE_RESREF.findall(read_text(ITEM_PALETTE, "utf-8"))}
+    placeable_palette = {r.lower() for r in _PALETTE_RESREF.findall(read_text(PLACEABLE_PALETTE, "utf-8"))}
+    for resref in sorted(set(items) - item_palette):
+        errors.append(f"item {resref}: no entry in the item palette")
+    for resref in sorted(set(placeables) - placeable_palette):
+        errors.append(f"placeable {resref}: no entry in the placeable palette")
+    for resref in sorted(r for r in item_palette if r.startswith(("cnr_", POTION_PREFIX)) and r not in items):
+        errors.append(f"item palette entry {resref!r} names no CNR item")
+
+    # Scripts: a name built by concatenation must still prefix something, and a
+    # literal in an item namespace must still name something.
+    all_resrefs = set(items) | set(placeables)
+    for folder in sorted((ROOT / "src").glob("*/nss")):
+        for path in sorted(folder.glob("*.nss")):
+            if path.name == STORE_KEY_MIGRATION:
+                continue
+            code = _strip_nss_comments(path.read_bytes().decode("latin-1"))
+            for prefix in re.findall(r'"((?:cnr_|sute_her_)[A-Za-z0-9_]*)"\s*\+', code):
+                if not any(r.startswith(prefix.lower()) for r in all_resrefs):
+                    errors.append(f'{path.relative_to(ROOT)}: "{prefix}" + ... builds no existing blueprint name')
+            for literal in re.findall(r'"([^"\n]*)"', code):
+                if ITEM_NAMESPACE.match(literal) and literal.lower() not in items and literal not in item_tags:
+                    errors.append(f"{path.relative_to(ROOT)}: {literal!r} names no CNR item")
+
+    # The generators: a family recognised by prefix, or named literally. Only
+    # real string tokens are read, so comments cannot trip it; a literal ending
+    # in "_" is a prefix and must prefix something.
+    for script in (ROOT / "migration" / "build_catalogue.py", ROOT / "migration" / "build_arcane.py"):
+        with script.open(encoding="utf-8") as handle:
+            strings = {
+                ast.literal_eval(token.string)
+                for token in tokenize.generate_tokens(handle.readline)
+                if token.type == tokenize.STRING and not token.string.lstrip("rRbBuU").startswith(("f", "F"))
+            }
+        for literal in sorted(value for value in strings if isinstance(value, str)):
+            if literal.startswith(("cnr_", POTION_PREFIX)) and literal.endswith("_"):
+                if not any(r.startswith(literal.lower()) for r in all_resrefs):
+                    errors.append(f"{script.name}: prefix {literal!r} matches no blueprint")
+            elif ITEM_NAMESPACE.match(literal) and literal not in items and literal not in item_tags:
+                errors.append(f"{script.name}: {literal!r} names no CNR item")
+
+    if errors:
+        shown = "\n  - ".join(errors[:40])
+        more = f"\n  ... and {len(errors) - 40} more" if len(errors) > 40 else ""
+        raise ValueError(f"CNR naming contract broken ({len(errors)}):\n  - {shown}{more}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -1801,6 +1995,13 @@ def main() -> int:
             progression_values = jewelry_gem_names
         else:
             progression_values = ()
+        # A family filtered by name that matches nothing is not "no progression":
+        # it is a rename the filter did not follow (slice 3 emptied the gems).
+        if material_code is not None and profession_id in (1, 2, 3, 5, 7) and not progression_values:
+            raise ValueError(
+                f"Recipe {source.display_name!r} has material {material_code!r} but its "
+                f"profession's progression list is empty"
+            )
 
         if profession_id == 4 and source.station.source == "cnralchemytable":
             progression_position, progression_total = alchemy_progression[
@@ -2203,6 +2404,7 @@ def main() -> int:
     catalogue_lines.append("")
     catalogue_sql = "\n".join(catalogue_lines)
 
+    verify_naming_contract(recipe_rows)
     verify_no_recipe_regression(catalogue_sql, args.accept_recipe_changes)
 
     write_or_check(SEED_PATH, seed_sql, args.check)
