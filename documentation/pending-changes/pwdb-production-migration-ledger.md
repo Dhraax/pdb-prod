@@ -205,8 +205,13 @@ The maintained Compose boundary uses:
 |---------|-------|
 | NWN:EE/NWNX:EE | `nwnxee/unified:build8193.37` |
 | MySQL | `mysql:8.4` |
-| InfluxDB | `influxdb:1.7` |
-| Grafana | `grafana/grafana:6.0.1` |
+| InfluxDB | `influxdb:1.7`, `metrics` profile only |
+| Grafana | `grafana/grafana:6.0.1`, `metrics` profile only |
+
+InfluxDB and Grafana do not start by default. `NWNX_METRICS_INFLUXDB_SKIP=y`
+leaves them nothing to record, the online host has never run them, and Grafana
+6.0.1 would otherwise publish port 3000 on a public machine. They start with
+`docker compose --profile metrics up -d` for a measurement window.
 
 MySQL uses a named `mysql_data` volume, a health check, the
 `--mysql-native-password=ON` server option required by this NWNX_SQL generation,
@@ -239,8 +244,8 @@ private credential source instead of duplicating database secrets.
 | `config/nwserver.env` | Server identity, player password, DM password, administration password and non-secret NWNX behavior | Edit for the host; never copy values into documentation |
 | `config/nwserver.env` | Local/test NWN and explicit NWNX_SQL connection settings | Local rehearsal only |
 | `config/mysql.env` | MySQL root password, database, application user/password and panel MFA encryption key | Ignored/private; create from `config/mysql.env.example`, preserve across restarts and back it up privately |
-| `config/grafana.env` | Grafana administrator password | Replace for the host |
-| `config/influxdb.env` | InfluxDB database and users/passwords | Replace for the host |
+| `config/grafana.env` | Grafana administrator password | Only needed where the `metrics` profile is started; not required on the host |
+| `config/influxdb.env` | InfluxDB database and users/passwords | Only needed where the `metrics` profile is started; not required on the host |
 | `cnr-editor/.env` | Non-secret panel origin, port, write gate, network and cookie policy | Create from `.env.example`; do not place database or MFA secrets here |
 
 Changing MySQL env values does not rewrite users inside an already initialized
@@ -256,6 +261,10 @@ rehearsed.
 
 - fixes the Compose project name as `server`, giving the shared network the
   stable name `server_default`;
+- resolves every bind mount and env file relative to the directory holding the
+  Compose file, so the host runs it from its server directory with no path
+  edits, and publishes the game port as `0.0.0.0:5121:5121/udp`, as the host's
+  previous Compose did;
 - invokes `/nwn/home/run-server.sh` as the NWN container entrypoint;
 - mounts the production root at `/nwn/home`;
 - does not bind-mount the host log directory onto `/nwn/run/logs.0`, because
@@ -278,7 +287,7 @@ rehearsed.
   obsolete `NWNX_NWSYNCURL` argument.
 
 `server-restart.sh` is a credential-free host command. It validates the
-productive Compose, ensures MySQL/InfluxDB/Grafana are running, stops only
+productive Compose, ensures MySQL is running, stops only
 `pb-server` with a 120-second timeout, then recreates it. It deliberately leaves
 MySQL, its persistent volume and the panel's shared network running.
 

@@ -1,5 +1,10 @@
 name: server
 
+# The host runs this file as it is, from its server directory: every relative
+# path below resolves against the directory holding this file, not against the
+# shell's working directory, so `docker compose -f <dir>/docker-compose.yml`
+# mounts the right tree from anywhere.
+
 services:
   pb-server:
     image: nwnxee/unified:build8193.37
@@ -11,8 +16,8 @@ services:
     stop_grace_period: 2m
     entrypoint: /nwn/home/run-server.sh
     env_file:
-        - ${PWD-.}/config/nwserver.env
-        - ${PWD-.}/config/mysql.env
+        - ./config/nwserver.env
+        - ./config/mysql.env
     environment:
       # Sustituye los bind-mount de /etc/timezone y /etc/localtime, que no
       # existen en un host Windows y rompian el arranque desde win_run_server.bat.
@@ -21,10 +26,10 @@ services:
       mysql:
         condition: service_healthy
     ports:
-    - '5121:5121/udp'
+    - '0.0.0.0:5121:5121/udp'
     volumes:
-      - ${PWD-.}/:/nwn/home
-      - ${PWD-.}/logs:/nwn/data/bin/linux-x86/logs.0
+      - ./:/nwn/home
+      - ./logs:/nwn/data/bin/linux-x86/logs.0
     restart: unless-stopped
     logging:
       driver: local
@@ -38,12 +43,12 @@ services:
     container_name: nwnee_baldur_mysql
     command: ["mysqld", "--mysql-native-password=ON"]
     env_file:
-      - ${PWD-.}/config/mysql.env
+      - ./config/mysql.env
     environment:
       - TZ=Europe/Madrid
     volumes:
       - mysql_data:/var/lib/mysql
-      - ${PWD-.}/config/mysql-init:/docker-entrypoint-initdb.d:ro
+      - ./config/mysql-init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test:
         - CMD-SHELL
@@ -54,17 +59,23 @@ services:
       start_period: 20s
     restart: unless-stopped
 
+  # Metrics are opt-in. NWNX_METRICS_INFLUXDB_SKIP=y in config/nwserver.env, so
+  # nothing writes to InfluxDB in normal operation, and the online host runs
+  # neither service. Start both only for a measurement window:
+  #   docker compose --profile metrics up -d
   influxdb:
+    profiles: [metrics]
     hostname: influxdb
     image: influxdb:1.7
     restart: unless-stopped
     environment:
       - TZ=Europe/Madrid
-    env_file: ${PWD-.}/config/influxdb.env
+    env_file: ./config/influxdb.env
     volumes:
     - influxdb:/var/lib/influxdb
 
   grafana:
+    profiles: [metrics]
     hostname: grafana
     image: grafana/grafana:6.0.1
     restart: unless-stopped
@@ -74,9 +85,9 @@ services:
       - 3000:3000/tcp
     depends_on:
     - influxdb
-    env_file: ${PWD-.}/config/grafana.env
+    env_file: ./config/grafana.env
     volumes:
-    - ${PWD-.}/config/grafana-provisioning:/etc/grafana/provisioning
+    - ./config/grafana-provisioning:/etc/grafana/provisioning
     - grafana:/var/lib/grafana
 volumes:
   influxdb:

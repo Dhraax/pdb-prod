@@ -28,8 +28,10 @@ mkdir -p logs
 echo "[*] Validating production Compose configuration"
 docker compose -f docker-compose.yml config --quiet
 
-echo "[*] Ensuring persistent dependencies are running"
-docker compose -f docker-compose.yml up -d mysql influxdb grafana
+# Naming influxdb or grafana here would switch on their `metrics` profile and
+# start them on every restart; the server needs only MySQL.
+echo "[*] Ensuring MySQL is running"
+docker compose -f docker-compose.yml up -d mysql
 
 echo "[*] Stopping the NWN server gracefully"
 docker compose -f docker-compose.yml stop --timeout 120 pb-server

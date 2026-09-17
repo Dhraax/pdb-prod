@@ -260,7 +260,7 @@ upstream source that another checkout can obtain.
 | `tools/linux/` | Bundled Linux Nasher, NWScript compilers, and Neverwinter utilities |
 | `config/` | Server environment files and Grafana/InfluxDB provisioning |
 | `server/` | Staging/runtime directory populated by launch scripts |
-| `docker-compose.yml` | The only Compose file here: NWN:EE/NWNX:EE, MySQL, InfluxDB and Grafana. There is no `-dev` variant in this repository |
+| `docker-compose.yml` | The only Compose file here, and the one the host runs from its server directory: NWN:EE/NWNX:EE and MySQL by default, InfluxDB and Grafana only under the `metrics` profile. There is no `-dev` variant in this repository |
 | `haks-2da/` | Project 2DA and HAK-related content |
 | `tlk/` | TLK content staged for the server |
 | `erf/` | ERF-related content/artifacts |
@@ -447,16 +447,18 @@ explicitly asks.
 | `win_stop_server.bat` | Stop the Windows-staged stack | Runs from `server/` |
 | `linux_nasher_install.sh` | Legacy install | Uses `--noCompile`: packs **without compiling**. Prefer `linux_build.sh` |
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
-| `server-restart.sh` | Restart **only the `pb-server` service**, from the repository root | Validates the Compose file, brings `mysql`, `influxdb` and `grafana` up if they are not running and leaves them alone if they are, then stops `pb-server` with a 120 second timeout and recreates it. This is the live server: recreating it disconnects whoever is playing. It does **not** restart the database or the dashboards, so it is not the command for a MySQL problem. Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it |
+| `server-restart.sh` | Restart **only the `pb-server` service**, from the repository root | Validates the Compose file, brings `mysql` up if it is not running and leaves it alone if it is, then stops `pb-server` with a 120 second timeout and recreates it. This is the live server: recreating it disconnects whoever is playing. It does **not** restart the database, so it is not the command for a MySQL problem, and it never starts the metrics services. Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it |
 | `web-restart.sh` | Rebuild and restart only the CNR editor stack | Expects a staged `cnr-editor/` with its `compose.yml` and `.env` |
-| `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/Puerta de Baldur 5E.mod` on the host. Player-visible the moment it runs |
+| `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/Puerta de Baldur 5E.mod` beside the script, or `modules/Puerta de Baldur 5E.mod` when the script sits in the server directory itself. Player-visible the moment it runs |
 | `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
 | `db-backup.sh` | Create a private full-MySQL transfer package under ignored `server/db-transfer/` | Read-only against the running source database; captures live editor changes, identity and CNR progress as well as recipes |
 | `db-restore.sh` | Restore the transferred MySQL package on a new host | Destructive by nature but refuses any non-empty target database; validates checksum and recipe presence before handoff |
 | `db-apply.sh` | Apply `migration/*.sql` in order to a **live** database | Rebuilds the catalogue tables only. Dumps to `<stack>/db-backups/pre-apply-<timestamp>.sql.gz` first, and aborts if the character, tradeskill or setting counts drop. Finds the stack itself: `dev-server/` on the dev host, `server/` locally, and prints both it and the migration directory before asking to confirm |
 
-The root Compose files currently run `nwnxee/unified:build8193.37` with
-`mysql:8.4`, `influxdb:1.7` and `grafana/grafana:6.0.1`. MySQL holds the
+The root Compose file currently runs `nwnxee/unified:build8193.37` with
+`mysql:8.4`; `influxdb:1.7` and `grafana/grafana:6.0.1` start only with
+`docker compose --profile metrics up -d`, because `NWNX_METRICS_INFLUXDB_SKIP=y`
+leaves them nothing to record in normal operation. MySQL holds the
 persistent identity and CNR tables; see `documentation/database/`. Environment-specific server settings
 live in `config/nwserver.env`, with `config/mysql.env`, `config/grafana.env`
 and `config/influxdb.env` alongside it. Each has a tracked `.example`; the real

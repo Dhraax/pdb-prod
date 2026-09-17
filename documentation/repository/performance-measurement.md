@@ -19,6 +19,17 @@ A number without its window and its player count is not a measurement.
 
 ## Where the data is
 
+InfluxDB and Grafana belong to the `metrics` Compose profile and are not running
+unless someone started them. Before a measurement window, turn on the switches
+below and run, from the stack directory:
+
+```bash
+docker compose --profile metrics up -d
+```
+
+`docker compose --profile metrics stop influxdb grafana` ends the window. A
+plain `docker compose up -d` or `server-restart.sh` never starts them.
+
 NWNX writes metrics through `Metrics_InfluxDB` into the `metrics` database of
 the `influxdb` container. **No port is published to the host**, deliberately, so
 the query goes through the container:
