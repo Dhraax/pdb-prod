@@ -60,15 +60,24 @@ regenerated either without locking out every account that enrolled.
 
 ## What the script refuses
 
+Values are read as Compose reads an env file: the last assignment wins, an
+`export ` prefix and blanks around `=` are ignored, and an unquoted value ends
+before ` #`. A checked value written in quotes or containing `$` is refused
+rather than interpreted, so what the script vouches for is exactly what Compose
+passes on.
+
 Before connecting:
 
 - a missing file or directory among the sources;
+- a checked value in quotes or containing `$`;
 - a `cambia-*` placeholder from an `.example` in any password, credential or MFA
   key;
 - an empty `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` or
   `MYSQL_PASSWORD`;
 - `NWN_MODULE` other than the module it sends, or `NWNX_SQL_SKIP` other than `n`;
-- `config/host/mysql.env` identical to the local `config/mysql.env`;
+- `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` or `CNR_EDITOR_MFA_ENCRYPTION_KEY`
+  equal to the same key in the local `config/mysql.env`, whatever else differs
+  between the two files;
 - a panel environment that does not read `../config/mysql.env`, does not join
   `server_default`, or publishes the panel on anything but `127.0.0.1`;
 - a module older than some `.nss` under `src/`: asked interactively, refused with

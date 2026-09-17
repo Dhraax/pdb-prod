@@ -95,48 +95,77 @@ host_panel_env="config/host/cnr-editor.env"
 [[ -f "$host_mysql_env" ]] \
     || fail "$host_mysql_env is missing; create it from config/mysql.env.example with the host's credentials"
 
-# Last assignment of a key, as Compose reads an env file.
+# Raw value of a key as Compose's env-file reader finds it: the last assignment
+# wins, an "export " prefix and blanks around "=" are ignored, and an unquoted
+# value ends before " #". Quotes are kept, so read_plain can refuse them.
 env_value() {
-    sed -n "s/^[[:space:]]*$2=//p" "$1" | tail -n 1 | tr -d '\r'
+    sed -n -E "s/^[[:space:]]*(export[[:space:]]+)?$2[[:space:]]*=//p" "$1" \
+        | tail -n 1 \
+        | tr -d '\r' \
+        | sed -E 's/[[:space:]]+#.*$//; s/^[[:space:]]+//; s/[[:space:]]+$//'
+}
+
+# Sets $value to a key the script vouches for. Quoted and interpolated forms are
+# refused rather than interpreted, so the value checked is the value Compose
+# will pass on. Runs in this shell, not a subshell, so fail stops the script.
+read_plain() {
+    value="$(env_value "$1" "$2")"
+    case "$value" in
+        \"*|\'*) fail "$2 in $1 is quoted; write it without quotes so it can be checked as Compose reads it" ;;
+        *'$'*) fail "$2 in $1 contains \$, which Compose interpolates; use a value without it" ;;
+    esac
 }
 
 reject_placeholder() {
-    local value
-    value="$(env_value "$1" "$2")"
+    read_plain "$1" "$2"
     [[ "$value" != cambia-* ]] || fail "$2 in $1 still holds the .example placeholder"
 }
 
 require_value() {
-    [[ -n "$(env_value "$1" "$2")" ]] || fail "$2 is missing or empty in $1"
     reject_placeholder "$1" "$2"
+    [[ -n "$value" ]] || fail "$2 is missing or empty in $1"
+}
+
+require_equal() {
+    read_plain "$1" "$2"
+    [[ "$value" == "$3" ]] || fail "$2 in $1 must be $3${4:+: $4}"
 }
 
 for key in NWN_PLAYERPASSWORD NWN_DMPASSWORD NWN_ADMINPASSWORD; do
     reject_placeholder "$host_nwserver_env" "$key"
 done
-[[ "$(env_value "$host_nwserver_env" NWN_MODULE)" == "$module_name" ]] \
-    || fail "NWN_MODULE in $host_nwserver_env must be \"$module_name\", the module this script sends"
-[[ "$(env_value "$host_nwserver_env" NWNX_SQL_SKIP)" == "n" ]] \
-    || fail "NWNX_SQL_SKIP in $host_nwserver_env must be n: the module needs MySQL"
+require_equal "$host_nwserver_env" NWN_MODULE "$module_name" "the module this script sends"
+require_equal "$host_nwserver_env" NWNX_SQL_SKIP n "the module needs MySQL"
 
 for key in MYSQL_ROOT_PASSWORD MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD; do
     require_value "$host_mysql_env" "$key"
 done
-if [[ -z "$(env_value "$host_mysql_env" CNR_EDITOR_MFA_ENCRYPTION_KEY)" ]]; then
+reject_placeholder "$host_mysql_env" CNR_EDITOR_MFA_ENCRYPTION_KEY
+if [[ -z "$value" ]]; then
     echo "WARNING: CNR_EDITOR_MFA_ENCRYPTION_KEY is empty in $host_mysql_env; the panel will refuse MFA enrolment." >&2
-else
-    reject_placeholder "$host_mysql_env" CNR_EDITOR_MFA_ENCRYPTION_KEY
-fi
-if [[ -f config/mysql.env ]] && cmp -s config/mysql.env "$host_mysql_env"; then
-    fail "$host_mysql_env is identical to the local config/mysql.env; the host needs its own credentials"
 fi
 
-[[ "$(env_value "$host_panel_env" CNR_EDITOR_MYSQL_ENV_FILE)" == "../config/mysql.env" ]] \
-    || fail "CNR_EDITOR_MYSQL_ENV_FILE in $host_panel_env must be ../config/mysql.env"
-[[ "$(env_value "$host_panel_env" CNR_EDITOR_NETWORK_NAME)" == "server_default" ]] \
-    || fail "CNR_EDITOR_NETWORK_NAME in $host_panel_env must be server_default"
-[[ "$(env_value "$host_panel_env" CNR_EDITOR_PORT)" == 127.0.0.1:* ]] \
+# The host's secrets must not be the workstation's, whatever else differs
+# between the two files: comments, order or non-secret values.
+if [[ -f config/mysql.env ]]; then
+    for key in MYSQL_ROOT_PASSWORD MYSQL_PASSWORD CNR_EDITOR_MFA_ENCRYPTION_KEY; do
+        read_plain "$host_mysql_env" "$key"
+        local_value="$(env_value config/mysql.env "$key")"
+        local_value="${local_value#[\"\']}"
+        local_value="${local_value%[\"\']}"
+        if [[ -n "$value" && "$value" == "$local_value" ]]; then
+            fail "$key in $host_mysql_env is the same as in the local config/mysql.env; the host needs its own"
+        fi
+    done
+    unset local_value
+fi
+
+require_equal "$host_panel_env" CNR_EDITOR_MYSQL_ENV_FILE ../config/mysql.env
+require_equal "$host_panel_env" CNR_EDITOR_NETWORK_NAME server_default
+read_plain "$host_panel_env" CNR_EDITOR_PORT
+[[ "$value" == 127.0.0.1:* ]] \
     || fail "CNR_EDITOR_PORT in $host_panel_env must be bound to 127.0.0.1; the panel is never published directly"
+unset value
 
 stale_count="$(find src -name '*.nss' -newer "$module_file" 2>/dev/null | wc -l)"
 if (( stale_count > 0 )); then
