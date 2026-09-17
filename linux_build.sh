@@ -1,12 +1,12 @@
 #!/bin/bash
 # -----------------------------------------------------------------------------
-#  BUILD del modulo de produccion PB_EE_PROD.
+#  BUILD del modulo de produccion "Puerta de Baldur 5E", el mismo nombre que usa el host.
 #
-#  Fuente unica: src/. Nunca se edita modules/PB_EE_PROD/.
+#  Fuente unica: src/. Nunca se edita "modules/Puerta de Baldur 5E/".
 #
 #  Uso:
 #    ./linux_build.sh                    Compila lo cambiado y empaqueta
-#                                            modules/PB_EE_PROD.mod
+#                                            "modules/Puerta de Baldur 5E.mod"
 #    ./linux_build.sh --check            Comprueba que src/ compila.
 #                                            Simula: no escribe ningun fichero.
 #    ./linux_build.sh --check a.nss ...  Comprueba solo esos.
@@ -85,7 +85,7 @@ echo "=== Compilando src/ y empaquetando ==="
   --installDir:"$RAIZ" \
   --yes
 
-MOD="$RAIZ/modules/PB_EE_PROD.mod"
+MOD="$RAIZ/modules/Puerta de Baldur 5E.mod"
 [ -f "$MOD" ] || { echo; echo "BUILD FALLIDO - no existe $MOD"; exit 1; }
 
 echo

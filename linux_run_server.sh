@@ -4,7 +4,7 @@ echo "WARNING: 'Y' will delete all unsaved changes! Commit or stash them before 
 
 # Aviso si el .mod es mas viejo que algun .nss de src/: se desplegaria una
 # build desfasada. Paso por el que ya se perdio una manana.
-MOD="modules/PB_EE_PROD.mod"
+MOD="modules/Puerta de Baldur 5E.mod"
 if [ -f "$MOD" ]; then
   NUEVOS=$(find src -name "*.nss" -newer "$MOD" 2>/dev/null | wc -l)
   if [ "$NUEVOS" -gt 0 ]; then
@@ -22,13 +22,13 @@ fi
 
 rm -f server/config/nwserver.env
 rm -f server/config/mysql.env
-rm -f server/modules/PB_EE_PROD.mod
+rm -f "server/$MOD"
 
 
 mkdir -p server/config
 mkdir -p server/modules
 
-cp modules/PB_EE_PROD.mod server/modules/PB_EE_PROD.mod
+cp "$MOD" "server/$MOD"
 cp config/nwserver.env server/config/nwserver.env
 cp config/grafana.env server/config/grafana.env
 cp config/influxdb.env server/config/influxdb.env

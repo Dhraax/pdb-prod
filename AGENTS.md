@@ -73,7 +73,8 @@ module, while Docker Compose stages the NWN:EE/NWNX:EE server runtime.
 
 Per `nasher.cfg`, the package is named `PROD PDB EE`, the only target is
 `default` (described as `PROD version`), and the packaged artifact is
-**`PB_EE_PROD.mod`**. Do not refer to this repository's module as `PB_EE_PGCC`;
+**`Puerta de Baldur 5E.mod`**, the same module name the online host runs (`NWN_MODULE=Puerta de Baldur 5E`).
+It replaced `PB_EE_PROD.mod` on 2026-09-17. Do not refer to this repository's module as `PB_EE_PGCC`;
 that name belongs to the development repository, `pdb-dev`, which is the source
 of most of what arrives here. `PB_EE` alone is a stale legacy name and belongs
 to neither.
@@ -248,7 +249,7 @@ upstream source that another checkout can obtain.
 | `src/pwdb/` | PWDB identity subsystem (`nss/`), consumed by module hooks and character-owned systems |
 | `src/cnr/nui/` | The CNR arcane NUI window scripts. Compiled: `linux_build.sh` includes this directory |
 | `src/module/` | Module-specific area and module metadata resources |
-| `modules/` | Unpacked and packaged working artifacts, including `PB_EE_PROD/`, `PB_EE_PROD.mod`, and `.rar` archives; not the long-term source of truth |
+| `modules/` | Unpacked and packaged working artifacts, including `Puerta de Baldur 5E/`, `Puerta de Baldur 5E.mod`, and `.rar` archives; not the long-term source of truth |
 | `.nasher/` | Nasher cache and package state; generated working data |
 | `documentation/` | Canonical project documentation, split by module |
 | `agents-config/` | Pinned, technology-agnostic agent contract and workflow engine submodule |
@@ -265,8 +266,9 @@ upstream source that another checkout can obtain.
 | `erf/` | ERF-related content/artifacts |
 | `logs/` | Runtime diagnostic output |
 
-The repository root also holds a top-level `PB_EE_PROD.mod` alongside
-`modules/PB_EE_PROD.mod`. Neither is source; both are generated artifacts.
+The repository root may also hold a top-level `Puerta de Baldur 5E.mod` alongside
+`modules/Puerta de Baldur 5E.mod`, and older `PB_EE_PROD.mod` copies from before the rename.
+None is source; all are generated artifacts.
 
 ### CNR is self-contained: put its resources under `src/cnr/`
 
@@ -332,10 +334,11 @@ How Nasher applies this, per the bundled Nasher README:
 - Aurora/GFF resources are stored as JSON in `src/`; NWScript remains `.nss`.
 - Files matching no rule are dropped into an `unknown/` directory in the package
   root. If `unknown/` appears, treat it as a routing failure to sort manually.
-- The configured target writes `PB_EE_PROD.mod`.
+- The configured target writes `Puerta de Baldur 5E.mod`; the name contains spaces, so every
+  script quotes the path.
 
 Treat `src/` as authoritative after a successful unpack. Do not edit
-`PB_EE_PROD.mod`, `modules/PB_EE_PROD.mod`, or the `.nasher/` cache as a
+`Puerta de Baldur 5E.mod`, `modules/Puerta de Baldur 5E.mod`, or the `.nasher/` cache as a
 substitute for a source change.
 
 ---
@@ -394,7 +397,7 @@ src/shared/nss   src/cnr/nss   src/cnr/nui   src/pwdb/nss
 
 | Script | Purpose |
 |--------|---------|
-| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PROD.mod` |
+| `linux_build.sh` | Compile `src/` and pack `modules/Puerta de Baldur 5E.mod` |
 | `linux_build.sh --check [files]` | Verify compilation only; writes nothing |
 | `linux_build.sh --clean` | Clear the cache and rebuild everything |
 | `linux_run_server.sh` | Stage into `server/` and start the stack |
@@ -407,7 +410,7 @@ Normal cycle:
 ./linux_run_server.sh
 ```
 
-`src/` is the only source of truth. Never edit `modules/PB_EE_PROD/`: it is an
+`src/` is the only source of truth. Never edit `modules/Puerta de Baldur 5E/`: it is an
 unpacked working copy, it is not tracked, and editing it there silently
 diverges from what Nasher builds.
 
@@ -430,7 +433,7 @@ explicitly asks.
 
 | Script | Role |
 |--------|------|
-| `linux_build.sh` | Compile `src/` and pack `modules/PB_EE_PROD.mod`. `--check` verifies only, `--clean` rebuilds all |
+| `linux_build.sh` | Compile `src/` and pack `modules/Puerta de Baldur 5E.mod`. `--check` verifies only, `--clean` rebuilds all |
 | `linux_run_server.sh` | Stage the `.mod`, env files, `mysql-init`, Grafana provisioning and TLK into `server/`; start Compose. Warns when a `.nss` is newer than the `.mod` |
 | `linux_stop_server.sh` | Stop the stack (`--remove-orphans`) |
 
@@ -446,7 +449,7 @@ explicitly asks.
 | `win_nasher_install.bat` | Legacy Windows install | Same `--noCompile` caveat |
 | `server-restart.sh` | Restart **only the `pb-server` service**, from the repository root | Validates the Compose file, brings `mysql`, `influxdb` and `grafana` up if they are not running and leaves them alone if they are, then stops `pb-server` with a 120 second timeout and recreates it. This is the live server: recreating it disconnects whoever is playing. It does **not** restart the database or the dashboards, so it is not the command for a MySQL problem. Expects `docker-compose.yml`, `run-server.sh` and `config/*.env` beside it |
 | `web-restart.sh` | Rebuild and restart only the CNR editor stack | Expects a staged `cnr-editor/` with its `compose.yml` and `.env` |
-| `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/PB_EE_PROD.mod` on the host. Player-visible the moment it runs |
+| `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/html/nwsync` from `server/modules/Puerta de Baldur 5E.mod` on the host. Player-visible the moment it runs |
 | `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
 | `db-backup.sh` | Create a private full-MySQL transfer package under ignored `server/db-transfer/` | Read-only against the running source database; captures live editor changes, identity and CNR progress as well as recipes |
 | `db-restore.sh` | Restore the transferred MySQL package on a new host | Destructive by nature but refuses any non-empty target database; validates checksum and recipe presence before handoff |

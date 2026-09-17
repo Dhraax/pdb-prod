@@ -10,7 +10,7 @@ for required_path in \
     run-server.sh \
     config/nwserver.env \
     config/mysql.env \
-    modules/PB_EE_PROD.mod
+    "modules/Puerta de Baldur 5E.mod"
 do
     if [ ! -e "$required_path" ]; then
         echo "ERROR: required production file is missing: $required_path" >&2
