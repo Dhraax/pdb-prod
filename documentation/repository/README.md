@@ -10,6 +10,7 @@ documentation.
 | Document | Contents |
 |----------|----------|
 | [`remote-policy.md`](remote-policy.md) | Mandatory push destination, read-only PDB upstream, verification, synchronization, and deliberate owner override |
+| [`host-sync.md`](host-sync.md) | Sending the production periphery to the online host with `host-sync.sh`: what travels, what is never touched, the private `config/host/` files and the order of work on the host |
 | [`deployment-sync.md`](deployment-sync.md) | Staged runtime and CNR editor deployment contract for `rsync.sh` |
 | [`agent-audit-integration.md`](agent-audit-integration.md) | PDB parameters and wrapper for the provider-neutral, single-review audit engine |
 | [`mcp-integration.md`](mcp-integration.md) | Native API MCP submodules, authoritative source ownership, root-relative launchers, source locking, client registration, and update workflow |

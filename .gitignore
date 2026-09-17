@@ -86,6 +86,8 @@ config/grafana.env
 !config/grafana.env.example
 config/influxdb.env
 !config/influxdb.env.example
+# Valores del host de produccion: los envia host-sync.sh, nunca git.
+config/host/
 cnr-editor/remote.env
 cnr-editor/*.env
 !cnr-editor/*.env.example

@@ -1,0 +1,123 @@
+# Production host sync
+
+`host-sync.sh` sends what this repository owns to the online host's server
+directory, `/home/baldurs/nwneeserver` by default. That directory is the host's
+equivalent of `server/`: it already holds the haks, TLK, server vault, NWN
+database, NWSync state and logs, and the script is built so it cannot touch
+them. It is a transport step only: it starts, stops, restarts and migrates
+nothing.
+
+```bash
+./host-sync.sh --dry-run baldurs@<host>   # list what would change
+./host-sync.sh baldurs@<host>             # asks for SYNC before sending
+```
+
+`PDB_REMOTE_DIR` changes the server directory and `PDB_SSH` the SSH command, for
+example `PDB_SSH="ssh -p 2222 -i ~/.ssh/pdb"`. All transfers share one SSH
+connection, so a password is asked once.
+
+## What travels
+
+| Local source | On the host | Mode | Removed files |
+|--------------|-------------|------|---------------|
+| `docker-compose.yml` | `docker-compose.yml` | 644 | - |
+| `run-server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `nwsync.sh`, `nwn_nwsync_write` | same names | 755 | - |
+| `config/host/nwserver.env` | `config/nwserver.env` | 600 | - |
+| `config/host/mysql.env` | `config/mysql.env` | 600 | - |
+| `config/mysql-init/` | `config/mysql-init/` | 755 | deleted on the host |
+| `migration/` | `migration/` | 644 | deleted on the host |
+| `cnr-editor/`, without `node_modules/`, `dist/`, caches or `*.env` | `cnr-editor/` | 644 | deleted on the host, except its `.env` |
+| `config/host/cnr-editor.env`, or `cnr-editor/host.env.example` when absent | `cnr-editor/.env` | 644 | - |
+| `modules/Puerta de Baldur 5E.mod` | `modules/` | 644 | - |
+
+Only the three trees the repository owns entirely - `config/mysql-init/`,
+`migration/` and `cnr-editor/` - mirror deletions. Nothing is synchronized at
+the top of the server directory as a tree, so `hak/`, `tlk/`, `servervault/`,
+`database/`, `logs/`, `override/`, `portraits/`, `saves/`, `nwsync/`,
+`cryptographic_secret`, `settings.tml`, `nwn.ini`, `db-backups/`, other modules
+and the old `docker-compose-pdb.yml` are never listed, overwritten or deleted.
+Grafana and InfluxDB files do not travel: they belong to the `metrics` profile,
+which the host does not run.
+
+The module is written to a temporary file and renamed into place, so a running
+server keeps the file it loaded.
+
+## The private host files
+
+The host's values live in `config/host/`, which is ignored, so the local
+`config/nwserver.env` and `config/mysql.env` keep serving the local stack:
+
+| File | Created from | Must hold |
+|------|--------------|-----------|
+| `config/host/nwserver.env` | `config/nwserver.env.example` | The host's player, DM and admin passwords; `NWN_MODULE=Puerta de Baldur 5E`; `NWNX_SQL_SKIP=n` |
+| `config/host/mysql.env` | `config/mysql.env.example` | Host-only `MYSQL_ROOT_PASSWORD`, `MYSQL_PASSWORD` and `CNR_EDITOR_MFA_ENCRYPTION_KEY` |
+| `config/host/cnr-editor.env` | `cnr-editor/host.env.example` | Optional; only when the panel's host controls differ from the template |
+
+MySQL applies `MYSQL_*` only when it initialises an empty volume. Changing them
+in `config/host/mysql.env` afterwards does not change the users inside the
+database; that needs an explicit MySQL operation. The MFA key cannot be
+regenerated either without locking out every account that enrolled.
+
+## What the script refuses
+
+Before connecting:
+
+- a missing file or directory among the sources;
+- a `cambia-*` placeholder from an `.example` in any password, credential or MFA
+  key;
+- an empty `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` or
+  `MYSQL_PASSWORD`;
+- `NWN_MODULE` other than the module it sends, or `NWNX_SQL_SKIP` other than `n`;
+- `config/host/mysql.env` identical to the local `config/mysql.env`;
+- a panel environment that does not read `../config/mysql.env`, does not join
+  `server_default`, or publishes the panel on anything but `127.0.0.1`;
+- a module older than some `.nss` under `src/`: asked interactively, refused with
+  `--yes`.
+
+After connecting: no `rsync` on the host, a server directory that does not
+exist, or one with none of `hak/`, `modules/` or `servervault/`, which is taken
+as a wrong path.
+
+An empty MFA key only warns: the panel then refuses MFA enrolment.
+
+## Order of work on the host
+
+The script prints this at the end. Everything runs in the server directory.
+
+**First deployment:**
+
+1. `docker compose -f docker-compose-pdb.yml down`. The old and new Compose
+   files both name the container `nwnee_baldur`, so the new one cannot start
+   while the old container exists.
+2. `./db-apply.sh`. It starts MySQL and, on the empty database, creates the
+   whole schema and catalogue.
+3. `./nwsync.sh`, after confirming that `/var/www/html/nwsync` is the host's
+   NWSync web root.
+4. `docker compose up -d`.
+5. `./web-restart.sh`, then create the first administrator with
+   `docker compose --env-file cnr-editor/.env -f cnr-editor/compose.yml run --rm api control-panel-bootstrap-admin`.
+
+**Later syncs**, only for what changed:
+
+| Changed | Run |
+|---------|-----|
+| `migration/` | `./db-apply.sh` |
+| The module | `./nwsync.sh`, then `./server-restart.sh` |
+| `docker-compose.yml` or `config/nwserver.env` | `./server-restart.sh` |
+| `cnr-editor/` | `./web-restart.sh` |
+
+## Verification record
+
+Exercised on 2026-09-17 against a local directory standing in for the host, with
+an SSH stand-in that runs commands locally:
+
+- `--dry-run` listed every component and left the directory unchanged;
+- a real run placed every file with the modes above, removed an obsolete
+  `migration/` file, replaced `cnr-editor/.env`, and left a hak, a TLK, a vault
+  character, `cryptographic_secret`, `docker-compose-pdb.yml` and another module
+  untouched;
+- a second run transferred nothing;
+- every refusal above, including a host without `rsync`, was triggered and
+  stopped the script before any transfer; an empty MFA key only warned.
+
+It has not yet been run against the real host.

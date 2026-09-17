@@ -466,6 +466,9 @@ This is the intended order, not a record of commands already executed:
 
 ## Preliminary host upload manifest
 
+`host-sync.sh` sends everything listed below except the reviewed source; see
+`documentation/repository/host-sync.md`.
+
 ### Build input or reviewed source
 
 - `nasher.cfg`;
