@@ -142,7 +142,8 @@ an SSH stand-in that runs commands locally:
 - a second run transferred nothing;
 - every refusal above, including a host without `rsync`, was triggered and
   stopped the script before any transfer; an empty MFA key only warned;
-- with no `config/host/`, the script sent `config/*.env` and the host's
+- with no `config/host/`, the script sent `config/nwserver.env` and
+  `config/mysql.env`, and the host's
   `config/mysql.env` matched the local file byte for byte; an override in
   `config/host/` was sent in its place; with neither present it refused.
 
