@@ -32,7 +32,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 
 ### Detalle por valor
 
-**PIEL 1 - Cuero de roedor (tier 1), 11 criaturas**
+**PIEL 1 - Piel de roedor (tier 1), 11 criaturas**
 
 - Bat, Leaf-Nosed (`zep_bat_004`, CR 1.0)
 - Bat, Leaf-Nosed (`zep_bat_005`, CR 7.0)
@@ -46,7 +46,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Rata terrible (`ratainvernal`, CR 3.0)
 - Vampire Bat (`q1_vbat`, CR 2.0)
 
-**PIEL 2 - Cuero de herbivoro (tier 1), 14 criaturas**
+**PIEL 2 - Piel de herbivoro (tier 1), 14 criaturas**
 
 - Camel (`q1_camel002`, CR 2.0)
 - Camel, armored (`q1_camel001`, CR 2.0)
@@ -63,7 +63,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Moose (`q1_moose001`, CR 5.0)
 - Sheep, White (`zep_sheep_003`, CR 0.5)
 
-**PIEL 3 - Cuero de bestia salvaje (tier 2), 27 criaturas**
+**PIEL 3 - Piel de bestia (tier 2), 27 criaturas**
 
 - Cobra cormyta dorada (`goldcobra002`, CR 3.0)
 - Cobra cormyta negra (`blckcobra002`, CR 2.0)
@@ -93,7 +93,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Wild Boar (`q1_boar001`, CR 2.0)
 - Wild Boar (`q1_boar002`, CR 2.0)
 
-**PIEL 4 - Cuero de bestia salvaje grande (tier 2), 10 criaturas**
+**PIEL 4 - Piel de bestia grande (tier 2), 10 criaturas**
 
 - Elephant (`q1_elephant`, CR 11.0)
 - Jabalí terrible (`jabali_frutas`, CR 9.0)
@@ -106,7 +106,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Oso pardo (`osopardo`, CR 6.0)
 - Oso terrible (`bearkodiak001`, CR 18.0)
 
-**PIEL 5 - Cuero de bestia mitica (tier 3), 22 criaturas**
+**PIEL 5 - Piel de bestia mitica (tier 3), 22 criaturas**
 
 - Androesfinge (`androesfinge`, CR 24.0)
 - Ankheg (`ankheg`, CR 10.0)
@@ -131,7 +131,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Pig (`espanioso001`, CR 16.0)
 - Quimera (`quimera`, CR 16.0)
 
-**PIEL 6 - Cuero de bestia mitica gruesa (tier 3), 14 criaturas**
+**PIEL 6 - Piel de bestia mitica gruesa (tier 3), 14 criaturas**
 
 - Bestia desplazadora líder de la manada (`doralderdela`, CR 25.0)
 - Draco adulto (`draco001`, CR 14.0)
@@ -148,7 +148,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Tiranosaurio (`tiranosaurio`, CR 22.0)
 - Tricerátopo (`tiranosaurio001`, CR 18.0)
 
-**PIEL 7 - Cuero de dragon de fuego (tier 4), 6 criaturas**
+**PIEL 7 - Piel de draco de fuego (tier 4), 6 criaturas**
 
 - Dragón de oro adulto (`dragnrojoadul001`, CR 39.0)
 - Dragón de oro sierpe (`dragndeorosi`, CR 63.0)
@@ -157,7 +157,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Dragón rojo adulto (`dragnrojoadul`, CR 37.0)
 - Dragón rojo sierpe (`dragnrojosier`, CR 59.0)
 
-**PIEL 8 - Cuero de dragon de hielo (tier 4), 6 criaturas**
+**PIEL 8 - Piel de draco de hielo (tier 4), 6 criaturas**
 
 - Dragón blanco adulto (`dragnblancoad`, CR 26.0)
 - Dragón blanco sierpe (`dragnblancoad001`, CR 40.0)
@@ -166,7 +166,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Icehauptannarthanyx (`uri_drgwhite004`, CR 156.0)
 - Silver Dragon Ancient (`uri_adalon`, CR 102.0)
 
-**PIEL 9 - Cuero de dragon de acido (tier 4), 7 criaturas**
+**PIEL 9 - Piel de draco de acido (tier 4), 7 criaturas**
 
 - Dragón de cobre adulto (`dragndecobre`, CR 32.0)
 - Dragón de cobre sierpe (`dragndecobsierp`, CR 48.0)
@@ -176,7 +176,7 @@ fila. La columna "Entrega hoy" es lo que daba el script viejo antes del CNR.
 - Dragón verde sierpe (`dragnverdesie`, CR 47.0)
 - Sarvhylarewanyn (`asy_dragonanegra`, CR 83.0)
 
-**PIEL 10 - Cuero de dragon de rayo (tier 4), 6 criaturas**
+**PIEL 10 - Piel de draco de rayo (tier 4), 6 criaturas**
 
 - Blue Dragon Ancient (`uri_iryklathagra`, CR 127.0)
 - Dragón azul adulto (`drgblue003`, CR 32.0)
