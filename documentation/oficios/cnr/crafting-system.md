@@ -102,6 +102,18 @@ bare number as a recipe id while a station is open.
 Set by `CnrCraft_SetHeaderTokens`, `CnrCraft_SetSlotTokens`,
 `CnrCraft_SetDetailToken` and `CnrCraft_SetButtonTokens`.
 
+### Material counts in detail
+
+The detail entry condition rebuilds its token from the current shared station
+inventory whenever that entry is evaluated. This applies to every crafting
+table using `cnr_c_station`, including return after success, failure or a
+material-shortage refusal. Components are consumed before animation starts,
+so the next entry already reads the remaining quantities. No delayed callback
+writes detail tokens, avoiding writes into a different selection after
+navigation. Counts are snapshots on entry, rather than continuously refreshed
+while another player changes inventory. Client display after node re-entry
+still requires in-game validation; no forced restart or polling is used.
+
 ### Why the buttons are tokens
 
 An NWN colour code is not text: it is the literal byte `<`, then `c`, then
