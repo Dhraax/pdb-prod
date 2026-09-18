@@ -4,9 +4,9 @@
 
 The owner authorized profession-only stacks of ten on 2026-09-18. The scope
 starts with CNR palette resources and shop stock, including crafting components,
-consumables, station tools and the seven harvesting tools used by CNR. Crafted
-equipment retains its existing limits while the owner clarifies whether it is
-also intended to stack. No historical object conversion is included.
+consumables, station tools and the seven harvesting tools used by CNR. The
+owner confirmed crafted equipment must retain its existing limits. No
+historical object conversion is included.
 
 The [blueprint inventory](profession-stack-items.csv) contains 516 resources:
 509 CNR blueprints and seven harvesting tools. It cross-checks all 499 CNR
@@ -100,3 +100,14 @@ areas are confined to selected item BaseItem and StackSize fields. Every prior
 rows only at the Stacking field. Checks preserve original CRLF line endings.
 These results establish source consistency and compilation, not runtime
 stackability or equipability.
+
+All 139 equipment blueprints were compared byte-for-byte with the pre-stacking
+baseline `08903760` and are unchanged. None of the four stacking candidates
+modifies a palette file. The owner confirmed the materials/consumables/tools
+scope after the source slices were prepared.
+
+The observed `python3 migration/build_catalogue.py --check` result is failure at
+ten existing naming errors in five dirty placeables: `cnralchemytable`,
+`cnrarcanetable`, `cnrhebcauldron`, `cnrjewelersbench`, `cnrsewingtable`. These
+station files were not edited by the stacking slices. The check stopped there;
+a complete catalogue pass is not claimed. Independent review was not run.
