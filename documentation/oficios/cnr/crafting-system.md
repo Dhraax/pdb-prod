@@ -199,6 +199,7 @@ All on the PC, cleared naturally at logout.
 | `CNR_PAGE` | Current page |
 | `CNR_LIST_MODE` | Which list is on screen: 0 none, 1 categories, 2 recipes, 3 variants |
 | `CNR_RECIPE_ID` | Selected recipe |
+| `CNR_RECIPE_PAGE` | Recipe-list page restored from variant selection or detail |
 | `CNR_VARIANT_GROUP` | Products the selected recipe offers, empty when it has a fixed one |
 | `CNR_VARIANT_ID` | Which of those products the crafter picked |
 | `CNR_TYPED_ID` | Id captured from chat |
@@ -262,6 +263,16 @@ including intermediate materials whose recipe does not set `CNR_OFICIO`.
 Both values are captured before animation. Outputs are identified and stolen;
 the copied main output is stamped again after inventory handoff. The dedicated
 recycler consumes these locals under the contract in [`recycling.md`](recycling.md).
+
+### Returning from detail or product selection
+
+Recipe selection saves the current recipe-list page before the product picker
+resets its own page. Back from product selection or detail restores that saved
+page and reloads the recipe IDs and labels together. A typed selection from a
+different category starts at page zero of its recipe's category. This change
+preserves navigation context and does not alter button labels, custom-token
+rendering or conversation destinations. The disappearing-label cause remains
+unestablished and requires owner consultation before changes to that behavior.
 
 ### Cached recipe ownership
 

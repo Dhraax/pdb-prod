@@ -27,6 +27,8 @@ const string CNR_VAR_STATION   = "CNR_STATION_ID";
 const string CNR_VAR_SKILL     = "CNR_SKILL_INDEX";
 const string CNR_VAR_CATEGORY  = "CNR_CATEGORY_ID";
 const string CNR_VAR_PAGE      = "CNR_PAGE";
+/// Recipe-list page to restore after detail or variant selection.
+const string CNR_VAR_RECIPE_PAGE = "CNR_RECIPE_PAGE";
 const string CNR_VAR_RECIPE    = "CNR_RECIPE_ID";
 /// Which product of the recipe's group the crafter picked. A recipe without a
 /// group ignores this: it makes what its own row says.
@@ -488,6 +490,14 @@ int CnrCraft_SelectRecipe(object oPC, int nPublicId)
     }
 
     NWNX_SQL_ReadNextRow();
+    int iCategory = StringToInt(NWNX_SQL_ReadDataInActiveRow(2));
+    int iReturnPage = 0;
+    if (GetLocalInt(oPC, CNR_VAR_LISTMODE) == CNR_LIST_RECIPES
+        && GetLocalInt(oPC, CNR_VAR_CATEGORY) == iCategory)
+    {
+        iReturnPage = GetLocalInt(oPC, CNR_VAR_PAGE);
+    }
+    SetLocalInt(oPC, CNR_VAR_RECIPE_PAGE, iReturnPage);
     SetLocalInt(oPC, CNR_VAR_RECIPE, StringToInt(NWNX_SQL_ReadDataInActiveRow(0)));
 
     // Choosing a recipe always drops the product chosen for the previous one:

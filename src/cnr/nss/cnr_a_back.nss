@@ -12,6 +12,7 @@ void main()
 {
     object oPC = GetPCSpeaker();
     int nMode = GetLocalInt(oPC, CNR_VAR_LISTMODE);
+    int iRecipePage = GetLocalInt(oPC, CNR_VAR_RECIPE_PAGE);
 
     // From the list of products of a recipe, back means the recipe list, not
     // the categories: the crafter picked a metal and wants another metal, or
@@ -21,8 +22,8 @@ void main()
         DeleteLocalInt(oPC, CNR_VAR_RECIPE);
         DeleteLocalInt(oPC, CNR_VAR_VARIANT);
         DeleteLocalString(oPC, CNR_VAR_VGROUP);
-        SetLocalInt(oPC, CNR_VAR_PAGE, 0);
-        CnrCraft_ListRecipes(oPC, GetLocalInt(oPC, CNR_VAR_CATEGORY), 0);
+        SetLocalInt(oPC, CNR_VAR_PAGE, iRecipePage);
+        CnrCraft_ListRecipes(oPC, GetLocalInt(oPC, CNR_VAR_CATEGORY), iRecipePage);
         CnrCraft_SetSlotTokens(oPC);
         return;
     }
@@ -39,7 +40,8 @@ void main()
     // out to the action menu, which is what an empty list means.
     if (bWasOnDetail)
     {
-        CnrCraft_ListRecipes(oPC, GetLocalInt(oPC, CNR_VAR_CATEGORY), 0);
+        SetLocalInt(oPC, CNR_VAR_PAGE, iRecipePage);
+        CnrCraft_ListRecipes(oPC, GetLocalInt(oPC, CNR_VAR_CATEGORY), iRecipePage);
         CnrCraft_SetSlotTokens(oPC);
         return;
     }
