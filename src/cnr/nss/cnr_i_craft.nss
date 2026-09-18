@@ -143,7 +143,8 @@ string CnrCraft_GetListEntry(object oPC, int nIndex);
 /// @brief Select a recipe by its public id and cache it on the PC.
 /// @param oPC Player crafting.
 /// @param nPublicId The id shown in the menu.
-/// @returns TRUE when the recipe exists and is enabled.
+/// @returns TRUE when enabled, owned by this station and within tradeskill level.
+/// Reports a refusal to the player before returning FALSE.
 int CnrCraft_SelectRecipe(object oPC, int nPublicId);
 
 /// @brief The product a recipe makes, once the crafter's choice is taken into
@@ -473,11 +474,15 @@ int CnrCraft_SelectRecipe(object oPC, int nPublicId)
     // The recipe must belong to the station currently open, or a typed id would
     // let a player craft anything anywhere the component tags happen to match.
     if (!NWNX_SQL_PrepareQuery(
-        "SELECT r.recipe_id, IFNULL(r.variant_group, ''), r.category_id"
+        "SELECT r.recipe_id, IFNULL(r.variant_group, ''), r.category_id,"
+        + " r.min_level, p.skill_index"
         + " FROM cnr_recipe r"
         + " JOIN cnr_category c ON c.category_id = r.category_id"
+        + " JOIN cnr_station s ON s.station_id = c.station_id"
+        + " JOIN cnr_profession p ON p.profession_id = s.profession_id"
         + " WHERE r.public_id = ? AND r.enabled = 1 AND c.station_id = ? LIMIT 1"))
     {
+        SendMessageToPC(oPC, "No existe ninguna receta con ese ID en esta mesa.");
         return FALSE;
     }
 
@@ -486,10 +491,20 @@ int CnrCraft_SelectRecipe(object oPC, int nPublicId)
 
     if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
     {
+        SendMessageToPC(oPC, "No existe ninguna receta con ese ID en esta mesa.");
         return FALSE;
     }
 
     NWNX_SQL_ReadNextRow();
+    int iMinLevel = StringToInt(NWNX_SQL_ReadDataInActiveRow(3));
+    int iSkillIndex = StringToInt(NWNX_SQL_ReadDataInActiveRow(4));
+    if (CnrSkill_GetLevel(oPC, iSkillIndex + 1) < iMinLevel)
+    {
+        SendMessageToPC(oPC, "Necesitas nivel " + IntToString(iMinLevel)
+            + " de oficio para fabricar esta receta.");
+        return FALSE;
+    }
+
     int iCategory = StringToInt(NWNX_SQL_ReadDataInActiveRow(2));
     int iReturnPage = 0;
     if (GetLocalInt(oPC, CNR_VAR_LISTMODE) == CNR_LIST_RECIPES
@@ -1271,7 +1286,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
         "SELECT r.dc, r.xp_award, r.base_resref, r.output_tag,"
         + "       r.output_qty, r.display_name, s.profession_id, p.skill_index,"
         + "       s.anim_script, IFNULL(r.extra_resref, ''), r.extra_qty,"
-        + "       r.marks_socketed, r.gold_value, r.crafted_by, r.tier"
+        + "       r.marks_socketed, r.gold_value, r.crafted_by, r.tier, r.min_level"
         + " FROM cnr_recipe r"
         + " JOIN cnr_category c ON c.category_id = r.category_id"
         + " JOIN cnr_station  s ON s.station_id  = c.station_id"
@@ -1331,6 +1346,16 @@ int CnrCraft_Attempt(object oPC, object oStation)
     int    nGold        = StringToInt(NWNX_SQL_ReadDataInActiveRow(12));
     int    nOficio      = StringToInt(NWNX_SQL_ReadDataInActiveRow(13));
     int    iTier        = StringToInt(NWNX_SQL_ReadDataInActiveRow(14));
+
+    int    iMinLevel    = StringToInt(NWNX_SQL_ReadDataInActiveRow(15));
+
+    // Recheck the current catalogue requirement before any roll or cost.
+    if (CnrSkill_GetLevel(oPC, nSkillIx + 1) < iMinLevel)
+    {
+        SendMessageToPC(oPC, "Necesitas nivel " + IntToString(iMinLevel)
+            + " de oficio para fabricar esta receta.");
+        return FALSE;
+    }
 
     // Recipe ownership is checked before inspecting or consuming components.
     if (!CnrCraft_HasMaterials(oPC, oStation))

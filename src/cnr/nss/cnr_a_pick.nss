@@ -42,7 +42,10 @@ void main()
 
     if (nMode == CNR_LIST_RECIPES)
     {
-        CnrCraft_SelectRecipe(oPC, nId);
+        if (!CnrCraft_SelectRecipe(oPC, nId))
+        {
+            return;
+        }
 
         // A recipe that offers a group asks what to make before it shows the
         // detail; one with a fixed product goes straight there, as always.

@@ -19,7 +19,10 @@ void main()
         DeleteLocalInt(oPC, CNR_VAR_RECIPE);
         DeleteLocalInt(oPC, CNR_VAR_VARIANT);
         DeleteLocalString(oPC, CNR_VAR_VGROUP);
-        SendMessageToPC(oPC, "No existe ninguna receta con ese ID.");
+        if (nId <= 0)
+        {
+            SendMessageToPC(oPC, "No existe ninguna receta con ese ID.");
+        }
         return;
     }
 

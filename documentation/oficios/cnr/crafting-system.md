@@ -809,6 +809,20 @@ there is nothing to choose. The `Crear por ID` reply gained the matching link to
 the variant screen through `cnr_c_var`. A rejected id clears any recipe,
 variant and group left behind.
 
+**Minimum level is enforced at selection and attempt - 2026-09-18.**
+Previously, the recipe list filtered by `min_level`, but selecting a public ID
+and executing a cached recipe did not enforce it. `CnrCraft_SelectRecipe` now
+loads the recipe requirement and its owning profession's skill index before
+caching a selection. Both typed-ID and list actions stop on refusal. The
+attempt reads the current `min_level` again and refuses before checking
+components, rolling or spending materials, gold or tool wear. A recipe selected
+before a requirement change is therefore checked against the current catalogue.
+
+Showing recipes above one's level is a browsing preference, not permission to
+craft them. Exact minimum level is accepted. Disabled and foreign-station
+recipes remain refused. Refusals report the required level once and do not
+change conversation links or button tokens. Runtime acceptance remains owed.
+
 ---
 
 ## 8. Porting to production
