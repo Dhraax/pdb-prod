@@ -105,3 +105,11 @@ la tabla de referencia está en la [guía de Alquimia](alquimia/README.md).
 - [Joyería](joyeria/README.md)
 - [Peletería](peleteria/README.md)
 - [Sastrería](sastreria/README.md)
+
+## Compra de materiales y herramientas
+
+Los materiales, consumibles y herramientas de oficio incluidos en las tiendas
+se venden en paquetes de 10 y admiten pilas de hasta 10 unidades. El equipo
+fabricado conserva sus límites actuales. Cuando se rompe una herramienta del
+paquete, se pierde una unidad. Esta actualización requiere el HAK y el módulo
+actualizados en el servidor.

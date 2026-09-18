@@ -56,6 +56,11 @@ are outside this change and remain unchanged.
 2. Dedicated types 520-537 are appended, copying 18 original rows and changing
    only Stacking to 10. All existing rows and unrelated working-tree edits are
    preserved. The CSV records the original-to-dedicated type mapping.
+3. The 295 selected blueprints use their dedicated types. Selected supply/tool
+   copies in all eight inventoried shop areas use matching types and quantity
+   ten. Existing stack-10 material/consumable types remain unchanged. Names,
+   tags, resrefs, appearance and other blueprint fields are preserved. Palette
+   resource references remain valid and require no edits.
 
 ## Release and acceptance
 
