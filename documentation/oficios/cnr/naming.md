@@ -37,7 +37,8 @@ always shown as cedar and is `cnr_m_le_cedro`, dropped by `cnr_arb_cedro`.
 | Exception | Why | Where it is declared |
 |-----------|-----|----------------------|
 | Potions `sute_her_*` keep their names and tags | `pb_mod_activate` dispatches on the `sute_her` tag prefix, and potion tags carry codes such as `sute_her_DM1` | `POTION_PREFIX` |
-| `cnr_t_martlig_2..4` carry tag `cnr_t_martligero`; `cnr_t_aguja_peq` carries `cnr_t_aguja`; `cnr_t_desol_peq` carries `cnr_t_desollador` | several blueprints must satisfy one station tool, which the engine checks by tag. Owner decision, 2026-09-16 | `SHARED_TOOL_TAGS` |
+| `cnr_t_martlig_2..4` carry tag `cnr_t_martligero`; `cnr_t_aguja_peq` carries `cnr_t_aguja` | several blueprints must satisfy one station tool, which the engine checks by tag. Owner decision, 2026-09-16 | `SHARED_TOOL_TAGS` |
+| Resource `cnr_t_desol_gran` retains item `TemplateResRef` and tag `cnr_t_desollador` | owner requires identical skinning item fields except BaseItem; distinct resource filenames let the palette address both variants | `ITEM_TEMPLATE_ALIASES` |
 | Stations and resource chests are named `cnr` + CamelCase (`cnrAnvilSmith`) | the tag is the key `cnr_station` and the scripts use | `ENGINE_PLACEABLE` |
 | `sapo_alma_migr.nss` names retired identifiers | it converts persisted store keys from old names to new ones | `STORE_KEY_MIGRATION` |
 

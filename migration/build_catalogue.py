@@ -58,9 +58,9 @@ SHARED_TOOL_TAGS = {
     "cnr_t_martlig_3": "cnr_t_martligero",
     "cnr_t_martlig_4": "cnr_t_martligero",
     "cnr_t_aguja_peq": "cnr_t_aguja",
-    # Skinning daggers and shortswords satisfy the same equipped-tool check.
-    "cnr_t_desol_peq": "cnr_t_desollador",
 }
+# Owner requires the skinning variants to retain identical item identity fields.
+ITEM_TEMPLATE_ALIASES = {"cnr_t_desol_gran": "cnr_t_desollador"}
 # The engine's stations and resource chests keep CNR's own convention, cnr +
 # CamelCase: that tag is the key cnr_station and the scripts look them up by.
 ENGINE_PLACEABLE = re.compile(r"^cnr[A-Z][A-Za-z]+$")
@@ -1311,9 +1311,9 @@ def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
         stem = path.name[: -len(".uti.json")]
         resref = data.get("TemplateResRef", {}).get("value", "")
         tag = data.get("Tag", {}).get("value", "")
-        items[resref.lower()] = tag
+        items[stem.lower()] = tag
         item_tags.add(tag)
-        if resref != stem:
+        if resref != ITEM_TEMPLATE_ALIASES.get(stem, stem):
             errors.append(f"item {stem}: TemplateResRef {resref!r} differs from its file name")
         if len(resref) > RESREF_MAX:
             errors.append(f"item {resref}: longer than {RESREF_MAX} characters")
