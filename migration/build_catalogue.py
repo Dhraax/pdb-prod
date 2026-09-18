@@ -123,7 +123,7 @@ STATIONS: Sequence[Station] = (
 )
 
 STATION_TOOLS = (
-    # 4% each, rolled per tool and per attempt, with no memory: a tool does not
+    # 4% for ordinary tools, 3% for needles; each is rolled per attempt. A tool does not
     # wear down, it either survives the roll or it is gone. The engine reads
     # this as a percentage: Random(10000) < chance * 100.
     #
@@ -136,12 +136,12 @@ STATION_TOOLS = (
     ("cnrForgePublic", "cnr_t_gu_fundid", "equipped", 4.0, 1),
     # Only for cutting: setting a stone into a blank does not need the kit.
     ("cnrJewelersBench", "cnr_t_kit_orfeb", "inventory", 4.0, 1, "Tallado"),
-    # The needle is held, not carried: both trades sew with it in hand.
-    ("cnrTailorsTable", "cnr_t_aguja", "equipped", 4.0, 1),
+    # The needle is held, not carried. Its 3% chance averages 33.3 attempts.
+    ("cnrTailorsTable", "cnr_t_aguja", "equipped", 3.0, 1),
     ("cnrTailorsTable", "cnr_t_kit_cuero", "inventory", 4.0, 2),
     ("cnrAlchemyTable", "cnr_t_gu_alquim", "equipped", 4.0, 1),
     ("cnrHebCauldron", "cnr_t_gu_cocina", "equipped", 4.0, 1),
-    ("cnrSewingTable", "cnr_t_aguja", "equipped", 4.0, 1),
+    ("cnrSewingTable", "cnr_t_aguja", "equipped", 3.0, 1),
     # Sastreria has its own kit; the leather one stays with Peleteria.
     ("cnrSewingTable", "cnr_t_kit_sastre", "inventory", 4.0, 2),
     ("cnrSawTable", "cnr_t_kit_serr", "inventory", 4.0, 1),

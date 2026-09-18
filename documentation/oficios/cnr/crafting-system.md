@@ -772,8 +772,21 @@ rolling the recipe or consuming components. A database error fails closed and
 asks the player to contact a DM, so a failed lookup cannot bypass a tool.
 
 `breakage_chance` is a percentage and the engine evaluates
-`Random(10000) < chance * 100`. Every tool sits at **4.0** since 2026-08-19,
-which is about twenty-five crafts per tool.
+`Random(10000) < chance * 100`. Needles use **3.0** in Leatherworking and
+Tailoring since 2026-09-18, averaging 33.3 attempts including the breaking roll.
+Other tools retain **4.0**, averaging 25 attempts. All needle base-item variants
+share the same tag and therefore the same station percentage.
+
+A read-only query of local MySQL `nwnee_baldur_mysql` on 2026-09-18 confirmed
+both needle and kit rows at 4.00 before this source adjustment. No deployed
+server bytecode was checked. The severe reported three-attempt failure rate is
+not explained by that configured percentage alone. Needle survival after three
+rolls increases from 88.4736% to 91.2673%; this is a random-life adjustment,
+not a minimum guaranteed lifetime. Kits retain their independent roll.
+
+The generator and fresh seed contain 3.0. Existing catalogues can apply
+`migration/06_needle_breakage.sql` without rebuilding recipe tables or touching
+character progress. That SQL has been prepared, not applied to live MySQL.
 
 The number has moved twice. The legacy values were 0.3 and 0.1, written as if
 they were percentages but read by the old engine as a third of one percent and
