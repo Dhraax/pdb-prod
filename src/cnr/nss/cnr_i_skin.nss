@@ -2,62 +2,44 @@
 /// @system  CNR Harvesting
 /// @file    cnr_i_skin
 /// @author  Dhraax
-/// @brief   Skinning: the corpse of an animal is a harvesting node like a vein
-///          or a tree, and it answers to the same rules.
-///
-///          The creature already says what it is worth. Its blueprint carries
-///          the local int PIEL, and those ten values map one to one, in order,
-///          onto the ten leatherworking hides: 1 and 2 are tier 1, 3 and 4
-///          tier 2, 5 and 6 tier 3, and 7 to 10 the four dragon hides of tier
-///          4. Nothing has to be retagged; the corpse copies the value and the
-///          material out of the creature that died.
-///
-///          Like every other node: no experience, no trade level required, one
-///          answer every ten seconds, three deliveries and then it is done.
+/// @brief   Grant hides by activating an equipped knife on an ordinary corpse.
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 #include "cnr_i_stack"
-#include "cnr_i_node"
 
-// -----------------------------------------------------------------------------
-//                                  Constants
-// -----------------------------------------------------------------------------
-/// The knife the player has to hold. Sold by the leatherworking store.
-const string CNR_SKIN_KNIFE     = "cnr_t_desollador";
-/// What the creature blueprint calls the hide it carries.
-const string CNR_SKIN_CREATURE  = "PIEL";
-/// Previous attack handler, preserved for a creature raised after death.
-const string CNR_SKIN_ATTACK_SCRIPT = "CNR_SKIN_ATTACK_SCRIPT";
-/// Deliveries in one corpse. Existing corpse cleanup owns its lifetime.
-const int    CNR_SKIN_DELIVERIES = 3;
+const string CNR_SKIN_KNIFE = "cnr_t_desollador";
+const string CNR_SKIN_CREATURE = "PIEL";
+const string CNR_SKIN_READY = "CNR_SKIN_READY";
+const string CNR_SKIN_LEFT = "CNR_SKIN_LEFT";
+const string CNR_SKIN_BUSY = "CNR_SKIN_BUSY";
+const string CNR_SKIN_USES = "CNR_USOS";
+const int CNR_SKIN_DELIVERIES = 3;
+const float CNR_SKIN_COOLDOWN = 10.0;
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
 // -----------------------------------------------------------------------------
 
-/// @brief The hide a PIEL value stands for.
-/// @param nPiel The creature's PIEL value, 1 to 10.
-/// @returns The blueprint resref of the hide, or "" when the value is unknown.
+/// @brief Resolve the hide resource encoded by PIEL.
+/// @param nPiel The creature's PIEL value.
+/// @returns A hide resref for values 1-10, otherwise an empty string.
 string CnrSkin_Material(int nPiel);
 
-/// @brief The tier a PIEL value belongs to.
-/// @param nPiel The creature's PIEL value, 1 to 10.
-/// @returns 1 to 4, or 0 when the value is unknown.
+/// @brief Resolve the harvesting tier encoded by PIEL.
+/// @param nPiel The creature's PIEL value.
+/// @returns A tier from 1-4, otherwise zero.
 int CnrSkin_Tier(int nPiel);
 
-/// @brief How many hides one delivery hands over.
-/// @param nTier The corpse tier.
-/// @returns 1d4 at tiers 1 and 2, 2d4 at tier 3, 3d4 at tier 4.
+/// @brief Roll the existing hide quantity for one delivery.
+/// @param nTier The hide tier.
+/// @returns 1d4 at tiers 1-2, 2d4 at tier 3, or 3d4 at tier 4.
 int CnrSkin_Amount(int nTier);
 
-/// @brief Mark the existing dead creature as skinnable without cloning it.
-/// @param oCreature The dead creature. Does nothing when it carries no PIEL.
-void CnrSkin_SpawnCorpse(object oCreature);
-
-/// @brief One skinning attempt against a corpse.
-/// @param oPC Who is skinning.
-/// @param oCorpse The existing dead creature.
-void CnrSkin_Strike(object oPC, object oCorpse);
+/// @brief Deliver hides on one knife activation without changing corpse cleanup.
+/// @param oPC The activating player.
+/// @param oKnife The actual activated knife, equipped in either hand.
+/// @param oTarget The dead creature or its existing linked loot bag.
+void CnrSkin_Activate(object oPC, object oKnife, object oTarget);
 
 // -----------------------------------------------------------------------------
 //                             Function Definitions
@@ -98,117 +80,160 @@ int CnrSkin_Amount(int nTier)
     return d4();
 }
 
-void CnrSkin_SpawnCorpse(object oCreature)
+/// @brief Count loose hide units for synchronous delivery verification.
+/// @param oPC The receiving player.
+/// @param sMaterial The hide tag, identical to its resource name.
+/// @returns The total matching units in the player's direct inventory.
+int CnrSkin_CountHides(object oPC, string sMaterial)
 {
-    int nPiel = GetLocalInt(oCreature, CNR_SKIN_CREATURE);
-    string sMaterial = CnrSkin_Material(nPiel);
-    if (sMaterial == "")
+    int iCount = 0;
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
     {
-        return;
+        if (GetTag(oItem) == sMaterial)
+        {
+            iCount += GetItemStackSize(oItem);
+        }
+        oItem = GetNextItemInInventory(oPC);
     }
-
-    if (!GetIsObjectValid(oCreature) || !GetIsDead(oCreature))
-    {
-        return;
-    }
-
-    object oCorpse = oCreature;
-    string sPrevious = GetEventScript(oCorpse, EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED);
-    if (!SetEventScript(oCorpse, EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED, "cnr_skin_hit"))
-    {
-        PrintString("[CNR] Cannot attach skinning to the existing creature corpse.");
-        return;
-    }
-    if (sPrevious != "cnr_skin_hit")
-    {
-        SetLocalString(oCorpse, CNR_SKIN_ATTACK_SCRIPT, sPrevious);
-    }
-
-    SetIsDestroyable(FALSE, GetLocalInt(oCorpse, "fl_raiseable") > 0, TRUE, oCorpse);
-
-    // The corpse carries everything the strike needs, exactly like a vein.
-    SetLocalString(oCorpse, CNR_NODE_FAMILY, "cadaver");
-    SetLocalString(oCorpse, CNR_NODE_MATERIAL, sMaterial);
-    SetLocalInt(oCorpse, CNR_NODE_TIER, CnrSkin_Tier(nPiel));
-    SetLocalInt(oCorpse, CNR_NODE_LEFT, CNR_SKIN_DELIVERIES);
-    SetLocalString(oCorpse, "CNR_CADAVER_DE", GetName(oCreature));
-
+    return iCount;
 }
 
-void CnrSkin_Strike(object oPC, object oCorpse)
+/// @brief Grant the entire roll in chunks of ten or roll back new units.
+/// @param oPC The receiving player.
+/// @param sMaterial The hide resource and tag.
+/// @param iAmount The full rolled quantity.
+/// @returns TRUE only when every rolled unit reached the player's inventory.
+int CnrSkin_GiveHides(object oPC, string sMaterial, int iAmount)
 {
-    if (!GetIsObjectValid(oCorpse) || !GetIsDead(oCorpse))
+    int iBefore = CnrSkin_CountHides(oPC, sMaterial);
+    int iRemaining = iAmount;
+    while (iRemaining > 0)
+    {
+        int iChunk = (iRemaining > 10) ? 10 : iRemaining;
+        object oCreated = CreateItemOnObject(sMaterial, oPC, iChunk);
+        if (!GetIsObjectValid(oCreated))
+        {
+            break;
+        }
+        iRemaining -= iChunk;
+    }
+
+    int iAdded = CnrSkin_CountHides(oPC, sMaterial) - iBefore;
+    if (iRemaining == 0 && iAdded == iAmount)
+    {
+        return TRUE;
+    }
+
+    // Creation may merge into existing stacks. Remove only the added units.
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem) && iAdded > 0)
+    {
+        object oNext = GetNextItemInInventory(oPC);
+        if (GetTag(oItem) == sMaterial)
+        {
+            int iStack = GetItemStackSize(oItem);
+            if (iStack > iAdded)
+            {
+                SetItemStackSize(oItem, iStack - iAdded);
+                iAdded = 0;
+            }
+            else
+            {
+                DestroyObject(oItem);
+                iAdded -= iStack;
+            }
+        }
+        oItem = oNext;
+    }
+    return FALSE;
+}
+
+void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
+{
+    if (!GetIsPC(oPC) || GetIsDead(oPC) || !GetIsObjectValid(oKnife)
+        || GetTag(oKnife) != CNR_SKIN_KNIFE)
     {
         return;
     }
+    if (oKnife != GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC)
+        && oKnife != GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC))
+    {
+        SendMessageToPC(oPC, "Equipa el cuchillo de desollar que estas activando.");
+        return;
+    }
 
-    string sMaterial = GetLocalString(oCorpse, CNR_NODE_MATERIAL);
+    object oCorpse = oTarget;
+    if (GetObjectType(oTarget) == OBJECT_TYPE_PLACEABLE)
+    {
+        oCorpse = GetLocalObject(oTarget, "corpse_object");
+    }
+    if (!GetIsObjectValid(oCorpse)
+        || GetObjectType(oCorpse) != OBJECT_TYPE_CREATURE || !GetIsDead(oCorpse))
+    {
+        SendMessageToPC(oPC, "Selecciona el cadaver de una criatura.");
+        return;
+    }
+    if (GetArea(oPC) != GetArea(oCorpse) || GetDistanceBetween(oPC, oCorpse) > 3.0)
+    {
+        SendMessageToPC(oPC, "Acercate al cadaver para desollarlo.");
+        return;
+    }
+
+    int iPiel = GetLocalInt(oCorpse, CNR_SKIN_CREATURE);
+    string sMaterial = CnrSkin_Material(iPiel);
     if (sMaterial == "")
     {
+        SendMessageToPC(oPC, "Esta criatura no tiene piel aprovechable.");
         return;
     }
-
-    // One answer every ten seconds, whoever is cutting and however fast.
-    if (GetLocalInt(oCorpse, CNR_NODE_BUSY))
+    if (!GetLocalInt(oCorpse, CNR_SKIN_READY))
     {
-        return;
+        SetLocalInt(oCorpse, CNR_SKIN_READY, TRUE);
+        SetLocalInt(oCorpse, CNR_SKIN_LEFT, CNR_SKIN_DELIVERIES);
     }
-    SetLocalInt(oCorpse, CNR_NODE_BUSY, TRUE);
-    DelayCommand(CNR_NODE_COOLDOWN, DeleteLocalInt(oCorpse, CNR_NODE_BUSY));
-
-    object oKnife = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC);
-    if (GetTag(oKnife) != CNR_SKIN_KNIFE)
-    {
-        oKnife = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC);
-    }
-    if (GetTag(oKnife) != CNR_SKIN_KNIFE)
-    {
-        SendMessageToPC(oPC, "Necesitas un cuchillo de desollar en la mano.");
-        return;
-    }
-
-    int nLeft = GetLocalInt(oCorpse, CNR_NODE_LEFT);
-    if (nLeft <= 0)
+    int iLeft = GetLocalInt(oCorpse, CNR_SKIN_LEFT);
+    if (iLeft <= 0)
     {
         SendMessageToPC(oPC, "Ya no queda nada aprovechable en el cadaver.");
         return;
     }
-
-    int nTier = GetLocalInt(oCorpse, CNR_NODE_TIER);
-    int nAmount = CnrSkin_Amount(nTier);
-    if (!GetIsObjectValid(CreateItemOnObject(sMaterial, oPC, nAmount)))
+    if (GetLocalInt(oCorpse, CNR_SKIN_BUSY))
     {
-        SendMessageToPC(oPC, "No te cabe nada mas.");
+        SendMessageToPC(oPC, "Debes esperar diez segundos entre entregas de este cadaver.");
         return;
     }
 
+    int iTier = CnrSkin_Tier(iPiel);
+    // Lock before granting items; failed deliveries spend no cooldown or wear.
+    SetLocalInt(oCorpse, CNR_SKIN_BUSY, TRUE);
+    if (!CnrSkin_GiveHides(oPC, sMaterial, CnrSkin_Amount(iTier)))
+    {
+        DeleteLocalInt(oCorpse, CNR_SKIN_BUSY);
+        SendMessageToPC(oPC, "No te cabe nada mas.");
+        return;
+    }
+    SetLocalInt(oCorpse, CNR_SKIN_LEFT, iLeft - 1);
+    DelayCommand(CNR_SKIN_COOLDOWN, DeleteLocalInt(oCorpse, CNR_SKIN_BUSY));
     AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 1.5));
-
-    // The corpse and the knife are only spent when something came out.
-    nLeft--;
-    SetLocalInt(oCorpse, CNR_NODE_LEFT, nLeft);
-    if (nLeft <= 0)
+    if (iLeft == 1)
     {
         SendMessageToPC(oPC, "Has aprovechado todo lo que este cadaver daba.");
     }
 
-    int nUses = GetLocalInt(oKnife, CNR_NODE_TOOL_USES);
-    if (nUses <= 0)
+    int iUses = GetLocalInt(oKnife, CNR_SKIN_USES);
+    if (iUses <= 0)
     {
-        // Stamped the first time the knife is used, not when it is bought, so
-        // one bought long ago still works.
-        nUses = 40;
+        iUses = 40;
     }
-
-    nUses -= (nTier >= 4) ? 3 : ((nTier == 3) ? 2 : 1);
-
-    if (nUses <= 0)
+    iUses -= (iTier >= 4) ? 3 : ((iTier == 3) ? 2 : 1);
+    if (iUses <= 0)
     {
         SendMessageToPC(oPC, "Tu cuchillo de desollar se ha roto.");
-        CnrStack_BreakTool(oKnife, CNR_NODE_TOOL_USES);
+        CnrStack_BreakTool(oKnife, CNR_SKIN_USES);
     }
     else
     {
-        SetLocalInt(oKnife, CNR_NODE_TOOL_USES, nUses);
+        SetLocalInt(oKnife, CNR_SKIN_USES, iUses);
     }
 }

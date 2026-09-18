@@ -33,6 +33,7 @@
 #include "x3_inc_string"
 #include "inc_spells"
 #include "inc_generic"
+#include "cnr_i_skin"
 
 void DevolverAltura(object oPC, float fAltura)
 {
@@ -133,6 +134,13 @@ void main()
      SendMessageToPC(oPC, "¡No puedes usar objetos estando en Frenesi!");
      return;
     }
+
+  // Skinning is controlled by the activated knife, never a death event.
+  if(sTagDelObjeto == "cnr_t_desollador")
+  {
+    CnrSkin_Activate(oPC, oItem, oTarget);
+    return;
+  }
 
   //Borrar Varitas de Brujo
     if(sTagDelObjeto == "var_borrar")

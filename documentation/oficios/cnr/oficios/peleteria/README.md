@@ -1,5 +1,18 @@
 ﻿# Peletería
 
+## Desollado
+
+Equipa el Cuchillo de desollar adecuado a tu tamaño y activa su poder sobre
+el cadáver de una criatura que tenga piel aprovechable. Cada activación entrega
+pieles; debes activar de nuevo y esperar diez segundos entre entregas. Un mismo
+cadáver permite como máximo tres entregas, compartidas entre jugadores.
+
+El cadáver conserva su desaparición normal y su loot. Si desaparece antes,
+no podrás seguir desollándolo. No necesitas nivel de oficio ni recibes
+experiencia al desollar. Las cantidades son 1d4 en tier 1 y 2, 2d4 en tier 3 y
+3d4 en tier 4. El cuchillo se desgasta con cada entrega y, al romperse, consume
+una unidad del paquete.
+
 ## Uso
 
 1. Usa la **Tina de curtido** para obtener cuero. Es una estación de proceso y

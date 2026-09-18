@@ -1,30 +1,67 @@
 # Inventario de desollado: que suelta cada criatura
 
-## Current implementation - existing corpse, 2026-09-18
+## Current implementation - knife activation, 2026-09-18
 
-Skinning now marks the original dead creature instead of creating `cnr_cadaver`.
-Its appearance, inventory and loot remain owned by the existing corpse system.
-`zep_goblin` (ordinary) and `bandidocacique` (boss), neither carrying PIEL, were
-used as source comparisons; the goblin appears in the encounter lists in
-`src/module/git/wel_cc_cueva.git.json`. `nw_c2_default7` calls
-`corpse_InitializeCorpse`,
-and the JEFAZO branch separately creates `cofreboss`. Those loot/quest and boss
-branches are unchanged. Historical September-13 behavior below is superseded.
+The owner's host test showed that ordinary dead creatures do not receive the
+proposed melee attacks. That route is retired. Both knife size variants now
+have targeted unlimited Unique Power; each activation grants one delivery.
+Equip the actual activated knife, select a dead creature within three metres,
+and activate again after ten seconds for another delivery. A corpse permits
+at most three deliveries, shared across players. This is not an automatic loop.
 
-A valid PIEL initializes material, tier and three deliveries on that same
-creature and installs `cnr_skin_hit` through its melee-attacked event. The
-previous handler is preserved and delegated to if the creature is raised.
-Depleting skins does not destroy the corpse or its loot. Emptying the bodybag
-also keeps the corpse selectable while hides remain; existing decay still owns
-its lifetime. Non-PIEL creatures retain their existing death/loot behavior.
+The knife reads the original creature's PIEL, initializing delivery state once
+on first valid use. Values 1-2 give tier 1, 3-4 tier 2, 5-6 tier 3 and 7-10 tier
+4 using the ten existing hide resources. Quantities remain 1d4 at tiers 1-2,
+2d4 at tier 3 and 3d4 at tier 4. Results above ten are delivered in separate
+creation chunks without truncating the roll. A failed complete delivery rolls
+back added hide units and consumes neither delivery count, cooldown nor wear.
+Knife durability remains 40 uses with costs 1/1/2/3 by tier; breakage consumes
+one unit from a pack and clears wear for its successor. No profession level,
+XP or skill roll is involved.
 
-Provenance: native `GetEventScript`, `SetEventScript`,
-`EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED` and `SetIsDestroyable` from the
-accepted native MCP reference (nwscript.nss SHA256
-`c14098d0181f921618622f379ff5cb682b8656d5293f218392531eef7a8478ad`).
-Selectable-when-dead and event installation are declared API capabilities;
-delivery of melee attacks to the dead creature is not established by that
-reference and remains a required host test. No runtime probe was performed.
+All 36 modified creature-blueprint death events and the placed hydra's death
+event in lin_jarsom1 are restored to their pre-skinning handlers. The default
+death handler no longer calls skinning. The skin-specific empty-loot exception
+in corpse_CheckForBag is removed. The three death wrappers, melee handler and
+unused zombie corpse blueprint/palette entry are retired. No skinning code
+creates a corpse, installs creature events, initializes the loot system,
+changes SetIsDestroyable or changes a decay timer. Existing normal corpse
+initialization, loot/quest processing, early cleanup and boss chests remain
+owned by their original flows. The retired broken attack-time harvesting and
+removed ordinary hide drops are not reintroduced; skins come from the knife.
+
+An existing loot bag may resolve through its corpse_object link. Living,
+expired, unrelated or distant targets do not grant hides. Exhaustion does not
+delete the body or loot. The original corpse flow can remove the target before
+all three deliveries; skinning does not extend the opportunity.
+
+Provenance: pb_mod_activate, corpse_functions, nw_c2_default7 and original
+ScriptDeath values before 8adc4229/2b80030b. Native MCP GetItemActivatedTarget,
+CreateItemOnObject and IP_CONST_CASTSPELL_NUMUSES_UNLIMITED_USE use accepted
+nwscript.nss SHA256
+c14098d0181f921618622f379ff5cb682b8656d5293f218392531eef7a8478ad.
+CreateItemOnObject can return a merged stack, so failure rollback removes
+only added units rather than deleting the returned pile. The cast property
+uses the existing tracked UTI layout (animarcalavera), CostTable 3, Subtype
+329 and unlimited CostValue 13. No 2DA changes are needed for activation.
+
+Source checks and focused compilation establish resource integration, not
+runtime corpse targeting. Required host tests: both knife sizes and shop packs;
+living/invalid/expired targets; direct corpse and linked bag with and without
+loot; ten-second shared cooldown across two players; three-delivery exhaustion;
+tier-4 quantities above ten; inventory failure and retry; wear and single-unit
+pack breakage; unchanged ordinary, quest and boss loot and corpse disappearance.
+Module repacking, host tests and independent review are still pending.
+
+Focused verification: `./linux_build.sh --check cnr_i_skin.nss
+corpse_functions.nss pb_mod_activate.nss nw_c2_default7.nss nw_c2_default5.nss`
+compiled three executables, skipped two includes and reported zero errors.
+All filenames resolve uniquely. Active source has no reference to the retired
+wrappers, melee handler, corpse template or removed public skinning functions.
+The PROD structural documentation checker is absent; it was not reported as
+passed. Source files and legacy line endings were checked without repacking.
+
+## Historical inventory - September 13
 
 Levantado el 2026-09-13 sobre `src/shared/utc/` de este repositorio, antes de
 centralizar el desollado en el CNR. Son 3.320 criaturas en total.

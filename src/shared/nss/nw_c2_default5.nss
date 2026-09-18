@@ -72,8 +72,6 @@ void main()
     }
 
 
-    // El desollado vivia aqui, colgado de OnAttacked, y repartia pepitas
-    // de mineria con mensajes de piel. Lo sustituye el cadaver del CNR:
-    // cnr_i_skin, desde el OnDeath de la criatura.
+    // The retired attack-time skinning block is replaced by knife activation.
 
 }

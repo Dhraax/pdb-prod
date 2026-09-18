@@ -188,14 +188,8 @@ void corpse_CheckForBag( object oCorpse, object oBag )
 
             else
             {
-                // Looting must not remove the corpse while its hides remain.
-                if (GetLocalString(oCorpse, "CNR_NODO") == "cadaver"
-                    && GetLocalInt(oCorpse, "CNR_NODO_QUEDA") > 0)
-                {
-                    AssignCommand(oCorpse, SetIsDestroyable(FALSE, FALSE, TRUE));
-                }
                 // If Leave corpse after bag is empty, even if it is not raiseable
-                else if ( nFl_do_not_decay == 1 ) AssignCommand( oCorpse, SetIsDestroyable( FALSE, FALSE, FALSE ) );
+                if ( nFl_do_not_decay == 1 ) AssignCommand( oCorpse, SetIsDestroyable( FALSE, FALSE, FALSE ) );
 
                 // Else destroy the corpse, since it's fully looted
                 else AssignCommand( oCorpse, corpse_DestroyCorpse( oCorpse, 0 ) );

@@ -18,7 +18,6 @@
 #include "corpse_functions"
 #include "mti_libreria"
 #include "sys_quest_death"
-#include "cnr_i_skin"
 
 void CreateCreatureQuest(string sCreature, location lDest)
 {
@@ -131,8 +130,6 @@ void main()
 
     // CADAVERES USABLES AL MORIR
     corpse_InitializeCorpse(OBJECT_SELF);
-    // Attach skinning to this existing corpse after its normal initialization.
-    CnrSkin_SpawnCorpse(OBJECT_SELF);
 
 
 
