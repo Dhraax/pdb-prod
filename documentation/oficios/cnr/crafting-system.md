@@ -1094,44 +1094,21 @@ roll-based visibility estimate.
 
 ---
 
-## Los materiales apilan de 10 — 2026-08-18
+## Generic stack increase reverted - 2026-09-18
 
-Todo material del CNR —esencias, pepitas, lingotes, tablones, hierbas, cueros,
-accesorios— se apila de diez en diez. El peso se multiplica igual que la
-cantidad, que es lo que hace el motor por su cuenta: diez lingotes pesan diez
-veces uno.
+The eight generic base types changed by DEV commit `24b4c6efc` now have their
+original Stacking limit of 1 again: rows 24, 29, 79, 101, 211, 212, 307 and 311.
+Only those cells changed; all unrelated current 2DA adjustments are preserved.
+Gems, potions and other pre-existing stackable types retain their prior limits.
+This removes the unintended stack-10 behavior from unrelated items sharing
+those types. CNR materials using the same types also return to stack 1.
 
-Se hizo subiendo `Stacking` de 1 a 10 en las ocho filas de `baseitems.2da` que
-usan esos materiales:
-
-| Fila | Tipo | Materiales del CNR |
-|--:|---|--:|
-| 24 | `miscsmall` | 34 |
-| 29 | `miscmedium` | 44 |
-| 79 | `miscthin` | 9 |
-| 101 | `empty_potion` | 2 |
-| 211 | `miscsmall3` | 46 |
-| 212 | `miscmedium3` | 1 |
-| 307 | `miscmedium2` | 52 |
-| 311 | `miscsmall2` | 80 |
-
-Las gemas (`gem`) y las pociones (`potions`) ya apilaban de diez, así que no se
-tocaron.
-
-**No se hizo cambiando el tipo base de los blueprints**, que era la alternativa,
-por dos razones: habría cambiado los iconos de 268 objetos, y sobre todo **no
-habría afectado a lo que los jugadores ya tienen encima** — el tipo base va
-grabado en cada objeto, mientras que el `Stacking` se lee del 2DA en tiempo de
-ejecución. Así el material que ya está en circulación también apila.
-
-**Efecto fuera del oficio**: esas ocho filas las usan otros **745 objetos** del
-servidor, que pasan a apilar de diez igual. En general es bueno —ocupan menos
-mochila—, pero conviene saberlo: dos ejemplares idénticos de un objeto que
-lleve variables locales distintas podrían fusionarse en una pila y quedarse con
-las de uno solo. Los objetos únicos de misión no corren ese riesgo porque no
-hay dos iguales.
-
-**Hay que reempaquetar el hak de 2DA** para que el cambio llegue al juego.
+**Deferred by the owner:** dedicated stack-10 types for CNR-owned items, their
+blueprint/shop reassignment, sale in packs of ten and stacked-tool breakage
+handling. No dedicated rows, item remapping or shop quantity changes are
+implemented in this slice. Native SetItemStackSize clamps to the item-type
+maximum, so initial UTI StackSize cannot independently raise that limit.
+The source change requires repacking the owning 2DA HAK before runtime testing.
 
 ---
 
