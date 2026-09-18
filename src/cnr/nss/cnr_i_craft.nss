@@ -946,14 +946,17 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
     }
 
     if (!NWNX_SQL_PrepareQuery(
-        "SELECT display_name, dc, gold_value, output_qty,"
-        + "       IFNULL(extra_name, extra_resref), extra_qty FROM cnr_recipe"
-        + " WHERE recipe_id = ? AND enabled = 1 LIMIT 1"))
+        "SELECT r.display_name, r.dc, r.gold_value, r.output_qty,"
+        + "       IFNULL(r.extra_name, r.extra_resref), r.extra_qty"
+        + " FROM cnr_recipe r"
+        + " JOIN cnr_category c ON c.category_id = r.category_id"
+        + " WHERE r.recipe_id = ? AND r.enabled = 1 AND c.station_id = ? LIMIT 1"))
     {
         return "";
     }
 
     NWNX_SQL_PreparedInt(0, nRecipe);
+    NWNX_SQL_PreparedInt(1, GetLocalInt(oPC, CNR_VAR_STATION));
 
     if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
     {
@@ -1247,12 +1250,6 @@ int CnrCraft_Attempt(object oPC, object oStation)
         return FALSE;
     }
 
-    if (!CnrCraft_HasMaterials(oPC, oStation))
-    {
-        SendMessageToPC(oPC, "No tienes los materiales necesarios.");
-        return FALSE;
-    }
-
     if (!NWNX_SQL_PrepareQuery(
         "SELECT r.dc, r.xp_award, r.base_resref, r.output_tag,"
         + "       r.output_qty, r.display_name, s.profession_id, p.skill_index,"
@@ -1264,12 +1261,13 @@ int CnrCraft_Attempt(object oPC, object oStation)
         + " JOIN cnr_profession p ON p.profession_id = s.profession_id"
         // enabled is checked again here, not only when selecting: the id lives
         // on the PC and survives a catalogue reload, which renumbers recipes.
-        + " WHERE r.recipe_id = ? AND r.enabled = 1 LIMIT 1"))
+        + " WHERE r.recipe_id = ? AND r.enabled = 1 AND c.station_id = ? LIMIT 1"))
     {
         return FALSE;
     }
 
     NWNX_SQL_PreparedInt(0, nRecipe);
+    NWNX_SQL_PreparedInt(1, GetLocalInt(oPC, CNR_VAR_STATION));
 
     // The two reasons this can fail read the same to the player but not to
     // whoever reads the log. A recipe id lives on the PC and the catalogue
@@ -1315,6 +1313,13 @@ int CnrCraft_Attempt(object oPC, object oStation)
     // "Valor total" before the recipe is chosen.
     int    nGold        = StringToInt(NWNX_SQL_ReadDataInActiveRow(12));
     int    nOficio      = StringToInt(NWNX_SQL_ReadDataInActiveRow(13));
+
+    // Recipe ownership is checked before inspecting or consuming components.
+    if (!CnrCraft_HasMaterials(oPC, oStation))
+    {
+        SendMessageToPC(oPC, "No tienes los materiales necesarios.");
+        return FALSE;
+    }
 
     if (sResRef == "")
     {

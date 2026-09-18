@@ -237,12 +237,22 @@ happened on the test server on 2026-08-19.
 Both failures used to share one branch in `CnrCraft_Attempt`, so a real SQL
 error looked exactly like a stale id. They are separate now and each writes its
 own line to the engine log, `[CNR] Recipe lookup failed` against
-`[CNR] Recipe N no longer resolves`. The screens either side of the attempt do
-not notice: the recipe list and the detail query `cnr_recipe` on its own, while
-the attempt joins category, station and profession, so a detail screen can
-render perfectly for an id the attempt cannot resolve.
+`[CNR] Recipe N no longer resolves`. The detail joins the recipe category to recheck station ownership; the attempt
+also joins station and profession. A missing station/profession relationship
+can therefore still leave a detail whose attempt does not resolve.
 
 ---
+
+### Cached recipe ownership
+
+Detail and craft-attempt queries recheck that the selected `recipe_id` belongs
+to the station currently open, using its `cnr_category.station_id`. Selection
+already applies the same condition. A cached recipe from another station
+cannot be described or executed; the attempt clears a selection that no longer
+resolves and asks the player to choose again before any crafting costs. A valid
+recipe with depleted materials stays selected and reports the missing materials.
+This closes a source-level ownership gap; it does not establish the cause of
+the tester's apparent Alchemy jump after socketing the last gem.
 
 ## 4b. Recipes that offer several products
 
