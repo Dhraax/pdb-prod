@@ -255,6 +255,14 @@ can therefore still leave a detail whose attempt does not resolve.
 
 ---
 
+### Output recipe and tier
+
+Every main or extra output receives `CNR_CRAFT_RECIPE` and `CNR_CRAFT_TIER`,
+including intermediate materials whose recipe does not set `CNR_OFICIO`.
+Both values are captured before animation. Outputs are identified and stolen;
+the copied main output is stamped again after inventory handoff. The dedicated
+recycler consumes these locals under the contract in [`recycling.md`](recycling.md).
+
 ### Cached recipe ownership
 
 Detail and craft-attempt queries recheck that the selected `recipe_id` belongs

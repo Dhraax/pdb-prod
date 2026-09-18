@@ -11,6 +11,7 @@
 #include "cnr_i_skill"
 #include "cnr_i_setting"
 #include "cnr_i_prop"
+#include "cnr_i_product"
 #include "colors_inc"
 
 // Page size for the browsing menus.
@@ -221,6 +222,8 @@ int CnrCraft_GetRollBonus(object oPC, int nProfessionId);
 /// @param nExtraQty How many of the second product; 0 when there is none.
 /// @param bMarksSocketed TRUE when the result already holds a gem.
 /// @param nOficio Profession that made it, or 0 when it is not a crafted piece.
+/// @param iRecipe Recipe ID captured before the animation.
+/// @param iTier Recipe tier captured before the animation.
 void CnrCraft_Finish(
     object oPC,
     object oStation,
@@ -235,7 +238,9 @@ void CnrCraft_Finish(
     string sExtraResRef,
     int nExtraQty,
     int bMarksSocketed,
-    int nOficio
+    int nOficio,
+    int iRecipe,
+    int iTier
 );
 
 /// @brief Resolve a craft attempt: roll, consume, award XP.
@@ -1062,7 +1067,9 @@ void CnrCraft_Finish(
     string sExtraResRef,
     int nExtraQty,
     int bMarksSocketed,
-    int nOficio
+    int nOficio,
+    int iRecipe,
+    int iTier
 )
 {
     DeleteLocalInt(oPC, CNR_VAR_ACTIVE);
@@ -1143,8 +1150,7 @@ void CnrCraft_Finish(
 
     // A crafted item is known to whoever made it, and the server marks its own
     // production as stolen so it cannot be resold at full price.
-    SetIdentified(oItem, TRUE);
-    SetStolenFlag(oItem, TRUE);
+    CnrProduct_Stamp(oItem, iRecipe, iTier);
 
     if (nOficio > 0)
     {
@@ -1201,14 +1207,15 @@ void CnrCraft_Finish(
         return;
     }
 
+    CnrProduct_Stamp(oFinished, iRecipe, iTier);
+
     string sExtra = "";
     if (sExtraResRef != "" && nExtraQty > 0)
     {
         object oExtra = CreateItemOnObject(sExtraResRef, oPC, nExtraQty);
         if (GetIsObjectValid(oExtra))
         {
-            SetIdentified(oExtra, TRUE);
-            SetStolenFlag(oExtra, TRUE);
+            CnrProduct_Stamp(oExtra, iRecipe, iTier);
             sExtra = " Ademas obtienes " + IntToString(nExtraQty) + " x "
                    + GetName(oExtra) + ".";
         }
@@ -1254,7 +1261,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
         "SELECT r.dc, r.xp_award, r.base_resref, r.output_tag,"
         + "       r.output_qty, r.display_name, s.profession_id, p.skill_index,"
         + "       s.anim_script, IFNULL(r.extra_resref, ''), r.extra_qty,"
-        + "       r.marks_socketed, r.gold_value, r.crafted_by"
+        + "       r.marks_socketed, r.gold_value, r.crafted_by, r.tier"
         + " FROM cnr_recipe r"
         + " JOIN cnr_category c ON c.category_id = r.category_id"
         + " JOIN cnr_station  s ON s.station_id  = c.station_id"
@@ -1313,6 +1320,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
     // "Valor total" before the recipe is chosen.
     int    nGold        = StringToInt(NWNX_SQL_ReadDataInActiveRow(12));
     int    nOficio      = StringToInt(NWNX_SQL_ReadDataInActiveRow(13));
+    int    iTier        = StringToInt(NWNX_SQL_ReadDataInActiveRow(14));
 
     // Recipe ownership is checked before inspecting or consuming components.
     if (!CnrCraft_HasMaterials(oPC, oStation))
@@ -1542,7 +1550,9 @@ int CnrCraft_Attempt(object oPC, object oStation)
             sExtraResRef,
             nExtraQty,
             bMarks,
-            nOficio
+            nOficio,
+            nRecipe,
+            iTier
         ));
     }
     else
@@ -1561,7 +1571,9 @@ int CnrCraft_Attempt(object oPC, object oStation)
             sExtraResRef,
             nExtraQty,
             bMarks,
-            nOficio
+            nOficio,
+            nRecipe,
+            iTier
         );
     }
 
