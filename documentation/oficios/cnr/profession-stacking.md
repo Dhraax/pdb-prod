@@ -53,6 +53,9 @@ are outside this change and remain unchanged.
 
 1. Inventory and type-dependent consumer inspection completed. No resources
    have been remapped by this inventory slice.
+2. Dedicated types 520-537 are appended, copying 18 original rows and changing
+   only Stacking to 10. All existing rows and unrelated working-tree edits are
+   preserved. The CSV records the original-to-dedicated type mapping.
 
 ## Release and acceptance
 
