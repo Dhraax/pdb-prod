@@ -64,6 +64,7 @@ which owns the order, backups, validation and rollback.
 | [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 36 `cnr_e_*` / `cnr_c_*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
 | [`material-properties-reference.md`](material-properties-reference.md) | Numeric item-property contracts used to audit and generate recipe properties |
 | [`material-store-migration.md`](material-store-migration.md) | Current material-store conversion: preserved legacy Arcane quantities, source correspondence and testing boundary |
+| [`loot-extraction.md`](loot-extraction.md) | Generated equipment eligibility, identification checks and the current loot-rank boundary |
 | [`naming.md`](naming.md) | The naming contract: the `cnr_*` scheme, its complete exceptions, what `build_catalogue.py --check` refuses and how to rename safely |
 | [`history/`](history/README.md) | Completed CNR investigations retained for provenance, not current behavior |
 | [`../../../migration/legacy-catalogue-seed.sql`](../../../migration/legacy-catalogue-seed.sql) | Archive of the retired legacy seed; never apply it to a live database |

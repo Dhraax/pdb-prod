@@ -2,6 +2,7 @@
 /// @system  CNR Arcane
 /// @file    cnr_i_extract
 /// @author  Dhraax
+/// modified by: Dhraax
 /// @brief   The extraction machine: breaks loot items and returns the essences
 ///          they held.
 ///
@@ -35,12 +36,9 @@
 ///          documentation/oficios/cnr/arcane-plan.md section 7. If one of the
 ///          two changes, change the other.
 ///
-///          What may be broken is decided by CNR_LOOT_TIER, a mark of the
-///          trade's own that the loot generator stamps on what it creates
-///          (pb_tesoros_inc.nss:1769). An item without it - crafted, bought,
-///          from a quest, or looted before that change - is refused, which
-///          closes the shortcut of crafting cheap goods to recycle them and
-///          keeps old stashes out of the economy.
+///          The loot generator marks equipment with CNR_LOOT_TIER. This
+///          include trusts that classification and refuses unidentified or
+///          already enchanted items before counting or breaking them.
 /// ----------------------------------------------------------------------------
 
 #include "nwnx_sql"
@@ -90,7 +88,7 @@ const string CNR_EXT_TALLY_LIST = "CNR_EXT_TALLY_LIST";
 /// @param oMachine The extractor placeable.
 void CnrExt_Seal(object oPC, object oMachine);
 
-/// @brief Extraction tier of a loot item.
+/// @brief Extraction tier of an identified, unenchanted marked loot item.
 /// @param oItem Item to examine.
 /// @returns 1 to 4, or 0 when it cannot be broken. Loot rank 1, the grey one,
 ///     is left out on purpose: extraction starts at light blue.
@@ -177,7 +175,7 @@ void CnrExt_Seal(object oPC, object oMachine)
 
 int CnrExt_Tier(object oItem)
 {
-    if (!GetIsObjectValid(oItem))
+    if (!GetIsObjectValid(oItem) || !GetIdentified(oItem))
     {
         return 0;
     }

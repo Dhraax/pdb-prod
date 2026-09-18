@@ -24,6 +24,11 @@ void GenerarTesoroEnCriaturas();
 // 3 : Calidad alta  (rango 3-4)
 void GenerarTesoroEnUbicados(object oPC, int iCalidad=1);
 
+/// @brief Whether the base item declares an equipment slot in baseitems.2da.
+/// @param oItem Generated loot item to classify.
+/// @returns TRUE for equipment; FALSE for a missing or zero slot mask.
+int TreasureIsEquipment(object oItem);
+
 // Debug: Funcion para comprobar fallos. Comprueba si un objeto tiene o no la
 // propiedad que acaba de anyadir
 void DebugComprobarCorrectaAplicacionPropiedad(object oObjetoCreado, int iPropiedad, int iTipoEfecto=0, int iCD=0, int iEspecial=0)
@@ -1727,6 +1732,35 @@ void EncantamientoPropiedadAfilada(object oObjeto)
   DebugComprobarCorrectaAplicacionPropiedad(oObjeto, ITEM_PROPERTY_KEEN);
 }
 
+int TreasureIsEquipment(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+    {
+        return FALSE;
+    }
+
+    string sSlots = GetStringLowerCase(
+        Get2DAString("baseitems", "EquipableSlots", GetBaseItemType(oItem)));
+    if (sSlots == "" || sSlots == "****")
+    {
+        return FALSE;
+    }
+    if (GetStringLeft(sSlots, 2) == "0x")
+    {
+        sSlots = GetStringRight(sSlots, GetStringLength(sSlots) - 2);
+    }
+
+    int iIndex;
+    for (iIndex = 0; iIndex < GetStringLength(sSlots); iIndex++)
+    {
+        if (GetSubString(sSlots, iIndex, 1) != "0")
+        {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int iRango, int iTienda = FALSE)
 {
   if(iCalidad > 0)
@@ -1748,16 +1782,11 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "CALIDAD_GUARDADA", ipCalidad);
       SetLocalInt(oObjeto, "PCItem", 1);
 
-      // The arcane trade's own mark: it says this item can be broken down in
-      // the extractor and at which tier. Three conditions, all of them
-      // deliberate: the target has to be a loot container, which only
-      // GenerarTesoroEnCriaturas and the two GenerarTesoroEnUbicados flag, so
-      // shop stock and quest rewards built by these same functions are never
-      // marked; it has to be loot generated from now on, which is why the mark
-      // is separate from CALIDAD_GUARDADA and old stashes are refused; and rank
-      // 1, the grey one, yields no essence.
+      // Only generated equipment receives an extraction tier. Shop stock,
+      // quest rewards and grey loot remain outside this extraction policy.
       if(iRango >= 2 && iTienda == FALSE &&
-         GetLocalInt(oObjetivo, "CNR_LOOT_SOURCE") == TRUE)
+         GetLocalInt(oObjetivo, "CNR_LOOT_SOURCE") == TRUE &&
+         TreasureIsEquipment(oObjeto))
       {
           SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango - 1);
       }
