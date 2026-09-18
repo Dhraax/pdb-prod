@@ -10,6 +10,7 @@
 //:: Copyright (c) 2002 Floodgate Entertainment
 //:: Created By: Naomi Novik
 //:: Created On: 12/22/2002
+//:: modified by: Dhraax
 //:://////////////////////////////////////////////////
 
 #include "x2_inc_compon"
@@ -34,10 +35,6 @@ void main()
 
     // SISTEMA DE SEGURIDAD, POR SI LA CRIATURA SE MATA A SI MISMA
     if(oKiller == OBJECT_SELF) return;
-
-    // CNR: la criatura que lleva PIEL deja un cadaver aprovechable. El
-    // cadaver copia de ella su material y su tier; las demas no dejan nada.
-    CnrSkin_SpawnCorpse(OBJECT_SELF);
 
     // EXPERIENCIA
     ExecuteScript("pwfxp",OBJECT_SELF);
@@ -134,6 +131,8 @@ void main()
 
     // CADAVERES USABLES AL MORIR
     corpse_InitializeCorpse(OBJECT_SELF);
+    // Attach skinning to this existing corpse after its normal initialization.
+    CnrSkin_SpawnCorpse(OBJECT_SELF);
 
 
 

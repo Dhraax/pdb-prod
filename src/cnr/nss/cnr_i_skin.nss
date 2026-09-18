@@ -14,6 +14,7 @@
 ///
 ///          Like every other node: no experience, no trade level required, one
 ///          answer every ten seconds, three deliveries and then it is done.
+/// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 #include "cnr_i_node"
 
@@ -24,11 +25,10 @@
 const string CNR_SKIN_KNIFE     = "cnr_t_desollador";
 /// What the creature blueprint calls the hide it carries.
 const string CNR_SKIN_CREATURE  = "PIEL";
-/// The placeable a skinnable creature leaves behind.
-const string CNR_SKIN_CORPSE    = "cnr_cadaver";
-/// Deliveries in one corpse, and how long it lies there before it fades.
+/// Previous attack handler, preserved for a creature raised after death.
+const string CNR_SKIN_ATTACK_SCRIPT = "CNR_SKIN_ATTACK_SCRIPT";
+/// Deliveries in one corpse. Existing corpse cleanup owns its lifetime.
 const int    CNR_SKIN_DELIVERIES = 3;
-const float  CNR_SKIN_FADE       = 600.0f;
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -49,13 +49,13 @@ int CnrSkin_Tier(int nPiel);
 /// @returns 1d4 at tiers 1 and 2, 2d4 at tier 3, 3d4 at tier 4.
 int CnrSkin_Amount(int nTier);
 
-/// @brief Leaves a skinnable corpse where a creature died.
+/// @brief Mark the existing dead creature as skinnable without cloning it.
 /// @param oCreature The dead creature. Does nothing when it carries no PIEL.
 void CnrSkin_SpawnCorpse(object oCreature);
 
 /// @brief One skinning attempt against a corpse.
 /// @param oPC Who is skinning.
-/// @param oCorpse The corpse placeable.
+/// @param oCorpse The existing dead creature.
 void CnrSkin_Strike(object oPC, object oCorpse);
 
 // -----------------------------------------------------------------------------
@@ -106,12 +106,24 @@ void CnrSkin_SpawnCorpse(object oCreature)
         return;
     }
 
-    object oCorpse = CreateObject(OBJECT_TYPE_PLACEABLE, CNR_SKIN_CORPSE,
-                                  GetLocation(oCreature), FALSE);
-    if (!GetIsObjectValid(oCorpse))
+    if (!GetIsObjectValid(oCreature) || !GetIsDead(oCreature))
     {
         return;
     }
+
+    object oCorpse = oCreature;
+    string sPrevious = GetEventScript(oCorpse, EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED);
+    if (!SetEventScript(oCorpse, EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED, "cnr_skin_hit"))
+    {
+        PrintString("[CNR] Cannot attach skinning to the existing creature corpse.");
+        return;
+    }
+    if (sPrevious != "cnr_skin_hit")
+    {
+        SetLocalString(oCorpse, CNR_SKIN_ATTACK_SCRIPT, sPrevious);
+    }
+
+    SetIsDestroyable(FALSE, GetLocalInt(oCorpse, "fl_raiseable") > 0, TRUE, oCorpse);
 
     // The corpse carries everything the strike needs, exactly like a vein.
     SetLocalString(oCorpse, CNR_NODE_FAMILY, "cadaver");
@@ -120,11 +132,15 @@ void CnrSkin_SpawnCorpse(object oCreature)
     SetLocalInt(oCorpse, CNR_NODE_LEFT, CNR_SKIN_DELIVERIES);
     SetLocalString(oCorpse, "CNR_CADAVER_DE", GetName(oCreature));
 
-    DestroyObject(oCorpse, CNR_SKIN_FADE);
 }
 
 void CnrSkin_Strike(object oPC, object oCorpse)
 {
+    if (!GetIsObjectValid(oCorpse) || !GetIsDead(oCorpse))
+    {
+        return;
+    }
+
     string sMaterial = GetLocalString(oCorpse, CNR_NODE_MATERIAL);
     if (sMaterial == "")
     {
@@ -173,7 +189,6 @@ void CnrSkin_Strike(object oPC, object oCorpse)
     if (nLeft <= 0)
     {
         SendMessageToPC(oPC, "Has aprovechado todo lo que este cadaver daba.");
-        DestroyObject(oCorpse, 3.0);
     }
 
     int nUses = GetLocalInt(oKnife, CNR_NODE_TOOL_USES);

@@ -2,13 +2,15 @@
 /// @system  CNR Harvesting
 /// @file    cnr_skin_dth_ch
 /// @author  Dhraax
-/// @brief   OnDeath of a skinnable creature that ran nw_ch_ac7, the henchman
-///          and familiar handler. It leaves the corpse and then hands over.
+/// @brief Preserve the original death flow and mark the existing corpse.
+/// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 #include "cnr_i_skin"
+#include "corpse_functions"
 
 void main()
 {
-    CnrSkin_SpawnCorpse(OBJECT_SELF);
     ExecuteScript("nw_ch_ac7", OBJECT_SELF);
+    corpse_InitializeCorpse(OBJECT_SELF);
+    CnrSkin_SpawnCorpse(OBJECT_SELF);
 }

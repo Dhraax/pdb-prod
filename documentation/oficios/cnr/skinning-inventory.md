@@ -1,5 +1,31 @@
 # Inventario de desollado: que suelta cada criatura
 
+## Current implementation - existing corpse, 2026-09-18
+
+Skinning now marks the original dead creature instead of creating `cnr_cadaver`.
+Its appearance, inventory and loot remain owned by the existing corpse system.
+`zep_goblin` (ordinary) and `bandidocacique` (boss), neither carrying PIEL, were
+used as source comparisons; the goblin appears in the encounter lists in
+`src/module/git/wel_cc_cueva.git.json`. `nw_c2_default7` calls
+`corpse_InitializeCorpse`,
+and the JEFAZO branch separately creates `cofreboss`. Those loot/quest and boss
+branches are unchanged. Historical September-13 behavior below is superseded.
+
+A valid PIEL initializes material, tier and three deliveries on that same
+creature and installs `cnr_skin_hit` through its melee-attacked event. The
+previous handler is preserved and delegated to if the creature is raised.
+Depleting skins does not destroy the corpse or its loot. Emptying the bodybag
+also keeps the corpse selectable while hides remain; existing decay still owns
+its lifetime. Non-PIEL creatures retain their existing death/loot behavior.
+
+Provenance: native `GetEventScript`, `SetEventScript`,
+`EVENT_SCRIPT_CREATURE_ON_MELEE_ATTACKED` and `SetIsDestroyable` from the
+accepted native MCP reference (nwscript.nss SHA256
+`c14098d0181f921618622f379ff5cb682b8656d5293f218392531eef7a8478ad`).
+Selectable-when-dead and event installation are declared API capabilities;
+delivery of melee attacks to the dead creature is not established by that
+reference and remains a required host test. No runtime probe was performed.
+
 Levantado el 2026-09-13 sobre `src/shared/utc/` de este repositorio, antes de
 centralizar el desollado en el CNR. Son 3.320 criaturas en total.
 
