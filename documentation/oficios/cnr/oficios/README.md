@@ -65,6 +65,10 @@ encima.
 Las herramientas pueden romperse al comenzar un intento. Si ocurre, el
 intento se cancela antes de cobrar oro o consumir componentes.
 
+Para desollar, equipa un **Cuchillo de desollar** (daga) o un **Cuchillo de
+desollar grande** (espada corta, para razas grandes) en cualquiera de las dos
+manos. Ambos se venden en la tienda de peletería y funcionan igual.
+
 ## Tirada, resultado y progreso
 
 Cada intento tira `d20` y suma el nivel del oficio y la ayuda aplicable. El

@@ -58,6 +58,8 @@ SHARED_TOOL_TAGS = {
     "cnr_t_martlig_3": "cnr_t_martligero",
     "cnr_t_martlig_4": "cnr_t_martligero",
     "cnr_t_aguja_peq": "cnr_t_aguja",
+    # Skinning daggers and shortswords satisfy the same equipped-tool check.
+    "cnr_t_desol_peq": "cnr_t_desollador",
 }
 # The engine's stations and resource chests keep CNR's own convention, cnr +
 # CamelCase: that tag is the key cnr_station and the scripts look them up by.
