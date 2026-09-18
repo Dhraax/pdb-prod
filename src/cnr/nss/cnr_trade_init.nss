@@ -17,38 +17,31 @@ void main()
 {
   PrintString("cnr_trade_init");
 
-  // Mastery costs more than the middle of the trade, since 2026-08-20.
-  // The gap for every level above 14 is 30% wider, so the total to reach
-  // 20 goes from 21500 to 25000. Levels 1 to 14 are untouched: the entry
-  // to a trade is where someone decides whether to keep at it.
-  //
-  // Measured before the change, for smithing, best available recipe each
-  // level and successes only: 394 weapons to reach 20, or 600 crafts for
-  // someone who also forges their own ingots. After: 445 and 676. The
-  // material cost is untouched and is the longer half anyway - those 600
-  // crafts eat about 1235 nuggets, some 62 drained veins.
-  // Configure the XP required to achieve each tradeskill level
-  object oModule = GetModule();
-  SetLocalInt(oModule, "CnrTradeXPLevel1", 0);
-  SetLocalInt(oModule, "CnrTradeXPLevel2", 125);
-  SetLocalInt(oModule, "CnrTradeXPLevel3", 250);
-  SetLocalInt(oModule, "CnrTradeXPLevel4", 500);
-  SetLocalInt(oModule, "CnrTradeXPLevel5", 875);
-  SetLocalInt(oModule, "CnrTradeXPLevel6", 1375);
-  SetLocalInt(oModule, "CnrTradeXPLevel7", 2000);
-  SetLocalInt(oModule, "CnrTradeXPLevel8", 2750);
-  SetLocalInt(oModule, "CnrTradeXPLevel9", 3625);
-  SetLocalInt(oModule, "CnrTradeXPLevel10", 4625);
-  SetLocalInt(oModule, "CnrTradeXPLevel11", 5750);
-  SetLocalInt(oModule, "CnrTradeXPLevel12", 7000);
-  SetLocalInt(oModule, "CnrTradeXPLevel13", 8375);
-  SetLocalInt(oModule, "CnrTradeXPLevel14", 9875);
-  SetLocalInt(oModule, "CnrTradeXPLevel15", 11975);
-  SetLocalInt(oModule, "CnrTradeXPLevel16", 14250);
-  SetLocalInt(oModule, "CnrTradeXPLevel17", 16700);
-  SetLocalInt(oModule, "CnrTradeXPLevel18", 19300);
-  SetLocalInt(oModule, "CnrTradeXPLevel19", 22000);
-  SetLocalInt(oModule, "CnrTradeXPLevel20", 25000);
+    // Shared cumulative XP curve, selected on 2026-09-18.
+    // One fifth of the original thresholds reaches mastery at 5000 XP,
+    // approximately 20% fewer attempts than the 6250-XP testing reference.
+    // Recipe XP awards, crafting DC and harvesting rules remain unchanged.
+    object oModule = GetModule();
+    SetLocalInt(oModule, "CnrTradeXPLevel1", 0);
+    SetLocalInt(oModule, "CnrTradeXPLevel2", 25);
+    SetLocalInt(oModule, "CnrTradeXPLevel3", 50);
+    SetLocalInt(oModule, "CnrTradeXPLevel4", 100);
+    SetLocalInt(oModule, "CnrTradeXPLevel5", 175);
+    SetLocalInt(oModule, "CnrTradeXPLevel6", 275);
+    SetLocalInt(oModule, "CnrTradeXPLevel7", 400);
+    SetLocalInt(oModule, "CnrTradeXPLevel8", 550);
+    SetLocalInt(oModule, "CnrTradeXPLevel9", 725);
+    SetLocalInt(oModule, "CnrTradeXPLevel10", 925);
+    SetLocalInt(oModule, "CnrTradeXPLevel11", 1150);
+    SetLocalInt(oModule, "CnrTradeXPLevel12", 1400);
+    SetLocalInt(oModule, "CnrTradeXPLevel13", 1675);
+    SetLocalInt(oModule, "CnrTradeXPLevel14", 1975);
+    SetLocalInt(oModule, "CnrTradeXPLevel15", 2395);
+    SetLocalInt(oModule, "CnrTradeXPLevel16", 2850);
+    SetLocalInt(oModule, "CnrTradeXPLevel17", 3340);
+    SetLocalInt(oModule, "CnrTradeXPLevel18", 3860);
+    SetLocalInt(oModule, "CnrTradeXPLevel19", 4400);
+    SetLocalInt(oModule, "CnrTradeXPLevel20", 5000);
 
   // CnrAddTradeskill(CNR_TRADESKILL_SMELTING, "Smelting");
   // CnrAddTradeskill(CNR_TRADESKILL_WEAPON_CRAFTING, "Weapon Crafting");

@@ -153,33 +153,17 @@ the CNR documentation still marks runtime validation as pending. The collection
 mapping that this sentence used to defer was built on 2026-08-18 and is
 described in `harvesting-nodes.md`; it has not been played through either.
 
-## 3b. The tradeskill curve change costs existing crafters a level
+## 3b. Current testing tradeskill curve
 
-Decided on 2026-08-20 and **still owed for production**.
+The 2026-09-18 balance slice replaces the old 25000-XP curve with a shared
+5000-XP level-20 curve. The current thresholds and assumptions are owned by
+[crafting-system.md](crafting-system.md), section 4c. The previous August
+curve-widening and compensation discussion is superseded; its historical
+reasoning remains in Git history.
 
-The XP gaps above level 14 were widened 30% (`cnr_trade_init.nss`), so reaching
-20 costs 25000 instead of 21500. `CnrSkill_SetXP` recomputes the level from
-stored XP on every write and overwrites the stored one, so nobody is protected
-by their rank: a crafter between 15 and 19 drops one or two levels the next time
-they earn trade XP. Level 20 alone survives normal crafting, because
-`CnrCraft_Finish` zeroes the gain at max level and never writes.
-
-On the test server that was accepted: the ranks there are not worth keeping. On
-production it is a decision to take before promoting, and doing nothing takes a
-level off every real crafter above 14.
-
-If they are to be held harmless, the repair is one statement per level against
-`cnr_tradeskill`, raising `skill_xp` to the new threshold of the level already
-stored - +475 at 15, +1000 at 16, +1575 at 17, +2175 at 18, +2800 at 19, +3500
-at 20 - written with `GREATEST` so it never lowers a value and can be run twice.
-Two things make it harder than it looks, both found in review:
-
-- keying only on `skill_level` misses rows the control panel wrote with a
-  mismatched level, which is possible for anything saved between 2026-08-16 and
-  2026-08-20 while the panel carried a different curve;
-- it must run with the affected characters **offline**. Trade XP is cached on
-  the character's variable container at login, and a crafter online through the
-  update writes the cached value back over the compensated one.
+This testing change introduces no character-data migration. Recipe XP, DC,
+profession limits and collection nodes remain unchanged. Packaging and fresh
+character validation remain separate host acceptance gates.
 
 ## 2b. Verification record — 2026-08-11
 

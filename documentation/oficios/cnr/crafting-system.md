@@ -327,60 +327,61 @@ was called.
 
 ---
 
-## 4c. What a trade costs, end to end
+## 4c. Current tradeskill progression
 
-Measured on 2026-08-20 for smithing, taking the best recipe available at each
-level and **counting successes only**:
+Since 2026-09-18, all seven professions share a cumulative curve reaching
+level 20 at **5000 XP**. `cnr_trade_init.nss` initializes the twenty
+`CnrTradeXPLevel<n>` module locals used by XP persistence, profession-limit
+checks, the tradeskill book and administrative level helpers. The curve is
+one fifth of the original 25000-XP thresholds; recipe XP and DC are unchanged.
 
-| | Crafts to level 20 |
-|---|--:|
-| Weapons alone, materials bought | 394 |
-| Weapons plus the ingots for them | 600 |
+| Level | Cumulative XP | Level | Cumulative XP |
+|--:|--:|--:|--:|
+| 1 | 0 | 11 | 1150 |
+| 2 | 25 | 12 | 1400 |
+| 3 | 50 | 13 | 1675 |
+| 4 | 100 | 14 | 1975 |
+| 5 | 175 | 15 | 2395 |
+| 6 | 275 | 16 | 2850 |
+| 7 | 400 | 17 | 3340 |
+| 8 | 550 | 18 | 3860 |
+| 9 | 725 | 19 | 4400 |
+| 10 | 925 | 20 | 5000 |
 
-Every trade lands in the same place: 380 for alchemy, 385 for jewellery, 394 for
-smithing, 403 for leather and tailoring, 412 for carpentry. With failures at a
-60% success rate, and failures paying 12%, that is roughly 600 attempts for the
-bought-materials path.
+Source-model estimates from zero, with prepared components available and the
+highest-XP enabled recipe whose minimum level is reached:
 
-**Material is the longer half.** Those 600 smithing crafts eat about 1235
-nuggets and coal, which is some 62 drained veins and around eight hours of
-striking rock at ten seconds a delivery. Raising the XP asked for a level
-lengthens the crafting; it does not touch that.
+| Profession | Perfect successes | Expected attempts, final help +2 | Expected attempts, final help +3 |
+|---|--:|--:|--:|
+| Smithing | 90 | 154 | 143 |
+| Carpentry | 94 | 150 | 140 |
+| Leatherworking | 92 | 151 | 141 |
+| Alchemy | 87 | 159 | 147 |
+| Jewellery | 88 | 158 | 146 |
+| Tailoring | 92 | 151 | 141 |
+| Arcane | 66 | 168 | 150 |
 
-**The material stations pay a third of the product ones**, 6 to 24 XP against 21
-to 81. That is proportional to what they consume - between 1.2 and 8 XP per unit
-of raw material against 5 to 40 - so it is not an error, but it does mean a
-trade climbed only through its material station costs far more: 1369 tannings to
-master leather through the curing tub against 403 at the tailor's table. Nobody
-would choose it knowing, which makes it a trap for someone who does not.
+These are attempts, not output units or measured player runs. Select by highest
+XP, then lowest gold, lowest DC and lowest recipe ID; Arcane uses lowest computed
+step DC and property ID for ties. Carry XP overshoot across levels. Natural 1
+fails, natural 20 succeeds, and failed attempts pay truncated 12% XP. The final
+help contribution is after ability/Craft-rank averaging. Materials, tools,
+travel, node availability and preparing one's own inputs add separate costs.
 
-### The top of the curve costs 30% more — 2026-08-20
+The chosen curve gives approximately 19.75-19.83% fewer attempts with final
+help +2 than the prior 6250-XP reference. Copper ingots still pay six XP per
+success: four successes give 24 XP and level 1; five give 30 XP and level 2.
+The two non-Alchemy-profession limit and Alchemy exemption remain unchanged.
+Harvesting and skinning yields, DC, cooldowns, refill and wear are unchanged.
 
-Levels 1 to 14 are untouched. Every gap above 14 is 30% wider, so reaching 20
-costs 25000 XP instead of 21500, and smithing goes from 394 weapons to 445, or
-600 crafts to 676 for someone forging their own ingots.
-
-The reason: the curve had gone flat. From level 11 onwards it asked 25 to 30
-pieces per level and never more, so the last step of a trade cost what the
-middle did and mastery did not feel earned. The entry was left alone
-deliberately, because that is where someone decides whether to keep at it.
-
-**This demotes existing crafters, and nothing compensates them.**
-`CnrSkill_SetXP` recomputes the level from stored XP through
-`PersistDetermineTradeskillLevel` on every write, so the stored level is not
-honoured. A crafter between 15 and 19 drops one or two levels on their next XP
-write: 11500 XP was level 15 and is now 14, 15125 was 17 and is now 16.
-
-**Level 20 is the exception.** `CnrCraft_Finish` asks `CnrSkill_IsMaxLevel`
-first, sets the gain to zero and never calls `CnrSkill_SetXP`, so an existing
-master keeps the rank through normal crafting. Any other path that writes XP
-would still recompute it.
-
-That was accepted deliberately: this is a test server and the ranks on it are
-not worth protecting. **It has to be decided again before production**, where
-the same change takes a level off every real crafter above 14. A compensating
-migration was written and then removed rather than shipped unused; the shape it
-needs is recorded in the promotion runbook.
+The estimates use the tracked September catalogue: 559 recipes and 484 Arcane
+steps. For each XP state x, let A be success XP, F = floor(0.12*A), p the actual
+success probability and T remaining expected attempts. With T(x >= 5000) = 0,
+solve downward: T(x) = 1 + p*T(x+A) + (1-p)*T(x+F) when F > 0, or
+T(x) = 1/p + T(x+A) when F = 0. This records the numerical model; host behavior
+and persistence still need the authorized runtime acceptance listed in the
+September changelog. The change applies to fresh testing progression and
+introduces no character-data migration.
 
 ---
 
