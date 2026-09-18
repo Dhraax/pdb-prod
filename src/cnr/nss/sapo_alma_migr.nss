@@ -16,6 +16,7 @@
 ///
 ///          Quantities are added, never replaced: five roedor hides already
 ///          stored plus twelve converted rat hides make seventeen.
+/// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
 #include "mti_libreria"
@@ -37,6 +38,52 @@ const string ALM_MATERIALES = "CNR_ALMACEN_MATERIALES";
 const int ALM_NUM_ESENCIAS = 129;
 const int ALM_NUM_CRISTALES = 6;
 
+// -----------------------------------------------------------------------------
+//                              Function Prototypes
+// -----------------------------------------------------------------------------
+
+/// @brief Add an old stored quantity to its replacement and remove the old key.
+/// @param oPC Player whose variable container owns the quantities.
+/// @param sVieja Old persistent key.
+/// @param sNueva Replacement persistent key.
+/// @param sNombre Player-facing material label.
+/// @returns Quantity moved, or zero when the old key has no positive quantity.
+int AlmMigraUno(object oPC, string sVieja, string sNueva, string sNombre);
+
+/// @brief Remove a stored material that is no longer used.
+/// @param oPC Player whose variable container owns the quantity.
+/// @param sVieja Retired persistent key.
+/// @param sNombre Player-facing material label.
+/// @returns Quantity removed, or zero when the old key has no positive quantity.
+int AlmRetiraUno(object oPC, string sVieja, string sNombre);
+
+/// @brief Add a stored quantity to its renamed key without per-material messages.
+/// @param oPC Player whose variable container owns the quantities.
+/// @param sVieja Old persistent key.
+/// @param sNueva Replacement persistent key.
+/// @returns Quantity moved, or zero when the old key has no positive quantity.
+int AlmMueveClave(object oPC, string sVieja, string sNueva);
+
+/// @brief Rename stored CNR essences and crystals once.
+/// @param oPC Player opening the material store.
+void AlmRenombrar(object oPC);
+
+/// @brief Rename stored rough and cut gems once.
+/// @param oPC Player opening the material store.
+void AlmRenombrarGemas(object oPC);
+
+/// @brief Rename stored materials, components and tools once.
+/// @param oPC Player opening the material store.
+void AlmRenombrarMateriales(object oPC);
+
+/// @brief Convert surviving legacy holdings and retire only unused materials.
+/// @param oPC Player opening the material store.
+void AlmMigrar(object oPC);
+
+// -----------------------------------------------------------------------------
+//                             Function Definitions
+// -----------------------------------------------------------------------------
+
 /// @brief Move a stored quantity from an old key to its CNR equivalent.
 /// @param oPC The player.
 /// @param sVieja The old persistent key.
@@ -46,14 +93,15 @@ const int ALM_NUM_CRISTALES = 6;
 int AlmMigraUno(object oPC, string sVieja, string sNueva, string sNombre)
 {
     int nCantidad = ObtenerIntPersistente(oPC, sVieja);
-    BorrarIntPersistente(oPC, sVieja);
     if (nCantidad <= 0)
     {
+        BorrarIntPersistente(oPC, sVieja);
         return 0;
     }
 
     GuardarIntPersistente(oPC, sNueva,
         ObtenerIntPersistente(oPC, sNueva) + nCantidad);
+    BorrarIntPersistente(oPC, sVieja);
     SendMessageToPC(oPC, "Convertido: " + sNombre + IntToString(nCantidad));
     return nCantidad;
 }
@@ -370,81 +418,134 @@ void AlmMigrar(object oPC)
     nConv += AlmMigraUno(oPC, "pielserpi", "cnr_m_pi_bestia", "Pieles de serpiente:");
     nConv += AlmMigraUno(oPC, "virutasresplandecientes", "cnr_p_virutas", "Virutas resplandecientes:");
 
+    // Preserve the Arcane materials still named by the current design.
+    // Quimera and Leviatan crystals continue as Hada and Dragon.
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal201", "cnr_e_38", "Aleteos de sagifalco juvenil:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab32", "cnr_e_2", "Antenas de grilio:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car3", "cnr_e_32", "Astucia de arpía:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab28", "cnr_e_62", "Astucia de márilith:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab00", "cnr_e_18", "Bellezas cegadoras de ninfa:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab21", "cnr_e_1", "Bolsas viscosas de bestia del caos:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal209", "cnr_e_39", "Brillos de magmino:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab03", "cnr_e_11", "Cabellos de ghaele:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab22", "cnr_e_24", "Cadenas de kiton:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal205", "cnr_e_44", "Calimas de zombi de bruma tirana:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car2", "cnr_e_31", "Caparazones de ankheg:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal208", "cnr_e_45", "Carnes pegajosas de regresado:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe06", "cnr_e_84", "Carnes putrefactas del señor de las momias:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_rd", "cnr_e_91", "Carroñas de Xorn:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano08", "cnr_e_72", "Caspa de ibrandlin:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab29", "cnr_e_21", "Castigos de nálfeshni:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano13", "cnr_e_67", "Claridad de nyzh:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano01", "cnr_e_64", "Colmillos de abishái:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab09", "cnr_e_26", "Conchas de tojánida:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal212", "cnr_e_41", "Consunciones de incorpóreo aterrador:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab23", "cnr_e_4", "Corazones negro de pesadilla:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal102", "cnr_e_48", "Cornaduras de unicornio negro:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab36", "cnr_e_17", "Crestas de dragón tortuga:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_poten2", "cnr_c_2", "Cristales urdímbricos de Fénix:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_poten4", "cnr_c_4", "Cristales urdímbricos de Leviatán:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_poten1", "cnr_c_1", "Cristales urdímbricos de Nishruu:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_poten3", "cnr_c_3", "Cristales urdímbricos de Quimera:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal214", "cnr_e_42", "Deambulamientos de rávido:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car1", "cnr_e_30", "Dentinas de bestia oscurecida:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal207", "cnr_e_35", "Descomposiciones de broza movediza:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas02", "cnr_e_51", "Devociones de mártir:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal200", "cnr_e_50", "Dádivas de archiliche:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab10", "cnr_e_15", "Elasticidad de fasmo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car5", "cnr_e_34", "Encantos de dríada:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas01", "cnr_e_52", "Encantos de lilenda:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas10", "cnr_e_53", "Enigmas de ginoesfinge:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano06", "cnr_e_69", "Escamas de asabi:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal204", "cnr_e_46", "Espectros de réprobo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano10", "cnr_e_66", "Espolones de dragónido:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab33", "cnr_e_23", "Estragos de quimera:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal203", "cnr_e_40", "Eteriedad de serpiente de hielo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab18", "cnr_e_5", "Excrecencias ósea de abolez mago:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano12", "cnr_e_74", "Faz de hybsil:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab38", "cnr_e_60", "Ferocidad de erinia:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas03", "cnr_e_54", "Fervores de ent:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab01", "cnr_e_7", "Firmeza de titán:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab11", "cnr_e_6", "Flautines de sátiro:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_refor", "cnr_e_89", "Galope de centauro:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe00", "cnr_e_81", "Gas de dragón de oropel:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano07", "cnr_e_70", "Gotas de ábalin:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab25", "cnr_e_27", "Gracia de sirénido:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano09", "cnr_e_68", "Hálitos de dragón del canto:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas07", "cnr_e_55", "Instintos de lobo terrible:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab20", "cnr_e_14", "Instrucciones telepáticas de formícida reina:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal213", "cnr_e_36", "Lenguas bífidas de Yuan-ti:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_peso", "cnr_e_92", "Levitaciones de lamparconte:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal103", "cnr_e_49", "Liviandad de béstia de Xvim:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab31", "cnr_e_90", "Luces cegadoras de bezekira:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe19", "cnr_e_76", "Mandíbulas de aranea:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_cm", "cnr_e_87", "Mordiscos de perro de guerra nessiano:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab13", "cnr_e_9", "Mudez de birlador etéreo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab12", "cnr_e_25", "Músculos de planotáreo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas06", "cnr_e_57", "Nobleza de grifo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano05", "cnr_e_75", "Ojos de contemplador:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal101", "cnr_e_47", "Ojos oscuros carmesí de tritón de fuego:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car4", "cnr_e_33", "Ojos rojos de medusa:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_lim01", "cnr_e_71", "Pelajes de araña subterránea:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano02", "cnr_e_63", "Pesuños de bestia de Málar:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab27", "cnr_e_20", "Pezuñas de pegaso:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab17", "cnr_e_12", "Picos de águila gigante:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_reg", "cnr_e_93", "Pieles correosas de troll cazador:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab30", "cnr_e_22", "Pigmentaciones de mimeto:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe25", "cnr_e_77", "Plagas de murciélagos:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_clas09", "cnr_e_56", "Plumas de couatl:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab14", "cnr_e_8", "Plumazón de roc:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab02", "cnr_e_28", "Podredumbres de babau:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab06", "cnr_e_13", "Presas de búho gigante:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe02", "cnr_e_78", "Presas de gusano púrpura:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab04", "cnr_e_10", "Protecciones de solar:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe15", "cnr_e_79", "Puños de trueno de marut:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe09", "cnr_e_88", "Púas afiladas de gelugón:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab16", "cnr_e_3", "Púas de salamandra:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal215", "cnr_e_37", "Resistencias de slaad:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_rv", "cnr_e_86", "Sangres de vampiro:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab37", "cnr_e_19", "Siluetas serpentiforme de behir:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab05", "cnr_e_16", "Siseos de ahogador:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano11", "cnr_e_73", "Tentáculos de yokhol:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal211", "cnr_e_43", "Tez de Fee'ri:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_hab08", "cnr_e_59", "Tinieblas de noctámbulo:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_mej", "cnr_e_61", "Tutelaje de deva astral:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_dano00", "cnr_e_65", "Vellosidades de alaghi:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe07", "cnr_e_85", "Verrugas de saga nocturna:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_sal206", "cnr_e_58", "Vuelos de semicelestial:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe05", "cnr_e_80", "Zarpas de can trasguero:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_car0", "cnr_e_29", "Ímpetu de gigante de la niebla:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe03", "cnr_e_82", "Óculos de bocón barbotante:");
+    nConv += AlmMigraUno(oPC, "pb_artesa_efe14", "cnr_e_83", "Órganos sensoriales de hongo fantasmal:");
+
     // Materials the CNR does not use. Nothing replaces them, so they go,
     // and the player is told what was in there rather than finding it gone.
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC08", "Abdómenes de escarabajo:");
     nBaja += AlmRetiraUno(oPC, "AceiteSigilo", "Aceites de oliva:");
     nBaja += AlmRetiraUno(oPC, "sute_her_DM1", "Aguas puras:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_muni", "Aletas de locathah:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal201", "Aleteos de sagifalco juvenil:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab32", "Antenas de grilio:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_lim02", "Armazones de siv:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car3", "Astucia de arpía:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab28", "Astucia de márilith:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC23", "Belladonas:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab00", "Bellezas cegadoras de ninfa:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_inconj", "Bellezas sobrenaturales de clangarconte:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab21", "Bolsas viscosas de bestia del caos:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_rc", "Brasas de Azer:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal209", "Brillos de magmino:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab03", "Cabellos de ghaele:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab22", "Cadenas de kiton:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal205", "Calimas de zombi de bruma tirana:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car2", "Caparazones de ankheg:");
     nBaja += AlmRetiraUno(oPC, "Caracoldetierraof", "Caracoles de tierra:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal208", "Carnes pegajosas de regresado:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe06", "Carnes putrefactas del señor de las momias:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_rd", "Carroñas de Xorn:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano08", "Caspa de ibrandlin:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab29", "Castigos de nálfeshni:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_ca", "Cataclismos de tarasca:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano13", "Claridad de nyzh:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano01", "Colmillos de abishái:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_efe01", "Concentración de diablo astado:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab09", "Conchas de tojánida:");
     nBaja += AlmRetiraUno(oPC, "basura_concha", "Conchas:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal212", "Consunciones de incorpóreo aterrador:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_hab35", "Contratos de kolyarut:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab23", "Corazones negro de pesadilla:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal102", "Cornaduras de unicornio negro:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_lim05", "Cortezas de árbol oscuro:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab36", "Crestas de dragón tortuga:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC11", "Cristales de cuarzo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_poten2", "Cristales urdímbricos de Fénix:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_poten4", "Cristales urdímbricos de Leviatán:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_poten1", "Cristales urdímbricos de Nishruu:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_poten3", "Cristales urdímbricos de Quimera:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_efe18", "Crueldades de lamia:");
     nBaja += AlmRetiraUno(oPC, "gz_it_rope", "Cuerdas con garfio:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_at", "Cuernos de behir:");
     nBaja += AlmRetiraUno(oPC, "cuerowyrm", "Cueros de draco:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_lim03", "Cáscaras de batraco:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal214", "Deambulamientos de rávido:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car1", "Dentinas de bestia oscurecida:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_vo", "Derribos de sabueso yez:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal207", "Descomposiciones de broza movediza:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas02", "Devociones de mártir:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC06", "Dientes de bodak:");
     nBaja += AlmRetiraUno(oPC, "dientetiburon", "Dientes de tiburón:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal200", "Dádivas de archiliche:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab10", "Elasticidad de fasmo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car5", "Encantos de dríada:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas01", "Encantos de lilenda:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas10", "Enigmas de ginoesfinge:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano06", "Escamas de asabi:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal204", "Espectros de réprobo:");
     nBaja += AlmRetiraUno(oPC, "espejodemano", "Espejos de mano:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano10", "Espolones de dragónido:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_efe20", "Estallidos de diablo de la sima:");
     nBaja += AlmRetiraUno(oPC, "estatuasirena", "Estatuas de sirena:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab33", "Estragos de quimera:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal203", "Eteriedad de serpiente de hielo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab18", "Excrecencias ósea de abolez mago:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano12", "Faz de hybsil:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab38", "Ferocidad de erinia:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas03", "Fervores de ent:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab01", "Firmeza de titán:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab11", "Flautines de sátiro:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco2", "Fragmentos de gólem de amatista:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco5", "Fragmentos de gólem de citrino:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco6", "Fragmentos de gólem de diamante:");
@@ -452,47 +553,18 @@ void AlmMigrar(object oPC)
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco3", "Fragmentos de gólem de rubí:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco1", "Fragmentos de gólem de topacio:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_gemco0", "Fragmentos de gólem de zafiro:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_refor", "Galope de centauro:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe00", "Gas de dragón de oropel:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC07", "Glándulas de seda de trácnido:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano07", "Gotas de ábalin:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab25", "Gracia de sirénido:");
     nBaja += AlmRetiraUno(oPC, "Guadelaventurero", "Guías comerciales:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano09", "Hálitos de dragón del canto:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas07", "Instintos de lobo terrible:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab20", "Instrucciones telepáticas de formícida reina:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal213", "Lenguas bífidas de Yuan-ti:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_peso", "Levitaciones de lamparconte:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal103", "Liviandad de béstia de Xvim:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_hab15", "Locura de derro:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_hab07", "Luces carmesí de liche:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab31", "Luces cegadoras de bezekira:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe19", "Mandíbulas de aranea:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_TRAP001", "Materiales de trampero menor, estacas:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_cm", "Mordiscos de perro de guerra nessiano:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab13", "Mudez de birlador etéreo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab12", "Músculos de planotáreo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas06", "Nobleza de grifo:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano05", "Ojos de contemplador:");
     nBaja += AlmRetiraUno(oPC, "NW_IT_MSMLMISC09", "Ojos de rakshasa:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal101", "Ojos oscuros carmesí de tritón de fuego:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car4", "Ojos rojos de medusa:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_hab26", "Patas zancudas de aquerena:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_lim01", "Pelajes de araña subterránea:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano02", "Pesuños de bestia de Málar:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab27", "Pezuñas de pegaso:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab17", "Picos de águila gigante:");
     nBaja += AlmRetiraUno(oPC, "x1_it_msmlmisc01", "Piedras frías:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_reg", "Pieles correosas de troll cazador:");
     nBaja += AlmRetiraUno(oPC, "pielwyrm", "Pieles de draco:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab30", "Pigmentaciones de mimeto:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_hab24", "Pinzas de glabrezu:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe25", "Plagas de murciélagos:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_lim04", "Plumas de aarakocra:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_clas09", "Plumas de couatl:");
     nBaja += AlmRetiraUno(oPC, "nw_it_creitem201", "Plumas de gaviota:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab14", "Plumazón de roc:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab02", "Podredumbres de babau:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo1", "Polvos de abjuración:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo3", "Polvos de adivinación:");
     nBaja += AlmRetiraUno(oPC, "polvoantiluzof", "Polvos de antiluz:");
@@ -503,32 +575,11 @@ void AlmMigrar(object oPC)
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo6", "Polvos de ilusión:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo7", "Polvos de nigromancia:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo8", "Polvos de transmutación:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab06", "Presas de búho gigante:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe02", "Presas de gusano púrpura:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab04", "Protecciones de solar:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe15", "Puños de trueno de marut:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe09", "Púas afiladas de gelugón:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab16", "Púas de salamandra:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal215", "Resistencias de slaad:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_rv", "Sangres de vampiro:");
     nBaja += AlmRetiraUno(oPC, "polvodia", "Saquitos de arenilla de diamante:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab37", "Siluetas serpentiforme de behir:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab05", "Siseos de ahogador:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano11", "Tentáculos de yokhol:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal211", "Tez de Fee'ri:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_hab08", "Tinieblas de noctámbulo:");
     nBaja += AlmRetiraUno(oPC, "x2_it_dyel23", "Tintes de cuero negro:");
     nBaja += AlmRetiraUno(oPC, "x2_it_dyel48", "Tintes de cuero verde:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_mej", "Tutelaje de deva astral:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_dano00", "Vellosidades de alaghi:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe07", "Verrugas de saga nocturna:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_sal206", "Vuelos de semicelestial:");
     nBaja += AlmRetiraUno(oPC, "HC_Tinderbox", "Yesca y pedernal:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe05", "Zarpas de can trasguero:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_car0", "Ímpetu de gigante de la niebla:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe03", "Óculos de bocón barbotante:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_efe16", "Órbitas oculares de grimórlock:");
-    nBaja += AlmRetiraUno(oPC, "pb_artesa_efe14", "Órganos sensoriales de hongo fantasmal:");
     GuardarIntPersistente(oPC, ALM_MIGRADO, 1);
 
     if (nConv > 0 || nBaja > 0)

@@ -61,8 +61,9 @@ which owns the order, backups, validation and rollback.
 | [`arcane-build-log.md`](arcane-build-log.md) | **Active.** What is built, what is pending, what still has to be checked in game, and the decisions already taken |
 | [`arcane-plan.md`](arcane-plan.md) | **Active.** How the arcane trade works: crystal as catalyst, essences as quantity, the per-family scaling, the tier taken from loot rarity, and what the engine still cannot do |
 | [`arcane-fix-plan.md`](arcane-fix-plan.md) | Historical implementation record for the 2026-08-23 Arcane corrections; in-game regression remains tracked in the active build log and changelog |
-| [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 53 `cnr_e_*` / `cnr_c_*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
+| [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 36 `cnr_e_*` / `cnr_c_*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
 | [`material-properties-reference.md`](material-properties-reference.md) | Numeric item-property contracts used to audit and generate recipe properties |
+| [`material-store-migration.md`](material-store-migration.md) | Current material-store conversion: preserved legacy Arcane quantities, source correspondence and testing boundary |
 | [`naming.md`](naming.md) | The naming contract: the `cnr_*` scheme, its complete exceptions, what `build_catalogue.py --check` refuses and how to rename safely |
 | [`history/`](history/README.md) | Completed CNR investigations retained for provenance, not current behavior |
 | [`../../../migration/legacy-catalogue-seed.sql`](../../../migration/legacy-catalogue-seed.sql) | Archive of the retired legacy seed; never apply it to a live database |

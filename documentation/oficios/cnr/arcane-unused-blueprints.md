@@ -7,7 +7,11 @@ una vez `arcano.json` quedó emparejado con la paleta por `material_resref`.
 borrado va al final, cuando el oficio esté montado y probado en juego. Hasta
 entonces cualquiera de ellos puede acabar teniendo sitio.
 
-De los 133 blueprints `cnr_e_*` / `cnr_c_*`, el diseño usa **95** y sobran **38**.
+The current design uses **99 of the 135** `cnr_e_*` / `cnr_c_*` blueprints:
+93 distinct essences and all six crystals. The remaining **36** are listed below.
+
+The legacy Quimera and Leviatan crystals continue as Hada and Dragon. Nishruu
+and Fenix are both used by the current design.
 
 Antes de borrar, comprobar por cada uno: que ninguna receta del catálogo lo
 nombre, que no esté colocado en ningún contenedor ni tienda, y que no lo cite
@@ -79,15 +83,6 @@ Cinco criaturas. El CSV no los menciona.
 | Plumas de aarakocra | `cnr_e_115` | `cnr_e_115` |
 | Corteza de árbol oscuro | `cnr_e_116` | `cnr_e_116` |
 
-## Cristales urdímbricos (2)
-
-Los seis del diseño existen ya: Quimera y Leviatán se renombraron a Hada y Dragón, y se crearon Contemplador (`poten5`) y Sombra (`poten6`). Estos dos quedan sin reclamar.
-
-| Name | tag | resref |
-|---|---|---|
-| Cristal urdímbrico de Nishruu | `cnr_c_1` | `cnr_c_1` |
-| Cristal urdímbrico de Fénix | `cnr_c_2` | `cnr_c_2` |
-
 ## Sueltos (8)
 
 Uno por concepto. El sufijo del resref dice para qué se pensó cada uno.
@@ -105,7 +100,7 @@ Uno por concepto. El sufijo del resref dice para qué se pensó cada uno.
 
 ---
 
-**Total: 38.**
+**Total: 36.**
 
 Los grupos `polvo`, `gemco`, `lim`, `vial` y `rotura` no parecen sobras
 sueltas sino un sistema entero que el CSV no recoge — escuelas de magia,
