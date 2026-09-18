@@ -16,6 +16,7 @@
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
+#include "cnr_i_stack"
 #include "nwnx_sql"
 
 // -----------------------------------------------------------------------------
@@ -498,7 +499,7 @@ void CnrNode_Strike(object oPC, object oNode)
     if (nUses <= 0)
     {
         SendMessageToPC(oPC, "Tu herramienta se ha roto.");
-        DestroyObject(oTool);
+        CnrStack_BreakTool(oTool, CNR_NODE_TOOL_USES);
     }
     else
     {

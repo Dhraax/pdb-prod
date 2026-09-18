@@ -16,6 +16,7 @@
 ///          answer every ten seconds, three deliveries and then it is done.
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
+#include "cnr_i_stack"
 #include "cnr_i_node"
 
 // -----------------------------------------------------------------------------
@@ -204,7 +205,7 @@ void CnrSkin_Strike(object oPC, object oCorpse)
     if (nUses <= 0)
     {
         SendMessageToPC(oPC, "Tu cuchillo de desollar se ha roto.");
-        DestroyObject(oKnife);
+        CnrStack_BreakTool(oKnife, CNR_NODE_TOOL_USES);
     }
     else
     {

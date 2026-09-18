@@ -6,6 +6,7 @@
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
+#include "cnr_i_stack"
 #include "nwnx_sql"
 #include "pwdb_i_user"
 #include "cnr_i_skill"
@@ -856,7 +857,7 @@ int CnrCraft_CheckStationTools(object oPC, object oStation, int nRecipe)
             && Random(10000) < FloatToInt(fBreakage * 100.0))
         {
             string sToolName = GetName(oTool);
-            DestroyObject(oTool);
+            CnrStack_BreakTool(oTool);
             SendMessageToPC(oPC, "Se ha roto: " + sToolName + ".");
             return FALSE;
         }

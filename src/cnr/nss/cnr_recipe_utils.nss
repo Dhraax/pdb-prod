@@ -12,6 +12,7 @@
 /// modified by: Dhraax
 /////////////////////////////////////////////////////////
 
+#include "cnr_i_stack"
 #include "cnr_config_inc"
 #include "cnr_persist_inc"
 #include "cnr_spells_inc"
@@ -2566,7 +2567,7 @@ int CnrRecipeDeviceToolsArePresent(object oCrafter, object oDevice)
       if (cnr_d100(1) <= fBreakagePercentage)
       {
         FloatingTextStringOnCreature(CNR_TEXT_YOU_HAVE_BROKEN_YOUR + GetName(oTool), oCrafter, FALSE);
-        DestroyObject(oTool);
+        CnrStack_BreakTool(oTool);
       }
       else
       {
@@ -2619,7 +2620,7 @@ int CnrRecipeDeviceToolsArePresent(object oCrafter, object oDevice)
       if (cnr_d100(1) <= fBreakagePercentage)
       {
         FloatingTextStringOnCreature(CNR_TEXT_YOU_HAVE_BROKEN_YOUR + GetName(oTool), oCrafter, FALSE);
-        DestroyObject(oTool);
+        CnrStack_BreakTool(oTool);
         bToolIsEquipped = FALSE;
       }
     }

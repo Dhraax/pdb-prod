@@ -61,6 +61,13 @@ are outside this change and remain unchanged.
    ten. Existing stack-10 material/consumable types remain unchanged. Names,
    tags, resrefs, appearance and other blueprint fields are preserved. Palette
    resource references remain valid and require no edits.
+4. `cnr_i_stack.nss` consumes one broken unit. Database crafting, node wear,
+   skinning knife wear and retained legacy CNR breakage callers use it. Wear
+   resets for the successor unit only when a wear-based tool breaks. Failure
+   messages and outcomes, wear costs and percentages remain unchanged. Legacy
+   temporary name-probe cleanup still destroys the temporary object.
+5. Deterministic checks and focused compilation are recorded with the tool
+   slice. Packaging, independent review and runtime acceptance remain pending.
 
 ## Release and acceptance
 
@@ -77,3 +84,19 @@ from a stack of ten and from a single unit; only one unit must disappear.
 Exhaust the current harvesting/knife unit and verify its successor starts with
 full uses. Check unrelated items on every original type retain their original
 limits, and crafted equipment remains unchanged.
+
+## Deterministic verification
+
+Focused compilation passed with four executables compiled, five includes
+skipped and zero errors:
+
+```bash
+./linux_build.sh --check cnr_i_stack.nss cnr_i_craft.nss cnr_i_node.nss cnr_i_skin.nss cnr_recipe_utils.nss cnr_a_craft.nss cnr_node_hit.nss cnr_skin_hit.nss cnr_at_b_craft.nss
+```
+
+All 295 changed blueprints differ only at BaseItem. Changes in the eight shop
+areas are confined to selected item BaseItem and StackSize fields. Every prior
+2DA byte remains intact, and all 18 appended rows differ from their original
+rows only at the Stacking field. Checks preserve original CRLF line endings.
+These results establish source consistency and compilation, not runtime
+stackability or equipability.
