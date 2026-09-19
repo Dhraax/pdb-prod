@@ -16,7 +16,7 @@ on first valid use. Values 1-2 give tier 1, 3-4 tier 2, 5-6 tier 3 and 7-10 tier
 creation chunks without truncating the roll. A failed complete delivery rolls
 back added hide units and consumes neither delivery count, cooldown nor wear.
 Knife durability remains 40 uses with costs 1/1/2/3 by tier; breakage consumes
-one unit from a pack and clears wear for its successor. No profession level,
+the unit and clears its wear state. No profession level,
 XP or skill roll is involved.
 
 All 36 modified creature-blueprint death events and the placed hydra's death
@@ -46,11 +46,11 @@ uses the existing tracked UTI layout (animarcalavera), CostTable 3, Subtype
 329 and unlimited CostValue 13. No 2DA changes are needed for activation.
 
 Source checks and focused compilation establish resource integration, not
-runtime corpse targeting. Required host tests: both knife sizes and shop packs;
+runtime corpse targeting. Required host tests: both knife sizes sold as single units;
 living/invalid/expired targets; direct corpse and linked bag with and without
 loot; ten-second shared cooldown across two players; three-delivery exhaustion;
 tier-4 quantities above ten; inventory failure and retry; wear and single-unit
-pack breakage; unchanged ordinary, quest and boss loot and corpse disappearance.
+knife breakage; unchanged ordinary, quest and boss loot and corpse disappearance.
 Module repacking, host tests and independent review are still pending.
 
 Focused verification: `./linux_build.sh --check cnr_i_skin.nss

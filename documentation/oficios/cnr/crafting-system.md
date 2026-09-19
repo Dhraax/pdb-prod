@@ -1256,10 +1256,11 @@ recetas de la que salió.
 
 ## Profession-only stacks - 2026-09-18
 
-Dedicated base types now give the inventoried profession materials and tools a
-maximum stack of ten; original shared base rows retain their existing limits.
-Shop copies sell selected supplies and tools in packs of ten. Crafted equipment
-retains its existing types and limits. The exact scope, identities, type map,
-compatibility boundary and release tests live in
+Dedicated base types give inventoried profession materials and consumable
+components a maximum stack of ten; original shared base rows retain their
+existing limits. Every station and harvesting tool is unitary, including tools
+required only in inventory or on a station. Shop copies sell materials in packs
+and tools one at a time. Crafted equipment keeps its native limits. The exact
+resource and shop inventories, dedicated row mapping and release checks live in
 [profession-stacking.md](profession-stacking.md). HAK and module repacking and
-in-game acceptance are required; source edits do not establish deployed state.
+runtime acceptance remain pending.

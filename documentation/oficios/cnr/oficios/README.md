@@ -108,8 +108,7 @@ la tabla de referencia está en la [guía de Alquimia](alquimia/README.md).
 
 ## Compra de materiales y herramientas
 
-Los materiales, consumibles y herramientas de oficio incluidos en las tiendas
-se venden en paquetes de 10 y admiten pilas de hasta 10 unidades. El equipo
-fabricado conserva sus límites actuales. Cuando se rompe una herramienta del
-paquete, se pierde una unidad. Esta actualización requiere el HAK y el módulo
-actualizados en el servidor.
+Los materiales, consumibles, plantillas y moldes incluidos en las tiendas se
+compran en paquetes de 10. Todas las herramientas se compran de una en una,
+incluso cuando sólo deben estar en el inventario o sobre la mesa. Las armas,
+armaduras, accesorios y demás equipo fabricado conservan sus límites normales.
