@@ -45,6 +45,27 @@ rm -f "$(git rev-parse --git-common-dir)/agent-audit-attempts/${C}"
 scripts/agent_audit.sh review $C
 ```
 
+## One audit open
+
+**`78724379` — arcane groups editable and audit search.** Prepared and sent on
+2026-09-20; the reviewer answered with its own usage limit eight seconds in.
+The workflow records that as the single attempt consumed, so the gate is
+**incomplete, not passed**, and the commit carries no review.
+
+Its quota resets 2026-09-23. Re-running needs the owner's instruction and both
+markers cleared, per the recipe above:
+
+```bash
+C=7872437926f8a917c4b5d71df4a2483119647c69
+rm -f ".audit/attempt-${C}.tsv"
+rm -f "$(git rev-parse --git-common-dir)/agent-audit-attempts/${C}"
+scripts/agent_audit.sh review $C
+```
+
+The handoff is written and on disk, so a re-run needs nothing rebuilt - but
+`.audit/` artifacts are deleted after 48 hours, so after 2026-09-22 the handoff
+has to be written again.
+
 ## Status of every audit on record
 
 Nineteen audits have artifacts on disk today, all of them closed. The rest are
