@@ -149,6 +149,88 @@ export interface RecipeDetail {
   properties: PropertyRow[]
 }
 
+// Arcane enchanting. The trade has no recipes: cnr_recipe is empty for
+// profession 6. What it sells is a property, bought by the step, on an item
+// the group admits. The concurrency token is a fingerprint rather than a
+// timestamp because the arcane tables are generated and carry no updated_at.
+
+export interface ArcaneListItem {
+  arcane_id: number
+  display_name: string
+  section: string
+  group_id: number
+  group_name: string
+  any_base: boolean
+  tier: number
+  min_level: number
+  dc: number
+  property_type: string
+  subtype: number
+  essence_name: string
+  crystal_name: string
+  supported: boolean
+  step_count: number
+  base_item_count: number
+  fingerprint: string
+}
+
+export interface ArcanePage {
+  items: ArcaneListItem[]
+  total: number
+  offset: number
+  limit: number
+}
+
+export interface ArcaneStepRow {
+  essences: number
+  subtype: number | null
+  value1: number
+  value2: number
+  xp: number
+  display_value: string
+}
+
+export interface ArcaneBaseItem {
+  base_item: number
+  crystal_cost: number
+}
+
+export interface ArcaneGroup {
+  group_id: number
+  code: string
+  display_name: string
+  any_base: boolean
+  bases: ArcaneBaseItem[]
+}
+
+export interface ArcaneDetail {
+  arcane_id: number
+  section: string
+  display_name: string
+  group_id: number
+  tier: number
+  essence_resref: string
+  essence_name: string
+  crystal_resref: string
+  crystal_name: string
+  ubicacion: string
+  property_type: string
+  subtype: number
+  min_level: number
+  dc: number
+  supported: boolean
+  note: string | null
+  group: ArcaneGroup
+  steps: ArcaneStepRow[]
+  fingerprint: string
+}
+
+export interface ArcaneReferences {
+  groups: ArcaneGroup[]
+  sections: string[]
+  property_types: string[]
+}
+
 export interface ReferenceItem {
   id: number
   display_name: string

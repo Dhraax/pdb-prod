@@ -50,6 +50,10 @@ import {
   togglePermission,
 } from './permissions'
 import type {
+  ArcaneDetail,
+  ArcanePage,
+  ArcaneReferences,
+  ArcaneStepRow,
   AuditEntry,
   AuditPage,
   MfaChallenge,
@@ -699,6 +703,380 @@ function RecipeEditor({ recipeId, open, writesEnabled, canEdit, onClose }: {
 }
 
 
+// Arcano is profession 6 in cnr_profession. It is the one trade with no
+// recipes: cnr_recipe holds nothing for it, which is why this tab used to read
+// "0 recetas encontradas" and the number was correct. What it sells lives in
+// cnr_arcane_property, cnr_arcane_step and cnr_arcane_group, so the tab needs
+// its own table and its own editor rather than a filter on the recipe query.
+const ARCANE_PROFESSION_ID = 6
+
+const emptyArcaneStep = (essences: number): ArcaneStepRow => ({
+  essences,
+  subtype: null,
+  value1: 0,
+  value2: 0,
+  xp: 0,
+  display_value: '',
+})
+
+
+function ArcaneEditor({ arcaneId, open, writesEnabled, canEdit, onClose }: {
+  arcaneId: number | null
+  open: boolean
+  writesEnabled: boolean
+  canEdit: boolean
+  onClose: () => void
+}) {
+  const client = useQueryClient()
+  const [draft, setDraft] = useState<ArcaneDetail | null>(null)
+  const property = useQuery({
+    queryKey: ['arcane-property', arcaneId],
+    queryFn: () => api<ArcaneDetail>(`/arcane/properties/${arcaneId}`),
+    enabled: open && arcaneId !== null,
+  })
+  const references = useQuery({
+    queryKey: ['arcane-references'],
+    queryFn: () => api<ArcaneReferences>('/arcane/references'),
+  })
+  useEffect(() => {
+    setDraft(open && property.data ? structuredClone(property.data) : null)
+  }, [open, property.data])
+
+  const save = useMutation({
+    mutationFn: (value: ArcaneDetail) => api<ArcaneDetail>(`/arcane/properties/${value.arcane_id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        fingerprint: value.fingerprint,
+        section: value.section,
+        display_name: value.display_name,
+        group_id: value.group_id,
+        tier: value.tier,
+        essence_resref: value.essence_resref,
+        essence_name: value.essence_name,
+        crystal_resref: value.crystal_resref,
+        crystal_name: value.crystal_name,
+        ubicacion: value.ubicacion,
+        property_type: value.property_type,
+        subtype: value.subtype,
+        min_level: value.min_level,
+        dc: value.dc,
+        supported: value.supported,
+        note: value.note,
+        steps: value.steps,
+      }),
+    }),
+    onSuccess: (updated) => {
+      setDraft(updated)
+      client.invalidateQueries({ queryKey: ['arcane-properties'] })
+      client.setQueryData(['arcane-property', updated.arcane_id], updated)
+    },
+  })
+
+  const setField = <K extends keyof ArcaneDetail>(field: K, value: ArcaneDetail[K]) => {
+    setDraft((current) => current ? { ...current, [field]: value } : current)
+  }
+  const setStep = (index: number, field: keyof ArcaneStepRow, value: string | number | null) => {
+    setDraft((current) => current ? {
+      ...current,
+      steps: current.steps.map((row, rowIndex) => rowIndex === index ? { ...row, [field]: value } : row),
+    } : current)
+  }
+  const addStep = () => {
+    setDraft((current) => {
+      if (!current) return current
+      const next = current.steps.reduce((highest, row) => Math.max(highest, row.essences), 0) + 1
+      return { ...current, steps: [...current.steps, emptyArcaneStep(Math.min(next, 255))] }
+    })
+  }
+  const removeStep = (index: number) => {
+    setDraft((current) => current
+      ? { ...current, steps: current.steps.filter((_, rowIndex) => rowIndex !== index) }
+      : current)
+  }
+
+  const group = references.data?.groups.find((item) => item.group_id === draft?.group_id)
+  const duplicateEssences = draft
+    ? draft.steps.length !== new Set(draft.steps.map((row) => row.essences)).size
+    : false
+  const canSave = Boolean(draft)
+    && writesEnabled
+    && canEdit
+    && !save.isPending
+    && !duplicateEssences
+    && (draft?.steps.length ?? 0) > 0
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
+      <DialogTitle>
+        {draft ? `${draft.display_name} · ID ${draft.arcane_id}` : 'Propiedad arcana'}
+      </DialogTitle>
+      <DialogContent dividers>
+        {property.isLoading && <CircularProgress />}
+        {property.error && <Alert severity="error">{property.error.message}</Alert>}
+        {save.error && <Alert severity="error">{save.error.message}</Alert>}
+        {!canEdit && draft && (
+          <Alert severity="info">
+            No tienes permiso para editar Arcano; puedes consultar la propiedad.
+          </Alert>
+        )}
+        {duplicateEssences && (
+          <Alert severity="warning">
+            Dos escalones piden el mismo número de esencias. Cada escalón debe pedir una cantidad distinta.
+          </Alert>
+        )}
+        {draft && (
+          <Stack spacing={3}>
+            <Box className="field-grid">
+            <TextField label="Nombre" value={draft.display_name} disabled={!canEdit}
+              onChange={(e) => setField('display_name', e.target.value)} />
+            <TextField label="Sección" value={draft.section} disabled={!canEdit}
+              onChange={(e) => setField('section', e.target.value)} />
+            <TextField select label="Grupo de objetos" value={draft.group_id} disabled={!canEdit}
+              onChange={(e) => setField('group_id', Number(e.target.value))}>
+              {references.data?.groups.map((item) => (
+                <MenuItem key={item.group_id} value={item.group_id}>{item.display_name}</MenuItem>
+              ))}
+            </TextField>
+            <TextField label="Tipo de propiedad" value={draft.property_type} disabled={!canEdit}
+              onChange={(e) => setField('property_type', e.target.value)} />
+            <TextField label="Subtipo" type="number" value={draft.subtype} disabled={!canEdit}
+              onChange={(e) => setField('subtype', Number(e.target.value))} />
+            <TextField label="Nivel" type="number" value={draft.tier} disabled={!canEdit}
+              onChange={(e) => setField('tier', Number(e.target.value))} />
+            <TextField label="Nivel de oficio mínimo" type="number" value={draft.min_level} disabled={!canEdit}
+              onChange={(e) => setField('min_level', Number(e.target.value))} />
+            <TextField label="CD" type="number" value={draft.dc} disabled={!canEdit}
+              onChange={(e) => setField('dc', Number(e.target.value))} />
+            <TextField label="Resref de la esencia" value={draft.essence_resref} disabled={!canEdit}
+              onChange={(e) => setField('essence_resref', e.target.value)} />
+            <TextField label="Nombre de la esencia" value={draft.essence_name} disabled={!canEdit}
+              onChange={(e) => setField('essence_name', e.target.value)} />
+            <TextField label="Resref del cristal" value={draft.crystal_resref} disabled={!canEdit}
+              onChange={(e) => setField('crystal_resref', e.target.value)} />
+            <TextField label="Nombre del cristal" value={draft.crystal_name} disabled={!canEdit}
+              onChange={(e) => setField('crystal_name', e.target.value)} />
+            <TextField label="Dónde cae la esencia" value={draft.ubicacion} disabled={!canEdit}
+              onChange={(e) => setField('ubicacion', e.target.value)} />
+            <TextField label="Nota" value={draft.note ?? ''} disabled={!canEdit}
+              onChange={(e) => setField('note', e.target.value === '' ? null : e.target.value)} />
+            <FormControlLabel
+              control={<Switch checked={draft.supported} disabled={!canEdit}
+                onChange={(e) => setField('supported', e.target.checked)} />}
+              label="Disponible en la ventana"
+            />
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle1">
+                Objetos admitidos · {group?.display_name ?? '—'}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {group?.any_base
+                  ? 'Este grupo admite cualquier objeto base; la lista de bases no se lee.'
+                  : `${group?.bases.length ?? 0} tipos base. El coste en cristales lo fija el objeto, no la propiedad.`}
+              </Typography>
+              {!group?.any_base && (group?.bases.length ?? 0) > 0 && (
+                <Box className="arcane-base-list">
+                  {group?.bases.map((base) => (
+                    <Chip
+                      key={base.base_item}
+                      size="small"
+                      label={`Base ${base.base_item} · ${base.crystal_cost} cristal${base.crystal_cost === 1 ? '' : 'es'}`}
+                    />
+                  ))}
+                </Box>
+              )}
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle1">Escalones</Typography>
+              <Typography variant="caption" color="text.secondary">
+                Cada fila es una cantidad que el jugador puede comprar. El subtipo vacío usa el de la propiedad;
+                sólo la reducción de daño lo sobreescribe.
+              </Typography>
+              <Table size="small">
+                <TableHead><TableRow>
+                  <TableCell>Esencias</TableCell><TableCell>Valor mostrado</TableCell>
+                  <TableCell>Subtipo</TableCell><TableCell>Valor 1</TableCell>
+                  <TableCell>Valor 2</TableCell><TableCell>XP</TableCell><TableCell /></TableRow></TableHead>
+                <TableBody>
+                  {draft.steps.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell><TextField size="small" type="number" value={row.essences} disabled={!canEdit}
+                        onChange={(e) => setStep(index, 'essences', Number(e.target.value))} /></TableCell>
+                      <TableCell><TextField size="small" value={row.display_value} disabled={!canEdit}
+                        onChange={(e) => setStep(index, 'display_value', e.target.value)} /></TableCell>
+                      <TableCell><TextField size="small" type="number" value={row.subtype ?? ''} disabled={!canEdit}
+                        placeholder="—"
+                        onChange={(e) => setStep(index, 'subtype', e.target.value === '' ? null : Number(e.target.value))} /></TableCell>
+                      <TableCell><TextField size="small" type="number" value={row.value1} disabled={!canEdit}
+                        onChange={(e) => setStep(index, 'value1', Number(e.target.value))} /></TableCell>
+                      <TableCell><TextField size="small" type="number" value={row.value2} disabled={!canEdit}
+                        onChange={(e) => setStep(index, 'value2', Number(e.target.value))} /></TableCell>
+                      <TableCell><TextField size="small" type="number" value={row.xp} disabled={!canEdit}
+                        onChange={(e) => setStep(index, 'xp', Number(e.target.value))} /></TableCell>
+                      <TableCell>
+                        <Tooltip title="Quitar escalón">
+                          <span>
+                            <IconButton size="small" disabled={!canEdit || draft.steps.length <= 1}
+                              onClick={() => removeStep(index)}><DeleteIcon fontSize="small" /></IconButton>
+                          </span>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Button startIcon={<AddIcon />} disabled={!canEdit} onClick={addStep}>Añadir escalón</Button>
+            </Box>
+          </Stack>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cerrar</Button>
+        <Button variant="contained" disabled={!canSave} onClick={() => draft && save.mutate(draft)}>
+          Guardar propiedad
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
+
+
+function ArcaneCatalogue({ writesEnabled, user }: { writesEnabled: boolean; user: User }) {
+  const [search, setSearch] = useState('')
+  const [section, setSection] = useState<string>('all')
+  const [groupId, setGroupId] = useState<number | 'all'>('all')
+  const [selected, setSelected] = useState<number | null>(null)
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(50)
+  const references = useQuery({
+    queryKey: ['arcane-references'],
+    queryFn: () => api<ArcaneReferences>('/arcane/references'),
+  })
+  useEffect(() => setPage(0), [search, section, groupId])
+  const properties = useQuery({
+    queryKey: ['arcane-properties', search, section, groupId, page, rowsPerPage],
+    queryFn: () => {
+      const params = new URLSearchParams({
+        limit: String(rowsPerPage),
+        offset: String(page * rowsPerPage),
+      })
+      if (search) params.set('search', search)
+      if (section !== 'all') params.set('section', section)
+      if (groupId !== 'all') params.set('group_id', String(groupId))
+      return api<ArcanePage>(`/arcane/properties?${params}`)
+    },
+  })
+  const canEdit = canEditProfession(user, ARCANE_PROFESSION_ID)
+
+  return (
+    <Stack spacing={2}>
+      <Box className="section-heading">
+        <Box>
+          <Typography variant="h4">Propiedades arcanas</Typography>
+          <Typography color="text.secondary">
+            {properties.data?.total ?? 0} propiedades encontradas
+          </Typography>
+        </Box>
+        <Stack direction="row" spacing={1}>
+          <TextField select size="small" label="Sección" value={section}
+            onChange={(e) => setSection(e.target.value)} sx={{ minWidth: 180 }}>
+            <MenuItem value="all">Todas</MenuItem>
+            {references.data?.sections.map((item) => (
+              <MenuItem key={item} value={item}>{item}</MenuItem>
+            ))}
+          </TextField>
+          <TextField select size="small" label="Grupo" value={groupId}
+            onChange={(e) => setGroupId(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+            sx={{ minWidth: 180 }}>
+            <MenuItem value="all">Todos</MenuItem>
+            {references.data?.groups.map((item) => (
+              <MenuItem key={item.group_id} value={item.group_id}>{item.display_name}</MenuItem>
+            ))}
+          </TextField>
+          <TextField size="small" label="Buscar por nombre o ID" value={search}
+            onChange={(e) => setSearch(e.target.value)} />
+        </Stack>
+      </Box>
+      <Alert severity="info">
+        Arcano no tiene recetas: no hay componentes ni objeto de salida. El jugador trae un objeto que el
+        grupo admita y compra una cantidad de una propiedad, pagando las esencias del escalón y los cristales
+        que cueste el objeto base.
+      </Alert>
+      {(properties.error || references.error) && (
+        <Alert severity="error">{(properties.error || references.error)?.message}</Alert>
+      )}
+      <TableContainer component={Paper}>
+        <Table stickyHeader size="small">
+          <TableHead><TableRow>
+            <TableCell>Estado</TableCell><TableCell>ID</TableCell><TableCell>Nombre</TableCell>
+            <TableCell>Sección</TableCell><TableCell>Objetos admitidos</TableCell>
+            <TableCell>Esencia / cristal</TableCell><TableCell>Nivel</TableCell>
+            <TableCell>Oficio</TableCell><TableCell>CD</TableCell>
+            <TableCell>Escalones</TableCell><TableCell />
+          </TableRow></TableHead>
+          <TableBody>{properties.data?.items.map((row) => (
+            <TableRow hover key={row.arcane_id}>
+              <TableCell>
+                <Chip size="small" label={row.supported ? 'Disponible' : 'Oculta'}
+                  color={row.supported ? 'success' : 'default'} />
+              </TableCell>
+              <TableCell>{row.arcane_id}</TableCell>
+              <TableCell>{row.display_name}<br /><small>{row.property_type}</small></TableCell>
+              <TableCell>{row.section}</TableCell>
+              <TableCell>
+                {row.group_name}<br />
+                <small>{row.any_base ? 'cualquier objeto' : `${row.base_item_count} tipos base`}</small>
+              </TableCell>
+              <TableCell>{row.essence_name}<br /><small>{row.crystal_name}</small></TableCell>
+              <TableCell>{row.tier}</TableCell>
+              <TableCell>{row.min_level}</TableCell>
+              <TableCell>{row.dc}</TableCell>
+              <TableCell>{row.step_count}</TableCell>
+              <TableCell>
+                <Tooltip title={canEdit ? 'Editar propiedad' : 'Consultar propiedad'}>
+                  <IconButton onClick={() => setSelected(row.arcane_id)}><EditIcon /></IconButton>
+                </Tooltip>
+              </TableCell>
+            </TableRow>
+          ))}</TableBody>
+        </Table>
+        <TablePagination
+          component="div"
+          count={properties.data?.total ?? 0}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[25, 50, 100, 250]}
+          labelRowsPerPage="Propiedades por página"
+          labelDisplayedRows={({ from, to, count }) => (
+            `${from}–${to} de ${count === -1 ? `más de ${to}` : count}`
+          )}
+          getItemAriaLabel={(type) => ({
+            first: 'Ir a la primera página',
+            last: 'Ir a la última página',
+            next: 'Ir a la página siguiente',
+            previous: 'Ir a la página anterior',
+          })[type]}
+          onPageChange={(_, nextPage) => setPage(nextPage)}
+          onRowsPerPageChange={(event) => {
+            setRowsPerPage(Number(event.target.value))
+            setPage(0)
+          }}
+        />
+      </TableContainer>
+      <ArcaneEditor
+        arcaneId={selected}
+        open={selected !== null}
+        writesEnabled={writesEnabled}
+        canEdit={canEdit}
+        onClose={() => setSelected(null)}
+      />
+    </Stack>
+  )
+}
+
+
 function Recipes({ writesEnabled, user }: { writesEnabled: boolean; user: User }) {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<{ recipeId: number; professionId: number } | null>(null)
@@ -707,8 +1085,12 @@ function Recipes({ writesEnabled, user }: { writesEnabled: boolean; user: User }
   const [rowsPerPage, setRowsPerPage] = useState(50)
   const references = useQuery({ queryKey: ['references'], queryFn: () => api<References>('/references') })
   useEffect(() => setPage(0), [search, professionId])
+  const showArcane = professionId === ARCANE_PROFESSION_ID
   const recipes = useQuery({
     queryKey: ['recipes', search, professionId, page, rowsPerPage],
+    // Arcano has no rows in cnr_recipe, so asking for them only ever produced
+    // the empty table this tab used to show. Its own catalogue replaces it.
+    enabled: !showArcane,
     queryFn: () => {
       const params = new URLSearchParams({
         limit: String(rowsPerPage),
@@ -740,6 +1122,7 @@ function Recipes({ writesEnabled, user }: { writesEnabled: boolean; user: User }
           />
         ))}
       </Tabs>
+      {showArcane ? <ArcaneCatalogue writesEnabled={writesEnabled} user={user} /> : <>
       <Box className="section-heading">
         <Box><Typography variant="h4">Catálogo de recetas</Typography><Typography color="text.secondary">{recipes.data?.total ?? 0} recetas encontradas</Typography></Box>
         <TextField size="small" label="Buscar por nombre o ID" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -786,6 +1169,7 @@ function Recipes({ writesEnabled, user }: { writesEnabled: boolean; user: User }
         canEdit={selected ? canEditProfession(user, selected.professionId) : false}
         onClose={() => setSelected(null)}
       />
+      </>}
     </Stack>
   )
 }

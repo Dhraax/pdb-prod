@@ -343,6 +343,116 @@ class CatalogueRevision(Base):
     note: Mapped[str | None] = mapped_column(Text)
 
 
+class ArcaneGroup(Base):
+    """A family of base items one arcane property is allowed to touch."""
+
+    __tablename__ = "cnr_arcane_group"
+
+    group_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    code: Mapped[str] = mapped_column(String(32), nullable=False)
+    display_name: Mapped[str] = mapped_column(String(96), nullable=False)
+    any_base: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+    bases: Mapped[list["ArcaneGroupBase"]] = relationship(
+        back_populates="group",
+        cascade="all, delete-orphan",
+        order_by="ArcaneGroupBase.base_item",
+    )
+
+
+class ArcaneGroupBase(Base):
+    """One base item inside a group, with what it costs in crystals."""
+
+    __tablename__ = "cnr_arcane_group_base"
+
+    group_id: Mapped[int] = mapped_column(
+        ForeignKey("cnr_arcane_group.group_id", ondelete="CASCADE"), primary_key=True
+    )
+    base_item: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    crystal_cost: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+
+    group: Mapped[ArcaneGroup] = relationship(back_populates="bases")
+
+
+class ArcaneProperty(Base):
+    """One enchantment a player may buy at the arcane table.
+
+    This is the arcane trade's answer to cnr_recipe, and it is not one: there
+    are no components and no output blueprint. The player brings an item the
+    group admits and buys an amount of one property, paying the essences the
+    chosen step asks for and the crystals the base item costs.
+    """
+
+    __tablename__ = "cnr_arcane_property"
+
+    arcane_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    section: Mapped[str] = mapped_column(String(32), nullable=False)
+    display_name: Mapped[str] = mapped_column(String(96), nullable=False)
+    group_id: Mapped[int] = mapped_column(ForeignKey("cnr_arcane_group.group_id"))
+    tier: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    essence_resref: Mapped[str] = mapped_column(String(16), nullable=False)
+    essence_name: Mapped[str] = mapped_column(String(96), nullable=False)
+    crystal_resref: Mapped[str] = mapped_column(String(16), nullable=False)
+    crystal_name: Mapped[str] = mapped_column(String(96), nullable=False)
+    ubicacion: Mapped[str] = mapped_column(String(96), nullable=False, default="")
+    property_type: Mapped[str] = mapped_column(String(32), nullable=False)
+    subtype: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    min_level: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    dc: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    supported: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    note: Mapped[str | None] = mapped_column(String(255))
+
+    group: Mapped[ArcaneGroup] = relationship()
+    steps: Mapped[list["ArcaneStep"]] = relationship(
+        back_populates="property",
+        cascade="all, delete-orphan",
+        order_by="ArcaneStep.essences",
+    )
+
+
+class ArcaneStep(Base):
+    """One amount of a property the player may buy, and what it costs."""
+
+    __tablename__ = "cnr_arcane_step"
+
+    arcane_id: Mapped[int] = mapped_column(
+        ForeignKey("cnr_arcane_property.arcane_id", ondelete="CASCADE"), primary_key=True
+    )
+    essences: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    subtype: Mapped[int | None] = mapped_column(Integer)
+    value1: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    value2: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    xp: Mapped[int] = mapped_column(Integer, nullable=False)
+    display_value: Mapped[str] = mapped_column(String(32), nullable=False)
+
+    property: Mapped[ArcaneProperty] = relationship(back_populates="steps")
+
+
+class ArcaneRevision(Base):
+    """Audit trail for arcane edits.
+
+    Separate from cnr_catalogue_revision because that table's foreign key is to
+    cnr_recipe, and an arcane property is not one. This table is owned by the
+    control panel and survives a catalogue rebuild; the arcane tables themselves
+    do not.
+    """
+
+    __tablename__ = "cnr_arcane_revision"
+
+    revision_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    arcane_id: Mapped[int] = mapped_column(SmallInteger, index=True, nullable=False)
+    actor_user_id: Mapped[int | None] = mapped_column(
+        ForeignKey("cnr_editor_user.user_id", ondelete="SET NULL")
+    )
+    action: Mapped[str] = mapped_column(String(16), nullable=False)
+    changed_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, server_default=func.current_timestamp()
+    )
+    before_json: Mapped[dict] = mapped_column(JSON, nullable=False)
+    after_json: Mapped[dict] = mapped_column(JSON, nullable=False)
+    note: Mapped[str | None] = mapped_column(Text)
+
+
 class Account(Base):
     __tablename__ = "pwdb_account"
 

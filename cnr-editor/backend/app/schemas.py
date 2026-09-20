@@ -343,6 +343,140 @@ class RecipeUpdate(BaseModel):
         return self
 
 
+# ---------------------------------------------------------------------------
+# Arcane enchanting.
+#
+# The arcane trade has no recipes and never had any: cnr_recipe is empty for
+# profession 6, and the panel showed the tab as "0 recetas encontradas" because
+# that was literally true. What it has instead is a property the player buys by
+# the step, on an item the group admits, paying essences and crystals. These
+# schemas expose that shape.
+#
+# The property vocabulary here is NOT the one PROPERTY_DEFINITIONS validates.
+# Sixteen of the twenty-five arcane property types are unknown to that table,
+# and eighteen shipped steps of types it does know would be rejected by it, so
+# applying it would refuse to load data the game already runs. Validation here
+# is structural; the design vocabulary is owned by documentation/oficios/
+# arcano.json and enforced by migration/build_arcane.py.
+# ---------------------------------------------------------------------------
+
+
+class ArcaneStepIn(BaseModel):
+    essences: int = Field(ge=1, le=255)
+    subtype: int | None = Field(default=None, ge=0, le=2147483647)
+    value1: int = Field(ge=-2147483648, le=2147483647)
+    value2: int = Field(ge=-2147483648, le=2147483647)
+    xp: int = Field(ge=0, le=16777215)
+    display_value: str = Field(min_length=1, max_length=32)
+
+
+class ArcaneStepOut(ArcaneStepIn):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ArcaneBaseItemOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    base_item: int
+    crystal_cost: int
+
+
+class ArcaneGroupOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    group_id: int
+    code: str
+    display_name: str
+    any_base: bool
+    bases: list[ArcaneBaseItemOut]
+
+
+class ArcaneListItem(BaseModel):
+    arcane_id: int
+    display_name: str
+    section: str
+    group_id: int
+    group_name: str
+    any_base: bool
+    tier: int
+    min_level: int
+    dc: int
+    property_type: str
+    subtype: int
+    essence_name: str
+    crystal_name: str
+    supported: bool
+    step_count: int
+    base_item_count: int
+    fingerprint: str
+
+
+class ArcaneListPage(BaseModel):
+    items: list[ArcaneListItem]
+    total: int
+    offset: int
+    limit: int
+
+
+class ArcaneDetail(BaseModel):
+    arcane_id: int
+    section: str
+    display_name: str
+    group_id: int
+    tier: int
+    essence_resref: str
+    essence_name: str
+    crystal_resref: str
+    crystal_name: str
+    ubicacion: str
+    property_type: str
+    subtype: int
+    min_level: int
+    dc: int
+    supported: bool
+    note: str | None
+    group: ArcaneGroupOut
+    steps: list[ArcaneStepOut]
+    # The arcane tables are generated and carry no updated_at, so the
+    # concurrency token is a digest of the row and its steps. Same guarantee as
+    # the recipe editor's timestamp, without adding a column to a table the
+    # catalogue rebuild drops.
+    fingerprint: str
+
+
+class ArcaneUpdate(BaseModel):
+    fingerprint: str = Field(min_length=16, max_length=64)
+    section: str = Field(min_length=1, max_length=32)
+    display_name: str = Field(min_length=1, max_length=96)
+    group_id: int = Field(ge=1, le=65535)
+    tier: int = Field(ge=1, le=4)
+    essence_resref: str = Field(min_length=1, max_length=16, pattern=r"^[A-Za-z0-9_]+$")
+    essence_name: str = Field(min_length=1, max_length=96)
+    crystal_resref: str = Field(min_length=1, max_length=16, pattern=r"^[A-Za-z0-9_]+$")
+    crystal_name: str = Field(min_length=1, max_length=96)
+    ubicacion: str = Field(default="", max_length=96)
+    property_type: str = Field(min_length=1, max_length=32)
+    subtype: int = Field(ge=0, le=2147483647)
+    min_level: int = Field(ge=1, le=20)
+    dc: int = Field(ge=1, le=100)
+    supported: bool
+    note: str | None = Field(default=None, max_length=255)
+    steps: list[ArcaneStepIn] = Field(min_length=1, max_length=64)
+
+    @model_validator(mode="after")
+    def steps_must_be_unique_and_ordered(self) -> "ArcaneUpdate":
+        amounts = [step.essences for step in self.steps]
+        if len(amounts) != len(set(amounts)):
+            raise ValueError("cada escalón debe pedir un número de esencias distinto")
+        return self
+
+
+class ArcaneReferenceData(BaseModel):
+    groups: list[ArcaneGroupOut]
+    sections: list[str]
+    property_types: list[str]
+
+
 class ReferenceItem(BaseModel):
     id: int
     display_name: str
