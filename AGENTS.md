@@ -634,10 +634,16 @@ For each change:
 5. Give a concise manual validation plan when runtime behavior changes.
 
 When `AGENTS.md` or any tracked file under `documentation/` changes, run
-`python3 scripts/check_documentation.py`. **That script does not exist in this
-repository yet**; it is one of the pieces still to be brought over from
-development. Until it does, say in the handoff that the structural
-documentation check could not be run, rather than claiming it passed.
+`python3 scripts/check_documentation.py`. A structural documentation failure
+blocks handoff just like another deterministic check.
+
+The script is tracked here and is the same program as the development one, rule
+for rule, so a document written in either checkout passes or fails identically.
+Only its two exception sets may differ, and today they do not. Change one and
+change the other in the same slice. Do not point the other checkout's copy at
+this repository and report the result as this check: it is not reproducible
+from the commit under review, which is exactly what an audit blocked on before
+this file existed.
 
 The user owns full-module compilation, packing, server restart, and in-game
 validation unless they explicitly delegate those actions. The mandatory
