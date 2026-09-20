@@ -53,6 +53,34 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`8f344b46` — diamond dust into the material store.** Reviewed 2026-09-20,
+verdict BLOCKED, one blocker, correct, fixed, closed at `3dfc9278`. The
+implementation and its structural invariants passed; the blocker was against the
+handoff.
+
+- **F-001.** The handoff said "the DEV `scripts/check_documentation.py`, rebound
+  to this repository root, passes". `AGENTS.md` says, verbatim, that the script
+  **does not exist in this repository yet** and that until it does the handoff
+  must say the structural documentation check *could not be run*, rather than
+  claiming it passed. The candidate changes a file under `documentation/`, so the
+  rule applied. Corrected: the handoff now states the check could not be run,
+  lists it under checks not performed, and mentions the DEV run only as an aside
+  that is explicitly not offered as satisfying the gate.
+
+**The same false claim is in the handoff of `dd84269d`, which closed earlier the
+same day and cannot be reopened.** Both were written before anyone read that
+paragraph of `AGENTS.md`. Borrowing a checker from the other checkout is useful
+for catching real problems and it is not the gate; when a tracked check does not
+exist, the handoff says so.
+
+**Three audits in one day, three blockers, none of them in the code.** `dd84269d`
+was blocked on an acceptance test that could fail against correct code and on a
+compilation-coverage claim that was not true; this one on a validation claim the
+contract forbids. The reviewer is reading the record at least as closely as the
+diff, which is what the contract asks it to do, and the cheap defence is to
+write only what a command printed and to check `AGENTS.md` for what the project
+says about a check before claiming it.
+
 **`dd84269d` — Artesania on the craft roll, and the store's names.** Reviewed
 2026-09-20, verdict BLOCKED, two blockers, both correct, both fixed in
 `11ed036c`, closed. Neither touched the implementation: both were about the
