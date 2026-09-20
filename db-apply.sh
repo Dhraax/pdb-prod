@@ -6,25 +6,11 @@ umask 077
 # player progress.
 #
 # The catalogue tables - professions, stations, materials, recipes and the
-# arcane ones - are dropped and rebuilt from the repository, which is what
-# makes a change here reach the server at all. The tables that hold what
-# players own - pwdb_account, pwdb_character, cnr_tradeskill,
-# cnr_character_setting - are created with IF NOT EXISTS and appear in no DROP
-# and no DELETE.
-#
-# Wiping the catalogue is the point, not a side effect. This is the testing
-# stage's reset: every apply puts the database back to exactly what the
-# repository says, so nothing left over from a previous shape of a recipe or an
-# arcane step can make a test pass or fail for the wrong reason. A value tuned
-# in the control panel lasts until the next apply, and during testing that is
-# intended.
-#
-# It stops being right the day the trades launch. From then on the panel is the
-# live authority, nothing is authored here, and this script must not be run
-# against that database: it would roll the design back to whatever the
-# repository last generated. What replaces it is bulk editing from the panel,
-# which does not exist yet - see
-# documentation/pending-changes/catalogue-bulk-editing.md.
+# arcane ones - are disposable: the migrations drop and rebuild them from the
+# repository, which is what makes a change here reach the server at all. The
+# tables that hold what players own - pwdb_account, pwdb_character,
+# cnr_tradeskill, cnr_character_setting - are created with IF NOT EXISTS and
+# appear in no DROP and no DELETE.
 #
 # Because "should not" is not "did not", this counts the progress rows before
 # and after and fails loudly if the number went down, and it always takes a

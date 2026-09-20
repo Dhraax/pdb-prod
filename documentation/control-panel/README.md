@@ -227,42 +227,12 @@ audit workspace under the `arcane` domain, alongside recipe, account, character,
 user and DM-access revisions, and `db-reset-players.sh` classifies it as data to
 keep.
 
-### Who owns the catalogue, and when
-
-**During the testing stage, `db-apply.sh` is the reset and wiping the catalogue
-is the point.** It applies `migration/*.sql`, which drop and rebuild the nine
-recipe tables and the four arcane ones, so the database goes back to exactly
-what the repository says and nothing left over from a previous shape of a
-recipe or an arcane step can make a test pass or fail for the wrong reason. A
-value tuned in the panel lasts until the next apply, and during testing losing
-it is not a loss: it was a test.
-
-What an apply does not clear is player progress - `pwdb_account`,
-`pwdb_character`, `cnr_tradeskill`, `cnr_character_setting`, created with
-`IF NOT EXISTS` and named in no `DROP` or `DELETE`, with `db-apply.sh` aborting
-if their row counts fall - and everything the panel owns: its users, sessions,
-permissions, MFA tables, `alembic_version` and both revision tables. Those are
-not named in any migration at all.
-
-**Owner decision, 2026-09-20: from the launch of the trades, the panel is the
-live authority.** What is edited there is what is true. Nothing is authored in
-the repository any more, there is no write-back and none is wanted, and
-`db-apply.sh` is not to be run against that database, because it would roll the
-design back to whatever the repository last generated.
-
-That leaves a gap this module does not close: the panel edits one row at a time,
-and a designer's real work - raising the XP of every tier-3 recipe, retiring a
-material across the recipes that name it, rebalancing an arcane section - is one
-decision and dozens of writes. Bulk editing that cannot touch player data is
-what has to replace the apply, and it does not exist yet. The proposal, with its
-open questions, is
-[`../pending-changes/catalogue-bulk-editing.md`](../pending-changes/catalogue-bulk-editing.md).
-
-`cnr_arcane_revision` and `cnr_catalogue_revision` stay. They are the panel's
-own before-and-after history, they live in the database beside what they
-describe, and they are what the administrator audit workspace reads. They are
-not a repository-side track of panel edits, which is the thing that was ruled
-out.
+The catalogue tables are provisioned from the repository: `db-apply.sh` drops
+and rebuilds them on every apply, recipes and arcane alike, so the database
+always holds exactly what `migration/*.sql` says. A value edited in the panel
+lasts until the next apply. Player progress and everything the panel owns - its
+users, sessions, permissions, MFA tables and both revision tables - are not
+touched by an apply.
 
 ## Character overview
 
