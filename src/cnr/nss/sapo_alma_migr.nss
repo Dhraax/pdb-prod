@@ -283,6 +283,12 @@ void AlmRenombrarGemas(object oPC)
 ///        the new names follow the displayed wood and the vein, not a prefix.
 ///        The entries whose key was never the resref (lenyo*, tablon*,
 ///        polvo*) keep that key and need nothing.
+///
+///        polvodia is one of them. It used to sit in the retirement list below,
+///        because the store had no entry for diamond dust and a quantity under
+///        a key nothing reads is a quantity nobody can take out. The store
+///        accepts cnr_p_po_diam under that same key now, so retiring it would
+///        delete a material the trade has. The line is gone.
 /// @param oPC The player who opened the store.
 void AlmRenombrarMateriales(object oPC)
 {
@@ -575,7 +581,6 @@ void AlmMigrar(object oPC)
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo6", "Polvos de ilusión:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo7", "Polvos de nigromancia:");
     nBaja += AlmRetiraUno(oPC, "pb_artesa_polvo8", "Polvos de transmutación:");
-    nBaja += AlmRetiraUno(oPC, "polvodia", "Saquitos de arenilla de diamante:");
     nBaja += AlmRetiraUno(oPC, "x2_it_dyel23", "Tintes de cuero negro:");
     nBaja += AlmRetiraUno(oPC, "x2_it_dyel48", "Tintes de cuero verde:");
     nBaja += AlmRetiraUno(oPC, "HC_Tinderbox", "Yesca y pedernal:");
