@@ -205,7 +205,9 @@ class UserUpdate(BaseModel):
 
 class AuditEntry(BaseModel):
     revision_key: str
-    domain: Literal["recipe", "arcane", "account", "character", "user", "dm_access"]
+    domain: Literal[
+        "recipe", "arcane", "arcane_group", "account", "character", "user", "dm_access"
+    ]
     target_id: int | str
     target_label: str
     action: str
@@ -222,6 +224,9 @@ class AuditPage(BaseModel):
     total: int
     offset: int
     limit: int
+    # True when the history was longer than the window the search scanned, so
+    # the page can say the count is a floor rather than quietly under-report.
+    truncated: bool = False
 
 
 class ComponentIn(BaseModel):
@@ -474,10 +479,54 @@ class ArcaneUpdate(BaseModel):
         return self
 
 
+class ArcaneBaseItemIn(BaseModel):
+    # A BASE_ITEM_* value. The range is the 2DA's, not a guess: baseitems.2da
+    # has 539 rows and row 0 is a valid one, the short sword.
+    base_item: int = Field(ge=0, le=32767)
+    crystal_cost: int = Field(ge=1, le=255)
+
+
+class ArcaneBaseItemLabel(BaseModel):
+    base_item: int
+    label: str
+
+
+class ArcaneGroupDetail(BaseModel):
+    group_id: int
+    code: str
+    display_name: str
+    any_base: bool
+    bases: list[ArcaneBaseItemOut]
+    property_count: int
+    fingerprint: str
+
+
+class ArcaneGroupUpdate(BaseModel):
+    fingerprint: str = Field(min_length=16, max_length=64)
+    display_name: str = Field(min_length=1, max_length=96)
+    any_base: bool
+    bases: list[ArcaneBaseItemIn] = Field(default_factory=list, max_length=512)
+
+    @model_validator(mode="after")
+    def bases_must_be_unique_and_present(self) -> "ArcaneGroupUpdate":
+        items = [base.base_item for base in self.bases]
+        if len(items) != len(set(items)):
+            raise ValueError("cada tipo base sólo puede aparecer una vez en el grupo")
+        # any_base means the join table is not read at all, so an empty list is
+        # correct there and only there. Without it, a group admitting nothing
+        # would silently make every property pointing at it unusable.
+        if not self.any_base and not self.bases:
+            raise ValueError(
+                "un grupo que no admite cualquier objeto debe listar al menos un tipo base"
+            )
+        return self
+
+
 class ArcaneReferenceData(BaseModel):
     groups: list[ArcaneGroupOut]
     sections: list[str]
     property_types: list[str]
+    base_item_labels: list[ArcaneBaseItemLabel]
 
 
 class ReferenceItem(BaseModel):

@@ -27,6 +27,8 @@ def _target_label(domain: str, target_id: int | str, snapshot: dict) -> str:
         prefix = f"Receta {public_id}" if public_id is not None else f"Receta {target_id}"
     elif domain == "arcane":
         prefix = f"Propiedad arcana {target_id}"
+    elif domain == "arcane_group":
+        prefix = f"Grupo arcano {target_id}"
     elif domain == "account":
         prefix = f"Cuenta {target_id}"
     elif domain == "character":
@@ -77,15 +79,37 @@ def _entry(
     )
 
 
+# How many rows of each domain a filtered search will look at. The history is
+# merged and sorted in Python because five tables cannot be paged by one SQL
+# query, so a search has to read before it can count. Ten thousand per domain
+# covers every history this panel has had and keeps a pathological one bounded;
+# when it is reached the response says so rather than reporting a total that
+# quietly stops being the truth.
+SEARCH_SCAN_LIMIT = 10000
+
+
 @router.get("", response_model=AuditPage)
 def list_audit_entries(
     _: EditorUser = Depends(require_admin),
     offset: int = Query(default=0, ge=0),
     limit: int = Query(default=50, ge=1, le=200),
+    search: str | None = Query(default=None, max_length=96),
+    domain: str | None = Query(default=None, max_length=16),
     db: Session = Depends(get_db),
 ) -> AuditPage:
-    """Return the newest catalogue, arcane, identity, DM-access and user revisions."""
-    fetch_limit = offset + limit
+    """Return the newest catalogue, arcane, identity, DM-access and user revisions.
+
+    `search` matches the element label, the acting user and the action, the
+    three things somebody actually remembers about a change they are looking
+    for. `domain` narrows to one area.
+
+    Without either, the reader is the cheap one it always was: it takes
+    `offset + limit` rows from each table and merges them. With one, it has to
+    look further, because a match may be a thousand rows down in one table and
+    at the top of another.
+    """
+    filtering = bool(search) or bool(domain)
+    fetch_limit = SEARCH_SCAN_LIMIT if filtering else offset + limit
     catalogue_rows = db.execute(
         select(CatalogueRevision, EditorUser.username)
         .outerjoin(EditorUser, CatalogueRevision.actor_user_id == EditorUser.user_id)
@@ -125,7 +149,14 @@ def list_audit_entries(
 
     entries = [
         *(_entry("recipe", revision, username) for revision, username in catalogue_rows),
-        *(_entry("arcane", revision, username) for revision, username in arcane_rows),
+        *(
+            _entry(
+                "arcane_group" if revision.target_kind == "group" else "arcane",
+                revision,
+                username,
+            )
+            for revision, username in arcane_rows
+        ),
         *(
             _entry(revision.target_type, revision, username)
             for revision, username in identity_rows
@@ -141,19 +172,47 @@ def list_audit_entries(
         ),
         reverse=True,
     )
-    total = sum(
-        db.scalar(select(func.count()).select_from(model)) or 0
-        for model in (
-            CatalogueRevision,
-            ArcaneRevision,
-            IdentityRevision,
-            EditorUserRevision,
-            DmCdKeyWhitelistRevision,
+
+    truncated = False
+    if filtering:
+        if domain:
+            entries = [entry for entry in entries if entry.domain == domain]
+        if search:
+            needle = search.casefold()
+            entries = [
+                entry
+                for entry in entries
+                if needle in entry.target_label.casefold()
+                or needle in (entry.actor_username or "").casefold()
+                or needle in entry.action.casefold()
+            ]
+        total = len(entries)
+        truncated = any(
+            count >= SEARCH_SCAN_LIMIT
+            for count in (
+                len(catalogue_rows),
+                len(arcane_rows),
+                len(identity_rows),
+                len(user_rows),
+                len(dm_access_rows),
+            )
         )
-    )
+    else:
+        total = sum(
+            db.scalar(select(func.count()).select_from(model)) or 0
+            for model in (
+                CatalogueRevision,
+                ArcaneRevision,
+                IdentityRevision,
+                EditorUserRevision,
+                DmCdKeyWhitelistRevision,
+            )
+        )
+
     return AuditPage(
         items=entries[offset : offset + limit],
         total=total,
         offset=offset,
         limit=limit,
+        truncated=truncated,
     )

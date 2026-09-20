@@ -440,6 +440,9 @@ class ArcaneRevision(Base):
     __tablename__ = "cnr_arcane_revision"
 
     revision_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    # A property id and a group id are separate number spaces, so the row has
+    # to say which of the two arcane_id holds: "property" or "group".
+    target_kind: Mapped[str] = mapped_column(String(16), nullable=False, default="property")
     arcane_id: Mapped[int] = mapped_column(SmallInteger, index=True, nullable=False)
     actor_user_id: Mapped[int | None] = mapped_column(
         ForeignKey("cnr_editor_user.user_id", ondelete="SET NULL")

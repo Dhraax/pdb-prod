@@ -32,7 +32,8 @@ from sqlalchemy import String, cast, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
-from app.arcane_fingerprint import arcane_fingerprint
+from app.arcane_fingerprint import arcane_fingerprint, arcane_group_fingerprint
+from app.base_item_labels import BASE_ITEM_LABELS
 from app.database import get_db
 from app.dependencies import (
     SessionContext,
@@ -50,9 +51,12 @@ from app.models import (
     EditorUser,
 )
 from app.schemas import (
+    ArcaneBaseItemLabel,
     ArcaneBaseItemOut,
     ArcaneDetail,
+    ArcaneGroupDetail,
     ArcaneGroupOut,
+    ArcaneGroupUpdate,
     ArcaneListItem,
     ArcaneListPage,
     ArcaneReferenceData,
@@ -131,6 +135,12 @@ def arcane_references(
         groups=[_group_out(group) for group in groups],
         sections=sections,
         property_types=property_types,
+        # Every base item the 2DA defines, not only the ones already in a
+        # group: the point of the group editor is to add the ones that are not.
+        base_item_labels=[
+            ArcaneBaseItemLabel(base_item=base_item, label=label)
+            for base_item, label in sorted(BASE_ITEM_LABELS.items())
+        ],
     )
 
 
@@ -306,6 +316,7 @@ def update_arcane_property(
         after = _snapshot(prop)
         db.add(
             ArcaneRevision(
+                target_kind="property",
                 arcane_id=prop.arcane_id,
                 actor_user_id=context.user.user_id,
                 action="update",
@@ -322,3 +333,152 @@ def update_arcane_property(
             detail="La propiedad incumple una restricción del catálogo arcano",
         ) from exc
     return _detail(_load(db, arcane_id))
+
+
+def _group_detail(group: ArcaneGroup, property_count: int) -> ArcaneGroupDetail:
+    return ArcaneGroupDetail(
+        group_id=group.group_id,
+        code=group.code,
+        display_name=group.display_name,
+        any_base=bool(group.any_base),
+        bases=[ArcaneBaseItemOut.model_validate(item) for item in group.bases],
+        property_count=property_count,
+        fingerprint=arcane_group_fingerprint(group),
+    )
+
+
+def _load_group(db: Session, group_id: int, lock: bool = False) -> ArcaneGroup:
+    query = (
+        select(ArcaneGroup)
+        .where(ArcaneGroup.group_id == group_id)
+        .options(selectinload(ArcaneGroup.bases))
+    )
+    if lock:
+        query = query.with_for_update(of=ArcaneGroup)
+    group = db.scalar(query)
+    if group is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Grupo arcano no encontrado"
+        )
+    return group
+
+
+def _property_count(db: Session, group_id: int) -> int:
+    return (
+        db.scalar(
+            select(func.count())
+            .select_from(ArcaneProperty)
+            .where(ArcaneProperty.group_id == group_id)
+        )
+        or 0
+    )
+
+
+@router.get("/arcane/groups", response_model=list[ArcaneGroupDetail])
+def list_arcane_groups(
+    _: EditorUser = Depends(require_recipe_viewer),
+    db: Session = Depends(get_db),
+) -> list[ArcaneGroupDetail]:
+    groups = list(
+        db.scalars(
+            select(ArcaneGroup)
+            .options(selectinload(ArcaneGroup.bases))
+            .order_by(ArcaneGroup.display_name)
+        )
+    )
+    counts = dict(
+        db.execute(
+            select(ArcaneProperty.group_id, func.count()).group_by(ArcaneProperty.group_id)
+        ).all()
+    )
+    return [_group_detail(group, counts.get(group.group_id, 0)) for group in groups]
+
+
+@router.get("/arcane/groups/{group_id}", response_model=ArcaneGroupDetail)
+def get_arcane_group(
+    group_id: int,
+    _: EditorUser = Depends(require_recipe_viewer),
+    db: Session = Depends(get_db),
+) -> ArcaneGroupDetail:
+    return _group_detail(_load_group(db, group_id), _property_count(db, group_id))
+
+
+@router.put(
+    "/arcane/groups/{group_id}",
+    response_model=ArcaneGroupDetail,
+    dependencies=[Depends(require_writes_enabled)],
+)
+def update_arcane_group(
+    group_id: int,
+    payload: ArcaneGroupUpdate,
+    context: SessionContext = Depends(require_csrf),
+    db: Session = Depends(get_db),
+) -> ArcaneGroupDetail:
+    """Edit which base items a group admits, and what each costs in crystals.
+
+    A group is shared by every property that points at it, so this is the one
+    arcane edit that changes several recipes' worth of behaviour at once. The
+    response says how many properties that is, and the audit row keeps the
+    whole before and after.
+
+    The group's `code` is not editable. It is the identifier the design and the
+    generator use to refer to the group; renaming it here would leave the two
+    disagreeing with nothing to notice it.
+    """
+    require_profession_edit(context.user, ARCANE_PROFESSION_ID)
+
+    group = _load_group(db, group_id, lock=True)
+
+    if arcane_group_fingerprint(group) != payload.fingerprint:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="El grupo cambió después de abrirlo; recarga antes de guardar",
+        )
+
+    unknown = sorted(
+        base.base_item for base in payload.bases if base.base_item not in BASE_ITEM_LABELS
+    )
+    if unknown:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=(
+                "Estos tipos base no existen en baseitems.2da: "
+                + ", ".join(str(item) for item in unknown)
+            ),
+        )
+
+    count = _property_count(db, group_id)
+    before = _group_detail(group, count).model_dump(mode="json")
+
+    group.display_name = payload.display_name
+    group.any_base = payload.any_base
+
+    try:
+        group.bases.clear()
+        db.flush()
+        group.bases.extend(
+            ArcaneGroupBase(base_item=base.base_item, crystal_cost=base.crystal_cost)
+            for base in payload.bases
+        )
+        db.flush()
+        db.refresh(group)
+        after = _group_detail(group, count).model_dump(mode="json")
+        db.add(
+            ArcaneRevision(
+                target_kind="group",
+                arcane_id=group.group_id,
+                actor_user_id=context.user.user_id,
+                action="update",
+                before_json=before,
+                after_json=after,
+                changed_at=datetime.now(UTC).replace(tzinfo=None),
+            )
+        )
+        db.commit()
+    except IntegrityError as exc:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="El grupo incumple una restricción del catálogo arcano",
+        ) from exc
+    return _group_detail(_load_group(db, group_id), count)

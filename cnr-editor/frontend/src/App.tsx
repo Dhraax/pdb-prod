@@ -51,6 +51,8 @@ import {
 } from './permissions'
 import type {
   ArcaneDetail,
+  AuditDomain,
+  ArcaneGroupDetail,
   ArcanePage,
   ArcaneReferences,
   ArcaneStepRow,
@@ -84,6 +86,7 @@ const roleLabels: Record<Role, string> = {
 const auditDomainLabels: Record<AuditEntry['domain'], string> = {
   recipe: 'Receta',
   arcane: 'Propiedad arcana',
+  arcane_group: 'Grupo arcano',
   account: 'Cuenta',
   character: 'Personaje',
   user: 'Usuario del sistema',
@@ -721,12 +724,204 @@ const emptyArcaneStep = (essences: number): ArcaneStepRow => ({
 })
 
 
-function ArcaneEditor({ arcaneId, open, writesEnabled, canEdit, onClose }: {
+function ArcaneGroupEditor({ groupId, open, writesEnabled, canEdit, onClose }: {
+  groupId: number | null
+  open: boolean
+  writesEnabled: boolean
+  canEdit: boolean
+  onClose: () => void
+}) {
+  const client = useQueryClient()
+  const [draft, setDraft] = useState<ArcaneGroupDetail | null>(null)
+  const [pending, setPending] = useState('')
+  const group = useQuery({
+    queryKey: ['arcane-group', groupId],
+    queryFn: () => api<ArcaneGroupDetail>(`/arcane/groups/${groupId}`),
+    enabled: open && groupId !== null,
+  })
+  const references = useQuery({
+    queryKey: ['arcane-references'],
+    queryFn: () => api<ArcaneReferences>('/arcane/references'),
+  })
+  useEffect(() => {
+    setDraft(open && group.data ? structuredClone(group.data) : null)
+    setPending('')
+  }, [open, group.data])
+
+  const save = useMutation({
+    mutationFn: (value: ArcaneGroupDetail) => api<ArcaneGroupDetail>(`/arcane/groups/${value.group_id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        fingerprint: value.fingerprint,
+        display_name: value.display_name,
+        any_base: value.any_base,
+        bases: value.bases,
+      }),
+    }),
+    onSuccess: (updated) => {
+      setDraft(updated)
+      // The group's name and its base counts are shown on every property row
+      // and in both filters, so the whole arcane view is stale after this.
+      client.invalidateQueries({ queryKey: ['arcane-properties'] })
+      client.invalidateQueries({ queryKey: ['arcane-references'] })
+      client.invalidateQueries({ queryKey: ['arcane-property'] })
+      client.setQueryData(['arcane-group', updated.group_id], updated)
+    },
+  })
+
+  const labels = new Map((references.data?.base_item_labels ?? []).map((i) => [i.base_item, i.label]))
+  const held = new Set((draft?.bases ?? []).map((base) => base.base_item))
+  const available = (references.data?.base_item_labels ?? []).filter((i) => !held.has(i.base_item))
+
+  const addBase = () => {
+    const value = Number(pending)
+    if (!draft || pending === '' || Number.isNaN(value) || held.has(value)) return
+    setDraft({
+      ...draft,
+      bases: [...draft.bases, { base_item: value, crystal_cost: 1 }].sort(
+        (a, b) => a.base_item - b.base_item,
+      ),
+    })
+    setPending('')
+  }
+  const removeBase = (baseItem: number) => {
+    setDraft((current) => current
+      ? { ...current, bases: current.bases.filter((base) => base.base_item !== baseItem) }
+      : current)
+  }
+  const setCost = (baseItem: number, cost: number) => {
+    setDraft((current) => current ? {
+      ...current,
+      bases: current.bases.map((base) => base.base_item === baseItem
+        ? { ...base, crystal_cost: cost }
+        : base),
+    } : current)
+  }
+
+  const emptyWithoutAnyBase = Boolean(draft) && !draft?.any_base && draft?.bases.length === 0
+  const canSave = Boolean(draft) && writesEnabled && canEdit && !save.isPending && !emptyWithoutAnyBase
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle>
+        {draft ? `${draft.display_name} · grupo ${draft.group_id}` : 'Grupo de objetos'}
+      </DialogTitle>
+      <DialogContent dividers>
+        {group.isLoading && <CircularProgress />}
+        {group.error && <Alert severity="error">{group.error.message}</Alert>}
+        {save.error && <Alert severity="error">{save.error.message}</Alert>}
+        {draft && (
+          <Stack spacing={3}>
+            <Alert severity="warning">
+              Este grupo lo comparten {draft.property_count} propiedad{draft.property_count === 1 ? '' : 'es'}.
+              Lo que cambies aquí afecta a todas.
+            </Alert>
+            {!canEdit && (
+              <Alert severity="info">
+                No tienes permiso para editar Arcano; puedes consultar el grupo.
+              </Alert>
+            )}
+            {emptyWithoutAnyBase && (
+              <Alert severity="error">
+                Un grupo que no admite cualquier objeto debe listar al menos un tipo base; si no,
+                ninguna de sus propiedades se podrá aplicar.
+              </Alert>
+            )}
+            <Box className="field-grid">
+              <TextField label="Nombre" value={draft.display_name} disabled={!canEdit}
+                onChange={(e) => setDraft({ ...draft, display_name: e.target.value })} />
+              <TextField label="Código" value={draft.code} disabled
+                helperText="Lo usa el diseño para referirse al grupo; no se edita aquí" />
+              <FormControlLabel
+                control={<Switch checked={draft.any_base} disabled={!canEdit}
+                  onChange={(e) => setDraft({ ...draft, any_base: e.target.checked })} />}
+                label="Admite cualquier objeto"
+              />
+            </Box>
+
+            {draft.any_base ? (
+              <Alert severity="info">
+                Con «admite cualquier objeto» activado la lista de tipos base no se lee. Se conserva
+                por si vuelves a desactivarlo.
+              </Alert>
+            ) : null}
+
+            <Box>
+              <Typography variant="subtitle1">Objetos admitidos</Typography>
+              <Typography variant="caption" color="text.secondary">
+                El coste en cristales lo fija el objeto base, no la propiedad.
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ mt: 1, mb: 1 }}>
+                <TextField
+                  select
+                  size="small"
+                  label="Añadir tipo base"
+                  value={pending}
+                  disabled={!canEdit}
+                  onChange={(e) => setPending(e.target.value)}
+                  sx={{ minWidth: 280 }}
+                >
+                  {available.map((item) => (
+                    <MenuItem key={item.base_item} value={String(item.base_item)}>
+                      {item.base_item} · {item.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <Button startIcon={<AddIcon />} disabled={!canEdit || pending === ''} onClick={addBase}>
+                  Añadir
+                </Button>
+              </Stack>
+              <Table size="small">
+                <TableHead><TableRow>
+                  <TableCell>Tipo base</TableCell><TableCell>Nombre</TableCell>
+                  <TableCell>Cristales</TableCell><TableCell /></TableRow></TableHead>
+                <TableBody>
+                  {draft.bases.length === 0 && <TableRow>
+                    <TableCell colSpan={4} align="center">Sin tipos base.</TableCell>
+                  </TableRow>}
+                  {draft.bases.map((base) => (
+                    <TableRow key={base.base_item}>
+                      <TableCell>{base.base_item}</TableCell>
+                      <TableCell>{labels.get(base.base_item) ?? '—'}</TableCell>
+                      <TableCell>
+                        <TextField size="small" type="number" value={base.crystal_cost}
+                          disabled={!canEdit} sx={{ width: 96 }}
+                          onChange={(e) => setCost(base.base_item, Number(e.target.value))} />
+                      </TableCell>
+                      <TableCell>
+                        <Tooltip title="Quitar del grupo">
+                          <span>
+                            <IconButton size="small" disabled={!canEdit}
+                              onClick={() => removeBase(base.base_item)}><DeleteIcon fontSize="small" /></IconButton>
+                          </span>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Stack>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cerrar</Button>
+        <Button variant="contained" disabled={!canSave} onClick={() => draft && save.mutate(draft)}>
+          Guardar grupo
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
+
+
+function ArcaneEditor({ arcaneId, open, writesEnabled, canEdit, onClose, onEditGroup }: {
   arcaneId: number | null
   open: boolean
   writesEnabled: boolean
   canEdit: boolean
   onClose: () => void
+  onEditGroup: (groupId: number) => void
 }) {
   const client = useQueryClient()
   const [draft, setDraft] = useState<ArcaneDetail | null>(null)
@@ -872,13 +1067,20 @@ function ArcaneEditor({ arcaneId, open, writesEnabled, canEdit, onClose }: {
             </Box>
 
             <Box>
-              <Typography variant="subtitle1">
-                Objetos admitidos · {group?.display_name ?? '—'}
-              </Typography>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography variant="subtitle1">
+                  Objetos admitidos · {group?.display_name ?? '—'}
+                </Typography>
+                <Button size="small" startIcon={<EditIcon />} disabled={!draft}
+                  onClick={() => draft && onEditGroup(draft.group_id)}>
+                  Editar grupo
+                </Button>
+              </Stack>
               <Typography variant="caption" color="text.secondary">
                 {group?.any_base
                   ? 'Este grupo admite cualquier objeto base; la lista de bases no se lee.'
                   : `${group?.bases.length ?? 0} tipos base. El coste en cristales lo fija el objeto, no la propiedad.`}
+                {' '}Lo comparten todas las propiedades que apuntan a él.
               </Typography>
               {!group?.any_base && (group?.bases.length ?? 0) > 0 && (
                 <Box className="arcane-base-list">
@@ -953,6 +1155,7 @@ function ArcaneCatalogue({ writesEnabled, user }: { writesEnabled: boolean; user
   const [section, setSection] = useState<string>('all')
   const [groupId, setGroupId] = useState<number | 'all'>('all')
   const [selected, setSelected] = useState<number | null>(null)
+  const [editingGroup, setEditingGroup] = useState<number | null>(null)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50)
   const references = useQuery({
@@ -1031,7 +1234,11 @@ function ArcaneCatalogue({ writesEnabled, user }: { writesEnabled: boolean; user
               <TableCell>{row.display_name}<br /><small>{row.property_type}</small></TableCell>
               <TableCell>{row.section}</TableCell>
               <TableCell>
-                {row.group_name}<br />
+                <Button size="small" sx={{ textTransform: 'none', p: 0, minWidth: 0, textAlign: 'left' }}
+                  onClick={() => setEditingGroup(row.group_id)}>
+                  {row.group_name}
+                </Button>
+                <br />
                 <small>{row.any_base ? 'cualquier objeto' : `${row.base_item_count} tipos base`}</small>
               </TableCell>
               <TableCell>{row.essence_name}<br /><small>{row.crystal_name}</small></TableCell>
@@ -1076,6 +1283,14 @@ function ArcaneCatalogue({ writesEnabled, user }: { writesEnabled: boolean; user
         writesEnabled={writesEnabled}
         canEdit={canEdit}
         onClose={() => setSelected(null)}
+        onEditGroup={(id) => setEditingGroup(id)}
+      />
+      <ArcaneGroupEditor
+        groupId={editingGroup}
+        open={editingGroup !== null}
+        writesEnabled={writesEnabled}
+        canEdit={canEdit}
+        onClose={() => setEditingGroup(null)}
       />
     </Stack>
   )
@@ -1834,13 +2049,23 @@ function Users({
 function AuditLog() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50)
+  const [search, setSearch] = useState('')
+  const [domain, setDomain] = useState<AuditDomain | 'all'>('all')
   const [selectedEntry, setSelectedEntry] = useState<AuditEntry | null>(null)
+  useEffect(() => setPage(0), [search, domain])
   const audit = useQuery({
-    queryKey: ['audit', page, rowsPerPage],
-    queryFn: () => api<AuditPage>(
-      `/admin/audit?offset=${page * rowsPerPage}&limit=${rowsPerPage}`,
-    ),
+    queryKey: ['audit', page, rowsPerPage, search, domain],
+    queryFn: () => {
+      const params = new URLSearchParams({
+        limit: String(rowsPerPage),
+        offset: String(page * rowsPerPage),
+      })
+      if (search) params.set('search', search)
+      if (domain !== 'all') params.set('domain', domain)
+      return api<AuditPage>(`/admin/audit?${params}`)
+    },
   })
+  const filtering = search !== '' || domain !== 'all'
 
   return (
     <Stack spacing={3}>
@@ -1848,11 +2073,30 @@ function AuditLog() {
         <Box>
           <Typography variant="h4">Auditoría</Typography>
           <Typography color="text.secondary">
-            Historial administrativo de recetas, cuentas, personajes y usuarios del sistema.
+            Historial administrativo de recetas, arcano, cuentas, personajes y usuarios del sistema.
           </Typography>
         </Box>
+        <Stack direction="row" spacing={1}>
+          <TextField select size="small" label="Área" value={domain} sx={{ minWidth: 190 }}
+            onChange={(e) => setDomain(e.target.value as AuditDomain | 'all')}>
+            <MenuItem value="all">Todas</MenuItem>
+            {(Object.keys(auditDomainLabels) as AuditDomain[]).map((key) => (
+              <MenuItem key={key} value={key}>{auditDomainLabels[key]}</MenuItem>
+            ))}
+          </TextField>
+          <TextField size="small" label="Buscar elemento, usuario o acción" value={search}
+            sx={{ minWidth: 280 }} onChange={(e) => setSearch(e.target.value)} />
+        </Stack>
       </Box>
       {audit.error && <Alert severity="error">{audit.error.message}</Alert>}
+      {filtering && (
+        <Alert severity="info">
+          {audit.data?.total ?? 0} cambio{(audit.data?.total ?? 0) === 1 ? '' : 's'} coinciden.
+          {audit.data?.truncated
+            ? ' El historial es más largo de lo que alcanza una búsqueda; puede haber más antiguos sin contar.'
+            : ''}
+        </Alert>
+      )}
       <TableContainer component={Paper}>
         <Table size="small">
           <TableHead>
@@ -1870,7 +2114,9 @@ function AuditLog() {
               <TableCell colSpan={6} align="center"><CircularProgress size={24} /></TableCell>
             </TableRow>}
             {!audit.isLoading && audit.data?.items.length === 0 && <TableRow>
-              <TableCell colSpan={6} align="center">No hay cambios registrados.</TableCell>
+              <TableCell colSpan={6} align="center">
+                {filtering ? 'Ningún cambio coincide con la búsqueda.' : 'No hay cambios registrados.'}
+              </TableCell>
             </TableRow>}
             {audit.data?.items.map((entry) => <TableRow key={entry.revision_key} hover>
               <TableCell>{new Date(entry.changed_at).toLocaleString('es-ES')}</TableCell>

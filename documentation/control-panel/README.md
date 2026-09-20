@@ -102,6 +102,14 @@ production MFA.
 
 ## Administrative audit
 
+The audit workspace searches. A free-text box matches the element label, the
+acting user and the action, and a second control narrows to one area. Without
+either, the reader stays the cheap one it always was, taking a page from each
+table and merging it. With one, it has to look further, because a match may be
+a thousand rows down in one table and at the top of another; it scans up to ten
+thousand rows per area and says so if the history is longer, rather than
+reporting a total that has quietly stopped being the truth.
+
 Administrators have a dedicated audit workspace that unifies catalogue,
 account, character, DM-access, and system-user revisions in reverse
 chronological order.
@@ -219,8 +227,35 @@ Two things work differently, and both are forced by the data:
   same number of essences. The design vocabulary stays with `arcano.json` and is
   enforced when `build_arcane.py` regenerates the SQL.
 
+### The groups are editable too
+
+Which base items a group admits, and what each costs in crystals, is edited in
+the panel: `GET /api/arcane/groups`, `GET /api/arcane/groups/{id}` and
+`PUT /api/arcane/groups/{id}`, reachable from the group's name in the property
+table and from **Editar grupo** inside a property. Nobody has to open the
+database to add a weapon type to a group.
+
+A group is shared by every property that points at it - group 1 carries 76 of
+the 105 - so the editor says how many before anything is changed and the audit
+row keeps the whole before and after. Two rules are enforced rather than
+trusted: a base item must exist in `baseitems.2da`, and a group that does not
+admit *any* object must list at least one base type, because an empty list on a
+group that is read would make every property pointing at it impossible to
+apply.
+
+The group's `code` is shown and not editable. It is the identifier the design
+and `build_arcane.py` use to refer to the group, and renaming it here would
+leave the two disagreeing with nothing to notice.
+
+Base-item names come from `app/base_item_labels.py`, generated from
+`haks-2da/baseitems.2da` by `scripts/generate_base_item_labels.py`. The panel's
+container has no copy of the 2DA, so the labels are baked in; re-run that
+script with `--check` to verify they are in step, or without it to regenerate.
+
 Edits are audited in `cnr_arcane_revision`, a control-panel-owned table added by
-migration `0023_arcane_revision`. It is separate from `cnr_catalogue_revision`
+migration `0023_arcane_revision`, whose `target_kind` column - added by
+`0024_arcane_revision_kind` - says whether the row describes a property or a
+group, since the two are separate number spaces. It is separate from `cnr_catalogue_revision`
 because that table's foreign key is to `cnr_recipe`, and it is control-panel
 owned so that it survives a catalogue rebuild. It appears in the administrator
 audit workspace under the `arcane` domain, alongside recipe, account, character,

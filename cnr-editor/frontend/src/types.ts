@@ -33,7 +33,14 @@ export interface User {
   updated_at: string
 }
 
-export type AuditDomain = 'recipe' | 'arcane' | 'account' | 'character' | 'user' | 'dm_access'
+export type AuditDomain =
+  | 'recipe'
+  | 'arcane'
+  | 'arcane_group'
+  | 'account'
+  | 'character'
+  | 'user'
+  | 'dm_access'
 
 export interface AuditEntry {
   revision_key: string
@@ -54,6 +61,7 @@ export interface AuditPage {
   total: number
   offset: number
   limit: number
+  truncated: boolean
 }
 
 export interface Session {
@@ -225,10 +233,21 @@ export interface ArcaneDetail {
   fingerprint: string
 }
 
+export interface ArcaneBaseItemLabel {
+  base_item: number
+  label: string
+}
+
+export interface ArcaneGroupDetail extends ArcaneGroup {
+  property_count: number
+  fingerprint: string
+}
+
 export interface ArcaneReferences {
   groups: ArcaneGroup[]
   sections: string[]
   property_types: string[]
+  base_item_labels: ArcaneBaseItemLabel[]
 }
 
 export interface ReferenceItem {

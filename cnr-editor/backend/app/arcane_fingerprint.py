@@ -66,3 +66,25 @@ def arcane_fingerprint(prop: Any) -> str:
     }
     encoded = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def arcane_group_fingerprint(group: object) -> str:
+    """Digest one arcane group and the base items it admits.
+
+    A group is shared by every property that points at it, so two
+    administrators editing it at once is likelier than for a single property.
+    Same rule as above: everything editable goes in, and the base items are
+    ordered by their own value so the token does not depend on row order.
+    """
+    payload = {
+        "group_id": group.group_id,
+        "code": group.code,
+        "display_name": group.display_name,
+        "any_base": bool(group.any_base),
+        "bases": [
+            {"base_item": base.base_item, "crystal_cost": base.crystal_cost}
+            for base in sorted(group.bases, key=lambda item: item.base_item)
+        ],
+    }
+    encoded = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
