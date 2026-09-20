@@ -53,6 +53,40 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`5e66c4f3` — the panel's Arcano tab.** Reviewed 2026-09-20, verdict BLOCKED,
+two blockers and two advisories, all four correct, all four fixed in
+`f20de159`, closed. The first audit of this repository where a finding was a
+defect in the code rather than in the record.
+
+- **F-001, the one that mattered.** `db-reset-players.sh` classifies every table
+  of the database as wiped or kept and exits on one it does not recognise,
+  before taking its backup. The new `cnr_arcane_revision` was in neither list,
+  so the moment migration `0023` shipped, **every player reset would have
+  refused to run**. The reviewer found it by reading a shell script two
+  directories away from anything the commit touched.
+- **F-002.** Arcane edits were written to their revision table and nothing could
+  read them: the administrator audit workspace queries four revision models and
+  this was a fifth. Recorded and invisible is not audited.
+- **F-003.** The section filter is built from the distinct sections, the section
+  is editable, and the save invalidated only the list.
+- **F-004.** The accepted XP ceiling was `16777215`, copied from the recipe
+  editor whose column is an `INT`. `cnr_arcane_step.xp` is a signed `MEDIUMINT`
+  and stops at `8388607`.
+
+**Worth keeping: a new table is a change to every script that enumerates
+tables.** F-001 is the second time a reviewer has caught an integration this
+repository states as an exhaustive contract and an implementer treated as a
+local addition. Before adding a table, grep for the ones already there.
+
+**`68b338c5` — the documentation checker, never audited.** It brought
+`scripts/check_documentation.py` over from development and closed the gap that
+blocked `8f344b46`. It has no marker and no review: by the time its turn came
+it already had a child, and a candidate must be `HEAD` with no children when
+its review starts, because the one child `finalize` accepts is reserved for the
+remediation. Two commits were made before either was audited. Its id is
+recorded in its changelog entry from the remediation commit of the audit that
+followed it, which is the only place left that could carry it.
+
 **`8f344b46` — diamond dust into the material store.** Reviewed 2026-09-20,
 verdict BLOCKED, one blocker, correct, fixed, closed at `3dfc9278`. The
 implementation and its structural invariants passed; the blocker was against the
