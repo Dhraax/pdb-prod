@@ -222,7 +222,10 @@ Two things work differently, and both are forced by the data:
 Edits are audited in `cnr_arcane_revision`, a control-panel-owned table added by
 migration `0023_arcane_revision`. It is separate from `cnr_catalogue_revision`
 because that table's foreign key is to `cnr_recipe`, and it is control-panel
-owned so that it survives a catalogue rebuild.
+owned so that it survives a catalogue rebuild. It appears in the administrator
+audit workspace under the `arcane` domain, alongside recipe, account, character,
+user and DM-access revisions, and `db-reset-players.sh` classifies it as data to
+keep.
 
 **An arcane edit made here is live-only until the design is regenerated.** This
 is not new and not specific to arcane: `db-apply.sh` drops and rebuilds every

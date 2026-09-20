@@ -33,7 +33,7 @@ export interface User {
   updated_at: string
 }
 
-export type AuditDomain = 'recipe' | 'account' | 'character' | 'user' | 'dm_access'
+export type AuditDomain = 'recipe' | 'arcane' | 'account' | 'character' | 'user' | 'dm_access'
 
 export interface AuditEntry {
   revision_key: string

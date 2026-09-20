@@ -77,6 +77,7 @@ keep_tables=(
     cnr_arcane_property
     cnr_arcane_step
     cnr_catalogue_revision
+    cnr_arcane_revision
     cnr_editor_user
     cnr_editor_user_revision
     cnr_editor_profession_permission

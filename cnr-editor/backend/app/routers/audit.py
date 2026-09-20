@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.dependencies import require_admin
 from app.models import (
+    ArcaneRevision,
     CatalogueRevision,
     DmCdKeyWhitelistRevision,
     EditorUser,
@@ -24,6 +25,8 @@ def _target_label(domain: str, target_id: int | str, snapshot: dict) -> str:
     if domain == "recipe":
         public_id = snapshot.get("public_id")
         prefix = f"Receta {public_id}" if public_id is not None else f"Receta {target_id}"
+    elif domain == "arcane":
+        prefix = f"Propiedad arcana {target_id}"
     elif domain == "account":
         prefix = f"Cuenta {target_id}"
     elif domain == "character":
@@ -39,6 +42,7 @@ def _entry(
     domain: str,
     revision: (
         CatalogueRevision
+        | ArcaneRevision
         | IdentityRevision
         | EditorUserRevision
         | DmCdKeyWhitelistRevision
@@ -49,6 +53,8 @@ def _entry(
     target_id = (
         revision.recipe_id
         if isinstance(revision, CatalogueRevision)
+        else revision.arcane_id
+        if isinstance(revision, ArcaneRevision)
         else revision.target_user_id
         if isinstance(revision, EditorUserRevision)
         else revision.cd_key
@@ -67,7 +73,7 @@ def _entry(
         actor_username=actor_username,
         before=revision.before_json,
         after=revision.after_json,
-        note=revision.note if isinstance(revision, CatalogueRevision) else None,
+        note=(revision.note if isinstance(revision, CatalogueRevision | ArcaneRevision) else None),
     )
 
 
@@ -78,12 +84,18 @@ def list_audit_entries(
     limit: int = Query(default=50, ge=1, le=200),
     db: Session = Depends(get_db),
 ) -> AuditPage:
-    """Return the newest catalogue, identity, DM-access and user revisions."""
+    """Return the newest catalogue, arcane, identity, DM-access and user revisions."""
     fetch_limit = offset + limit
     catalogue_rows = db.execute(
         select(CatalogueRevision, EditorUser.username)
         .outerjoin(EditorUser, CatalogueRevision.actor_user_id == EditorUser.user_id)
         .order_by(CatalogueRevision.changed_at.desc(), CatalogueRevision.revision_id.desc())
+        .limit(fetch_limit)
+    ).all()
+    arcane_rows = db.execute(
+        select(ArcaneRevision, EditorUser.username)
+        .outerjoin(EditorUser, ArcaneRevision.actor_user_id == EditorUser.user_id)
+        .order_by(ArcaneRevision.changed_at.desc(), ArcaneRevision.revision_id.desc())
         .limit(fetch_limit)
     ).all()
     identity_rows = db.execute(
@@ -113,6 +125,7 @@ def list_audit_entries(
 
     entries = [
         *(_entry("recipe", revision, username) for revision, username in catalogue_rows),
+        *(_entry("arcane", revision, username) for revision, username in arcane_rows),
         *(
             _entry(revision.target_type, revision, username)
             for revision, username in identity_rows
@@ -132,6 +145,7 @@ def list_audit_entries(
         db.scalar(select(func.count()).select_from(model)) or 0
         for model in (
             CatalogueRevision,
+            ArcaneRevision,
             IdentityRevision,
             EditorUserRevision,
             DmCdKeyWhitelistRevision,

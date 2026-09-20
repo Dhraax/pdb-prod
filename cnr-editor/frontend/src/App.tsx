@@ -83,6 +83,7 @@ const roleLabels: Record<Role, string> = {
 
 const auditDomainLabels: Record<AuditEntry['domain'], string> = {
   recipe: 'Receta',
+  arcane: 'Propiedad arcana',
   account: 'Cuenta',
   character: 'Personaje',
   user: 'Usuario del sistema',
@@ -768,6 +769,10 @@ function ArcaneEditor({ arcaneId, open, writesEnabled, canEdit, onClose }: {
     onSuccess: (updated) => {
       setDraft(updated)
       client.invalidateQueries({ queryKey: ['arcane-properties'] })
+      // Section and property type are editable and are what the references
+      // query returns as its distinct values, so a save can leave the filters
+      // offering a section nothing is in, or missing one that now exists.
+      client.invalidateQueries({ queryKey: ['arcane-references'] })
       client.setQueryData(['arcane-property', updated.arcane_id], updated)
     },
   })

@@ -205,7 +205,7 @@ class UserUpdate(BaseModel):
 
 class AuditEntry(BaseModel):
     revision_key: str
-    domain: Literal["recipe", "account", "character", "user", "dm_access"]
+    domain: Literal["recipe", "arcane", "account", "character", "user", "dm_access"]
     target_id: int | str
     target_label: str
     action: str
@@ -366,7 +366,10 @@ class ArcaneStepIn(BaseModel):
     subtype: int | None = Field(default=None, ge=0, le=2147483647)
     value1: int = Field(ge=-2147483648, le=2147483647)
     value2: int = Field(ge=-2147483648, le=2147483647)
-    xp: int = Field(ge=0, le=16777215)
+    # cnr_arcane_step.xp is a signed MEDIUMINT, so 8388607 is the ceiling. A
+    # wider bound here would pass validation and fail at the database, and the
+    # caller would be told the catalogue rejected it rather than what was wrong.
+    xp: int = Field(ge=0, le=8388607)
     display_value: str = Field(min_length=1, max_length=32)
 
 
