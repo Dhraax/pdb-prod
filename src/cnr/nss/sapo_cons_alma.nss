@@ -198,36 +198,36 @@ void CargaArray(object oUbicado)
   SetLocalArrayString(oUbicado, "sTagIngOficio", 56, "cnr_e_94");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 56, "cnr_e_94");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 56, "Cuerno de behir: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 57, "cnr_m_cu_bestiag");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 57, "cnr_m_cu_bestiag");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 57, "Cuero de Bestia Grande: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 57, "cnr_m_cu_mitica");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 57, "cnr_m_cu_mitica");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 57, "Cuero de piel de bestia mitica: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 58, "cnr_m_cu_miticag");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 58, "cnr_m_cu_miticag");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 58, "Cuero de Bestia Mitica Grande: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 59, "cnr_m_cu_mitica");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 59, "cnr_m_cu_mitica");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 59, "Cuero de Bestia Mitica: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 60, "cnr_m_cu_bestia");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 60, "cnr_m_cu_bestia");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 60, "Cuero de Bestia: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 58, "Cuero de piel de bestia mitica gruesa: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 59, "cnr_m_cu_bestia");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 59, "cnr_m_cu_bestia");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 59, "Cuero de piel de bestia salvaje: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 60, "cnr_m_cu_bestiag");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 60, "cnr_m_cu_bestiag");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 60, "Cuero de piel de bestia salvaje grande: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 61, "cnr_m_cu_dracoa");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 61, "cnr_m_cu_dracoa");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 61, "Cuero de Dragon de Acido: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 61, "Cuero de piel de draco de acido: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 62, "cnr_m_cu_dracof");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 62, "cnr_m_cu_dracof");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 62, "Cuero de Dragon de Fuego: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 62, "Cuero de piel de draco de fuego: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 63, "cnr_m_cu_dracoh");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 63, "cnr_m_cu_dracoh");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 63, "Cuero de Dragon de Hielo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 63, "Cuero de piel de draco de hielo: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 64, "cnr_m_cu_dracor");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 64, "cnr_m_cu_dracor");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 64, "Cuero de Dragon de Rayo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 64, "Cuero de piel de draco de rayo: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 65, "cnr_m_cu_herbiv");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 65, "cnr_m_cu_herbiv");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 65, "Cuero de Herbivoro: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 65, "Cuero de piel de herbivoro: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 66, "cnr_m_cu_roedor");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 66, "cnr_m_cu_roedor");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 66, "Cuero de Roedor: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 66, "Cuero de piel de roedor: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 67, "cnr_e_114");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 67, "cnr_e_114");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 67, "Cáscara de batraco: ");
@@ -387,30 +387,39 @@ void CargaArray(object oUbicado)
   SetLocalArrayString(oUbicado, "sTagIngOficio", 119, "cnr_e_92");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 119, "cnr_e_92");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 119, "Levitación de lamparconte: ");
+  // The eight woods keep the persistent keys of the trade that came before
+  // this one - lenyocipres, tablonfresno and the rest - because the key is the
+  // only thing tying a player to what they have stored. Each one was pointed
+  // at the wood that replaced it, tier for tier, so an old holding comes out as
+  // its current equivalent. The keys therefore do not name their wood, and the
+  // line the player reads must follow the blueprint, which
+  // documentation/oficios/cnr/carpentry-plan.md section 1 makes the
+  // specification. Until 2026-09-20 it followed the key instead, and the store
+  // announced fresno while handing over maderadique.
   SetLocalArrayString(oUbicado, "sTagIngOficio", 120, "cnr_m_le_abeto");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 120, "lenyoabeto");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 120, "Leños de abeto: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 121, "cnr_m_le_roble");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 121, "lenyocedro");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 121, "cnr_m_le_cedro");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 121, "lenyocipres");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 121, "Leños de cedro: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 122, "cnr_m_le_cedro");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 122, "lenyocipres");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 122, "Leños de ciprés: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 122, "cnr_m_le_lenoca");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 122, "lenyoolmo");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 122, "Leños de Leñocaso: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 123, "cnr_m_le_maderad");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 123, "lenyofresno");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 123, "Leños de fresno: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 124, "cnr_m_le_lenoca");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 124, "lenyoolmo");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 124, "Leños de olmo: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 125, "cnr_m_le_pino");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 125, "lenyopino");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 125, "Leños de pino: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 126, "cnr_m_le_zalant");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 126, "lenyoroble");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 126, "Leños de roble: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 127, "cnr_m_le_sombra");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 127, "lenyoalamo");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 127, "Leños de álamo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 123, "Leños de maderadique: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 124, "cnr_m_le_pino");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 124, "lenyopino");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 124, "Leños de pino: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 125, "cnr_m_le_roble");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 125, "lenyocedro");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 125, "Leños de roble: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 126, "cnr_m_le_sombra");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 126, "lenyoalamo");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 126, "Leños de sombralto: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 127, "cnr_m_le_zalant");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 127, "lenyoroble");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 127, "Leños de zalantar: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 128, "cnr_p_limo");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 128, "cnr_p_limo");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 128, "Limos putrefactos: ");
@@ -603,36 +612,36 @@ void CargaArray(object oUbicado)
   SetLocalArrayString(oUbicado, "sTagIngOficio", 191, "cnr_e_93");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 191, "cnr_e_93");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 191, "Piel correosa de troll cazador: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 192, "cnr_m_pi_bestiag");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 192, "cnr_m_pi_bestiag");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 192, "Piel de Bestia Grande: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 193, "cnr_m_pi_miticag");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 193, "cnr_m_pi_miticag");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 193, "Piel de bestia mitica Grande: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 192, "cnr_m_pi_bestia");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 192, "cnr_m_pi_bestia");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 192, "Piel de bestia: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 193, "cnr_m_pi_bestiag");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 193, "cnr_m_pi_bestiag");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 193, "Piel de bestia grande: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 194, "cnr_m_pi_mitica");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 194, "cnr_m_pi_mitica");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 194, "Piel de bestia mitica: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 195, "cnr_m_pi_bestia");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 195, "cnr_m_pi_bestia");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 195, "Piel de Bestia: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 195, "cnr_m_pi_miticag");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 195, "cnr_m_pi_miticag");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 195, "Piel de bestia mitica gruesa: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 196, "cnr_m_pi_dracoa");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 196, "cnr_m_pi_dracoa");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 196, "Piel de Dragon de Acido: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 196, "Piel de draco de acido: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 197, "cnr_m_pi_dracof");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 197, "cnr_m_pi_dracof");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 197, "Piel de Dragon de Fuego: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 197, "Piel de draco de fuego: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 198, "cnr_m_pi_dracoh");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 198, "cnr_m_pi_dracoh");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 198, "Piel de Dragon de Hielo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 198, "Piel de draco de hielo: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 199, "cnr_m_pi_dracor");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 199, "cnr_m_pi_dracor");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 199, "Piel de Dragon de Rayo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 199, "Piel de draco de rayo: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 200, "cnr_m_pi_herbiv");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 200, "cnr_m_pi_herbiv");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 200, "Piel de Hervivoro: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 200, "Piel de herbivoro: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 201, "cnr_m_pi_roedor");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 201, "cnr_m_pi_roedor");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 201, "Piel de Roedor: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 201, "Piel de roedor: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 202, "cnr_e_22");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 202, "cnr_e_22");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 202, "Pigmentación de mimeto: ");
@@ -728,10 +737,10 @@ void CargaArray(object oUbicado)
   SetLocalArrayString(oUbicado, "sNomIngOficio", 232, "Saquitos de arenilla de amatista: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 233, "cnr_p_po_aza");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 233, "polvoaza");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 233, "Saquitos de arenilla de azabache: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 233, "Saquitos de arenilla de cristal de azabache: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 234, "cnr_p_po_cuar");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 234, "polvocua");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 234, "Saquitos de arenilla de cuarzo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 234, "Saquitos de arenilla de cuarzo hialino: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 235, "cnr_p_po_obs");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 235, "polvoobs");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 235, "Saquitos de arenilla de obsidiana: ");
@@ -753,30 +762,39 @@ void CargaArray(object oUbicado)
   SetLocalArrayString(oUbicado, "sTagIngOficio", 241, "cnr_e_16");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 241, "cnr_e_16");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 241, "Siseo de ahogador: ");
+  // The eight woods keep the persistent keys of the trade that came before
+  // this one - lenyocipres, tablonfresno and the rest - because the key is the
+  // only thing tying a player to what they have stored. Each one was pointed
+  // at the wood that replaced it, tier for tier, so an old holding comes out as
+  // its current equivalent. The keys therefore do not name their wood, and the
+  // line the player reads must follow the blueprint, which
+  // documentation/oficios/cnr/carpentry-plan.md section 1 makes the
+  // specification. Until 2026-09-20 it followed the key instead, and the store
+  // announced fresno while handing over maderadique.
   SetLocalArrayString(oUbicado, "sTagIngOficio", 242, "cnr_m_ta_abeto");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 242, "tablonabeto");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 242, "Tablones de abeto: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 243, "cnr_m_ta_roble");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 243, "tabloncedro");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 243, "cnr_m_ta_cedro");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 243, "tabloncipres");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 243, "Tablones de cedro: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 244, "cnr_m_ta_cedro");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 244, "tabloncipres");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 244, "Tablones de ciprés: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 244, "cnr_m_ta_lenoca");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 244, "tablonolmo");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 244, "Tablones de Leñocaso: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 245, "cnr_m_ta_maderad");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 245, "tablonfresno");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 245, "Tablones de fresno: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 246, "cnr_m_ta_lenoca");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 246, "tablonolmo");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 246, "Tablones de olmo: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 247, "cnr_m_ta_pino");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 247, "tablonpino");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 247, "Tablones de pino: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 248, "cnr_m_ta_zalant");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 248, "tablonroble");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 248, "Tablones de roble: ");
-  SetLocalArrayString(oUbicado, "sTagIngOficio", 249, "cnr_m_ta_sombra");
-  SetLocalArrayString(oUbicado, "sVarIngOficio", 249, "tablonalamo");
-  SetLocalArrayString(oUbicado, "sNomIngOficio", 249, "Tablones de álamo: ");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 245, "Tablones de maderadique: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 246, "cnr_m_ta_pino");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 246, "tablonpino");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 246, "Tablones de pino: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 247, "cnr_m_ta_roble");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 247, "tabloncedro");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 247, "Tablones de roble: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 248, "cnr_m_ta_sombra");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 248, "tablonalamo");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 248, "Tablones de sombralto: ");
+  SetLocalArrayString(oUbicado, "sTagIngOficio", 249, "cnr_m_ta_zalant");
+  SetLocalArrayString(oUbicado, "sVarIngOficio", 249, "tablonroble");
+  SetLocalArrayString(oUbicado, "sNomIngOficio", 249, "Tablones de zalantar: ");
   SetLocalArrayString(oUbicado, "sTagIngOficio", 250, "cnr_e_73");
   SetLocalArrayString(oUbicado, "sVarIngOficio", 250, "cnr_e_73");
   SetLocalArrayString(oUbicado, "sNomIngOficio", 250, "Tentáculo de yokhol: ");

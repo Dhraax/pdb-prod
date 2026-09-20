@@ -395,7 +395,7 @@ int bOk    = (nRoll == 20) || (nRoll != 1 && nTotal >= nDC);
 
 `CnrCraft_GetRollBonus` calculates:
 
-- `craft_bonus = floor(base Craft ranks / 5)`, using ranks only and no item
+- `craft_bonus = floor(base Artesania ranks / 5)`, using ranks only and no item
   bonuses;
 - `ability_bonus = floor((ability_1 modifier + ability_2 modifier) / 2)`;
 - `help_bonus = floor((ability_bonus + craft_bonus) / 2)`;
@@ -418,7 +418,17 @@ penalties correctly.
 The message shows the roll broken into its parts - `d20 + level (oficio) +
 help (ayuda)` - because a single total hides whether the help bonus
 contributed anything, and with the double halving above it very often does
-not: below 14/14 in both abilities and 10 base Craft ranks it is exactly zero.
+not: below 14/14 in both abilities and 10 base Artesania ranks it is exactly
+zero.
+
+**The skill read is `SKILL_CRAFT_TRAP`, and that is deliberate.** This module
+reassigned the stock craft skill rows in `haks-2da/skills.2da`: row 22, whose
+constant is `SKILL_CRAFT_TRAP`, is Artesania, while rows 25 and 26 - Craft
+Armor and Craft Weapon in a stock installation - are Nadar and Saltar. Reading
+`SKILL_CRAFT_WEAPON` here measures the crafter's jumping, which is what the
+code did until 2026-09-20 and why ranks of Artesania added nothing to any
+trade. Any future edit to this function checks `skills.2da` before trusting a
+`SKILL_*` name.
 
 Failure pays `CNR_XP_FAILURE_PERCENT` (12%) of the recipe's XP, truncated by
 the integer division: a recipe worth 21 pays 2, not 3. Success pays it

@@ -20,7 +20,7 @@ const int CNR_PAGE_SIZE = 5;
 
 // Difficulty model. Single place to tune; nothing is copied into recipes.
 const int CNR_LEVEL_CAP            = 20;
-const int CNR_CRAFT_RANKS_PER_BONUS = 5;   // +1 per N ranks of base Craft
+const int CNR_CRAFT_RANKS_PER_BONUS = 5;   // +1 per N base ranks of Artesania
 const int CNR_XP_FAILURE_PERCENT   = 12;   // failure pays this share
 
 // Navigation state, cached on the PC for the duration of the menu.
@@ -208,7 +208,7 @@ int CnrCraft_FloorDivide(int nDividend, int nDivisor);
 /// @param oPC Player crafting.
 /// @param nProfessionId Profession the station belongs to.
 /// @returns Tradeskill level plus the floored average of the profession's
-///     ability contribution and the natural Craft-rank contribution.
+///     ability contribution and the natural Artesania-rank contribution.
 int CnrCraft_GetRollBonus(object oPC, int nProfessionId);
 
 /// @brief Complete a previously animated crafting attempt.
@@ -914,8 +914,13 @@ int CnrCraft_FloorDivide(int nDividend, int nDivisor)
 
 int CnrCraft_GetRollBonus(object oPC, int nProfessionId)
 {
-    // Base Craft ranks only, no item bonuses.
-    int nRanks = GetSkillRank(SKILL_CRAFT_WEAPON, oPC, TRUE);
+    // Base ranks of the module's "Artesania" skill, no item bonuses.
+    //
+    // The constant is SKILL_CRAFT_TRAP because that is skill 22, and row 22 of
+    // haks-2da/skills.2da is where this module put Artesania. The stock Craft
+    // Weapon and Craft Armor rows were reused for Saltar and Nadar, so reading
+    // SKILL_CRAFT_WEAPON here - as this did - measured the crafter's jumping.
+    int nRanks = GetSkillRank(SKILL_CRAFT_TRAP, oPC, TRUE);
     int nCraftBonus = nRanks / CNR_CRAFT_RANKS_PER_BONUS;
 
     if (nProfessionId <= 0)

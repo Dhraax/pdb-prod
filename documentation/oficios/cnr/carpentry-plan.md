@@ -96,9 +96,23 @@ Tags, resrefs and components are untouched, exactly as this section requires.
 The tree nodes were corrected in the same pass, so a tree, its log, its plank
 and the recipes that consume it all name the same wood.
 
+**Completed on 2026-09-20 for the material store.** `sapo_cons_alma.nss` was
+the last place still reading a key as if it named its wood. The store keeps the
+persistent keys of the trade that came before this one - `lenyocipres`,
+`tablonfresno` and the rest - because the key is the only thing tying a player
+to what they have stored, and each was pointed at the wood that replaced it,
+tier for tier. The line the player reads had been left on the old key, so the
+store announced "Tablones de fresno" while handing over Tablones de maderadique,
+and the same for cedro, ciprés, olmo, roble and álamo in both the log and the
+plank rows. Twelve lines now follow the blueprint. Keys, tags and stored
+quantities are untouched: an old holding still comes out as its current
+equivalent. The old trade had eight woods and this one has eight, so nothing
+was dropped and nothing needed removing.
+
 **Consequence:** this table is not documentation, it is the specification. Any
-future edit to a carpentry recipe must come back to it. Reading a tag as if it
-named its wood is the one mistake that produces silently wrong items.
+future edit to a carpentry recipe, or to any player-facing list of these woods,
+must come back to it. Reading a tag or a persistent key as if it named its wood
+is the one mistake that produces silently wrong items.
 
 ---
 
