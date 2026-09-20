@@ -6,11 +6,21 @@ umask 077
 # player progress.
 #
 # The catalogue tables - professions, stations, materials, recipes and the
-# arcane ones - are disposable: the migrations drop and rebuild them from the
-# repository, which is what makes a change here reach the server at all. The
-# tables that hold what players own - pwdb_account, pwdb_character,
-# cnr_tradeskill, cnr_character_setting - are created with IF NOT EXISTS and
-# appear in no DROP and no DELETE.
+# arcane ones - are dropped and rebuilt from the repository, which is what
+# makes a change here reach the server at all. The tables that hold what
+# players own - pwdb_account, pwdb_character, cnr_tradeskill,
+# cnr_character_setting - are created with IF NOT EXISTS and appear in no DROP
+# and no DELETE.
+#
+# They used to be called disposable and they are not any more. Since
+# 2026-09-20 the control panel is the live authority over the catalogue: a
+# designer edits recipes and arcane properties there and nothing writes them
+# back here. So rebuilding those tables rolls the design back to whatever the
+# repository last generated and throws away every value tuned since.
+#
+# Seed a new database with this, or install a schema change with it. Do not run
+# it against a live one people have been editing without knowing that is what
+# you are doing. The dump it takes first is the way back.
 #
 # Because "should not" is not "did not", this counts the progress rows before
 # and after and fails loudly if the number went down, and it always takes a

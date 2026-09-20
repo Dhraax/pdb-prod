@@ -227,13 +227,35 @@ audit workspace under the `arcane` domain, alongside recipe, account, character,
 user and DM-access revisions, and `db-reset-players.sh` classifies it as data to
 keep.
 
-**An arcane edit made here is live-only until the design is regenerated.** This
-is not new and not specific to arcane: `db-apply.sh` drops and rebuilds every
-catalogue table, recipes included, from the repository's generated SQL, and that
-is what makes a repository change reach the server at all. A value tuned in the
-panel therefore survives until the next apply and no longer. Anything meant to
-last belongs in `documentation/oficios/arcano.json`, or in the recipe
-catalogue's authored JSON, and reaches the database through its generator.
+### The panel is the live authority, by decision
+
+**Owner decision, 2026-09-20: what is edited in the panel is what is true.**
+There is no write-back to the repository and none is wanted. Once the trades
+launch to production, nothing is authored here any more: the repository's
+generated SQL is the seed for a first install, not a source that keeps being
+reapplied, and keeping a repository-side record of what a designer tuned in the
+panel would be a second copy of the truth with nothing to keep it honest.
+
+That makes one script destructive that used not to be. **`db-apply.sh` drops
+and rebuilds every catalogue table** - professions, stations, materials,
+recipes and the four arcane ones - from `migration/*.sql`. That is exactly what
+makes a repository change reach a server, and it is also what would discard
+every value tuned in the panel since the last apply. Against a live production
+database, after launch, it is a rollback of the design to whatever the
+repository last generated.
+
+So: apply migrations to seed a new database or to install a schema change, and
+do not apply them to a live one that people have been editing. The dump
+`db-apply.sh` takes first, under `<stack>/db-backups/pre-apply-<timestamp>.sql.gz`,
+is the only thing standing between a reflex and a day of lost work. This
+applies to recipes exactly as it applies to arcane; arcane is only where it was
+noticed, because its numbers are the kind a designer tunes daily.
+
+`cnr_arcane_revision` and `cnr_catalogue_revision` stay. They are the panel's
+own before-and-after history, they live in the database next to what they
+describe, and they are what the administrator audit workspace reads. They are
+not a repository-side track of panel edits, which is the thing that was ruled
+out.
 
 ## Character overview
 
