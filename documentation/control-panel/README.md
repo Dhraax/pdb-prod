@@ -227,32 +227,39 @@ audit workspace under the `arcane` domain, alongside recipe, account, character,
 user and DM-access revisions, and `db-reset-players.sh` classifies it as data to
 keep.
 
-### The panel is the live authority, by decision
+### Who owns the catalogue, and when
 
-**Owner decision, 2026-09-20: what is edited in the panel is what is true.**
-There is no write-back to the repository and none is wanted. Once the trades
-launch to production, nothing is authored here any more: the repository's
-generated SQL is the seed for a first install, not a source that keeps being
-reapplied, and keeping a repository-side record of what a designer tuned in the
-panel would be a second copy of the truth with nothing to keep it honest.
+**During the testing stage, `db-apply.sh` is the reset and wiping the catalogue
+is the point.** It applies `migration/*.sql`, which drop and rebuild the nine
+recipe tables and the four arcane ones, so the database goes back to exactly
+what the repository says and nothing left over from a previous shape of a
+recipe or an arcane step can make a test pass or fail for the wrong reason. A
+value tuned in the panel lasts until the next apply, and during testing losing
+it is not a loss: it was a test.
 
-That makes one script destructive that used not to be. **`db-apply.sh` drops
-and rebuilds every catalogue table** - professions, stations, materials,
-recipes and the four arcane ones - from `migration/*.sql`. That is exactly what
-makes a repository change reach a server, and it is also what would discard
-every value tuned in the panel since the last apply. Against a live production
-database, after launch, it is a rollback of the design to whatever the
-repository last generated.
+What an apply does not clear is player progress - `pwdb_account`,
+`pwdb_character`, `cnr_tradeskill`, `cnr_character_setting`, created with
+`IF NOT EXISTS` and named in no `DROP` or `DELETE`, with `db-apply.sh` aborting
+if their row counts fall - and everything the panel owns: its users, sessions,
+permissions, MFA tables, `alembic_version` and both revision tables. Those are
+not named in any migration at all.
 
-So: apply migrations to seed a new database or to install a schema change, and
-do not apply them to a live one that people have been editing. The dump
-`db-apply.sh` takes first, under `<stack>/db-backups/pre-apply-<timestamp>.sql.gz`,
-is the only thing standing between a reflex and a day of lost work. This
-applies to recipes exactly as it applies to arcane; arcane is only where it was
-noticed, because its numbers are the kind a designer tunes daily.
+**Owner decision, 2026-09-20: from the launch of the trades, the panel is the
+live authority.** What is edited there is what is true. Nothing is authored in
+the repository any more, there is no write-back and none is wanted, and
+`db-apply.sh` is not to be run against that database, because it would roll the
+design back to whatever the repository last generated.
+
+That leaves a gap this module does not close: the panel edits one row at a time,
+and a designer's real work - raising the XP of every tier-3 recipe, retiring a
+material across the recipes that name it, rebalancing an arcane section - is one
+decision and dozens of writes. Bulk editing that cannot touch player data is
+what has to replace the apply, and it does not exist yet. The proposal, with its
+open questions, is
+[`../pending-changes/catalogue-bulk-editing.md`](../pending-changes/catalogue-bulk-editing.md).
 
 `cnr_arcane_revision` and `cnr_catalogue_revision` stay. They are the panel's
-own before-and-after history, they live in the database next to what they
+own before-and-after history, they live in the database beside what they
 describe, and they are what the administrator audit workspace reads. They are
 not a repository-side track of panel edits, which is the thing that was ruled
 out.

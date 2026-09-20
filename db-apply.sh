@@ -12,15 +12,19 @@ umask 077
 # cnr_character_setting - are created with IF NOT EXISTS and appear in no DROP
 # and no DELETE.
 #
-# They used to be called disposable and they are not any more. Since
-# 2026-09-20 the control panel is the live authority over the catalogue: a
-# designer edits recipes and arcane properties there and nothing writes them
-# back here. So rebuilding those tables rolls the design back to whatever the
-# repository last generated and throws away every value tuned since.
+# Wiping the catalogue is the point, not a side effect. This is the testing
+# stage's reset: every apply puts the database back to exactly what the
+# repository says, so nothing left over from a previous shape of a recipe or an
+# arcane step can make a test pass or fail for the wrong reason. A value tuned
+# in the control panel lasts until the next apply, and during testing that is
+# intended.
 #
-# Seed a new database with this, or install a schema change with it. Do not run
-# it against a live one people have been editing without knowing that is what
-# you are doing. The dump it takes first is the way back.
+# It stops being right the day the trades launch. From then on the panel is the
+# live authority, nothing is authored here, and this script must not be run
+# against that database: it would roll the design back to whatever the
+# repository last generated. What replaces it is bulk editing from the panel,
+# which does not exist yet - see
+# documentation/pending-changes/catalogue-bulk-editing.md.
 #
 # Because "should not" is not "did not", this counts the progress rows before
 # and after and fails loudly if the number went down, and it always takes a
