@@ -53,6 +53,32 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`dd84269d` — Artesania on the craft roll, and the store's names.** Reviewed
+2026-09-20, verdict BLOCKED, two blockers, both correct, both fixed in
+`11ed036c`, closed. Neither touched the implementation: both were about the
+accuracy of the validation record, which is exactly what the contract means by
+"a false verification claim is itself a blocker".
+
+- **F-001.** The changelog's acceptance test said to add five ranks of Artesania
+  and watch the help bonus rise. It need not rise. `nCraftBonus = ranks / 5` is
+  then averaged with the ability modifier and floored, so five ranks move the
+  inner figure by one and the outer halving can absorb it: at ability average 0,
+  both 0 and 5 ranks display 0. A test that fails against a correct
+  implementation cannot validate it. Replaced with 0 versus 10 ranks on two
+  otherwise identical crafters.
+- **F-002.** The entry claimed compilation of "the changed include and its direct
+  consumers: 6 executables", and the handoff called them *every* direct
+  executable consumer. The two changed includes have twenty between them; the
+  run had covered five plus one indirect. The project rule - one representative
+  direct consumer plus every executable changed in the slice - was satisfied, but
+  the claim of completeness was not true. Re-run over the full set: 21
+  executables, 4 includes skipped, 0 errors.
+
+**The lesson worth keeping: do not write "every" into a handoff without
+enumerating.** Both findings came from the record, not the code, and the reviewer
+found them by counting what the sentence claimed. The cheap defence is to derive
+the consumer list mechanically and paste the number the command actually printed.
+
 **`72c8b96e9` — the NPC caster level marker.** Reviewed 2026-09-02 at the owner's
 request, verdict BLOCKED, two blockers, both correct, both fixed, closed.
 
