@@ -1,0 +1,14 @@
+{
+  "$schema": "../agents-config/scripts/schemas/consumer-config.schema.json",
+  "schemaVersion": 1,
+  "audit": {
+    "enabled": true,
+    "reviewer": "codex",
+    "model": "gpt-5.6-sol",
+    "reasoning": "high",
+    "timeoutSeconds": 1800,
+    "killGraceSeconds": 30,
+    "retentionHours": 48,
+    "promptFile": ".agents/prompts/audit.md"
+  }
+}
