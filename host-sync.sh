@@ -8,17 +8,23 @@ set -euo pipefail
 # this script never lists, overwrites or deletes any of it. It sends only what
 # this repository owns:
 #
-#   docker-compose.yml, run-server.sh and the host helper scripts
-#   migration/, read by db-apply.sh
-#   cnr-editor/ and its cnr-editor/.env
-#   modules/Puerta de Baldur 5E.mod
+#   the module, modules/Puerta de Baldur 5E.mod
+#   docker-compose.yml and the host helper scripts
+#   migration/, which db-apply.sh reads
+#   cnr-editor/, the panel's source, without any environment file
 #
-# It does NOT send config/. The host's credentials are established there and
-# are its own: nwserver.env, mysql.env and mysql-init/ belong to the host and
-# this repository's copies are the local stack's. Sending ours would overwrite
-# working credentials with the ones that happen to be in this checkout, which
-# is how a host ends up locked out of its own database. Change something on the
-# host's environment and you edit it on the host.
+# It sends no configuration and no environment file of any kind. The host's
+# config/ - nwserver.env, mysql.env, mysql-init/ - and the panel's own
+# cnr-editor/.env are established on the host and stay there. Sending this
+# checkout's copies over them does not change the users inside a live database
+# (MySQL applies MYSQL_* only when it initialises an empty volume), it changes
+# what the containers present, and the next start is "Access denied for user"
+# with the working values gone. Edit the host's environment on the host.
+#
+# Nothing it sends can remove productive data. Only migration/ and cnr-editor/
+# mirror deletions, both are trees this repository owns entirely, and inside
+# cnr-editor/ the excludes protect the host's .env, node_modules/ and dist/
+# from deletion as well as from transfer.
 #
 # It starts, stops and migrates nothing.
 # See documentation/repository/host-sync.md.
@@ -92,48 +98,10 @@ for path in migration cnr-editor/backend cnr-editor/frontend; do
     [[ -d "$path" ]] || fail "required directory is missing: $path"
 done
 
-# The host's own nwserver.env and mysql.env are not sent and not read here, so
-# nothing in this script can vouch for them. The module name, NWNX_SQL_SKIP and
-# the database credentials the host runs with are the host's to get right.
-#
-# The panel's .env is still sent, because it is not credentials: it points the
-# panel at the host's own config/mysql.env, names the Compose network and binds
-# the port to the loopback. config/host/cnr-editor.env overrides it.
-host_panel_env="config/host/cnr-editor.env"
-[[ -f "$host_panel_env" ]] || host_panel_env="cnr-editor/host.env.example"
-
-# Raw value of a key as Compose's env-file reader finds it: the last assignment
-# wins, an "export " prefix and blanks around "=" are ignored, and an unquoted
-# value ends before " #". Quotes are kept, so read_plain can refuse them.
-env_value() {
-    sed -n -E "s/^[[:space:]]*(export[[:space:]]+)?$2[[:space:]]*=//p" "$1" \
-        | tail -n 1 \
-        | tr -d '\r' \
-        | sed -E 's/[[:space:]]+#.*$//; s/^[[:space:]]+//; s/[[:space:]]+$//'
-}
-
-# Sets $value to a key the script vouches for. Quoted and interpolated forms are
-# refused rather than interpreted, so the value checked is the value Compose
-# will pass on. Runs in this shell, not a subshell, so fail stops the script.
-read_plain() {
-    value="$(env_value "$1" "$2")"
-    case "$value" in
-        \"*|\'*) fail "$2 in $1 is quoted; write it without quotes so it can be checked as Compose reads it" ;;
-        *'$'*) fail "$2 in $1 contains \$, which Compose interpolates; use a value without it" ;;
-    esac
-}
-
-require_equal() {
-    read_plain "$1" "$2"
-    [[ "$value" == "$3" ]] || fail "$2 in $1 must be $3${4:+: $4}"
-}
-
-require_equal "$host_panel_env" CNR_EDITOR_MYSQL_ENV_FILE ../config/mysql.env
-require_equal "$host_panel_env" CNR_EDITOR_NETWORK_NAME server_default
-read_plain "$host_panel_env" CNR_EDITOR_PORT
-[[ "$value" == 127.0.0.1:* ]] \
-    || fail "CNR_EDITOR_PORT in $host_panel_env must be bound to 127.0.0.1; the panel is never published directly"
-unset value
+# No environment file is sent and none is read here, so nothing in this script
+# can vouch for one. The module name, NWNX_SQL_SKIP, the database credentials
+# and the panel's own .env are the host's to get right, and they stay on the
+# host.
 
 stale_count="$(find src -name '*.nss' -newer "$module_file" 2>/dev/null | wc -l)"
 if (( stale_count > 0 )); then
@@ -196,8 +164,7 @@ is_missing() {
 echo
 echo "Target: $target:$remote_dir"
 echo "Sends:  docker-compose.yml, ${stack_scripts[*]}"
-echo "        migration/, cnr-editor/"
-echo "        cnr-editor/.env     <- $host_panel_env"
+echo "        migration/, cnr-editor/ (source only, never its .env)"
 echo "        $module_file"
 echo "Keeps:  config/, hak, tlk, servervault, database, logs and everything else"
 echo "        already there. The host's credentials are its own."
@@ -256,9 +223,6 @@ sync_component "Control panel source" - "cnr-editor/" \
     --exclude '*.tsbuildinfo' \
     cnr-editor/
 
-sync_component "Control panel environment" cnr-editor "cnr-editor/.env" \
-    --chmod=F644 "$host_panel_env"
-
 sync_component "Module" modules "modules/" \
     --chmod=F644 "$module_file"
 
@@ -280,6 +244,7 @@ On the host, in $remote_dir:
                      Compose changed         ./server-restart.sh
                      cnr-editor/ changed     ./web-restart.sh
 
-config/ is not sent. Edit the host's own nwserver.env, mysql.env and
-mysql-init/ on the host, then ./server-restart.sh there.
+No environment file is sent. Edit the host's own config/nwserver.env,
+config/mysql.env, config/mysql-init/ and cnr-editor/.env on the host, then
+./server-restart.sh or ./web-restart.sh there.
 NEXT

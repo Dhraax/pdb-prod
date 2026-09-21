@@ -24,11 +24,11 @@ connection, so a password is asked once.
 | `run-server.sh`, `server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `db-reset-players.sh`, `nwsync.sh` | same names | 755 | - |
 | `migration/` | `migration/` | 644 | deleted on the host |
 | `cnr-editor/`, without `node_modules/`, `dist/`, caches or `*.env` | `cnr-editor/` | 644 | deleted on the host, except its `.env` |
-| `config/host/cnr-editor.env`, or `cnr-editor/host.env.example` when absent | `cnr-editor/.env` | 644 | - |
 | `modules/Puerta de Baldur 5E.mod` | `modules/` | 644 | - |
 
-**`config/` does not travel.** The host's `nwserver.env`, `mysql.env` and
-`mysql-init/` are the host's own and are edited on the host.
+**No configuration travels.** The host's `config/nwserver.env`,
+`config/mysql.env`, `config/mysql-init/` and the panel's own `cnr-editor/.env`
+are the host's, and are edited on the host.
 
 Only the two trees the repository owns entirely - `migration/` and
 `cnr-editor/` - mirror deletions. Nothing is synchronized at
@@ -73,28 +73,21 @@ enrolled in MFA is locked out.
 
 Both are ignored by Git, on the host and here.
 
-The one environment file still sent is the panel's: `config/host/cnr-editor.env`
-if it exists, otherwise `cnr-editor/host.env.example`, written to
-`cnr-editor/.env`. It carries no credentials - it points the panel at the host's
-own `config/mysql.env`, names the Compose network and binds the port to the
-loopback.
+The panel's `cnr-editor/.env` is not sent either. It is configuration - which
+`config/mysql.env` the panel reads, which Compose network it joins, which
+address its port binds to - and the host's copy is the one that is right for
+the host. `cnr-editor/host.env.example` is the template to create it from,
+once, on the host.
 
 ## What the script refuses
-
-Values are read as Compose reads an env file: the last assignment wins, an
-`export ` prefix and blanks around `=` are ignored, and an unquoted value ends
-before ` #`. A checked value written in quotes or containing `$` is refused
-rather than interpreted, so what the script vouches for is exactly what Compose
-passes on.
 
 Before connecting:
 
 - a missing file or directory among the sources;
-- a checked value in quotes or containing `$`;
-- a panel environment that does not read `../config/mysql.env`, does not join
-  `server_default`, or publishes the panel on anything but `127.0.0.1`;
 - a module older than some `.nss` under `src/`: asked interactively, refused with
   `--yes`.
+
+It no longer inspects any environment file, because it no longer sends one.
 
 After connecting: no `rsync` on the host, a server directory that does not
 exist, or one with none of `hak/`, `modules/` or `servervault/`, which is taken
@@ -181,9 +174,17 @@ an SSH stand-in that runs commands locally:
 - every refusal above, including a host without `rsync`, was triggered and
   stopped the script before any transfer.
 
-That rehearsal covered a version that still sent `config/`. The environment
-files and `config/mysql-init/` were removed from the transfer on 2026-09-21,
-along with the checks that vouched for them, and that change has not been
-rehearsed.
+That rehearsal covered a version that still sent `config/`. On 2026-09-21 the
+environment files, `config/mysql-init/` and the panel's `.env` were removed from
+the transfer, along with every check that vouched for them.
+
+The transfers were then rehearsed again, for real rather than as a dry run,
+against a directory holding a host's productive data: haks, TLK, a vault
+character, `database/`, `logs/`, `cryptographic_secret`, `settings.tml`,
+`db-backups/`, a second module, `config/nwserver.env`, `config/mysql.env`,
+`config/mysql-init/`, and the panel's `.env`, `node_modules/` and `dist/`. All
+fifteen were byte-identical afterwards. The only deletion anywhere was a stale
+`.sql` inside `migration/`, which is what that tree's `--delete` is for, and the
+only modified file was the module.
 
 It has not yet been run against the real host.
