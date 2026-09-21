@@ -22,16 +22,16 @@ connection, so a password is asked once.
 |--------------|-------------|------|---------------|
 | `docker-compose.yml` | `docker-compose.yml` | 644 | - |
 | `run-server.sh`, `server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `db-reset-players.sh`, `nwsync.sh` | same names | 755 | - |
-| `config/nwserver.env`, or `config/host/nwserver.env` when present | `config/nwserver.env` | 600 | - |
-| `config/mysql.env`, or `config/host/mysql.env` when present | `config/mysql.env` | 600 | - |
-| `config/mysql-init/` | `config/mysql-init/` | 755 | deleted on the host |
 | `migration/` | `migration/` | 644 | deleted on the host |
 | `cnr-editor/`, without `node_modules/`, `dist/`, caches or `*.env` | `cnr-editor/` | 644 | deleted on the host, except its `.env` |
 | `config/host/cnr-editor.env`, or `cnr-editor/host.env.example` when absent | `cnr-editor/.env` | 644 | - |
 | `modules/Puerta de Baldur 5E.mod` | `modules/` | 644 | - |
 
-Only the three trees the repository owns entirely - `config/mysql-init/`,
-`migration/` and `cnr-editor/` - mirror deletions. Nothing is synchronized at
+**`config/` does not travel.** The host's `nwserver.env`, `mysql.env` and
+`mysql-init/` are the host's own and are edited on the host.
+
+Only the two trees the repository owns entirely - `migration/` and
+`cnr-editor/` - mirror deletions. Nothing is synchronized at
 the top of the server directory as a tree, so `hak/`, `tlk/`, `servervault/`,
 `database/`, `logs/`, `override/`, `development/`, `portraits/`, `saves/`,
 `nwsync/`, `nwnx/`, `bin/`, `data/`, `temp/`, `cryptographic_secret`,
@@ -52,26 +52,32 @@ server keeps the file it loaded.
 
 ## The environment files
 
-The host runs with the same `config/nwserver.env` and `config/mysql.env` as the
-local stack: one copy, edited in one place, and the local rehearsal exercises
-exactly the values the host receives. Both are ignored by Git.
+**The host owns its environment and this script does not touch it.** Its
+`config/nwserver.env`, `config/mysql.env` and `config/mysql-init/` are set up
+once on the host and edited there. The copies in this repository belong to the
+local stack and nothing else.
+
+The reason is the one that bites: MySQL applies `MYSQL_*` only when it
+initialises an empty volume, so the credentials inside a live database are
+whatever they were when it was created. Sending this checkout's `mysql.env` over
+the host's does not change them - it changes what the containers *present*, and
+the next start is `Access denied for user`, with the working values gone. That
+happened locally on 2026-09-21 and cost a datadir password reset to undo.
+Regenerating `CNR_EDITOR_MFA_ENCRYPTION_KEY` is worse: every account that
+enrolled in MFA is locked out.
 
 | File | Created from | Must hold |
 |------|--------------|-----------|
 | `config/nwserver.env` | `config/nwserver.env.example` | The server's player, DM and admin passwords; `NWN_MODULE=Puerta de Baldur 5E`; `NWNX_SQL_SKIP=n` |
 | `config/mysql.env` | `config/mysql.env.example` | `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` and `CNR_EDITOR_MFA_ENCRYPTION_KEY` |
 
-The ignored `config/host/` holds optional overrides. A `config/host/nwserver.env`
-or `config/host/mysql.env` there is sent instead of its counterpart, and a
-`config/host/cnr-editor.env` instead of `cnr-editor/host.env.example`. Moving the
-main files into `config/host/` instead of copying them leaves the local stack
-without its environment: `linux_run_server.sh` fails with `env file ... not
-found`.
+Both are ignored by Git, on the host and here.
 
-MySQL applies `MYSQL_*` only when it initialises an empty volume. Changing them
-in `config/mysql.env` afterwards does not change the users inside an existing
-database, local or remote; that needs an explicit MySQL operation. The MFA key cannot be
-regenerated either without locking out every account that enrolled.
+The one environment file still sent is the panel's: `config/host/cnr-editor.env`
+if it exists, otherwise `cnr-editor/host.env.example`, written to
+`cnr-editor/.env`. It carries no credentials - it points the panel at the host's
+own `config/mysql.env`, names the Compose network and binds the port to the
+loopback.
 
 ## What the script refuses
 
@@ -85,11 +91,6 @@ Before connecting:
 
 - a missing file or directory among the sources;
 - a checked value in quotes or containing `$`;
-- a `cambia-*` placeholder from an `.example` in any password, credential or MFA
-  key;
-- an empty `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE`, `MYSQL_USER` or
-  `MYSQL_PASSWORD`;
-- `NWN_MODULE` other than the module it sends, or `NWNX_SQL_SKIP` other than `n`;
 - a panel environment that does not read `../config/mysql.env`, does not join
   `server_default`, or publishes the panel on anything but `127.0.0.1`;
 - a module older than some `.nss` under `src/`: asked interactively, refused with
@@ -124,7 +125,7 @@ The script prints this at the end. Everything runs in the server directory.
 |---------|-----|
 | `migration/` | `./db-apply.sh` |
 | The module | `./server.sh restart` |
-| `docker-compose.yml` or `config/nwserver.env` | `./server-restart.sh` |
+| `docker-compose.yml`, or the host's own `config/` | `./server-restart.sh` |
 | `cnr-editor/` | `./web-restart.sh` |
 
 NWSync is not part of a module change. It hands clients the haks and the TLK;
@@ -178,10 +179,11 @@ an SSH stand-in that runs commands locally:
   untouched;
 - a second run transferred nothing;
 - every refusal above, including a host without `rsync`, was triggered and
-  stopped the script before any transfer; an empty MFA key only warned;
-- with no `config/host/`, the script sent `config/nwserver.env` and
-  `config/mysql.env`, and the host's
-  `config/mysql.env` matched the local file byte for byte; an override in
-  `config/host/` was sent in its place; with neither present it refused.
+  stopped the script before any transfer.
+
+That rehearsal covered a version that still sent `config/`. The environment
+files and `config/mysql-init/` were removed from the transfer on 2026-09-21,
+along with the checks that vouched for them, and that change has not been
+rehearsed.
 
 It has not yet been run against the real host.

@@ -9,12 +9,16 @@ set -euo pipefail
 # this repository owns:
 #
 #   docker-compose.yml, run-server.sh and the host helper scripts
-#   config/nwserver.env and config/mysql.env, the same files the local stack
-#   uses, or their overrides in config/host/ when those exist
-#   config/mysql-init/
 #   migration/, read by db-apply.sh
 #   cnr-editor/ and its cnr-editor/.env
 #   modules/Puerta de Baldur 5E.mod
+#
+# It does NOT send config/. The host's credentials are established there and
+# are its own: nwserver.env, mysql.env and mysql-init/ belong to the host and
+# this repository's copies are the local stack's. Sending ours would overwrite
+# working credentials with the ones that happen to be in this checkout, which
+# is how a host ends up locked out of its own database. Change something on the
+# host's environment and you edit it on the host.
 #
 # It starts, stops and migrates nothing.
 # See documentation/repository/host-sync.md.
@@ -84,23 +88,19 @@ stack_scripts=(run-server.sh server.sh server-restart.sh web-restart.sh db-apply
 for path in docker-compose.yml "${stack_scripts[@]}" "$module_file" cnr-editor/compose.yml; do
     [[ -f "$path" ]] || fail "required file is missing: $path"
 done
-for path in config/mysql-init migration cnr-editor/backend cnr-editor/frontend; do
+for path in migration cnr-editor/backend cnr-editor/frontend; do
     [[ -d "$path" ]] || fail "required directory is missing: $path"
 done
 
-# The host runs with the same environment files as the local stack. A file in
-# the ignored config/host/ replaces its counterpart for the host only.
-host_nwserver_env="config/host/nwserver.env"
-host_mysql_env="config/host/mysql.env"
+# The host's own nwserver.env and mysql.env are not sent and not read here, so
+# nothing in this script can vouch for them. The module name, NWNX_SQL_SKIP and
+# the database credentials the host runs with are the host's to get right.
+#
+# The panel's .env is still sent, because it is not credentials: it points the
+# panel at the host's own config/mysql.env, names the Compose network and binds
+# the port to the loopback. config/host/cnr-editor.env overrides it.
 host_panel_env="config/host/cnr-editor.env"
-[[ -f "$host_nwserver_env" ]] || host_nwserver_env="config/nwserver.env"
-[[ -f "$host_mysql_env" ]] || host_mysql_env="config/mysql.env"
 [[ -f "$host_panel_env" ]] || host_panel_env="cnr-editor/host.env.example"
-
-[[ -f "$host_nwserver_env" ]] \
-    || fail "$host_nwserver_env is missing; create it from config/nwserver.env.example"
-[[ -f "$host_mysql_env" ]] \
-    || fail "$host_mysql_env is missing; create it from config/mysql.env.example"
 
 # Raw value of a key as Compose's env-file reader finds it: the last assignment
 # wins, an "export " prefix and blanks around "=" are ignored, and an unquoted
@@ -123,34 +123,10 @@ read_plain() {
     esac
 }
 
-reject_placeholder() {
-    read_plain "$1" "$2"
-    [[ "$value" != cambia-* ]] || fail "$2 in $1 still holds the .example placeholder"
-}
-
-require_value() {
-    reject_placeholder "$1" "$2"
-    [[ -n "$value" ]] || fail "$2 is missing or empty in $1"
-}
-
 require_equal() {
     read_plain "$1" "$2"
     [[ "$value" == "$3" ]] || fail "$2 in $1 must be $3${4:+: $4}"
 }
-
-for key in NWN_PLAYERPASSWORD NWN_DMPASSWORD NWN_ADMINPASSWORD; do
-    reject_placeholder "$host_nwserver_env" "$key"
-done
-require_equal "$host_nwserver_env" NWN_MODULE "$module_name" "the module this script sends"
-require_equal "$host_nwserver_env" NWNX_SQL_SKIP n "the module needs MySQL"
-
-for key in MYSQL_ROOT_PASSWORD MYSQL_DATABASE MYSQL_USER MYSQL_PASSWORD; do
-    require_value "$host_mysql_env" "$key"
-done
-reject_placeholder "$host_mysql_env" CNR_EDITOR_MFA_ENCRYPTION_KEY
-if [[ -z "$value" ]]; then
-    echo "WARNING: CNR_EDITOR_MFA_ENCRYPTION_KEY is empty in $host_mysql_env; the panel will refuse MFA enrolment." >&2
-fi
 
 require_equal "$host_panel_env" CNR_EDITOR_MYSQL_ENV_FILE ../config/mysql.env
 require_equal "$host_panel_env" CNR_EDITOR_NETWORK_NAME server_default
@@ -189,7 +165,7 @@ remote() {
 }
 
 q_remote_dir="$(printf '%q' "$remote_dir")"
-remote_dirs="config config/mysql-init modules migration cnr-editor"
+remote_dirs="modules migration cnr-editor"
 
 echo "[*] Checking $target:$remote_dir"
 probe="$(remote "command -v rsync >/dev/null 2>&1 || { echo NO_RSYNC; exit 0; }
@@ -220,12 +196,11 @@ is_missing() {
 echo
 echo "Target: $target:$remote_dir"
 echo "Sends:  docker-compose.yml, ${stack_scripts[*]}"
-echo "        config/nwserver.env <- $host_nwserver_env"
-echo "        config/mysql.env    <- $host_mysql_env"
-echo "        config/mysql-init/, migration/, cnr-editor/"
+echo "        migration/, cnr-editor/"
 echo "        cnr-editor/.env     <- $host_panel_env"
 echo "        $module_file"
-echo "Keeps:  hak, tlk, servervault, database, logs and everything else already there"
+echo "Keeps:  config/, hak, tlk, servervault, database, logs and everything else"
+echo "        already there. The host's credentials are its own."
 if (( ${#missing_dirs[@]} > 0 )); then
     echo "New:    ${missing_dirs[*]}"
 fi
@@ -267,16 +242,6 @@ sync_component "Compose file" - "" \
 sync_component "Server entrypoint and host scripts" - "" \
     --chmod=F755 "${stack_scripts[@]}"
 
-sync_component "Server environment" config "config/nwserver.env" \
-    --chmod=F600 "$host_nwserver_env"
-
-sync_component "MySQL environment" config "config/mysql.env" \
-    --chmod=F600 "$host_mysql_env"
-
-sync_component "MySQL initialisation" config "config/mysql-init/" \
-    --delete-delay --chmod=D755,F755 \
-    config/mysql-init/
-
 sync_component "SQL migrations" - "migration/" \
     --delete-delay --chmod=D755,F644 \
     --exclude '__pycache__/' --exclude '*.py[cod]' \
@@ -312,6 +277,9 @@ On the host, in $remote_dir:
                      ./web-restart.sh
   later, as needed:  migration/ changed      ./db-apply.sh
                      module changed          ./server.sh restart
-                     Compose or env changed  ./server-restart.sh
+                     Compose changed         ./server-restart.sh
                      cnr-editor/ changed     ./web-restart.sh
+
+config/ is not sent. Edit the host's own nwserver.env, mysql.env and
+mysql-init/ on the host, then ./server-restart.sh there.
 NEXT
