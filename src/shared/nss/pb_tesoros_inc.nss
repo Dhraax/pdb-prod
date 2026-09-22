@@ -1782,13 +1782,18 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "CALIDAD_GUARDADA", ipCalidad);
       SetLocalInt(oObjeto, "PCItem", 1);
 
-      // Only generated equipment receives an extraction tier. Shop stock,
-      // quest rewards and grey loot remain outside this extraction policy.
-      if(iRango >= 2 && iTienda == FALSE &&
+      // Every piece of generated equipment carries its own loot rank, 1 to 5,
+      // and that variable is the only thing the extractor asks for. Shop stock
+      // and quest rewards stay outside: they are not loot.
+      //
+      // The value is the rank itself, not rank minus one. Rank 1, the plain
+      // grey piece, has to be tellable from "no variable at all", and
+      // GetLocalInt cannot tell a stored zero from an unset name.
+      if(iRango >= 1 && iTienda == FALSE &&
          GetLocalInt(oObjetivo, "CNR_LOOT_SOURCE") == TRUE &&
          TreasureIsEquipment(oObjeto))
       {
-          SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango - 1);
+          SetLocalInt(oObjeto, "CNR_LOOT_TIER", iRango);
       }
 
       if(GetObjectType(oObjetivo) == OBJECT_TYPE_CREATURE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que lo rescataste de las garras de "+GetName(OBJECT_SELF)+". A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");

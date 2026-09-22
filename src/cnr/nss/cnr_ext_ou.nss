@@ -53,12 +53,24 @@ void main()
 
     int iInside = CnrExt_CountItems(oMachine);
     int iBreakable = CnrExt_CountBreakable(oMachine);
+    int iUnidentified = CnrExt_CountUnidentified(oMachine);
 
     string sText;
     if (iInside == 0)
     {
         sText = "La máquina está vacía. Mete objetos que hayas encontrado y "
               + "extraerá la esencia urdímbrica que guardan.";
+    }
+    else if (iBreakable == 0 && iUnidentified > 0)
+    {
+        sText = "El objeto está sin identificar. No puedes procesar esto.\n\n"
+              + "Identifícalo primero y vuelve: la esencia sigue dentro.";
+        if (iUnidentified > 1)
+        {
+            sText = "Hay " + IntToString(iUnidentified) + " objetos sin "
+                  + "identificar. No puedes procesarlos.\n\nIdentifícalos "
+                  + "primero y vuelve: la esencia sigue dentro.";
+        }
     }
     else if (iBreakable == 0)
     {
@@ -73,6 +85,11 @@ void main()
         if (iInside > iBreakable)
         {
             sText += ", y " + IntToString(iInside - iBreakable) + " que no";
+        }
+        if (iUnidentified > 0)
+        {
+            sText += ". De esos, " + IntToString(iUnidentified)
+                   + " solo esperan a que los identifiques";
         }
         sText += ".\n\nExtraerla los destruye. No hay vuelta atrás.";
         if (iBreakable > CNR_EXT_BATCH_CAP)
@@ -93,5 +110,5 @@ void main()
     // the same pair of events that started the talk.
     AssignCommand(oPC, ClearAllActions());
     AssignCommand(oPC,
-        ActionStartConversation(oMachine, "cnr_c_extract", FALSE, FALSE));
+        ActionStartConversation(oMachine, "cnr_c_extract", TRUE, FALSE));
 }

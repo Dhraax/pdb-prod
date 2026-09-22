@@ -104,6 +104,11 @@ int CnrExt_CountItems(object oMachine);
 /// @returns The breakable count.
 int CnrExt_CountBreakable(object oMachine);
 
+/// @brief Count the loot inside that cannot be processed until it is identified.
+/// @param oMachine Extraction machine holding the items.
+/// @returns How many stamped pieces inside are still unidentified.
+int CnrExt_CountUnidentified(object oMachine);
+
 /// @brief The first breakable item inside.
 /// @param oMachine The extractor placeable.
 /// @returns The item, or OBJECT_INVALID when none is left.
@@ -175,7 +180,7 @@ void CnrExt_Seal(object oPC, object oMachine)
 
 int CnrExt_Tier(object oItem)
 {
-    if (!GetIsObjectValid(oItem) || !GetIdentified(oItem))
+    if (!GetIsObjectValid(oItem))
     {
         return 0;
     }
@@ -184,10 +189,29 @@ int CnrExt_Tier(object oItem)
         return 0;
     }
 
-    // 1 light blue, 2 dark blue, 3 legendary, 4 titanic. Loot rank 1, the grey
-    // one, is never stamped.
-    int iTier = GetLocalInt(oItem, CNR_EXT_VAR_TIER);
-    return (iTier >= 1 && iTier <= 4) ? iTier : 0;
+    // The loot rank the generator stamped: 1 grey, 2 light blue, 3 dark blue,
+    // 4 legendary, 5 titanic. Anything else is not loot and holds no essence.
+    //
+    // Being identified is NOT asked here. An unidentified piece is loot all
+    // the same; it simply cannot be processed yet, and the machine says so
+    // instead of pretending the item is worthless.
+    int iRank = GetLocalInt(oItem, CNR_EXT_VAR_TIER);
+    return (iRank >= 1 && iRank <= 5) ? iRank : 0;
+}
+
+int CnrExt_CountUnidentified(object oMachine)
+{
+    int iTotal = 0;
+    object oItem = GetFirstItemInInventory(oMachine);
+    while (GetIsObjectValid(oItem))
+    {
+        if (CnrExt_Tier(oItem) > 0 && !GetIdentified(oItem))
+        {
+            iTotal++;
+        }
+        oItem = GetNextItemInInventory(oMachine);
+    }
+    return iTotal;
 }
 
 int CnrExt_CountItems(object oMachine)
@@ -208,7 +232,7 @@ int CnrExt_CountBreakable(object oMachine)
     object oItem = GetFirstItemInInventory(oMachine);
     while (GetIsObjectValid(oItem))
     {
-        if (CnrExt_Tier(oItem) > 0)
+        if (CnrExt_Tier(oItem) > 0 && GetIdentified(oItem))
         {
             iTotal++;
         }
@@ -222,7 +246,7 @@ object CnrExt_GetNext(object oMachine)
     object oItem = GetFirstItemInInventory(oMachine);
     while (GetIsObjectValid(oItem))
     {
-        if (CnrExt_Tier(oItem) > 0)
+        if (CnrExt_Tier(oItem) > 0 && GetIdentified(oItem))
         {
             return oItem;
         }
@@ -399,28 +423,35 @@ int CnrExt_Break(object oPC, object oMachine, object oItem, int bAlone = TRUE)
     string sName = GetName(oItem);
     int iTotal = 0;
 
-    // The table from section 7 of the plan. Read across: a titanic item is
-    // worth 1.25 essences of tier 1, 1.20 of tier 2, 0.53 of tier 3 and 0.26
-    // of tier 4, which is where "four titanic items for one titanic essence,
-    // and two legendary ones along the way" comes from.
+    // The table from section 7 of the plan, read by loot rank rather than by
+    // tier: a titanic piece, rank 5, is worth 1.25 essences of tier 1, 1.20 of
+    // tier 2, 0.53 of tier 3 and 0.26 of tier 4, which is where "four titanic
+    // items for one titanic essence, and two legendary ones along the way"
+    // comes from. An item never yields above the tier below its own rank.
     //
     // The scarce tiers are scarce because of their chance, not because of a
     // cap: with dice this small a cap would do nothing.
     switch (iTier)
     {
+        // Rank 1, the plain grey piece. It holds almost nothing and is here so
+        // that ordinary loot is never simply refused: about one essence of the
+        // lowest kind for every three items broken, and no crystal.
         case 1:
-            iTotal += CnrExt_Roll(oPC, 1, 3, 60);
+            iTotal += CnrExt_Roll(oPC, 1, 2, 25);
             break;
         case 2:
+            iTotal += CnrExt_Roll(oPC, 1, 3, 60);
+            break;
+        case 3:
             iTotal += CnrExt_Roll(oPC, 1, 3, 50);
             iTotal += CnrExt_Roll(oPC, 2, 3, 60);
             break;
-        case 3:
+        case 4:
             iTotal += CnrExt_Roll(oPC, 1, 3, 50);
             iTotal += CnrExt_Roll(oPC, 2, 3, 50);
             iTotal += CnrExt_Roll(oPC, 3, 2, 20);
             break;
-        case 4:
+        case 5:
             iTotal += CnrExt_Roll(oPC, 1, 4, 50);
             iTotal += CnrExt_Roll(oPC, 2, 3, 60);
             iTotal += CnrExt_Roll(oPC, 3, 2, 35);
@@ -428,9 +459,10 @@ int CnrExt_Break(object oPC, object oMachine, object oItem, int bAlone = TRUE)
             break;
     }
 
-    // The crystal comes out of the same act and does not depend on rarity.
+    // The crystal comes out of the same act and does not depend on rarity,
+    // except that grey loot yields none: minimal has to mean minimal.
     int bCrystal = FALSE;
-    if (Random(100) < CNR_EXT_CRYSTAL_CHANCE)
+    if (iTier > 1 && Random(100) < CNR_EXT_CRYSTAL_CHANCE)
     {
         CnrExt_Book(oPC, "cnr_c_"
                          + IntToString(Random(CNR_EXT_CRYSTAL_COUNT) + 1));
