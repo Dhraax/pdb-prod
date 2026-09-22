@@ -379,6 +379,7 @@ int ComprobarIngredientesConjuro(object oCreator, int nClass, int nSpellID, stri
           else
           {
               object oExtracto = GetItemPossessedBy(oCreator,"cnr_p_po_diam");
+              if(oExtracto == OBJECT_INVALID) oExtracto = GetItemPossessedBy(oCreator,"polvo_dia");
               if(oExtracto == OBJECT_INVALID)
               {
                   SendMessageToPC(oCreator,"<cþ<<>Necesitas arenilla de diamante para "+sObjeto+".</c>");
