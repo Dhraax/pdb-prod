@@ -40,5 +40,5 @@ void main()
     // fires OnUsed all over again.
     AssignCommand(oPC, ClearAllActions());
     AssignCommand(oPC,
-        ActionStartConversation(oLever, "cnr_c_lever", FALSE, FALSE));
+        ActionStartConversation(oLever, "cnr_c_lever", TRUE, FALSE));
 }

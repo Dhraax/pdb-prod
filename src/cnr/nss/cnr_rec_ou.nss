@@ -54,5 +54,5 @@ void main()
     DelayCommand(CNR_REC_SEAL_SECONDS, DeleteLocalInt(oMachine, CNR_REC_LOCK));
     AssignCommand(oPC, ClearAllActions());
     AssignCommand(oPC,
-        ActionStartConversation(oMachine, "cnr_c_recycle", FALSE, FALSE));
+        ActionStartConversation(oMachine, "cnr_c_recycle", TRUE, FALSE));
 }

@@ -47,5 +47,5 @@ void main()
     DeleteLocalString(oPC, CNR_VAR_VGROUP);
     CnrCraft_ListCategories(oPC, 0);
     AssignCommand(oPC,
-        ActionStartConversation(oStation, "cnr_c_station", FALSE, FALSE));
+        ActionStartConversation(oStation, "cnr_c_station", TRUE, FALSE));
 }
