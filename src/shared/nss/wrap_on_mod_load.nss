@@ -75,6 +75,7 @@ void main()
     SetLocalInt(GetModule(), "Limpieza", 0);
 
     // Vincular eventos de NWNX a sus correspondientes scripts
+    NWNX_Events_SubscribeEvent("NWNX_ON_STORE_REQUEST_SELL_BEFORE", "cnr_ev_sell");
     NWNX_Events_SubscribeEvent("NWNX_ON_STEALTH_ENTER_BEFORE", "event_stealth");
     NWNX_Events_SubscribeEvent("NWNX_ON_STEALTH_EXIT_AFTER", "event_stealth");
     NWNX_Events_SubscribeEvent("NWNX_ON_POLYMORPH_BEFORE", "event_polymorph");
