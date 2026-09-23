@@ -74,6 +74,32 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`b6ca0d9b` — trade progression, spellcaster Arcano, closed trades, boss
+loot, one bulk commit.** Reviewed 2026-09-23 with `gpt-6-sol` at high
+reasoning, verdict PASS, two advisories, both correct, both fixed in
+`9ab52500`, closed. It carries everything left uncommitted on 2026-09-22 and
+2026-09-23: the help formula, the 30% longer curve and its panel mirror, the XP
+fall-off and top-tier rule, tier-4 DC relief, Arcano for spellcasters, closed
+third trades, boss-chest loot marking, the extractor's identification check and
+the Zalantar properties.
+
+- **F-119.** `pb_tesoro_ccwea2.nss` tested `if (iTienda=TRUE)`, an assignment,
+  just before the new marking branch, which therefore could never run. Dormant:
+  nothing includes that library.
+- **F-122.** The message after the roll blamed "far below your level" for any
+  reduction, including the top-tier rule that halves a recipe one level below.
+
+**`0ab80da1` — the same content, abandoned.** Its review ran on `gpt-5.6-sol`,
+still configured in `.agents/config.json`, and was cancelled by the owner after
+seventeen minutes to switch model. The attempt is consumed and it has no
+verdict; its intermediate notes had found nothing. It was never pushed and was
+recreated as `b6ca0d9b` on top of `1626f648`, which only changes the model. Both
+trees differ only in that file.
+
+**Still owed.** `40566c9a`, `7da40fca`, `fef4881b` and `300d85d3`, committed on
+2026-09-22 while there was no reviewer quota, were never audited, and
+`78724379` is still open as recorded above.
+
 **`5e66c4f3` — the panel's Arcano tab.** Reviewed 2026-09-20, verdict BLOCKED,
 two blockers and two advisories, all four correct, all four fixed in
 `f20de159`, closed. The first audit of this repository where a finding was a
