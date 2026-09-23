@@ -59,6 +59,9 @@ const string CNR_EXT_VAR_PENDING = "CNR_EXT_PENDING";
 /// Set on the machine while it must ignore OnUsed entirely.
 const string CNR_EXT_VAR_LOCK = "CNR_EXT_LOCK";
 
+/// On the player: crystals a batch has yielded so far, for its final line.
+const string CNR_EXT_VAR_BATCH_CRYSTALS = "CNR_EXT_BATCH_CRYSTALS";
+
 /// How long the machine stays deaf after a conversation ends.
 const float CNR_EXT_SEAL_SECONDS = 6.0f;
 
@@ -467,6 +470,13 @@ int CnrExt_Break(object oPC, object oMachine, object oItem, int bAlone = TRUE)
         CnrExt_Book(oPC, "cnr_c_"
                          + IntToString(Random(CNR_EXT_CRYSTAL_COUNT) + 1));
         bCrystal = TRUE;
+        // A batch reports its crystals in one line at the end, as it does
+        // its essences; CnrExt_BreakAll reads and clears this.
+        if (!bAlone)
+        {
+            SetLocalInt(oPC, CNR_EXT_VAR_BATCH_CRYSTALS,
+                GetLocalInt(oPC, CNR_EXT_VAR_BATCH_CRYSTALS) + 1);
+        }
     }
 
     // Destroying comes last: if anything above fails, the item stays inside.
@@ -510,6 +520,7 @@ int CnrExt_BreakAll(object oPC, object oMachine)
 
     int iDone = 0;
     int iEssences = 0;
+    DeleteLocalInt(oPC, CNR_EXT_VAR_BATCH_CRYSTALS);
 
     object oItem = GetFirstItemInInventory(oMachine);
     while (GetIsObjectValid(oItem) && iDone < CNR_EXT_BATCH_CAP)
@@ -536,8 +547,21 @@ int CnrExt_BreakAll(object oPC, object oMachine)
     // Everything the batch rolled becomes items here, in stacks.
     CnrExt_Hand(oPC);
 
+    // Crystals come out of the same break but are not essences; saying only
+    // the essences made a batch that yielded a crystal read as "0 essences"
+    // while an item appeared in the inventory.
+    int iCrystals = GetLocalInt(oPC, CNR_EXT_VAR_BATCH_CRYSTALS);
+    DeleteLocalInt(oPC, CNR_EXT_VAR_BATCH_CRYSTALS);
+    string sCrystals = "";
+    if (iCrystals > 0)
+    {
+        sCrystals = " y " + IntToString(iCrystals)
+            + (iCrystals == 1 ? " cristal" : " cristales");
+    }
+
     SendMessageToPC(oPC, "Extraes " + IntToString(iEssences)
-        + (iEssences == 1 ? " esencia de " : " esencias de ")
+        + (iEssences == 1 ? " esencia" : " esencias")
+        + sCrystals + " de "
         + IntToString(iDone)
         + (iDone == 1 ? " objeto." : " objetos."));
 

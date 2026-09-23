@@ -47,9 +47,5 @@ void main()
         PrintString("DEBUG: oPC es INVALID en main.");
         return;
     }
-    else
-    {
-        PrintString("DEBUG: oPC es VALID en main.");
-    }
     StartCNRJournalConversation(oPC);
 }

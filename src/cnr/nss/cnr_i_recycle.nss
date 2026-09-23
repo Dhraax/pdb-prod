@@ -16,6 +16,15 @@ const string CNR_REC_QUANTITY = "CNR_REC_QUANTITY";
 const string CNR_REC_NEXT = "CNR_REC_NEXT";
 const int CNR_REC_TOKEN = 22401;
 const float CNR_REC_SEAL_SECONDS = 6.0f;
+// Share of each consumed component a recycled piece gives back, rounded down.
+// Components kept on success - moulds, templates, reusable tools - were never
+// consumed and give nothing; station tools are not components at all.
+const int CNR_REC_REFUND_PERCENT = 40;
+// A component the input consumed at least this many units of gives back at
+// least one, even when its share rounds to zero. Below it nothing comes back
+// for that component: returning one unit of a one-unit component would give
+// back the whole material and let a piece be made again for its gold alone.
+const int CNR_REC_MIN_ONE_FROM = 2;
 
 // -----------------------------------------------------------------------------
 //                              Function Prototypes
@@ -29,6 +38,8 @@ object CnrRec_Input(object oMachine);
 /// @brief Build the payout for the input's current recipe ID.
 /// @param oItem Crafted input stack.
 /// @returns G|gold or M|resref|quantity|name; rows; empty on query failure.
+///     A piece whose materials all come back as zero returns the gold its
+///     recipe cost instead, in proportion to the units recycled.
 string CnrRec_Plan(object oItem);
 
 /// @brief Render a previously calculated payout.
@@ -76,7 +87,7 @@ string CnrRec_Plan(object oItem)
 {
     int iQuantity = GetItemStackSize(oItem);
     if (!NWNX_SQL_PrepareQuery(
-        "SELECT output_qty FROM cnr_recipe WHERE recipe_id = ? LIMIT 1"))
+        "SELECT output_qty, gold_value FROM cnr_recipe WHERE recipe_id = ? LIMIT 1"))
     {
         return "";
     }
@@ -92,6 +103,7 @@ string CnrRec_Plan(object oItem)
     }
     NWNX_SQL_ReadNextRow();
     int iOutput = StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
+    int iGold   = StringToInt(NWNX_SQL_ReadDataInActiveRow(1));
     if (iOutput <= 0)
     {
         return "";
@@ -114,14 +126,35 @@ string CnrRec_Plan(object oItem)
     while (NWNX_SQL_ReadyToReadNextRow())
     {
         NWNX_SQL_ReadNextRow();
-        // Positive integer division floors once per component for this stack.
+        // Units of this component the input stack consumed. A batch recipe
+        // (nine arrows from one plank) spreads them over its outputs, so one
+        // arrow consumed no whole plank and cannot earn the minimum.
+        int iConsumed = (StringToInt(NWNX_SQL_ReadDataInActiveRow(1))
+                         * iQuantity) / iOutput;
+        // Positive integer division floors once per component for this stack:
+        // 2.5 ingots give 2.
         int iRefund = (StringToInt(NWNX_SQL_ReadDataInActiveRow(1))
-                       * iQuantity) / (4 * iOutput);
+                       * iQuantity * CNR_REC_REFUND_PERCENT) / (100 * iOutput);
+        if (iRefund < 1 && iConsumed >= CNR_REC_MIN_ONE_FROM)
+        {
+            iRefund = 1;
+        }
         if (iRefund > 0)
         {
             sPlan += NWNX_SQL_ReadDataInActiveRow(0) + "|"
                   + IntToString(iRefund) + "|"
                   + NWNX_SQL_ReadDataInActiveRow(2) + ";";
+        }
+    }
+
+    // Nothing material comes back - every component was a single unit - so
+    // the gold the recipe charged is returned instead, for the units given.
+    if (sPlan == "M|")
+    {
+        int iGoldBack = (iGold * iQuantity) / iOutput;
+        if (iGoldBack > 0)
+        {
+            return "G|" + IntToString(iGoldBack);
         }
     }
     return sPlan;
@@ -132,14 +165,15 @@ string CnrRec_Describe(string sPlan)
     if (GetStringLeft(sPlan, 2) == "G|")
     {
         return GetStringRight(sPlan, GetStringLength(sPlan) - 2)
-             + " monedas de oro.";
+             + " monedas de oro: no hay material que devolver.";
     }
     string sRest = GetStringRight(sPlan, GetStringLength(sPlan) - 2);
     if (sRest == "")
     {
         return "Ningun material: todas las cantidades se redondean a cero.";
     }
-    string sText = "Materiales devueltos (25%, redondeado hacia abajo):";
+    string sText = "Materiales devueltos ("
+        + IntToString(CNR_REC_REFUND_PERCENT) + "%, redondeado hacia abajo):";
     while (sRest != "")
     {
         int iEnd = FindSubString(sRest, ";");

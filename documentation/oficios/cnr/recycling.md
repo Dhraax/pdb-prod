@@ -23,11 +23,28 @@ The recycler resolves the stored ID in the current `cnr_recipe` table and
 always uses that recipe's immediate component rows. For each component:
 
 ```
-refund = floor((qty - retain_on_success) * input_stack_size / (4 * output_qty))
+refund = floor((qty - retain_on_success) * input_stack_size * 40 / (100 * output_qty))
 ```
 
-Rounding is separate for each component. Retained ingredients contribute zero;
-station tools and crafting gold are not component refunds. There is no recursive
+The share is `CNR_REC_REFUND_PERCENT`, 40% since 2026-09-23 (25% before).
+Rounding is down and separate for each component: 2.5 ingots give 2.
+Components kept on success - moulds, templates, reusable tools - were never
+consumed and contribute zero; station tools and crafting gold are not
+component refunds.
+
+**At least one from two.** A component of which the input consumed at least
+`CNR_REC_MIN_ONE_FROM` (2) whole units gives back at least one, even when 40%
+rounds to zero: two ingots give one. Units consumed are counted for the input
+stack, so a batch recipe spreads them over its outputs: one arrow of nine made
+from a plank consumed no whole plank. One-unit components give nothing: a
+refund of one would return the whole material and let the piece be remade for
+its gold alone.
+
+**Gold when nothing material comes back.** When every component rounds to
+zero, the payout is the recipe's `gold_value` times the recycled units divided
+by `output_qty`, floored: an iron dagger returns its 144 gold. Over the
+enabled catalogue, recycling one unit returns materials for 298 recipes and
+gold for 261. There is no recursive
 conversion into raw materials. A resolved recipe whose refunds all round to
 zero still recycles for zero materials, which the preview states explicitly.
 If the recipe is absent, each input unit pays `1000 * stored tier` gold:

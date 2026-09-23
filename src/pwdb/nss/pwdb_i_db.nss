@@ -1338,7 +1338,5 @@ int PWDB_DB_ResolveCharacterId(
     }
 
     PWDB_DB_SetLastResult(PWDB_RESULT_OK);
-    PrintString("[PWDB:DB] Resolved PC=" + sName
-        + " character_id=" + IntToString(nCharacterId));
     return nCharacterId;
 }
