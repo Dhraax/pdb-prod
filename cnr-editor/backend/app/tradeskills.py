@@ -17,29 +17,30 @@ TRADESKILL_LABELS = dict(TRADESKILL_DEFINITIONS)
 #
 # It did not, from 2026-08-16 to 2026-08-20: the module halved the early
 # curve and this copy kept the old 250..43000 one, so the panel derived a
-# different level from the same XP and persisted it. Whoever changes one
-# changes both.
+# different level from the same XP and persisted it. It drifted again when the
+# module moved to the 5000-XP curve on 2026-09-18 and this copy stayed on
+# 25000. Whoever changes one changes both.
 TRADESKILL_LEVEL_THRESHOLDS = (
     0,
-    125,
-    250,
-    500,
-    875,
-    1375,
-    2000,
-    2750,
-    3625,
-    4625,
-    5750,
-    7000,
-    8375,
-    9875,
-    11975,
-    14250,
-    16700,
-    19300,
-    22000,
-    25000,
+    33,
+    65,
+    130,
+    228,
+    358,
+    520,
+    715,
+    943,
+    1203,
+    1495,
+    1820,
+    2178,
+    2568,
+    3114,
+    3705,
+    4342,
+    5018,
+    5720,
+    6500,
 )
 
 

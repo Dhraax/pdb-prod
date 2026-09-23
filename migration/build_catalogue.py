@@ -87,6 +87,11 @@ XP_MIN = 21
 XP_MAX = 81
 MATERIAL_XP_FACTOR = 0.30
 GOLD_PER_DC = 12
+# Tier 4 rolls against a DC this much lower than its progression position
+# gives (2026-09-23). At 31-35 a level 17-20 crafter failed tier 4 so often
+# that tier 3 paid as much experience per attempt, and the top tier was never
+# needed to level. The gold cost stays on the unrelieved DC.
+TIER4_DC_RELIEF = 3
 
 PROFESSIONS = (
     (1, "Herreria", "Herrería", 0, 0, 2, 1000),
@@ -2025,6 +2030,9 @@ def main() -> int:
             tier = min(4, ((progression_position - 1) * 4) // progression_total + 1)
 
         dc = progression_value(progression_position, progression_total, DC_MIN, DC_MAX)
+        gold = dc * GOLD_PER_DC
+        if tier == 4:
+            dc -= TIER4_DC_RELIEF
         min_level = progression_value(
             progression_position, progression_total, LEVEL_MIN, LEVEL_MAX
         )
@@ -2044,7 +2052,7 @@ def main() -> int:
             output_tag=output_tag,
             dc=dc,
             xp=xp,
-            gold=dc * GOLD_PER_DC,
+            gold=gold,
             enabled=1 if source.enabled else 0,
             extra_name=extra_name,
             marks_socketed=marks_socketed,

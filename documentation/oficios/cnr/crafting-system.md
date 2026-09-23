@@ -329,59 +329,128 @@ was called.
 
 ## 4c. Current tradeskill progression
 
-Since 2026-09-18, all seven professions share a cumulative curve reaching
-level 20 at **5000 XP**. `cnr_trade_init.nss` initializes the twenty
+Since 2026-09-23, all seven professions share a cumulative curve reaching
+level 20 at **6500 XP**. `cnr_trade_init.nss` initializes the twenty
 `CnrTradeXPLevel<n>` module locals used by XP persistence, profession-limit
-checks, the tradeskill book and administrative level helpers. The curve is
-one fifth of the original 25000-XP thresholds; recipe XP and DC are unchanged.
+checks, the tradeskill book and administrative level helpers, and
+`cnr-editor/backend/app/tradeskills.py` holds the same thresholds for the
+panel. The curve is the 2026-09-18 5000-XP curve with every threshold raised
+by 30%, rounded half up; recipe XP and DC are unchanged.
 
 | Level | Cumulative XP | Level | Cumulative XP |
 |--:|--:|--:|--:|
-| 1 | 0 | 11 | 1150 |
-| 2 | 25 | 12 | 1400 |
-| 3 | 50 | 13 | 1675 |
-| 4 | 100 | 14 | 1975 |
-| 5 | 175 | 15 | 2395 |
-| 6 | 275 | 16 | 2850 |
-| 7 | 400 | 17 | 3340 |
-| 8 | 550 | 18 | 3860 |
-| 9 | 725 | 19 | 4400 |
-| 10 | 925 | 20 | 5000 |
+| 1 | 0 | 11 | 1495 |
+| 2 | 33 | 12 | 1820 |
+| 3 | 65 | 13 | 2178 |
+| 4 | 130 | 14 | 2568 |
+| 5 | 228 | 15 | 3114 |
+| 6 | 358 | 16 | 3705 |
+| 7 | 520 | 17 | 4342 |
+| 8 | 715 | 18 | 5018 |
+| 9 | 943 | 19 | 5720 |
+| 10 | 1203 | 20 | 6500 |
+
+### XP fall-off for low recipes
+
+A recipe pays less the further the crafter's level is above its minimum
+level, in bands of `CNR_XP_FALLOFF_LEVELS` (5), through
+`CnrCraft_GetXPPercent`:
+
+| Crafter level - recipe minimum level | XP paid |
+|--:|--:|
+| 0-4 | 100% |
+| 5-9 | 50% |
+| 10-14 | 25% |
+| 15 or more | 12% |
+
+**The top tier carries the last levels.** From level
+`CNR_XP_TOP_TIER_LEVEL` (17), a recipe below tier `CNR_XP_TOP_TIER` (4) pays
+half of the percentage above, when the profession has enabled tier-4 recipes;
+jewellery has none, so its tier 3 is unaffected. Arcane is not subject to this
+rule. The check is one query, run only when both conditions hold.
+
+**Leatherworking and tailoring are exempt**, through
+`CNR_XP_TOP_TIER_EXEMPT_1` and `_2`, because their tier 4 is made from dragon
+hides that the world barely provides: see F10 in `open-issues.md`. The
+exemption is removed in the same change that fixes that supply.
+
+Together with it, tier-4 recipes roll against a DC 3 lower than their
+progression position (`TIER4_DC_RELIEF` in `migration/build_catalogue.py`), so
+tier 4 runs from DC 24 to 32 instead of 27 to 35; gold stays on the unrelieved
+DC. Before both changes, a level 17-20 crafter failed tier 4 so often that tier
+3 paid as much per attempt, and the top tier was never needed to level.
+Attempts from 17 to 20, help +2, best recipe chosen by expected XP per attempt:
+
+| Profession | Before, with or without tier 4 | Now, with tier 4 | Now, without tier 4 |
+|---|--:|--:|--:|
+| Smithing | 48 | 44 | 96 |
+| Carpentry | 49 | 44 | 98 |
+| Alchemy | 46 | 41 | 94 |
+| Leatherworking, Tailoring (if the rule applied) | 49 (92 without) | 40 | 186 |
+
+The percentage applies to the recipe's `xp_award`, truncated, before the
+failure share, so a failure pays 12% of the reduced figure. Arcane applies the
+same rule with the property's minimum level, and the arcane window shows the
+reduced figure. When the reduction applies, the roll message is followed by a
+line naming the percentage. The profession-limit check reads the reduced XP.
+
+The purpose is to make the newest reachable tier the way to progress. Before
+it, repeating one mid-curve recipe reached level 20 almost as fast as working
+the newest tier. Spamming a single potion from its minimum level to level 20,
+perfect successes only:
+
+| Recipe | Min. level | Before (5000 curve, no fall-off) | Now |
+|---|--:|--:|--:|
+| Poción Acústica | 6 | 125 | 456 |
+| Poción Grumosa | 8 | 99 | 295 |
+| Poción de Atracción | 10 | 80 | 173 |
+| Poción Carmesí | 12 | 64 | 121 |
+
+### Expected attempts
 
 Source-model estimates from zero, with prepared components available and the
-highest-XP enabled recipe whose minimum level is reached:
+enabled recipe with the highest effective XP, after fall-off, whose minimum
+level is reached:
 
 | Profession | Perfect successes | Expected attempts, final help +2 | Expected attempts, final help +3 |
 |---|--:|--:|--:|
-| Smithing | 90 | 154 | 143 |
-| Carpentry | 94 | 150 | 140 |
-| Leatherworking | 92 | 151 | 141 |
-| Alchemy | 87 | 159 | 147 |
-| Jewellery | 88 | 158 | 146 |
-| Tailoring | 92 | 151 | 141 |
-| Arcane | 66 | 168 | 150 |
+| Smithing | 117 | 188 | 176 |
+| Carpentry | 122 | 184 | 173 |
+| Leatherworking | 119 | 176 | 165 |
+| Alchemy | 112 | 185 | 172 |
+| Jewellery | 114 | 204 | 189 |
+| Tailoring | 119 | 176 | 165 |
+| Arcane | 86 | 217 | 195 |
+
+The leatherworking and tailoring rows assume dragon hides are available, which
+today they are not: see F10 in `open-issues.md`.
 
 These are attempts, not output units or measured player runs. Select by highest
-XP, then lowest gold, lowest DC and lowest recipe ID; Arcane uses lowest computed
-step DC and property ID for ties. Carry XP overshoot across levels. Natural 1
-fails, natural 20 succeeds, and failed attempts pay truncated 12% XP. The final
-help contribution is after ability/Craft-rank averaging. Materials, tools,
-travel, node availability and preparing one's own inputs add separate costs.
+effective XP, then lowest gold, lowest DC and lowest recipe ID; Arcane uses
+lowest computed step DC and property ID for ties. Carry XP overshoot across
+levels. Natural 1 fails, natural 20 succeeds, and failed attempts pay truncated
+12% XP. The final help contribution is the capped ability part plus the capped
+Artesania part (section 5). Materials, tools, travel, node availability and
+preparing one's own inputs add separate costs.
 
-The chosen curve gives approximately 19.75-19.83% fewer attempts with final
-help +2 than the prior 6250-XP reference. Copper ingots still pay six XP per
-success: four successes give 24 XP and level 1; five give 30 XP and level 2.
-The two non-Alchemy-profession limit and Alchemy exemption remain unchanged.
-Harvesting and skinning yields, DC, cooldowns, refill and wear are unchanged.
+On the 5000-XP curve, before the fall-off, the top-tier rule and the tier-4 DC
+relief, the same column read 154/150/151/159/158/151/168. The 30% curve raise
+adds about 30%; the lower tier-4 DC takes part of it back in the five
+professions that have a tier 4. Copper ingots
+pay six XP per success: five successes give 30 XP and level 1; six give 36 XP
+and level 2. The two non-Alchemy-profession limit and Alchemy exemption remain
+unchanged. Harvesting and skinning yields, DC, cooldowns, refill and wear are
+unchanged.
 
 The estimates use the tracked September catalogue: 559 recipes and 484 Arcane
-steps. For each XP state x, let A be success XP, F = floor(0.12*A), p the actual
-success probability and T remaining expected attempts. With T(x >= 5000) = 0,
-solve downward: T(x) = 1 + p*T(x+A) + (1-p)*T(x+F) when F > 0, or
-T(x) = 1/p + T(x+A) when F = 0. This records the numerical model; host behavior
-and persistence still need the authorized runtime acceptance listed in the
-September changelog. The change applies to fresh testing progression and
-introduces no character-data migration.
+steps. For each XP state x, let A be the effective success XP, F =
+floor(0.12*A), p the actual success probability and T remaining expected
+attempts. With T(x >= 6500) = 0, solve downward: T(x) = 1 + p*T(x+A) +
+(1-p)*T(x+F) when F > 0, or T(x) = 1/p + T(x+A) when F = 0. The same model
+reproduces the previous table exactly on the 5000-XP curve. It records the
+numerical model; host behavior and persistence still need the authorized
+runtime acceptance listed in the September changelog. The change introduces no
+character-data migration.
 
 ---
 
@@ -395,15 +464,31 @@ int bOk    = (nRoll == 20) || (nRoll != 1 && nTotal >= nDC);
 
 `CnrCraft_GetRollBonus` calculates:
 
-- `craft_bonus = floor(base Artesania ranks / 5)`, using ranks only and no item
-  bonuses;
-- `ability_bonus = floor((ability_1 modifier + ability_2 modifier) / 2)`;
-- `help_bonus = floor((ability_bonus + craft_bonus) / 2)`;
+- `craft_bonus = min(2, base Artesania ranks / 8)`, using ranks only and no
+  item bonuses;
+- `best_modifier` = the better of the two profession abilities' modifiers,
+  each computed from the **base** score, `floor((GetAbilityScore(oPC, n, TRUE)
+  - 10) / 2)`, so items, spells and potions do not count;
+- `ability_bonus = clamp(best_modifier / 2, 0, 2)`;
+- `help_bonus = ability_bonus + craft_bonus`, always 0..4;
 - final roll bonus = profession level + `help_bonus`.
 
-Mathematical floor is explicit. NWScript's ordinary integer division truncates
-negative values toward zero, so `CnrCraft_FloorDivide` handles ability
-penalties correctly.
+Without a profession, or when the profession row cannot be read, the help is
+`craft_bonus` alone. The constants are `CNR_CRAFT_RANKS_PER_BONUS` (8) and
+`CNR_HELP_PART_CAP` (2).
+
+| Best base modifier | Ability part | | Base Artesania ranks | Artesania part |
+|--:|--:|---|--:|--:|
+| +1 or less | 0 | | 0-7 | 0 |
+| +2, +3 | 1 | | 8-15 | 1 |
+| +4 or more | 2 | | 16 or more | 2 |
+
+The help is deliberately small and flat (decided 2026-09-23). The previous
+formula, `floor((floor((mod1 + mod2) / 2) + ranks / 5) / 2)`, could go negative
+with low abilities, averaged a mismatched pairing down, and read ability
+modifiers with item and spell bonuses, so a buffed character could exceed +4.
+Taking the better ability stops punishing a character who fits half the
+pairing; the two caps keep a maxed and buffed character at +4.
 
 | Profession | Abilities |
 |------------|-----------|
@@ -417,9 +502,8 @@ penalties correctly.
 
 The message shows the roll broken into its parts - `d20 + level (oficio) +
 help (ayuda)` - because a single total hides whether the help bonus
-contributed anything, and with the double halving above it very often does
-not: below 14/14 in both abilities and 10 base Artesania ranks it is exactly
-zero.
+contributed anything: it is zero until one ability reaches 14 base or
+Artesania reaches 8 base ranks.
 
 **The skill read is `SKILL_CRAFT_TRAP`, and that is deliberate.** This module
 reassigned the stock craft skill rows in `haks-2da/skills.2da`: row 22, whose
@@ -432,7 +516,8 @@ trade. Any future edit to this function checks `skills.2da` before trusting a
 
 Failure pays `CNR_XP_FAILURE_PERCENT` (12%) of the recipe's XP, truncated by
 the integer division: a recipe worth 21 pays 2, not 3. Success pays it
-in full and creates the item after the station animation finishes.
+in full and creates the item after the station animation finishes. Both read
+the XP after the fall-off of section 4c.
 
 **Experience stops at level 20.** `PersistDetermineTradeskillLevel` counts down
 from 20, so past its threshold experience only accumulated and the level never
@@ -460,8 +545,47 @@ a successful attempt could raise a third profession to level 2. Existing
 characters already at level 2 in a profession may continue progressing it.
 Lowering one trained profession to level 1 frees its slot.
 
+**A third profession is closed, not merely capped** (2026-09-23). With two
+trained non-Alchemy professions, `CnrSkill_IsProfessionClosed` refuses any
+attempt at a bench of a third one, and `cnr_i_apply.nss` refuses an arcane
+application, before anything is charged. Before this, the XP gate only stopped
+the step to level 2, so a character with two trained professions could keep
+making level-1 pieces of every other one. The check reads the session cache;
+the database-backed `CnrSkill_CanSetXP` still guards the level itself.
+
 The character editor applies the same validation when an administrator saves
 tradeskill XP.
+
+### Arcano is for spellcasters
+
+Since 2026-09-23 `CnrSkill_CanSetXP` refuses any increase of Arcano experience
+to a character without `CNR_ARCANE_CASTER_LEVELS` (3) levels in one of:
+
+| Class | `classes.2da` row | Highest spell level at class level 16 / 20 |
+|---|--:|---|
+| Bard | 1 | 5 / 6 |
+| Cleric | 2 | 8 / 9 |
+| Druid | 3 | 8 / 9 |
+| Sorcerer | 9 | 8 / 9 |
+| Wizard | 10 | 8 / 9 |
+| Warlock (Brujo) | 57 | no spell table; included by name |
+| Favored soul (Alma predilecta) | 59 | 8 / 9, sorcerer table |
+| Artificer (Artifice) | 64 | 5 / 6 |
+
+The rule is "a class that reaches sixth-level spells by class level 16 or 20",
+plus the warlock. Every other class with a spell table stops at fourth level:
+the four paladins, ranger, assassin, blackguard and Soldado de la Luz.
+Prestige classes have no spell table of their own and require a base caster
+to enter. Spell levels were read from `haks-2da/cls_spgn_*.2da` and, for the
+tables the hak does not override (bard, cleric, sorcerer, wizard, ranger),
+from the installed game with `nwn_resman_cat` on 2026-09-23.
+
+The arcane table refuses a non-caster outright in `cnr_i_apply.nss`, before
+anything is spent. The XP check sits in the one function every XP write passes,
+so the test lever, a DM tool and the legacy level conversion obey it too.
+Keeping or lowering the figure is allowed, and a character who already had
+Arcano above level 1 keeps it but gains no more. The character editor does not
+know a character's classes and does not apply this rule.
 
 ---
 
@@ -917,9 +1041,9 @@ not copied. The four tiers only control visibility across profession levels
 1-5, 6-10, 11-15 and 16-20:
 
 ```
-DC        = position spread over 10..35
+DC        = position spread over 10..35, minus 3 in tier 4
 XP        = position spread over 21..81, times 0.30 for material outputs
-gold      = DC * 12
+gold      = unrelieved DC * 12
 public_id = station block + sequence (anvil 1001.., forge 1501..)
 ```
 

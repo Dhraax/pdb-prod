@@ -17,31 +17,31 @@ void main()
 {
   PrintString("cnr_trade_init");
 
-    // Shared cumulative XP curve, selected on 2026-09-18.
-    // One fifth of the original thresholds reaches mastery at 5000 XP,
-    // approximately 20% fewer attempts than the 6250-XP testing reference.
-    // Recipe XP awards, crafting DC and harvesting rules remain unchanged.
+    // Shared cumulative XP curve. The 2026-09-18 curve, one fifth of the
+    // original thresholds, reached mastery at 5000 XP; on 2026-09-23 every
+    // threshold was raised by 30%, rounded half up, to 6500 XP.
+    // Must match TRADESKILL_LEVEL_THRESHOLDS in cnr-editor/backend/app/tradeskills.py.
     object oModule = GetModule();
     SetLocalInt(oModule, "CnrTradeXPLevel1", 0);
-    SetLocalInt(oModule, "CnrTradeXPLevel2", 25);
-    SetLocalInt(oModule, "CnrTradeXPLevel3", 50);
-    SetLocalInt(oModule, "CnrTradeXPLevel4", 100);
-    SetLocalInt(oModule, "CnrTradeXPLevel5", 175);
-    SetLocalInt(oModule, "CnrTradeXPLevel6", 275);
-    SetLocalInt(oModule, "CnrTradeXPLevel7", 400);
-    SetLocalInt(oModule, "CnrTradeXPLevel8", 550);
-    SetLocalInt(oModule, "CnrTradeXPLevel9", 725);
-    SetLocalInt(oModule, "CnrTradeXPLevel10", 925);
-    SetLocalInt(oModule, "CnrTradeXPLevel11", 1150);
-    SetLocalInt(oModule, "CnrTradeXPLevel12", 1400);
-    SetLocalInt(oModule, "CnrTradeXPLevel13", 1675);
-    SetLocalInt(oModule, "CnrTradeXPLevel14", 1975);
-    SetLocalInt(oModule, "CnrTradeXPLevel15", 2395);
-    SetLocalInt(oModule, "CnrTradeXPLevel16", 2850);
-    SetLocalInt(oModule, "CnrTradeXPLevel17", 3340);
-    SetLocalInt(oModule, "CnrTradeXPLevel18", 3860);
-    SetLocalInt(oModule, "CnrTradeXPLevel19", 4400);
-    SetLocalInt(oModule, "CnrTradeXPLevel20", 5000);
+    SetLocalInt(oModule, "CnrTradeXPLevel2", 33);
+    SetLocalInt(oModule, "CnrTradeXPLevel3", 65);
+    SetLocalInt(oModule, "CnrTradeXPLevel4", 130);
+    SetLocalInt(oModule, "CnrTradeXPLevel5", 228);
+    SetLocalInt(oModule, "CnrTradeXPLevel6", 358);
+    SetLocalInt(oModule, "CnrTradeXPLevel7", 520);
+    SetLocalInt(oModule, "CnrTradeXPLevel8", 715);
+    SetLocalInt(oModule, "CnrTradeXPLevel9", 943);
+    SetLocalInt(oModule, "CnrTradeXPLevel10", 1203);
+    SetLocalInt(oModule, "CnrTradeXPLevel11", 1495);
+    SetLocalInt(oModule, "CnrTradeXPLevel12", 1820);
+    SetLocalInt(oModule, "CnrTradeXPLevel13", 2178);
+    SetLocalInt(oModule, "CnrTradeXPLevel14", 2568);
+    SetLocalInt(oModule, "CnrTradeXPLevel15", 3114);
+    SetLocalInt(oModule, "CnrTradeXPLevel16", 3705);
+    SetLocalInt(oModule, "CnrTradeXPLevel17", 4342);
+    SetLocalInt(oModule, "CnrTradeXPLevel18", 5018);
+    SetLocalInt(oModule, "CnrTradeXPLevel19", 5720);
+    SetLocalInt(oModule, "CnrTradeXPLevel20", 6500);
 
   // CnrAddTradeskill(CNR_TRADESKILL_SMELTING, "Smelting");
   // CnrAddTradeskill(CNR_TRADESKILL_WEAPON_CRAFTING, "Weapon Crafting");

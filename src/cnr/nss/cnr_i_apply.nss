@@ -373,6 +373,25 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
         return CNR_ARC_RESULT_REFUSED;
     }
 
+    // Arcano is for spellcasters. Refused here, before anything is spent;
+    // CnrSkill_CanSetXP still refuses the experience on every other path.
+    if (!CnrSkill_IsArcaneCaster(oPC))
+    {
+        SendMessageToPC(oPC, "Arcano requiere al menos "
+            + IntToString(CNR_ARCANE_CASTER_LEVELS) + " niveles de bardo, "
+            + "brujo, clérigo, druida, hechicero, mago, alma predilecta o "
+            + "artífice.");
+        return CNR_ARC_RESULT_REFUSED;
+    }
+
+    // With two other trained professions Arcano is closed, as any bench is.
+    if (CnrSkill_IsProfessionClosed(oPC, CNR_ARC_SKILL))
+    {
+        SendMessageToPC(oPC, "Ya tienes dos oficios de nivel 2 o superior. "
+            + "No puedes encantar; Alquimia no ocupa plaza.");
+        return CNR_ARC_RESULT_REFUSED;
+    }
+
     int iCrystals = CnrArc_CrystalCost(iGroup, GetBaseItemType(oTarget));
     if (iCrystals <= 0)
     {
@@ -422,6 +441,15 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     CnrArcA_Consume(oTable, sCrystal, iCrystals);
 
     // --- experience ----------------------------------------------------------
+    // A property far below the enchanter's level pays less, as a recipe does.
+    int iXPPercent = CnrCraft_GetXPPercent(iLevel, iMinLvl);
+    iXP = (iXP * iXPPercent) / 100;
+    if (iXPPercent < 100)
+    {
+        SendMessageToPC(oPC, "Esta propiedad está muy por debajo de tu nivel: "
+            + "sólo da el " + IntToString(iXPPercent) + "% de su experiencia.");
+    }
+
     int iGain = bOk ? iXP : (iXP * CNR_ARC_XP_FAILURE_PERCENT) / 100;
     if (iGain > 0 && !CnrSkill_IsMaxLevel(oPC, CNR_ARC_SKILL))
     {

@@ -359,7 +359,11 @@ void CnrArcN_DrawDetail(object oPC, int iToken, object oTable)
     if (sStep != "")
     {
         iDC   = StringToInt(CnrArc_Field(sStep, 5));
-        sGain = CnrArc_Field(sStep, 3) + " xp   -   tier " + sTier;
+        // The experience this enchanter would actually earn, after the
+        // fall-off for properties far below their level.
+        int iXP = (StringToInt(CnrArc_Field(sStep, 3))
+            * CnrCraft_GetXPPercent(CnrArc_GetLevel(oPC), iLevel)) / 100;
+        sGain = IntToString(iXP) + " xp   -   tier " + sTier;
     }
 
     NuiSetBind(oPC, iToken, CNR_ARCN_B_GAIN, JsonString(sGain));

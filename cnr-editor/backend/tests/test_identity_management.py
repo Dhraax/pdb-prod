@@ -795,11 +795,11 @@ def test_collaborator_permission_payload_rejects_duplicates() -> None:
     ("skill_xp", "expected_level"),
     [
         (0, 1),
-        (124, 1),
-        (125, 2),
-        (5500, 10),
-        (24999, 19),
-        (25000, 20),
+        (32, 1),
+        (33, 2),
+        (1203, 10),
+        (6499, 19),
+        (6500, 20),
         (2147483647, 20),
     ],
 )

@@ -28,7 +28,7 @@ variar el daño físico complementario que corresponda al tipo de arma.
 | Roble | Ataque +4; Afilada; críticos masivos 1d6 | Ataque +4; Afilada; críticos masivos 1d6 | 1d8 contundente; Ralentizar CD 14 | 1d8 contundente; Ralentizar CD 14 | Mejora +3; 1d6 cortante | Mejora +3; 1d6 cortante | CA +3; resistencia 10 % al ácido |
 | Sombralto | Mejora +5; Afilada | Ataque +5; Afilada; críticos masivos 1d8 | — | — | Ataque +5; Afilada | Ataque +5; Afilada | CA +4; inmunidad 5 % al daño contundente |
 | Leñocaso | Mejora +5; Reforzado 4 | Ataque +5; Reforzado 4; 1d6 físico | 1d8 contundente; 1d4 de ácido; Ralentizar CD 16 | 1d8 contundente; 1d4 de ácido; Ralentizar CD 16 | Ataque +5; 1d8 de ácido | Ataque +5; 1d8 de ácido | CA +4; resistencia 20 % al fuego |
-| Zalantar | Mejora +5; críticos masivos 1d10 | Mejora +5; críticos masivos 1d10 | 1d10 cortante; Aturdir CD 16 | 1d10 cortante; Aturdir CD 16 | Mejora +5; Afilada | Mejora +5; Afilada | CA +5; resistencia 20 % al ácido |
+| Zalantar | Mejora +5; críticos masivos 1d10 | Mejora +5; críticos masivos 1d10 | 1d10 cortante; Aturdir CD 16 | 1d10 cortante; Aturdir CD 16 | Mejora +5; críticos masivos 1d10 | Mejora +5; críticos masivos 1d10 | CA +5; resistencia 20 % al ácido |
 | Maderadique | Mejora +5; 1d10 de daño físico | Mejora +5; 1d10 de daño físico | 1d10 contundente; Aturdir CD 16 | 1d10 contundente; Aturdir CD 16 | Mejora +5; 1d10 de daño físico | Mejora +5; 1d10 de daño físico | CA +5; resistencia 20 % al fuego |
 
 ## Recetas
@@ -46,8 +46,8 @@ Las marcas de las tablas se explican en
 | Tablones de roble | 3× Leño de roble | 9 | 21 | 14 | 252 |
 | Tablones de sombralto | 3× Leño de sombralto | 12 | 24 | 17 | 288 |
 | Tablones de Leñocaso | 3× Leño de Leñocaso | 15 | 28 | 19 | 336 |
-| Tablones de zalantar | 3× Leño de zalantar | 17 | 31 | 22 | 372 |
-| Tablones de maderadique | 3× Leño de maderadique | 20 | 35 | 24 | 420 |
+| Tablones de zalantar | 3× Leño de zalantar | 17 | 28 | 22 | 372 |
+| Tablones de maderadique | 3× Leño de maderadique | 20 | 32 | 24 | 420 |
 
 ### Banco de carpintero - Flechas
 
@@ -58,8 +58,8 @@ Las marcas de las tablas se explican en
 | Flechas de Abeto ×9 | 1× Tablones de abeto, 1× Cien plumas, 1× Cien puntas de flecha | 6 | 17 | 38 | 204 |
 | Flechas de Roble ×9 | 1× Tablones de roble, 1× Cien plumas, 1× Cien puntas de flecha | 9 | 21 | 47 | 252 |
 | Flechas de Leñocaso ×9 | 1× Tablones de Leñocaso, 1× Cien plumas, 1× Cien puntas de flecha | 15 | 28 | 64 | 336 |
-| Flechas de Zalantar ×9 | 1× Tablones de zalantar, 1× Cien plumas, 1× Cien puntas de flecha | 17 | 31 | 72 | 372 |
-| Flechas de Maderadique ×9 | 1× Tablones de maderadique, 1× Cien plumas, 1× Cien puntas de flecha | 20 | 35 | 81 | 420 |
+| Flechas de Zalantar ×9 | 1× Tablones de zalantar, 1× Cien plumas, 1× Cien puntas de flecha | 17 | 28 | 72 | 372 |
+| Flechas de Maderadique ×9 | 1× Tablones de maderadique, 1× Cien plumas, 1× Cien puntas de flecha | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Virotes
 
@@ -70,8 +70,8 @@ Las marcas de las tablas se explican en
 | Virotes de Abeto ×9 | 1× Tablones de abeto, 1× Cien puntas de virote, 1× Aros de hierro | 6 | 17 | 38 | 204 |
 | Virotes de Roble ×9 | 1× Tablones de roble, 1× Cien puntas de virote, 1× Aros de hierro | 9 | 21 | 47 | 252 |
 | Virotes de Leñocaso ×9 | 1× Tablones de Leñocaso, 1× Cien puntas de virote, 1× Aros de hierro | 15 | 28 | 64 | 336 |
-| Virotes de Zalantar ×9 | 1× Tablones de zalantar, 1× Cien puntas de virote, 1× Aros de hierro | 17 | 31 | 72 | 372 |
-| Virotes de Maderadique ×9 | 1× Tablones de maderadique, 1× Cien puntas de virote, 1× Aros de hierro | 20 | 35 | 81 | 420 |
+| Virotes de Zalantar ×9 | 1× Tablones de zalantar, 1× Cien puntas de virote, 1× Aros de hierro | 17 | 28 | 72 | 372 |
+| Virotes de Maderadique ×9 | 1× Tablones de maderadique, 1× Cien puntas de virote, 1× Aros de hierro | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Arcos cortos
 
@@ -83,8 +83,8 @@ Las marcas de las tablas se explican en
 | Arco corto de Roble | 1× Tablones de roble, 1× Cuerda de arco | 9 | 21 | 47 | 252 |
 | Arco corto de Sombralto | 1× Tablones de sombralto, 1× Cuerda de arco | 12 | 24 | 55 | 288 |
 | Arco corto de Leñocaso | 1× Tablones de Leñocaso, 1× Cuerda de arco | 15 | 28 | 64 | 336 |
-| Arco corto de Zalantar | 1× Tablones de zalantar, 1× Cuerda de arco | 17 | 31 | 72 | 372 |
-| Arco corto de Maderadique | 1× Tablones de maderadique, 1× Cuerda de arco | 20 | 35 | 81 | 420 |
+| Arco corto de Zalantar | 1× Tablones de zalantar, 1× Cuerda de arco | 17 | 28 | 72 | 372 |
+| Arco corto de Maderadique | 1× Tablones de maderadique, 1× Cuerda de arco | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Arcos largos
 
@@ -96,8 +96,8 @@ Las marcas de las tablas se explican en
 | Arco largo de Roble | 2× Tablones de roble, 1× Cuerda de arco | 9 | 21 | 47 | 252 |
 | Arco largo de Sombralto | 2× Tablones de sombralto, 1× Cuerda de arco | 12 | 24 | 55 | 288 |
 | Arco largo de Leñocaso | 2× Tablones de Leñocaso, 1× Cuerda de arco | 15 | 28 | 64 | 336 |
-| Arco largo de Zalantar | 2× Tablones de zalantar, 1× Cuerda de arco | 17 | 31 | 72 | 372 |
-| Arco largo de Maderadique | 2× Tablones de maderadique, 1× Cuerda de arco | 20 | 35 | 81 | 420 |
+| Arco largo de Zalantar | 2× Tablones de zalantar, 1× Cuerda de arco | 17 | 28 | 72 | 372 |
+| Arco largo de Maderadique | 2× Tablones de maderadique, 1× Cuerda de arco | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Ballestas ligeras
 
@@ -109,8 +109,8 @@ Las marcas de las tablas se explican en
 | Ballesta ligera de Roble | 2× Tablones de roble, 1× Cuerda de ballesta | 9 | 21 | 47 | 252 |
 | Ballesta ligera de Sombralto | 2× Tablones de sombralto, 1× Cuerda de ballesta | 12 | 24 | 55 | 288 |
 | Ballesta ligera de Leñocaso | 2× Tablones de Leñocaso, 1× Cuerda de ballesta | 15 | 28 | 64 | 336 |
-| Ballesta ligera de Zalantar | 2× Tablones de zalantar, 1× Cuerda de ballesta | 17 | 31 | 72 | 372 |
-| Ballesta ligera de Maderadique | 2× Tablones de maderadique, 1× Cuerda de ballesta | 20 | 35 | 81 | 420 |
+| Ballesta ligera de Zalantar | 2× Tablones de zalantar, 1× Cuerda de ballesta | 17 | 28 | 72 | 372 |
+| Ballesta ligera de Maderadique | 2× Tablones de maderadique, 1× Cuerda de ballesta | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Ballestas pesadas
 
@@ -122,8 +122,8 @@ Las marcas de las tablas se explican en
 | Ballesta pesada de Roble | 4× Tablones de roble, 1× Cuerda de ballesta | 9 | 21 | 47 | 252 |
 | Ballesta pesada de Sombralto | 4× Tablones de sombralto, 1× Cuerda de ballesta | 12 | 24 | 55 | 288 |
 | Ballesta pesada de Leñocaso | 4× Tablones de Leñocaso, 1× Cuerda de ballesta | 15 | 28 | 64 | 336 |
-| Ballesta pesada de Zalantar | 4× Tablones de zalantar, 1× Cuerda de ballesta | 17 | 31 | 72 | 372 |
-| Ballesta pesada de Maderadique | 4× Tablones de maderadique, 1× Cuerda de ballesta | 20 | 35 | 81 | 420 |
+| Ballesta pesada de Zalantar | 4× Tablones de zalantar, 1× Cuerda de ballesta | 17 | 28 | 72 | 372 |
+| Ballesta pesada de Maderadique | 4× Tablones de maderadique, 1× Cuerda de ballesta | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Armas de mano
 
@@ -135,8 +135,8 @@ Las marcas de las tablas se explican en
 | Arma de mano de Roble [elige] | 2× Tablones de roble, 1× Mango de clava | 9 | 21 | 47 | 252 |
 | Arma de mano de Sombralto [elige] | 2× Tablones de sombralto, 1× Mango de clava | 12 | 24 | 55 | 288 |
 | Arma de mano de Leñocaso [elige] | 2× Tablones de Leñocaso, 1× Mango de clava | 15 | 28 | 64 | 336 |
-| Arma de mano de Zalantar [elige] | 2× Tablones de zalantar, 1× Mango de clava | 17 | 31 | 72 | 372 |
-| Arma de mano de Maderadique [elige] | 2× Tablones de maderadique, 1× Mango de clava | 20 | 35 | 81 | 420 |
+| Arma de mano de Zalantar [elige] | 2× Tablones de zalantar, 1× Mango de clava | 17 | 28 | 72 | 372 |
+| Arma de mano de Maderadique [elige] | 2× Tablones de maderadique, 1× Mango de clava | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Bastones
 
@@ -149,8 +149,8 @@ Las marcas de las tablas se explican en
 | Bastón de roble para mago | 2× Tablones de roble, 2× Aros de hierro | 9 | 21 | 47 | 252 |
 | Bastón de Sombralto | 2× Tablones de sombralto, 2× Aros de hierro | 12 | 24 | 55 | 288 |
 | Bastón de Leñocaso | 2× Tablones de Leñocaso, 2× Aros de hierro | 15 | 28 | 64 | 336 |
-| Bastón de Zalantar | 2× Tablones de zalantar, 2× Aros de hierro | 17 | 31 | 72 | 372 |
-| Bastón de Maderadique | 2× Tablones de maderadique, 2× Aros de hierro | 20 | 35 | 81 | 420 |
+| Bastón de Zalantar | 2× Tablones de zalantar, 2× Aros de hierro | 17 | 28 | 72 | 372 |
+| Bastón de Maderadique | 2× Tablones de maderadique, 2× Aros de hierro | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Escudos grandes
 
@@ -162,8 +162,8 @@ Las marcas de las tablas se explican en
 | Escudo grande de Roble | 3× Tablones de roble, 1× Plancha metálica grande | 9 | 21 | 47 | 252 |
 | Escudo grande de Sombralto | 3× Tablones de sombralto, 1× Plancha metálica grande | 12 | 24 | 55 | 288 |
 | Escudo grande de Leñocaso | 3× Tablones de Leñocaso, 1× Plancha metálica grande | 15 | 28 | 64 | 336 |
-| Escudo grande de Zalantar | 3× Tablones de zalantar, 1× Plancha metálica grande | 17 | 31 | 72 | 372 |
-| Escudo grande de Maderadique | 3× Tablones de maderadique, 1× Plancha metálica grande | 20 | 35 | 81 | 420 |
+| Escudo grande de Zalantar | 3× Tablones de zalantar, 1× Plancha metálica grande | 17 | 28 | 72 | 372 |
+| Escudo grande de Maderadique | 3× Tablones de maderadique, 1× Plancha metálica grande | 20 | 32 | 81 | 420 |
 
 ### Banco de carpintero - Escudos pequeños
 
@@ -175,5 +175,5 @@ Las marcas de las tablas se explican en
 | Escudo pequeño de Roble | 2× Tablones de roble, 1× Plancha metálica pequeña | 9 | 21 | 47 | 252 |
 | Escudo pequeño de Sombralto | 2× Tablones de sombralto, 1× Plancha metálica pequeña | 12 | 24 | 55 | 288 |
 | Escudo pequeño de Leñocaso | 2× Tablones de Leñocaso, 1× Plancha metálica pequeña | 15 | 28 | 64 | 336 |
-| Escudo pequeño de Zalantar | 2× Tablones de zalantar, 1× Plancha metálica pequeña | 17 | 31 | 72 | 372 |
-| Escudo pequeño de Maderadique | 2× Tablones de maderadique, 1× Plancha metálica pequeña | 20 | 35 | 81 | 420 |
+| Escudo pequeño de Zalantar | 2× Tablones de zalantar, 1× Plancha metálica pequeña | 17 | 28 | 72 | 372 |
+| Escudo pequeño de Maderadique | 2× Tablones de maderadique, 1× Plancha metálica pequeña | 20 | 32 | 81 | 420 |

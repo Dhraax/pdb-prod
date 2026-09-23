@@ -57,7 +57,7 @@ CREATE TABLE cnr_profession (
   display_name  VARCHAR(48) NOT NULL,
   skill_index   TINYINT     NOT NULL,     -- GetSkillName(), 0-based
   ability_1     TINYINT     NULL,         -- ABILITY_* constant
-  ability_2     TINYINT     NULL,         -- averaged with ability_1 when set
+  ability_2     TINYINT     NULL,         -- the better of ability_1/2 counts
   id_block      MEDIUMINT UNSIGNED NOT NULL,  -- 1000, 2000, 3000...
   PRIMARY KEY (profession_id),
   UNIQUE KEY uq_profession_code (code)

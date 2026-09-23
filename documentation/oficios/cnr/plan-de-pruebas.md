@@ -123,11 +123,26 @@ Prueba las dos ramas por separado y **cuenta el inventario antes y después**.
 - Acertar te da la experiencia completa de la receta. Fallar te da el **12%**,
   y la cuenta se queda con la parte entera: una receta de 21 paga 2 al fallar
   (21 × 12 / 100 = 2,52), no 3. Es lo previsto, no un fallo.
+- **Las recetas muy por debajo de tu nivel dan menos.** Hasta 4 niveles por
+  encima del mínimo de la receta, el 100%; de 5 a 9, el 50%; de 10 a 14, el
+  25%; de 15 en adelante, el 12%. Tras la tirada aparece un aviso con el
+  porcentaje. El 12% de un fallo se calcula sobre la cifra ya reducida.
+- **Desde nivel 17, lo que no sea tier 4 paga la mitad** de lo anterior, en
+  Herrería, Carpintería y Alquimia. No se aplica en Joyería (no tiene tier 4),
+  Arcano, ni, por ahora, Peletería y Sastrería.
+- Las recetas de **tier 4 tienen la DC 3 puntos más baja** que antes; el oro
+  no cambia.
+- El nivel 20 se alcanza con **6500** de experiencia (antes 5000).
 - Al llegar a **nivel 20** dejas de ganar experiencia y el mensaje te dirá que
   ya dominas el oficio. Comprueba que el número **no sigue subiendo**.
 - **Sólo puedes tener dos oficios a nivel 2 o más.** Alquimia es la excepción y
-  no ocupa plaza. Prueba a subir un tercer oficio de nivel 1 a nivel 2: debe
-  negarse con un aviso, y no debes seguir ganando experiencia en él.
+  no ocupa plaza. Con dos oficios a nivel 2, intenta fabricar una receta de
+  nivel 1 de un tercero: debe negarse con un aviso y sin gastar nada. Lo mismo
+  al aplicar un encantamiento en la mesa de Arcano. Alquimia debe seguir
+  funcionando.
+- **Arcano es sólo para lanzadores**: al menos 3 niveles de bardo, brujo,
+  clérigo, druida, hechicero, mago, alma predilecta o artífice. Un personaje sin
+  ellos no puede encantar: la mesa se niega con un aviso y sin gastar nada.
 
 ### 1.5 Qué recetas ves en el menú
 
@@ -219,9 +234,11 @@ suma 0, y el total de 32 no llega al 33 que pedía la receta. Ese intento falla.
 Un **1 natural siempre falla** y un **20 natural siempre acierta**, pase lo que
 pase con la dificultad.
 
-**Que la "ayuda" salga 0 es normal** con características medias: hacen falta 14
-en las dos características del oficio, o 10 rangos de Artesanía, para que sume
-aunque sea 1. No lo reportes.
+**Que la "ayuda" salga 0 es normal** con características medias. Suma una parte
+por atributos y otra por Artesanía, cada una de 0 a +2: cuenta la **mejor** de
+las dos características del oficio en su valor base (14-17 da +1, 18 o más da
++2) y los rangos base de Artesanía (8-15 dan +1, 16 o más dan +2). Ni objetos ni
+conjuros cuentan, y la ayuda nunca resta. No lo reportes.
 
 ---
 

@@ -5,6 +5,11 @@
 Arcano no crea una pieza nueva: añade una propiedad a un objeto fabricado por
 otro oficio.
 
+**Solo pueden avanzar en Arcano los lanzadores de conjuros**: hacen falta al
+menos 3 niveles de bardo, brujo, clérigo, druida, hechicero, mago, alma
+predilecta o artífice. Sin ellos la mesa no encanta nada. Arcano ocupa plaza como cualquier oficio que no sea
+Alquimia.
+
 1. Usa la **Máquina de extracción de esencias** para deshacer botín compatible
    y obtener esencias. Los cristales urdímbricos se obtienen como botín.
 2. Deposita en la **Mesa de artesanía urdímbrica** un solo objeto de oficio sin

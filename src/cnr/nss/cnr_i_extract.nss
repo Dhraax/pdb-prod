@@ -415,7 +415,7 @@ int CnrExt_Roll(object oPC, int iTier, int iDie, int iChance)
 int CnrExt_Break(object oPC, object oMachine, object oItem, int bAlone = TRUE)
 {
     int iTier = CnrExt_Tier(oItem);
-    if (iTier <= 0)
+    if (iTier <= 0 || !GetIdentified(oItem))
     {
         return 0;
     }
@@ -516,7 +516,9 @@ int CnrExt_BreakAll(object oPC, object oMachine)
     {
         object oNext = GetNextItemInInventory(oMachine);
 
-        if (CnrExt_Tier(oItem) > 0)
+        // Unidentified loot stays inside untouched: it holds essence, but it
+        // has to be identified before the machine will take it.
+        if (CnrExt_Tier(oItem) > 0 && GetIdentified(oItem))
         {
             iEssences += CnrExt_Break(oPC, oMachine, oItem, FALSE);
             iDone++;

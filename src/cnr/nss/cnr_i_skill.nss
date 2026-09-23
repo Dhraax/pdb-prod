@@ -13,12 +13,23 @@
 // variable suffix used by legacy CNR code is 1-based.
 const int CNR_SKILL_COUNT = 7;
 const int CNR_SKILL_ALCHEMY = 4;
+const int CNR_SKILL_ARCANE = 6;
 const int CNR_MAX_TRAINED_PROFESSIONS = 2;
 const int CNR_TRAINED_PROFESSION_LEVEL = 2;
 // The module's tradeskill curve stops here: PersistDetermineTradeskillLevel
 // counts down from 20, so beyond it experience accumulates without ever
 // raising the level again.
 const int CNR_MAX_TRADESKILL_LEVEL = 20;
+
+// Arcano is for spellcasters: this many levels in one class that reaches
+// sixth-level spells by class level 16 or 20, or the warlock by name.
+const int CNR_ARCANE_CASTER_LEVELS = 3;
+// Module classes from haks-2da/classes.2da, the same rows as CLASS_TYPE_WARLOCK,
+// CLASS_TYPE_FAVORED_SOUL and CLASS_TYPE_INGENIERO in pb_constantes.nss.
+// Repeated rather than included to keep that library out of every CNR script.
+const int CNR_CLASS_WARLOCK      = 57;   // Brujo
+const int CNR_CLASS_FAVORED_SOUL = 59;   // Alma predilecta
+const int CNR_CLASS_ARTIFICER    = 64;   // Artifice
 
 // Session cache on CONTENEDOR_VARIABLES, refreshed at login.
 const string CNR_VAR_XP    = "CNR_XP_";
@@ -51,8 +62,23 @@ int CnrSkill_GetLevel(object oPC, int nSkill);
 /// @param nSkill Skill index, 1-based.
 /// @param nXP Proposed new XP total.
 /// @returns TRUE when the write respects the two-profession limit. Alchemy is
-///     always exempt and level-one professions do not occupy a slot.
+///     always exempt and level-one professions do not occupy a slot. Refuses
+///     any Arcano gain to a character that is not CnrSkill_IsArcaneCaster.
 int CnrSkill_CanSetXP(object oPC, int nSkill, int nXP);
+
+/// @brief Whether a character may gain Arcano experience.
+/// @param oPC Player character to check.
+/// @returns TRUE with CNR_ARCANE_CASTER_LEVELS levels in bard, cleric, druid,
+///     sorcerer, wizard, warlock, favored soul or artificer.
+int CnrSkill_IsArcaneCaster(object oPC);
+
+/// @brief Whether the two-profession limit closes a profession to a character.
+/// @param oPC Player character to check. Reads the session cache.
+/// @param nSkill Skill index, 1-based.
+/// @returns TRUE when nSkill is not alchemy, is still below
+///     CNR_TRAINED_PROFESSION_LEVEL, and CNR_MAX_TRAINED_PROFESSIONS other
+///     professions except alchemy already reach it.
+int CnrSkill_IsProfessionClosed(object oPC, int nSkill);
 
 /// @brief Whether a profession has reached the end of the curve.
 /// @param oPC Player to inspect.
@@ -181,12 +207,59 @@ int CnrSkill_IsMaxLevel(object oPC, int nSkill)
     return CnrSkill_GetLevel(oPC, nSkill) >= CNR_MAX_TRADESKILL_LEVEL;
 }
 
+int CnrSkill_IsArcaneCaster(object oPC)
+{
+    return GetLevelByClass(CLASS_TYPE_BARD, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CLASS_TYPE_CLERIC, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CLASS_TYPE_DRUID, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CLASS_TYPE_SORCERER, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CLASS_TYPE_WIZARD, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CNR_CLASS_WARLOCK, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CNR_CLASS_FAVORED_SOUL, oPC) >= CNR_ARCANE_CASTER_LEVELS
+        || GetLevelByClass(CNR_CLASS_ARTIFICER, oPC) >= CNR_ARCANE_CASTER_LEVELS;
+}
+
+int CnrSkill_IsProfessionClosed(object oPC, int nSkill)
+{
+    if (nSkill == CNR_SKILL_ALCHEMY
+        || CnrSkill_GetLevel(oPC, nSkill) >= CNR_TRAINED_PROFESSION_LEVEL)
+    {
+        return FALSE;
+    }
+
+    int nTrained = 0;
+    int n;
+    for (n = 1; n <= CNR_SKILL_COUNT; n++)
+    {
+        if (n != CNR_SKILL_ALCHEMY
+            && CnrSkill_GetLevel(oPC, n) >= CNR_TRAINED_PROFESSION_LEVEL)
+        {
+            nTrained++;
+        }
+    }
+    return nTrained >= CNR_MAX_TRAINED_PROFESSIONS;
+}
+
 int CnrSkill_CanSetXP(object oPC, int nSkill, int nXP)
 {
     int nCharacterId = PWDB_GetCharacterId(oPC);
     string sSkill = GetSkillName(nSkill - 1);
     if (nCharacterId <= 0 || sSkill == "")
     {
+        return FALSE;
+    }
+
+    // Arcano is for spellcasters. Checked here, where every write passes, so
+    // no path gives it to anyone else: the arcane table, the test lever, a DM
+    // tool or the legacy level conversion. Lowering or keeping the figure is
+    // still allowed, and whoever already had levels keeps them.
+    if (nSkill == CNR_SKILL_ARCANE && nXP > CnrSkill_GetXP(oPC, nSkill)
+        && !CnrSkill_IsArcaneCaster(oPC))
+    {
+        SendMessageToPC(oPC, "No ganas experiencia de Arcano: requiere al menos "
+            + IntToString(CNR_ARCANE_CASTER_LEVELS) + " niveles de bardo, "
+            + "brujo, clérigo, druida, hechicero, mago, alma predilecta o "
+            + "artífice.");
         return FALSE;
     }
 

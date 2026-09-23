@@ -20,8 +20,17 @@ const int CNR_PAGE_SIZE = 5;
 
 // Difficulty model. Single place to tune; nothing is copied into recipes.
 const int CNR_LEVEL_CAP            = 20;
-const int CNR_CRAFT_RANKS_PER_BONUS = 5;   // +1 per N base ranks of Artesania
+const int CNR_CRAFT_RANKS_PER_BONUS = 8;   // +1 per N base ranks of Artesania
+const int CNR_HELP_PART_CAP        = 2;   // cap of each help part
 const int CNR_XP_FAILURE_PERCENT   = 12;   // failure pays this share
+const int CNR_XP_FALLOFF_LEVELS    = 5;    // XP drops every N levels above
+const int CNR_XP_TOP_TIER          = 4;    // tier that must carry the last levels
+const int CNR_XP_TOP_TIER_LEVEL    = 17;   // from here lower tiers pay half
+// Exempt from the top-tier rule until tier-4 hides can be obtained. Remove
+// both when dragons that give hides are placed in the world; see F10 in
+// documentation/oficios/cnr/open-issues.md.
+const int CNR_XP_TOP_TIER_EXEMPT_1 = 3;    // Peleteria
+const int CNR_XP_TOP_TIER_EXEMPT_2 = 7;    // Sastreria
 
 // Navigation state, cached on the PC for the duration of the menu.
 const string CNR_VAR_STATION   = "CNR_STATION_ID";
@@ -207,9 +216,23 @@ int CnrCraft_FloorDivide(int nDividend, int nDivisor);
 /// @brief Total bonus the PC adds to the crafting roll.
 /// @param oPC Player crafting.
 /// @param nProfessionId Profession the station belongs to.
-/// @returns Tradeskill level plus the floored average of the profession's
-///     ability contribution and the natural Artesania-rank contribution.
+/// @returns Tradeskill level plus the help bonus: half the better base
+///     ability modifier of the profession, 0..2, plus one per
+///     CNR_CRAFT_RANKS_PER_BONUS base Artesania ranks, 0..2.
 int CnrCraft_GetRollBonus(object oPC, int nProfessionId);
+
+/// @brief Share of a recipe's XP a crafter still earns from it.
+/// @param nLevel Crafter's level in the profession.
+/// @param nMinLevel Minimum level of the recipe or arcane property.
+/// @param nTier Recipe tier, or 0 to skip the top-tier rule.
+/// @param nProfessionId Profession of the recipe, for the top-tier rule.
+/// @returns 100 within CNR_XP_FALLOFF_LEVELS levels of the minimum, then 50,
+///     25, and 12 from three bands above it onwards. From
+///     CNR_XP_TOP_TIER_LEVEL, a recipe below CNR_XP_TOP_TIER pays half of
+///     that again when the profession has recipes of that tier, except in the
+///     professions listed as CNR_XP_TOP_TIER_EXEMPT_*.
+int CnrCraft_GetXPPercent(int nLevel, int nMinLevel, int nTier = 0,
+                          int nProfessionId = 0);
 
 /// @brief Complete a previously animated crafting attempt.
 /// @param oPC Player crafting.
@@ -922,26 +945,30 @@ int CnrCraft_GetRollBonus(object oPC, int nProfessionId)
     // SKILL_CRAFT_WEAPON here - as this did - measured the crafter's jumping.
     int nRanks = GetSkillRank(SKILL_CRAFT_TRAP, oPC, TRUE);
     int nCraftBonus = nRanks / CNR_CRAFT_RANKS_PER_BONUS;
+    if (nCraftBonus > CNR_HELP_PART_CAP)
+    {
+        nCraftBonus = CNR_HELP_PART_CAP;
+    }
 
     if (nProfessionId <= 0)
     {
         SetLocalInt(oPC, CNR_VAR_ROLL_LEVEL, 0);
-        SetLocalInt(oPC, CNR_VAR_ROLL_HELP, CnrCraft_FloorDivide(nCraftBonus, 2));
-        return GetLocalInt(oPC, CNR_VAR_ROLL_HELP);
+        SetLocalInt(oPC, CNR_VAR_ROLL_HELP, nCraftBonus);
+        return nCraftBonus;
     }
 
     if (!NWNX_SQL_PrepareQuery(
         "SELECT ability_1, ability_2, skill_index FROM cnr_profession"
         + " WHERE profession_id = ? LIMIT 1"))
     {
-        return CnrCraft_FloorDivide(nCraftBonus, 2);
+        return nCraftBonus;
     }
 
     NWNX_SQL_PreparedInt(0, nProfessionId);
 
     if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
     {
-        return CnrCraft_FloorDivide(nCraftBonus, 2);
+        return nCraftBonus;
     }
 
     NWNX_SQL_ReadNextRow();
@@ -949,28 +976,93 @@ int CnrCraft_GetRollBonus(object oPC, int nProfessionId)
     string sA2 = NWNX_SQL_ReadDataInActiveRow(1);
     int nSkillIndex = StringToInt(NWNX_SQL_ReadDataInActiveRow(2));
 
-    // First average the profession's configured abilities. Mathematical floor
-    // matters for penalties because NWScript integer division truncates toward
-    // zero. Then average that result with the natural Craft-rank contribution.
-    int nAbilityBonus = 0;
+    // Only the better of the profession's two abilities counts, so a character
+    // who matches half the pairing is not dragged down by the other half. The
+    // base score is read, so items, spells and potions cannot raise the help.
+    // Mathematical floor matters for scores below 10 because NWScript integer
+    // division truncates toward zero. A low ability never subtracts.
+    int nBestModifier = 0;
     if (sA1 != "")
     {
-        nAbilityBonus = GetAbilityModifier(StringToInt(sA1), oPC);
+        nBestModifier = CnrCraft_FloorDivide(
+            GetAbilityScore(oPC, StringToInt(sA1), TRUE) - 10, 2);
         if (sA2 != "")
         {
-            nAbilityBonus = CnrCraft_FloorDivide(
-                nAbilityBonus + GetAbilityModifier(StringToInt(sA2), oPC),
-                2
-            );
+            int nSecondModifier = CnrCraft_FloorDivide(
+                GetAbilityScore(oPC, StringToInt(sA2), TRUE) - 10, 2);
+            if (nSecondModifier > nBestModifier)
+            {
+                nBestModifier = nSecondModifier;
+            }
         }
+    }
+
+    int nAbilityBonus = 0;
+    if (nBestModifier > 0)
+    {
+        nAbilityBonus = nBestModifier / 2;
+    }
+    if (nAbilityBonus > CNR_HELP_PART_CAP)
+    {
+        nAbilityBonus = CNR_HELP_PART_CAP;
     }
 
     // The profession's own level. skill_index is 0-based, CnrSkill is 1-based.
     int nProfessionLevel = CnrSkill_GetLevel(oPC, nSkillIndex + 1);
-    int nHelpBonus = CnrCraft_FloorDivide(nAbilityBonus + nCraftBonus, 2);
+    int nHelpBonus = nAbilityBonus + nCraftBonus;
     SetLocalInt(oPC, CNR_VAR_ROLL_LEVEL, nProfessionLevel);
     SetLocalInt(oPC, CNR_VAR_ROLL_HELP, nHelpBonus);
     return nProfessionLevel + nHelpBonus;
+}
+
+int CnrCraft_GetXPPercent(int nLevel, int nMinLevel, int nTier,
+                          int nProfessionId)
+{
+    // Every band of levels between the crafter and the recipe halves what it
+    // pays, so progress comes from the newest tier rather than from repeating
+    // a cheap recipe from the middle of the curve.
+    int nPercent = 12;
+    int nGap = nLevel - nMinLevel;
+    if (nGap < CNR_XP_FALLOFF_LEVELS)
+    {
+        nPercent = 100;
+    }
+    else if (nGap < CNR_XP_FALLOFF_LEVELS * 2)
+    {
+        nPercent = 50;
+    }
+    else if (nGap < CNR_XP_FALLOFF_LEVELS * 3)
+    {
+        nPercent = 25;
+    }
+
+    // The bands alone leave tier 3 within reach of the last levels, and it
+    // paid as much per attempt as tier 4, so the top tier was never needed.
+    // A profession without a tier 4, jewellery today, is left alone: its own
+    // top tier already carries its last levels. Leatherworking and tailoring
+    // are left alone too, for now: all their tier-4 recipes are made from
+    // dragon hides, and the world has almost no dragon that gives one. Halving
+    // their tier 3 would stall both at level 17.
+    if (nTier > 0 && nTier < CNR_XP_TOP_TIER
+        && nLevel >= CNR_XP_TOP_TIER_LEVEL && nProfessionId > 0
+        && nProfessionId != CNR_XP_TOP_TIER_EXEMPT_1
+        && nProfessionId != CNR_XP_TOP_TIER_EXEMPT_2
+        && NWNX_SQL_PrepareQuery(
+            "SELECT 1 FROM cnr_recipe r"
+            + " JOIN cnr_category c ON c.category_id = r.category_id"
+            + " JOIN cnr_station  s ON s.station_id  = c.station_id"
+            + " WHERE s.profession_id = ? AND r.tier = ? AND r.enabled = 1"
+            + " LIMIT 1"))
+    {
+        NWNX_SQL_PreparedInt(0, nProfessionId);
+        NWNX_SQL_PreparedInt(1, CNR_XP_TOP_TIER);
+        if (NWNX_SQL_ExecutePreparedQuery() && NWNX_SQL_ReadyToReadNextRow())
+        {
+            nPercent = nPercent / 2;
+        }
+    }
+
+    return nPercent;
 }
 
 string CnrCraft_DescribeSelection(object oPC, object oStation)
@@ -1363,6 +1455,21 @@ int CnrCraft_Attempt(object oPC, object oStation)
         return FALSE;
     }
 
+    // A third profession is closed, not only kept at level 1: with two trained
+    // ones, the benches of the others make nothing. Alchemy is always open.
+    if (CnrSkill_IsProfessionClosed(oPC, nSkillIx + 1))
+    {
+        SendMessageToPC(oPC, "Ya tienes dos oficios de nivel 2 o superior. "
+            + "No puedes fabricar en este; Alquimia no ocupa plaza.");
+        return FALSE;
+    }
+
+    // A recipe far below the crafter's level pays less. Scaled here, before
+    // the profession-limit check below, so both read the XP actually awarded.
+    int nXPPercent = CnrCraft_GetXPPercent(
+        CnrSkill_GetLevel(oPC, nSkillIx + 1), iMinLevel, iTier, nProf);
+    nXP = (nXP * nXPPercent) / 100;
+
     // Recipe ownership is checked before inspecting or consuming components.
     if (!CnrCraft_HasMaterials(oPC, oStation))
     {
@@ -1524,6 +1631,12 @@ int CnrCraft_Attempt(object oPC, object oStation)
         + " contra DC " + IntToString(nDC));
     DeleteLocalInt(oPC, CNR_VAR_ROLL_LEVEL);
     DeleteLocalInt(oPC, CNR_VAR_ROLL_HELP);
+
+    if (nXPPercent < 100)
+    {
+        SendMessageToPC(oPC, "Esta receta está muy por debajo de tu nivel: "
+            + "sólo da el " + IntToString(nXPPercent) + "% de su experiencia.");
+    }
 
     // Consume the components. retain_on_fail survives a failure, which is how
     // an alchemy vial is kept when the potion is lost; retain_on_success also

@@ -79,9 +79,17 @@ Al acertar, el producto llega identificado y con las propiedades definidas por
 la receta. Al fallar, no se crea el producto: se conservan sólo los
 componentes marcados con `*`, y se recibe una parte de la experiencia indicada.
 
+Las recetas muy por debajo de tu nivel dan menos experiencia: el 100% hasta 4
+niveles por encima de su nivel mínimo, el 50% de 5 a 9, el 25% de 10 a 14 y el
+12% a partir de 15. Además, desde nivel 17 las recetas que no son de tier 4
+dan la mitad en Herrería, Carpintería y Alquimia. Para progresar conviene fabricar
+lo más alto que puedas.
+
 El progreso es independiente para cada oficio. Un personaje puede desarrollar
 dos oficios de fabricación por encima del nivel inicial; Alquimia no ocupa una
-de esas plazas.
+de esas plazas. Con dos oficios a nivel 2 o más, las mesas de los demás no
+fabrican nada, ni siquiera recetas de nivel 1, y la mesa de Arcano no encanta;
+Alquimia sigue abierta.
 
 ## Comprobar las propiedades
 

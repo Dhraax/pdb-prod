@@ -8,6 +8,7 @@
 #include "pb_tesoro_sorteo"
 #include "pb_tesoro_nombre"
 
+#include "cnr_i_loot"
 //--- Metodos publicos ---------------------------------------------------------
 void crearArmaDI(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE, int iVal=0);
 //..............................................................................
@@ -169,4 +170,12 @@ void crearArmaDI(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE, int 
     sorteoArmasDI(oCreado, nDG);
     if (iTienda==TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
     SetLocalInt(oCreado, "PCItem", 1);
+    // Boss-chest loot is marked like every other piece: the rank the
+    // extractor reads is the same band that named and coloured it. Only what
+    // lands in a flagged loot container is loot: shop stock and quest
+    // rewards, which these same functions create on the player, stay unmarked.
+    if (iTienda == FALSE && GetLocalInt(oTarget, CNR_LOOT_VAR_SOURCE) == TRUE)
+    {
+        CnrLoot_Mark(oCreado, CnrLoot_RankFromDG(nDG));
+    }
 }

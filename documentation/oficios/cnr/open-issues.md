@@ -45,40 +45,6 @@ filled on 2026-08-16, and `cnrJewelersBench` and `cnrSewingTable`, which had no
 blueprint at all, were created. Only `cnrArcaneTable` has empty events, because
 arcane is not built.
 
-### F2. Decide what the help bonus should be worth
-
-`cnr_i_craft.nss:735`. The roll is `d20 + profession level + help`, and help is:
-
-```
-ability   = floor( (mod(ability_1) + mod(ability_2)) / 2 )
-craft     = base Craft ranks / 5
-help      = floor( (ability + craft) / 2 )
-```
-
-The second averaging is what makes it small. Concretely:
-
-| Abilities | Craft ranks | help |
-|---|---:|---:|
-| 12 / 12 (+1/+1) | 0 | **0** |
-| 14 / 14 (+2/+2) | 0 | **1** |
-| 14 / 14 | 10 | **2** |
-| 18 / 18 (+4/+4) | 20 | **4** |
-
-So a maxed character gets +4 while profession level alone gives up to +20. The
-help is close to noise, and for an average character it is exactly nothing.
-
-This is a design decision, not a defect — it does what it was written to do.
-Three ways to go, whenever it is picked up:
-
-1. **Leave it.** Level is the profession; abilities are a rounding detail.
-2. **Drop the second halving** (`help = ability + craft`). Doubles it: the
-   14/14 character gets +2 with no ranks, the maxed one +8.
-3. **Make Craft ranks matter more**, by lowering `CNR_CRAFT_RANKS_PER_BONUS`
-   from 5. Rewards the investment rather than the character sheet.
-
-Testers have been told the `0 (ayuda)` in the roll message is expected, so
-nothing is blocked either way.
-
 ### F3. Agitated Potion passes an invalid movement-speed value
 
 `pb_potion_inc.nss:515` calls `EffectMovementSpeedIncrease(150)`. The native
@@ -145,6 +111,48 @@ so `OBJECT_SELF` is the module. Case 104 calls bare `ClearAllActions()` at line
 1298 even though the surrounding polymorph cases use
 `AssignCommand(oPC, ClearAllActions())`. The comment says this prevents an
 exploit, but the current call does not clear the player's queue.
+
+### F10. Tier-4 hides barely exist, so leatherworking and tailoring are exempt from the top-tier rule
+
+**Coupled to code.** `CNR_XP_TOP_TIER_EXEMPT_1` (3, Peletería) and
+`CNR_XP_TOP_TIER_EXEMPT_2` (7, Sastrería) in `src/cnr/nss/cnr_i_craft.nss`
+exist only because of this entry. Whoever fixes the supply removes them in the
+same change; whoever removes them without fixing the supply stalls both
+professions at level 17.
+
+Every tier-4 recipe of both professions is made from dragon leather, and every
+dragon leather is tanned from one dragon hide (`PIEL` 7-10 on the creature,
+`cnr_i_skin.nss`). Measured on 2026-09-23 over the `PIEL` variable of every
+`.utc`, the area spawn tables and placements in `src/module/are` and
+`src/module/git`, and the scripts in `src/`:
+
+| Hide | `PIEL` | Blueprints | Present in the world |
+|---|--:|--:|---|
+| Dragón de fuego | 7 | 6 | **none** |
+| Dragón de hielo | 8 | 6 | `uri_drgwhite004` (CR 156) in `ko_picos_dragona` and `lin_altimnes1`; `uri_adalon` only through `adalon_juicio.nss` |
+| Dragón de ácido | 9 | 7 | `asy_dragonanegra` (CR 83) in `kro_dragonanegra` |
+| Dragón de rayo | 10 | 6 | `uri_iryklathagra` (CR 127) in `kro_dragon` |
+
+DM spawns are not visible to this search. Fire hides are unobtainable, and the
+other three come only from unique bosses.
+
+The demand: each tier-4 product spends four leathers, win or lose, and each
+leather one hide. Levels 17 to 20 take about 40 attempts with tier 4, which is
+of the order of 150-300 hides. A corpse gives three deliveries of 3d4, about 22
+hides, shared between players: 7 to 13 dragon kills per crafter.
+
+With the top-tier rule applied, a leatherworker or tailor without tier 4 needs
+about 186 attempts from 17 to 20 instead of 49; hence the exemption.
+
+**To close it:**
+
+1. Put creatures that give dragon hides in the world, fire first, at a rate
+   that supports the demand above.
+2. Remove the two exemption constants and their condition in
+   `CnrCraft_GetXPPercent`.
+3. Update `crafting-system.md` section 4c, `plan-de-pruebas.md` and
+   `oficios/README.md`, which name the exempt professions, and add the
+   changelog entry.
 
 ---
 
