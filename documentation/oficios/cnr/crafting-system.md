@@ -391,8 +391,9 @@ Attempts from 17 to 20, help +2, best recipe chosen by expected XP per attempt:
 The percentage applies to the recipe's `xp_award`, truncated, before the
 failure share, so a failure pays 12% of the reduced figure. Arcane applies the
 same rule with the property's minimum level, and the arcane window shows the
-reduced figure. When the reduction applies, the roll message is followed by a
-line naming the percentage. The profession-limit check reads the reduced XP.
+reduced figure. When a reduction applies, the roll message is followed by a
+line naming the percentage and which rule reduced it: the level bands, the
+top-tier rule below, or both. The profession-limit check reads the reduced XP.
 
 The purpose is to make the newest reachable tier the way to progress. Before
 it, repeating one mid-curve recipe reached level 20 almost as fast as working

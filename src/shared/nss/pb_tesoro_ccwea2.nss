@@ -861,7 +861,7 @@ void crearArmaCC(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE, int 
 
     limpiarObjeto(oCreado);
     sorteoArmasCC(oCreado, nDG, bAtVS);
-    if (iTienda=TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
+    if (iTienda==TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
     SetLocalInt(oCreado, "PCItem", 1);
     // Boss-chest loot is marked like every other piece: the rank the
     // extractor reads is the same band that named and coloured it. Only what
@@ -924,7 +924,7 @@ void crearGuantesMonje(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE
 
     limpiarObjeto(oCreado);
     sorteoArmasCC(oCreado, nDG, bAtVS);
-    if (iTienda=TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
+    if (iTienda==TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
     SetLocalInt(oCreado, "PCItem", 1);
     // Boss-chest loot is marked like every other piece: the rank the
     // extractor reads is the same band that named and coloured it. Only what

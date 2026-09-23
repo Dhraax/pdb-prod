@@ -1468,6 +1468,10 @@ int CnrCraft_Attempt(object oPC, object oStation)
     // the profession-limit check below, so both read the XP actually awarded.
     int nXPPercent = CnrCraft_GetXPPercent(
         CnrSkill_GetLevel(oPC, nSkillIx + 1), iMinLevel, iTier, nProf);
+    // The same without the top-tier rule, so the message can say which rule
+    // reduced the experience.
+    int nBandPercent = CnrCraft_GetXPPercent(
+        CnrSkill_GetLevel(oPC, nSkillIx + 1), iMinLevel);
     nXP = (nXP * nXPPercent) / 100;
 
     // Recipe ownership is checked before inspecting or consuming components.
@@ -1632,10 +1636,22 @@ int CnrCraft_Attempt(object oPC, object oStation)
     DeleteLocalInt(oPC, CNR_VAR_ROLL_LEVEL);
     DeleteLocalInt(oPC, CNR_VAR_ROLL_HELP);
 
+    // Two rules can reduce the experience; name the ones that did.
     if (nXPPercent < 100)
     {
-        SendMessageToPC(oPC, "Esta receta está muy por debajo de tu nivel: "
-            + "sólo da el " + IntToString(nXPPercent) + "% de su experiencia.");
+        string sWhy = "";
+        if (nBandPercent < 100)
+        {
+            sWhy = " Está muy por debajo de tu nivel.";
+        }
+        if (nXPPercent < nBandPercent)
+        {
+            sWhy += " Desde el nivel " + IntToString(CNR_XP_TOP_TIER_LEVEL)
+                + ", lo que no es tier " + IntToString(CNR_XP_TOP_TIER)
+                + " da la mitad.";
+        }
+        SendMessageToPC(oPC, "Esta receta sólo da el "
+            + IntToString(nXPPercent) + "% de su experiencia." + sWhy);
     }
 
     // Consume the components. retain_on_fail survives a failure, which is how
