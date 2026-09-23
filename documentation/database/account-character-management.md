@@ -177,6 +177,20 @@ dedicated DM rebuild wand enforces this order:
    cache. Retrying after a partial snapshot failure recognizes the already-bound
    UUID and cannot consume a second use.
 
+Every new character starts with `PWDB_DEFAULT_REBUILDS_AVAILABLE` (2)
+rebuilds. The wand tells the DM at the first touch when the target has none
+left, before any option is chosen; the deletion request still refuses on its
+own. It says nothing when the count cannot be read, which is the normal state of
+a replacement character between cleanup and migration.
+
+**The panel only adds rebuilds.** Since 2026-09-23 a user with
+`edit_character_identity` sends `rebuilds_added`, 1 to 10, on the character
+update; the backend adds it to the row it has locked for update and records the
+change in `pwdb_identity_revision`. There is no field that sets or lowers
+`rebuilds_available` or `rebuilds_completed`: a rebuild granted is never taken
+back, and an increment rather than a total cannot overwrite a use the module
+consumed while the sheet was open.
+
 Cleanup and migration must finish in the same player session. After successful
 cleanup, persistent writes are disabled for that character until migration
 finishes so runtime systems cannot silently recreate the provisional tree. If

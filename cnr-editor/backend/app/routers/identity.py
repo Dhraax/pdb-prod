@@ -37,6 +37,7 @@ from app.models import (
     Tradeskill,
 )
 from app.schemas import (
+    REBUILDS_AVAILABLE_MAX,
     AccountAccessCdKey,
     AccountAccessHistory,
     AccountAccessIp,
@@ -820,6 +821,7 @@ def update_character(
             "account_id",
             "display_name_override",
             "status",
+            "rebuilds_added",
         },
         "edit_character_profile": {
             "race_id",
@@ -856,6 +858,10 @@ def update_character(
         raise HTTPException(status_code=422, detail="La cuenta propietaria no puede estar vacía")
     if payload.status is None and "status" in requested_fields:
         raise HTTPException(status_code=422, detail="El estado no puede estar vacío")
+    if payload.rebuilds_added is None and "rebuilds_added" in requested_fields:
+        raise HTTPException(
+            status_code=422, detail="Indica cuántos rehechos añadir, como mínimo uno"
+        )
 
     character = db.get(Character, character_id, with_for_update=True)
     if character is None:
@@ -935,6 +941,15 @@ def update_character(
         db.add(profile)
     if "account_id" in requested_fields:
         character.account_id = payload.account_id
+    if payload.rebuilds_added is not None:
+        # Applied to the locked row, never replaced by a total from the
+        # browser, so a use the module consumed meanwhile is not undone.
+        if character.rebuilds_available + payload.rebuilds_added > REBUILDS_AVAILABLE_MAX:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="El personaje no admite tantos rehechos",
+            )
+        character.rebuilds_available += payload.rebuilds_added
     if profile is not None:
         if "display_name_override" in requested_fields:
             profile.display_name_override = _clean(payload.display_name_override)

@@ -355,6 +355,9 @@ export interface CharacterDetail {
   updated_at: string | null
   rebuilds_available: number | null
   rebuilds_completed: number | null
+  // Client-only: rebuilds to add on the next save. The server never returns
+  // it and only ever adds it to the stored count.
+  rebuilds_added?: number
   total_level: number
   classes: CharacterClassRow[]
   tradeskills: TradeskillRow[]

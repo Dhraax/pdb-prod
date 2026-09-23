@@ -306,7 +306,8 @@ without copying assets or product-specific branding.
 The internal character view follows a compact technical-sheet hierarchy:
 identity and timestamps first, six ability scores with their derived modifiers,
 the persistent rebuild counters, then side-by-side class and level-unlock
-records. Controls, markers, spacing, and the letter emblem are deliberately
+records. With `edit_character_identity`, **Añadir rehechos** adds 1 to 10 on
+save; the counters can only grow from the panel, as the level unlocks can. Controls, markers, spacing, and the letter emblem are deliberately
 reduced so the character data remains central and readable. The layout
 collapses to one column on narrower screens.
 

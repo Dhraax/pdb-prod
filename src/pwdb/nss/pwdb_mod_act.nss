@@ -5,6 +5,8 @@
 /// @brief   Route the rebuild wand and delegate every other item activation.
 /// ----------------------------------------------------------------------------
 
+#include "pwdb_i_user"
+
 void main()
 {
     object oDM = GetItemActivator();
@@ -23,6 +25,16 @@ void main()
                 "La varita de rehechos solo puede usarla un DM sobre un jugador."
             );
             return;
+        }
+
+        // Say it at the first touch rather than only when the deletion is
+        // requested. Only a stored zero is announced: a replacement character
+        // between cleanup and migration has no row to read, and the steps
+        // that follow still refuse or allow on their own.
+        if (PWDB_GetRebuildsAvailable(oTarget) == 0)
+        {
+            SendMessageToPC(oDM, GetName(oTarget)
+                + " no tiene rehechos disponibles.");
         }
 
         SetLocalObject(oDM, "REBUILD_TARGET", oTarget);

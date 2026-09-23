@@ -1,6 +1,7 @@
 """Validation tests for account and character administration."""
 
 from datetime import UTC, datetime, timedelta
+from types import SimpleNamespace
 
 import pytest
 from fastapi import HTTPException, Response
@@ -26,12 +27,17 @@ from app.models import (
     AccountIpHistory,
     CdKeyBan,
     Character,
+    CharacterClass,
     CharacterLevelUnlock,
+    CharacterProfile,
+    ClassDefinition,
     EditorLoginThrottle,
     EditorProfessionPermission,
     EditorSession,
     EditorSystemPermission,
     EditorUser,
+    IdentityRevision,
+    Tradeskill,
 )
 from app.permissions import ROLE_PERMISSION_PRESETS, missing_permission_dependencies
 from app.routers.admin import (
@@ -47,8 +53,10 @@ from app.routers.identity import (
     _account_detail,
     _cd_key_reset_state,
     _character_detail,
+    update_character,
 )
 from app.schemas import (
+    REBUILDS_ADDED_MAX,
     AccountUpdate,
     CharacterDetail,
     CharacterPurgeRequest,
@@ -839,3 +847,110 @@ def test_character_update_rejects_a_third_trained_non_alchemy_profession() -> No
 
     with pytest.raises(ValidationError, match="solo puede tener dos oficios"):
         CharacterUpdate.model_validate(payload)
+
+
+def test_character_update_accepts_a_positive_rebuild_increment() -> None:
+    payload = CharacterUpdate(updated_at=None, rebuilds_added=2)
+
+    assert payload.rebuilds_added == 2
+    assert payload.model_fields_set == {"updated_at", "rebuilds_added"}
+
+
+@pytest.mark.parametrize("rebuilds_added", [0, -1, REBUILDS_ADDED_MAX + 1])
+def test_character_update_rejects_a_rebuild_increment_out_of_range(rebuilds_added: int) -> None:
+    with pytest.raises(ValidationError):
+        CharacterUpdate(updated_at=None, rebuilds_added=rebuilds_added)
+
+
+def test_character_update_has_no_field_that_sets_or_lowers_rebuilds() -> None:
+    for field in ("rebuilds_available", "rebuilds_completed"):
+        with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+            CharacterUpdate.model_validate({"updated_at": None, field: 0})
+
+
+def _rebuild_database(rebuilds_available: int) -> DatabaseSession:
+    engine = create_engine("sqlite+pysqlite:///:memory:")
+    for table in (
+        Account.__table__,
+        Character.__table__,
+        CharacterProfile.__table__,
+        ClassDefinition.__table__,
+        CharacterClass.__table__,
+        Tradeskill.__table__,
+        CharacterLevelUnlock.__table__,
+    ):
+        table.create(engine)
+    # SQLite only autoincrements an INTEGER primary key, and the model's is a
+    # BIGINT for MySQL, so the audit table is declared by hand here.
+    with engine.begin() as connection:
+        connection.exec_driver_sql(
+            "CREATE TABLE pwdb_identity_revision ("
+            " revision_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            " target_type VARCHAR(16) NOT NULL, target_id INTEGER NOT NULL,"
+            " actor_user_id INTEGER, action VARCHAR(16) NOT NULL,"
+            " changed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            " before_json JSON NOT NULL, after_json JSON NOT NULL)"
+        )
+    now = datetime.now(UTC).replace(tzinfo=None)
+    db = DatabaseSession(engine)
+    db.add(
+        Account(
+            account_id=1,
+            cd_key="REBUILDKEY",
+            player_name="Rebuild account",
+            first_seen=now,
+            last_seen=now,
+        )
+    )
+    db.add(
+        Character(
+            character_id=5,
+            character_uuid="00000000-0000-0000-0000-000000000005",
+            account_id=1,
+            char_name="Rebuilt",
+            created_at=now,
+            rebuilds_available=rebuilds_available,
+            rebuilds_completed=1,
+        )
+    )
+    db.commit()
+    return db
+
+
+def _rebuild_context(*permissions: str) -> SimpleNamespace:
+    return SimpleNamespace(user=SimpleNamespace(user_id=1, permissions=list(permissions)))
+
+
+def test_adding_rebuilds_increments_the_stored_count_and_is_audited() -> None:
+    db = _rebuild_database(rebuilds_available=0)
+    context = _rebuild_context(
+        "view_accounts",
+        "view_characters",
+        "view_character_identity",
+        "edit_character_identity",
+    )
+
+    detail = update_character(
+        5, CharacterUpdate(updated_at=None, rebuilds_added=2), context, db
+    )
+
+    assert detail.rebuilds_available == 2
+    assert detail.rebuilds_completed == 1
+    revision = db.scalar(select(IdentityRevision))
+    assert revision.before_json["rebuilds_available"] == 0
+    assert revision.after_json["rebuilds_available"] == 2
+
+
+def test_adding_rebuilds_requires_the_identity_edit_permission() -> None:
+    db = _rebuild_database(rebuilds_available=1)
+    context = _rebuild_context(
+        "view_accounts",
+        "view_characters",
+        "view_character_identity",
+    )
+
+    with pytest.raises(HTTPException) as raised:
+        update_character(5, CharacterUpdate(updated_at=None, rebuilds_added=1), context, db)
+
+    assert raised.value.status_code == 403
+    assert db.get(Character, 5).rebuilds_available == 1

@@ -42,6 +42,10 @@ CdKeyResetStatus = Literal[
     "expired",
 ]
 LEVEL_UNLOCKS = (9, 13, 17, 21, 22, 24, 26, 30, 35)
+# Largest number of rebuilds one save may add to a character.
+REBUILDS_ADDED_MAX = 10
+# pwdb_character.rebuilds_available is SMALLINT UNSIGNED.
+REBUILDS_AVAILABLE_MAX = 65535
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
@@ -774,6 +778,10 @@ class CharacterUpdate(BaseModel):
     admin_notes: str | None = Field(default=None, max_length=4000)
     tradeskills: list[TradeskillIn] | None = Field(default=None, min_length=7, max_length=7)
     level_unlocks: list[int] | None = Field(default=None, max_length=len(LEVEL_UNLOCKS))
+    # Rebuilds are only ever added, as an increment applied under the row lock:
+    # a total sent from the browser could overwrite a use the module consumed
+    # while the sheet was open, and removing a granted rebuild is not allowed.
+    rebuilds_added: int | None = Field(default=None, ge=1, le=REBUILDS_ADDED_MAX)
 
     @field_validator("level_unlocks")
     @classmethod

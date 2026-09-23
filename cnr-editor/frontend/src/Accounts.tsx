@@ -351,6 +351,23 @@ function CharacterCard({
                 ))}
               </TextField>
               <TextField
+                type="number"
+                label="Añadir rehechos"
+                disabled={isDeleted || !canEditIdentity}
+                value={draft.rebuilds_added ?? 0}
+                inputProps={{ min: 0, max: 10 }}
+                helperText={draft.rebuilds_added
+                  ? `Al guardar tendrá ${(character.rebuilds_available ?? 0) + draft.rebuilds_added}. Solo se pueden añadir, nunca quitar.`
+                  : 'Solo se pueden añadir, nunca quitar.'}
+                onChange={(event) => {
+                  const value = Math.trunc(Number(event.target.value))
+                  setField(
+                    'rebuilds_added',
+                    Number.isFinite(value) ? Math.min(10, Math.max(0, value)) : 0,
+                  )
+                }}
+              />
+              <TextField
                 label="Cuenta propietaria"
                 type="number"
                 disabled={isDeleted || !canEditIdentity}
@@ -620,6 +637,7 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
             account_id: value.account_id,
             display_name_override: value.display_name_override,
             status: value.status,
+            ...(value.rebuilds_added ? { rebuilds_added: value.rebuilds_added } : {}),
           } : {}),
           ...(permissions.includes('edit_character_profile') ? {
             race_id: value.race_id,
