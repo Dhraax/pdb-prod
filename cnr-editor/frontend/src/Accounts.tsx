@@ -357,7 +357,7 @@ function CharacterCard({
                 value={draft.rebuilds_added ?? 0}
                 inputProps={{ min: 0, max: 10 }}
                 helperText={draft.rebuilds_added
-                  ? `Al guardar tendrá ${(character.rebuilds_available ?? 0) + draft.rebuilds_added}. Solo se pueden añadir, nunca quitar.`
+                  ? `Se sumarán ${draft.rebuilds_added} a los disponibles al guardar. Solo se pueden añadir, nunca quitar.`
                   : 'Solo se pueden añadir, nunca quitar.'}
                 onChange={(event) => {
                   const value = Math.trunc(Number(event.target.value))
