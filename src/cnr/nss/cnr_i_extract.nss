@@ -65,8 +65,9 @@ const string CNR_EXT_VAR_BATCH_CRYSTALS = "CNR_EXT_BATCH_CRYSTALS";
 /// How long the machine stays deaf after a conversation ends.
 const float CNR_EXT_SEAL_SECONDS = 6.0f;
 
-/// Chance, per broken item, of also yielding one crystal.
-const int CNR_EXT_CRYSTAL_CHANCE = 20;
+/// Chance, per broken item, of also yielding one crystal. 40 since
+/// 2026-09-24; it was 20.
+const int CNR_EXT_CRYSTAL_CHANCE = 40;
 
 /// How many crystals exist. Their resrefs are cnr_c_1..6.
 const int CNR_EXT_CRYSTAL_COUNT = 6;
