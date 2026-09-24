@@ -38,7 +38,7 @@ Las marcas de las tablas se explican en
 
 ### Tabla de serrería - Tablones
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Tablones de pino | 3× Leño de pino | 1 | 10 | 6 | 120 |
 | Tablones de cedro | 3× Leño de cedro | 4 | 14 | 9 | 168 |
@@ -51,7 +51,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Flechas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Flechas de Pino ×9 | 1× Tablones de pino, 1× Cien plumas, 1× Cien puntas de flecha | 1 | 10 | 21 | 120 |
 | Flechas de Cedro ×9 | 1× Tablones de cedro, 1× Cien plumas, 1× Cien puntas de flecha | 4 | 14 | 30 | 168 |
@@ -63,7 +63,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Virotes
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Virotes de Pino ×9 | 1× Tablones de pino, 1× Cien puntas de virote, 1× Aros de hierro | 1 | 10 | 21 | 120 |
 | Virotes de Cedro ×9 | 1× Tablones de cedro, 1× Cien puntas de virote, 1× Aros de hierro | 4 | 14 | 30 | 168 |
@@ -75,7 +75,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Arcos cortos
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Arco corto de Pino | 1× Tablones de pino, 1× Cuerda de arco | 1 | 10 | 21 | 120 |
 | Arco corto de Cedro | 1× Tablones de cedro, 1× Cuerda de arco | 4 | 14 | 30 | 168 |
@@ -88,7 +88,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Arcos largos
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Arco largo de Pino | 2× Tablones de pino, 1× Cuerda de arco | 1 | 10 | 21 | 120 |
 | Arco largo de Cedro | 2× Tablones de cedro, 1× Cuerda de arco | 4 | 14 | 30 | 168 |
@@ -101,7 +101,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Ballestas ligeras
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Ballesta ligera de Pino | 2× Tablones de pino, 1× Cuerda de ballesta | 1 | 10 | 21 | 120 |
 | Ballesta ligera de Cedro | 2× Tablones de cedro, 1× Cuerda de ballesta | 4 | 14 | 30 | 168 |
@@ -114,7 +114,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Ballestas pesadas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Ballesta pesada de Pino | 4× Tablones de pino, 1× Cuerda de ballesta | 1 | 10 | 21 | 120 |
 | Ballesta pesada de Cedro | 4× Tablones de cedro, 1× Cuerda de ballesta | 4 | 14 | 30 | 168 |
@@ -127,7 +127,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Armas de mano
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Arma de mano de Pino [elige] | 2× Tablones de pino, 1× Mango de clava | 1 | 10 | 21 | 120 |
 | Arma de mano de Cedro [elige] | 2× Tablones de cedro, 1× Mango de clava | 4 | 14 | 30 | 168 |
@@ -140,7 +140,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Bastones
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Bastón de Pino | 2× Tablones de pino, 2× Aros de hierro | 1 | 10 | 21 | 120 |
 | Bastón de Cedro | 2× Tablones de cedro, 2× Aros de hierro | 4 | 14 | 30 | 168 |
@@ -154,7 +154,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Escudos grandes
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo grande de Pino | 3× Tablones de pino, 1× Plancha metálica grande | 1 | 10 | 21 | 120 |
 | Escudo grande de Cedro | 3× Tablones de cedro, 1× Plancha metálica grande | 4 | 14 | 30 | 168 |
@@ -167,7 +167,7 @@ Las marcas de las tablas se explican en
 
 ### Banco de carpintero - Escudos pequeños
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo pequeño de Pino | 2× Tablones de pino, 1× Plancha metálica pequeña | 1 | 10 | 21 | 120 |
 | Escudo pequeño de Cedro | 2× Tablones de cedro, 1× Plancha metálica pequeña | 4 | 14 | 30 | 168 |

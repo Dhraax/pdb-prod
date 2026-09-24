@@ -158,7 +158,7 @@ Las marcas de las tablas se explican en
 
 ### Caldero de hierbas - Materiales básicos
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Zumo Acuoso | 3× Baya Acuosa | 1 | 10 | 6 | 120 |
 | Humo Gaseoso | 3× Brisa Susurrante | 4 | 14 | 9 | 168 |
@@ -171,7 +171,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de alquimia - Pociones
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Agua Pura | 1× Zumo Acuoso, 1× Botella de poción * | 1 | 10 | 21 | 120 |
 | Raíces Comestibles | 1× Picada Rocosa | 1 | 10 | 22 | 120 |

@@ -21,7 +21,7 @@ seleccionada. Retira lo que no hayas usado antes de alejarte de la estación.
 | **Nivel** | Nivel mínimo del oficio necesario para intentarla |
 | **DC** | Dificultad que debe alcanzar la tirada |
 | **XP** | Experiencia del oficio recibida al acertar |
-| **Oro** | Coste del intento; también se paga si la tirada falla |
+| **Valor al reciclar** | Oro que devuelve el reciclador si la pieza no devuelve ningún material; fabricar no cuesta oro |
 | `*` | Componente de forma, como un molde, plantilla o botella: se conserva al fallar y se consume al acertar |
 | `[elige]` | La receta abre una selección adicional para escoger el producto final |
 | `×N` en el resultado | Cantidad de unidades que entrega la receta |
@@ -63,7 +63,7 @@ encima.
 | Tina de curtido | ninguna | - |
 
 Las herramientas pueden romperse al comenzar un intento. Si ocurre, el
-intento se cancela antes de cobrar oro o consumir componentes.
+intento se cancela antes de consumir componentes.
 
 Para desollar, equipa un **Cuchillo de desollar** en cualquiera de las dos
 manos. La tienda de peletería ofrece el mismo objeto como daga y como espada

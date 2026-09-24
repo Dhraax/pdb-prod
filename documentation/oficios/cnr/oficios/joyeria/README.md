@@ -59,7 +59,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de joyero - Aros y cadenas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Aro de cobre | 1× Cilindro de cobre tratado, 1× Molde para aros * | 1 | 10 | 21 | 120 |
 | Cadena de cobre | 1× Cilindro de cobre tratado, 1× Molde para cadena * | 1 | 10 | 22 | 120 |
@@ -70,7 +70,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de joyero - Tallado
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Corvidar tallado | 1× Corvidar en bruto | 1 | 10 | 21 | 120 |
 | Cuarzo hialino tallado + Arenilla de cuarzo hialino | 1× Cuarzo hialino en bruto | 2 | 11 | 23 | 132 |
@@ -103,7 +103,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de joyero - Anillos
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Anillo cobrizo de corvidar | 1× Aro de cobre, 1× Corvidar tallado | 1 | 10 | 21 | 120 |
 | Anillo cobrizo de cuarzo hialino | 1× Aro de cobre, 1× Cuarzo hialino tallado | 2 | 11 | 23 | 132 |
@@ -136,7 +136,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de joyero - Colgantes
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Amuleto de cobre de corvidar | 1× Cadena de cobre, 1× Corvidar tallado | 1 | 10 | 21 | 120 |
 | Amuleto de cobre de cuarzo hialino | 1× Cadena de cobre, 1× Cuarzo hialino tallado | 2 | 11 | 23 | 132 |

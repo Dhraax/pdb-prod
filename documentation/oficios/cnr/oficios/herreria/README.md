@@ -61,7 +61,7 @@ El acero es el único metal sin veta en el mapa: no se pica, se alea. Una
 pepita de hierro y una de carbón dan una pepita de acero, y a partir de ahí
 se funde como cualquier otro metal.
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Lingote de cobre | 3× Pepita de cobre, 1× Pepita de carbón | 1 | 10 | 6 | 120 |
 | Lingote de hierro | 3× Pepita de hierro, 1× Pepita de carbón | 2 | 12 | 8 | 144 |
@@ -82,7 +82,7 @@ se funde como cualquier otro metal.
 
 ### Yunque de herrero - Armas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Arma de cobre [elige] | 1× Lingote de cobre, 1× Molde de Arma * | 1 | 10 | 21 | 120 |
 | Arma de hierro [elige] | 1× Lingote de hierro, 1× Molde de Arma * | 2 | 12 | 25 | 144 |
@@ -102,7 +102,7 @@ se funde como cualquier otro metal.
 
 ### Yunque de herrero - Munición
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Bala de cobre | 1× Lingote de cobre, 1× Molde de bala * | 1 | 10 | 21 | 120 |
 | Bala de hierro | 1× Lingote de hierro, 1× Molde de bala * | 2 | 12 | 25 | 144 |
@@ -124,7 +124,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cota de escamas de cobre | 2× Lingote de cobre, 1× Moldes de cota de escamas * | 1 | 10 | 21 | 120 |
 | Cota de escamas de hierro | 2× Lingote de hierro, 1× Moldes de cota de escamas * | 2 | 12 | 25 | 144 |
@@ -144,7 +144,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cota de escamas ligera de metal vivo | 2× Lingote de metal vivo, 1× Moldes de cota de escamas * | 17 | 28 | 72 | 372 |
 | Cota de escamas ligera de mithril | 2× Lingote de mithril, 1× Moldes de cota de escamas * | 19 | 30 | 77 | 396 |
@@ -154,7 +154,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura completa de cobre | 3× Lingote de cobre, 1× Moldes de armadura completa * | 1 | 10 | 21 | 120 |
 | Armadura completa de hierro | 3× Lingote de hierro, 1× Moldes de armadura completa * | 2 | 12 | 25 | 144 |
@@ -174,7 +174,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura completa ligera de metal vivo | 3× Lingote de metal vivo, 1× Moldes de armadura completa * | 17 | 28 | 72 | 372 |
 | Armadura completa ligera de mithril | 3× Lingote de mithril, 1× Moldes de armadura completa * | 19 | 30 | 77 | 396 |
@@ -184,7 +184,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo pequeno de cobre | 1× Lingote de cobre, 1× Molde de escudo pequeño * | 1 | 10 | 21 | 120 |
 | Escudo pequeño de hierro | 1× Lingote de hierro, 1× Molde de escudo pequeño * | 2 | 12 | 25 | 144 |
@@ -204,7 +204,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo pequeño ligero de metal vivo | 1× Lingote de metal vivo, 1× Molde de escudo pequeño * | 17 | 28 | 72 | 372 |
 | Escudo pequeño ligero de mithril | 1× Lingote de mithril, 1× Molde de escudo pequeño * | 19 | 30 | 77 | 396 |
@@ -214,7 +214,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo grande de cobre | 2× Lingote de cobre, 1× Molde de escudo grande * | 1 | 10 | 21 | 120 |
 | Escudo grande de hierro | 2× Lingote de hierro, 1× Molde de escudo grande * | 2 | 12 | 25 | 144 |
@@ -234,7 +234,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Escudo grande ligero de metal vivo | 2× Lingote de metal vivo, 1× Molde de escudo grande * | 17 | 28 | 72 | 372 |
 | Escudo grande ligero de mithril | 2× Lingote de mithril, 1× Molde de escudo grande * | 19 | 30 | 77 | 396 |
@@ -244,7 +244,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Pavés de cobre | 3× Lingote de cobre, 1× Molde de escudo pavés * | 1 | 10 | 21 | 120 |
 | Pavés de hierro | 3× Lingote de hierro, 1× Molde de escudo pavés * | 2 | 12 | 25 | 144 |
@@ -264,7 +264,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Pavés ligero de metal vivo | 3× Lingote de metal vivo, 1× Molde de escudo pavés * | 17 | 28 | 72 | 372 |
 | Pavés ligero de mithril | 3× Lingote de mithril, 1× Molde de escudo pavés * | 19 | 30 | 77 | 396 |
@@ -274,7 +274,7 @@ se funde como cualquier otro metal.
 
 #### Recetas estándar
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Yelmo de cobre | 1× Lingote de cobre, 1× Molde de capacete * | 1 | 10 | 21 | 120 |
 | Yelmo de hierro | 1× Lingote de hierro, 1× Molde de capacete * | 2 | 12 | 25 | 144 |
@@ -294,7 +294,7 @@ se funde como cualquier otro metal.
 
 #### Recetas ligeras de CA +4
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Yelmo ligero de metal vivo | 1× Lingote de metal vivo, 1× Molde de capacete * | 17 | 28 | 72 | 372 |
 | Yelmo ligero de mithril | 1× Lingote de mithril, 1× Molde de capacete * | 19 | 30 | 77 | 396 |

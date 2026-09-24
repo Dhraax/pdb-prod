@@ -524,10 +524,10 @@ from 20, so past its threshold experience only accumulated and the level never
 moved. `CnrSkill_IsMaxLevel` gates the award and the player is told the
 profession is mastered instead of being promised experience that does nothing.
 
-**Gold is charged.** It is the last check and the first cost: nothing is taken
-until tools, materials and the profession limit have passed, and once taken the
-attempt happens, so a failed roll costs the gold exactly as it costs the
-materials.
+**Gold is not charged** (since 2026-09-24). An attempt costs its materials
+only. `cnr_recipe.gold_value` stays in the catalogue, still DC x 12, as the gold
+the recycler returns for a piece that gives back no material; the station menu
+no longer shows it.
 
 Tunable constants live at the top of `cnr_i_craft.nss`; nothing is copied into
 recipes.

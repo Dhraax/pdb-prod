@@ -52,9 +52,10 @@ tanto.
 
 ### Uso del oro
 
-Cada intento te cobra el "Valor total" que muestra la receta, **aciertes o
-falles**. Sumado a lo que tienes que comprar en las tiendas, vas a necesitar
-bastante. Empiezas con 30k, si ves que necesitas mas, crea otro personaje y subele niveles con las palancas a los lados de cada mesa.
+Fabricar **ya no cuesta oro** (desde el 2026-09-24): solo gastas los
+materiales. El oro lo necesitas para lo que compres en las tiendas. Empiezas con
+30k; si ves que necesitas más, crea otro personaje y súbele niveles con las
+palancas a los lados de cada mesa.
 
 ---
 
@@ -114,9 +115,11 @@ Prueba las dos ramas por separado y **cuenta el inventario antes y después**.
 
 ### 1.3 Oro
 
-- El "Valor total" se te cobra **al empezar el intento**, no al acertar.
-- Si no tienes oro suficiente, debe cancelarse antes de tocar tus materiales.
-- **Fallar te cuesta el oro igual.** No se devuelve, y eso es lo previsto.
+- Fabricar **no cobra oro**, ni al acertar ni al fallar. Comprueba que tu oro no
+  cambia con ningún intento.
+- El menú de la receta ya no muestra «Valor total».
+- El valor de la receta solo se usa al reciclar: una pieza que no devuelve
+  ningún material devuelve ese oro.
 
 ### 1.4 Experiencia y nivel
 
@@ -197,7 +200,7 @@ Sólo en Herrería y Carpintería, y sólo en las categorías de armas.
 - Cambia de metal después de haber elegido un arma: la elección se suelta y
   vuelve a preguntarte.
 - Fabrica sin haber elegido arma, si el menú te deja llegar: tiene que
-  rechazarlo **sin cobrarte material ni oro**.
+  rechazarlo **sin gastarte material**.
 - Fabrica cuatro o cinco armas distintas del mismo metal y comprueba que todas
   salen con las mismas propiedades. Es lo esperado: las propiedades las da el
   material.
@@ -425,7 +428,7 @@ cualquiera puede subirla aunque ya tenga otros dos.
 Para que no gastes tiempo reportando cosas que ya sabemos:
 
 - **La "ayuda" de la tirada sale 0** con características normales.
-- **Fallar te cuesta el oro y los materiales.** Sólo se salva el molde o la
+- **Fallar te cuesta los materiales.** Sólo se salva el molde o la
   plantilla.
 - **Las pieles no se recolectan**: no hay nodo de peletería. Los minerales, la
   madera, las gemas y las plantas sí salen del mundo desde el 2026-08-18, y

@@ -1139,7 +1139,6 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
     NWNX_SQL_ReadNextRow();
     string sName = NWNX_SQL_ReadDataInActiveRow(0);
     string sDC   = NWNX_SQL_ReadDataInActiveRow(1);
-    string sGold = NWNX_SQL_ReadDataInActiveRow(2);
     string sQty  = NWNX_SQL_ReadDataInActiveRow(3);
     // extra_name is what the player reads; the resref is only the fallback for
     // a row that forgot one, and a tag is never shown here.
@@ -1165,7 +1164,6 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
 
     string sOut = sName + "\n\n"
                 + sV + "Dificultad (DC): " + sF + sDC + "\n"
-                + sV + "Valor total: "     + sF + sGold + " monedas de oro\n"
                 + sV + "Materiales necesarios:" + sF + "\n";
 
     if (!NWNX_SQL_PrepareQuery(
@@ -1484,9 +1482,8 @@ int CnrCraft_Attempt(object oPC, object oStation)
     string sExtraResRef = NWNX_SQL_ReadDataInActiveRow(9);
     int    nExtraQty    = StringToInt(NWNX_SQL_ReadDataInActiveRow(10));
     int    bMarks       = StringToInt(NWNX_SQL_ReadDataInActiveRow(11));
-    // What the attempt costs the crafter, win or lose: the menu shows it as
-    // "Valor total" before the recipe is chosen.
-    int    nGold        = StringToInt(NWNX_SQL_ReadDataInActiveRow(12));
+    // Column 12, gold_value, is no longer charged (2026-09-24): crafting costs
+    // materials only. The recycler still reads it as the gold it returns.
     int    nOficio      = StringToInt(NWNX_SQL_ReadDataInActiveRow(13));
     int    iTier        = StringToInt(NWNX_SQL_ReadDataInActiveRow(14));
 
@@ -1600,24 +1597,6 @@ int CnrCraft_Attempt(object oPC, object oStation)
     if (!CnrCraft_CheckStationTools(oPC, oStation, nRecipe))
     {
         return FALSE;
-    }
-
-    // The gold goes last among the checks and first among the costs: nothing
-    // is charged until tools, materials and profession limits have all passed,
-    // and once charged the attempt always happens - a failed roll costs the
-    // gold too, exactly as it costs the materials.
-    if (nGold > 0)
-    {
-        if (GetGold(oPC) < nGold)
-        {
-            SendMessageToPC(oPC, "Te faltan monedas: necesitas "
-                + IntToString(nGold) + " y llevas "
-                + IntToString(GetGold(oPC)) + ".");
-            return FALSE;
-        }
-
-        TakeGoldFromCreature(nGold, oPC, TRUE);
-        SendMessageToPC(oPC, "Pagas " + IntToString(nGold) + " monedas de oro.");
     }
 
     // Components are read before the roll: the result set cannot stay open

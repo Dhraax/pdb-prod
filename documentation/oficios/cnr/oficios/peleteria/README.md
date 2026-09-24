@@ -47,21 +47,21 @@ Las marcas de las tablas se explican en
 
 ### Tina de curtido - Pieles pequeñas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cuero curtido de roedor | 1× Saco de sal, 1× Tanino, 3× Piel de roedor | 1 | 10 | 6 | 120 |
 | Cuero curtido de herbívoro | 1× Saco de sal, 1× Tanino, 3× Piel de herbívoro | 3 | 13 | 8 | 156 |
 
 ### Tina de curtido - Pieles medianas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cuero curtido de bestia salvaje | 1× Saco de sal, 1× Tanino, 2× Piel de bestia | 5 | 16 | 10 | 192 |
 | Cuero curtido de bestia mítica | 1× Saco de sal, 1× Tanino, 2× Piel de bestia mítica | 9 | 21 | 14 | 252 |
 
 ### Tina de curtido - Pieles grandes
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cuero curtido de bestia salvaje grande | 1× Saco de sal, 1× Tanino, 1× Piel de bestia grande | 7 | 18 | 12 | 216 |
 | Cuero curtido de bestia mítica gruesa | 1× Saco de sal, 1× Tanino, 1× Piel de bestia mítica gruesa | 12 | 24 | 16 | 288 |
@@ -72,7 +72,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Armaduras ligeras
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura de cuero de roedor | 1× Correas para armadura, 1× Cuero de piel de roedor, 1× Plantilla para armadura * | 1 | 10 | 21 | 120 |
 | Armadura de cuero de herbívoro | 1× Correas para armadura, 1× Cuero de piel de herbívoro, 1× Plantilla para armadura * | 3 | 13 | 28 | 156 |
@@ -87,7 +87,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Armaduras de cuero tachonado
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura intermedia de cuero de roedor | 1× Tachones, 1× Cuero de piel de roedor, 1× Plantilla para armadura * | 1 | 10 | 21 | 120 |
 | Armadura intermedia de cuero de herbívoro | 1× Tachones, 1× Cuero de piel de herbívoro, 1× Plantilla para armadura * | 3 | 13 | 28 | 156 |
@@ -102,7 +102,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Armaduras de cuero reforzado
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura reforzada de cuero de roedor | 1× Tachones Reforzados, 1× Cuero de piel de roedor, 1× Plantilla para armadura * | 1 | 10 | 21 | 120 |
 | Armadura reforzada de cuero de herbívoro | 1× Tachones Reforzados, 1× Cuero de piel de herbívoro, 1× Plantilla para armadura * | 3 | 13 | 28 | 156 |
@@ -117,7 +117,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Guantes de cuero
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Guantes de cuero de roedor | 1× Cuero de piel de roedor, 1× Plantilla para guantes * | 1 | 10 | 21 | 120 |
 | Guantes de cuero de herbívoro | 1× Cuero de piel de herbívoro, 1× Plantilla para guantes * | 3 | 13 | 28 | 156 |
@@ -132,7 +132,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Botas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Botas de cuero de roedor | 1× Cuero de piel de roedor, 1× Plantilla para botas * | 1 | 10 | 21 | 120 |
 | Botas de cuero de herbívoro | 1× Cuero de piel de herbívoro, 1× Plantilla para botas * | 3 | 13 | 28 | 156 |
@@ -147,7 +147,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Cinturones
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Cinturón de cuero de roedor | 1× Cuero de piel de roedor, 1× Plantilla para cinto * | 1 | 10 | 21 | 120 |
 | Cinturón de cuero de herbívoro | 1× Cuero de piel de herbívoro, 1× Plantilla para cinto * | 3 | 13 | 28 | 156 |
@@ -162,7 +162,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de peletero - Armaduras acolchadas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Armadura acolchada de cuero de roedor | 1× Cuero de piel de roedor, 2× Seda Fina, 1× Plantilla para armadura * | 1 | 10 | 21 | 120 |
 | Armadura acolchada de cuero de herbívoro | 1× Cuero de piel de herbívoro, 2× Seda Fina, 1× Plantilla para armadura * | 3 | 13 | 28 | 156 |

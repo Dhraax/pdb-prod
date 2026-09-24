@@ -36,7 +36,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de sastrería - Ropas
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Ropa de cuero de roedor | 2× Seda Fina, 1× Cuero de piel de roedor, 1× Plantilla para armadura * | 1 | 10 | 21 | 120 |
 | Ropa de cuero de herbívoro | 2× Seda Fina, 1× Cuero de piel de herbívoro, 1× Plantilla para armadura * | 3 | 13 | 28 | 156 |
@@ -51,7 +51,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de sastrería - Brazales de cuero
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Brazales de cuero de roedor | 1× Cuero de piel de roedor, 1× Plantilla para brazales *, 1× Seda Fina | 1 | 10 | 21 | 120 |
 | Brazales de cuero de herbívoro | 1× Cuero de piel de herbívoro, 1× Plantilla para brazales *, 1× Seda Fina | 3 | 13 | 28 | 156 |
@@ -66,7 +66,7 @@ Las marcas de las tablas se explican en
 
 ### Mesa de sastrería - Capa
 
-| Receta | Materiales | Nivel | DC | XP | Oro |
+| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
 |---|---|---|---|---|---|
 | Capa de piel de roedor | 1× Cuero de piel de roedor, 1× Plantilla para capa *, 2× Seda Fina | 1 | 10 | 21 | 120 |
 | Capa de piel de herbívoro | 1× Cuero de piel de herbívoro, 1× Plantilla para capa *, 2× Seda Fina | 3 | 13 | 28 | 156 |
