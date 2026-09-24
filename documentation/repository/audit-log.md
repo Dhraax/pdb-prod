@@ -74,6 +74,27 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`3900cce0`, `63858ca3`, `d66fa726` - three audits in a row, 2026-09-24.**
+All with `gpt-6-sol` at high reasoning, all PASS, four advisories, closed.
+`3900cce0` (recycler 40% or recipe gold, extractor crystals, Murann doors)
+and `63858ca3` (rebuilds added from the panel, wand warning) replay the
+unpushed `5f5f4558` and `3df43083` with identical trees: both already had
+children, and a candidate must be the tip when reviewed so that its one
+remediation child can close it. The earlier history is kept on
+`backup/pre-audit-2026-09-24`.
+
+- **F-179 (`3900cce0`), fixed in `53ac8fb8`.** The recycler preview omitted
+  the at-least-one-from-two rule.
+- **F-120 (`63858ca3`), fixed in `0f07db17`.** The rebuild field promised a
+  total computed from the count at opening, which an in-game rebuild could
+  change before the save; it now states the increment.
+- **F-179 (`d66fa726`), fixed in `d84cd8ae`.** The reduced-experience line
+  named band 3's levels (12-16) to crafters of level 17-20 held in band 3 by
+  the exceptions; it now names the trade level.
+- **F-279 (`d66fa726`), deferred.** The two-trade limit reads the stored
+  `skill_level`, which the owner decided not to rewrite automatically after
+  the curve change; documented in `crafting-system.md` section 4c.
+
 **`b6ca0d9b` — trade progression, spellcaster Arcano, closed trades, boss
 loot, one bulk commit.** Reviewed 2026-09-23 with `gpt-6-sol` at high
 reasoning, verdict PASS, two advisories, both correct, both fixed in
@@ -98,7 +119,8 @@ trees differ only in that file.
 
 **Still owed.** `40566c9a`, `7da40fca`, `fef4881b` and `300d85d3`, committed on
 2026-09-22 while there was no reviewer quota, were never audited, and
-`78724379` is still open as recorded above.
+`78724379` is still open as recorded above. `5f5f4558` and `3df43083` were
+audited as `3900cce0` and `63858ca3` on 2026-09-24.
 
 **`5e66c4f3` — the panel's Arcano tab.** Reviewed 2026-09-20, verdict BLOCKED,
 two blockers and two advisories, all four correct, all four fixed in
