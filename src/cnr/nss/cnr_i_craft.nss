@@ -1518,8 +1518,9 @@ void CnrCraft_Finish(
     }
 
     // Taken off the bench, or changed, during the animation: nothing is set,
-    // no experience is paid, and the gem, already spent, is lost.
-    if (bSecondGem && !bJewelHere)
+    // no experience is paid, and the gem, already spent, is lost. A failed
+    // roll broke the jewel in CnrCraft_Attempt, so it is not asked about.
+    if (bSecondGem && bSuccess && !bJewelHere)
     {
         SendMessageToPC(oPC, "La joya ya no está en la mesa: el engarce se "
             + "pierde, y la gema con él.");
@@ -1551,10 +1552,9 @@ void CnrCraft_Finish(
             : (bXPStored
                 ? " Ganas " + IntToString(nGain) + " de experiencia."
                 : " No se pudo guardar la experiencia.");
-        // A failed second setting breaks the jewel as well as the gem.
+        // CnrCraft_Attempt already broke the jewel along with the gem.
         if (bSecondGem)
         {
-            DestroyObject(oSocketJewel);
             SendMessageToPC(oPC, "Has fallado: se rompen la gema y la joya."
                 + sFailureXP);
             return;
@@ -2029,6 +2029,14 @@ int CnrCraft_Attempt(object oPC, object oStation)
         {
             CnrCraft_ConsumeFromStation(oStation, sCTag, nGasta);
         }
+    }
+
+    // A failed second setting breaks the jewel now, with the gem, and not
+    // after the animation: the roll is already known, and neither logging out
+    // nor taking the jewel off the bench in the meantime may save it.
+    if (GetIsObjectValid(oSocketJewel) && !bOk)
+    {
+        DestroyObject(oSocketJewel);
     }
 
     // XP: full on success, a fraction on failure. Award and result creation

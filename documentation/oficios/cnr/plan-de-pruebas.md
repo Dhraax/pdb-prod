@@ -317,8 +317,10 @@ Mira con lupa estas cuatro cosas:
     rubí sobre otra inmunidad física, resistencia a conjuros o regeneración
     repetidas).
   - Dos gemas de espacios de conjuro sí se suman, incluso la misma dos veces.
-  - Saca la joya de la mesa durante la animación: no se engarza nada, no ganas
-    experiencia y la gema se pierde.
+  - Tras acertar, saca la joya de la mesa durante la animación: no se engarza
+    nada, no ganas experiencia y la gema se pierde.
+  - Falla y desconéctate enseguida, o saca la joya de la mesa durante la
+    animación: la joya se rompe igualmente.
   - Una joya de dos gemas se puede encantar en Arcano; al reciclarla devuelve
     solo lo de su primera gema.
 

@@ -197,35 +197,36 @@ Qué gemas se pueden juntar en una misma joya:
 | Espacios de conjuro | Siempre, incluso la misma gema dos veces |
 
 Una joya con dos gemas no admite una tercera. Sí se puede encantar después en
-Arcano. Al reciclarla, devuelve solo los materiales de su primera gema.
+Arcano. Al reciclarla cuenta como la joya de su primera gema: devuelve solo
+esos materiales, o el valor de esa receta, nunca el de la segunda.
 
-| Receta | Materiales | Nivel | DC | XP | Valor al reciclar |
-|---|---|---|---|---|---|
-| Segunda gema: Corvidar | 1× <c|||>Corvidar tallado</c> | 17 | 26 | 67 | 348 |
-| Segunda gema: Cuarzo hialino | 1× <cËÝØ>Cuarzo hialino tallado</c> | 17 | 26 | 68 | 348 |
-| Segunda gema: Jade de tumba | 1× <cµ}H>Jade de tumba tallado</c> | 17 | 27 | 68 | 360 |
-| Segunda gema: Lágrima roja | 1× <c´$$>Lágrima roja tallada</c> | 17 | 27 | 69 | 360 |
-| Segunda gema: Obsidiana | 1× <c|||>Obsidiana tallada</c> | 17 | 27 | 69 | 360 |
-| Segunda gema: Piedra pícara | 1× <cËÝØ>Piedra pícara tallada</c> | 17 | 27 | 70 | 360 |
-| Segunda gema: Topacio | 1× <cõõ >Topacio tallado</c> | 17 | 28 | 70 | 372 |
-| Segunda gema: Ópalo | 1× <cPPÿ>Ópalo común tallado</c> | 18 | 28 | 71 | 372 |
-| Segunda gema: Ópalo de agua | 1× <cËÝØ>Ópalo de agua tallado</c> | 18 | 28 | 71 | 372 |
-| Segunda gema: Ópalo de fuego | 1× <cÿ¥ >Ópalo de fuego tallado</c> | 18 | 28 | 72 | 372 |
-| Segunda gema: Amatista | 1× <cÈ È>Amatista tallada</c> | 18 | 28 | 72 | 372 |
-| Segunda gema: Azabache | 1× <c|||>Azabache tallado</c> | 18 | 29 | 73 | 384 |
-| Segunda gema: Beljuril | 1× <c È >Beljuril tallado</c> | 18 | 29 | 73 | 384 |
-| Segunda gema: Diamante | 1× <cËÝØ>Diamante tallado</c> | 18 | 29 | 74 | 384 |
-| Segunda gema: Ópalo negro | 1× <c|||>Ópalo negro tallado</c> | 19 | 29 | 74 | 384 |
-| Segunda gema: Orblen | 1× <cõõ >Orblen tallado</c> | 19 | 29 | 75 | 384 |
-| Segunda gema: Orlo | 1× <cÿ¥ >Orlo tallado</c> | 19 | 30 | 75 | 396 |
-| Segunda gema: Zafiro | 1× <cPPÿ>Zafiro tallado</c> | 19 | 30 | 76 | 396 |
-| Segunda gema: Zendalur | 1× <cËÝØ>Zendalur tallado</c> | 19 | 30 | 76 | 396 |
-| Segunda gema: Amarazha | 1× <c¦ÿ©>Amarazha tallado</c> | 19 | 30 | 77 | 396 |
-| Segunda gema: Barra lunar | 1× <cuÆó>Barra lunar tallada</c> | 19 | 31 | 77 | 408 |
-| Segunda gema: Esmeralda | 1× <c È >Esmeralda tallada</c> | 20 | 31 | 78 | 408 |
-| Segunda gema: Jacinto | 1× <cÿ¥ >Jacinto tallado</c> | 20 | 31 | 78 | 408 |
-| Segunda gema: Lágrima del rey | 1× <cËÝØ>Lágrima del rey tallada</c> | 20 | 31 | 79 | 408 |
-| Segunda gema: Rubí | 1× <c´$$>Rubí tallado</c> | 20 | 31 | 79 | 408 |
-| Segunda gema: Rubí estrella | 1× <c´$$>Rubí estrella tallado</c> | 20 | 32 | 80 | 420 |
-| Segunda gema: Zafiro estrella | 1× <cPPÿ>Zafiro estrella tallado</c> | 20 | 32 | 80 | 420 |
-| Segunda gema: Zafiro negro | 1× <c|||>Zafiro negro tallado</c> | 20 | 32 | 81 | 420 |
+| Receta | Materiales | Nivel | DC | XP |
+|---|---|---|---|---|
+| Segunda gema: Corvidar | 1× <c|||>Corvidar tallado</c> | 17 | 26 | 67 |
+| Segunda gema: Cuarzo hialino | 1× <cËÝØ>Cuarzo hialino tallado</c> | 17 | 26 | 68 |
+| Segunda gema: Jade de tumba | 1× <cµ}H>Jade de tumba tallado</c> | 17 | 27 | 68 |
+| Segunda gema: Lágrima roja | 1× <c´$$>Lágrima roja tallada</c> | 17 | 27 | 69 |
+| Segunda gema: Obsidiana | 1× <c|||>Obsidiana tallada</c> | 17 | 27 | 69 |
+| Segunda gema: Piedra pícara | 1× <cËÝØ>Piedra pícara tallada</c> | 17 | 27 | 70 |
+| Segunda gema: Topacio | 1× <cõõ >Topacio tallado</c> | 17 | 28 | 70 |
+| Segunda gema: Ópalo | 1× <cPPÿ>Ópalo común tallado</c> | 18 | 28 | 71 |
+| Segunda gema: Ópalo de agua | 1× <cËÝØ>Ópalo de agua tallado</c> | 18 | 28 | 71 |
+| Segunda gema: Ópalo de fuego | 1× <cÿ¥ >Ópalo de fuego tallado</c> | 18 | 28 | 72 |
+| Segunda gema: Amatista | 1× <cÈ È>Amatista tallada</c> | 18 | 28 | 72 |
+| Segunda gema: Azabache | 1× <c|||>Azabache tallado</c> | 18 | 29 | 73 |
+| Segunda gema: Beljuril | 1× <c È >Beljuril tallado</c> | 18 | 29 | 73 |
+| Segunda gema: Diamante | 1× <cËÝØ>Diamante tallado</c> | 18 | 29 | 74 |
+| Segunda gema: Ópalo negro | 1× <c|||>Ópalo negro tallado</c> | 19 | 29 | 74 |
+| Segunda gema: Orblen | 1× <cõõ >Orblen tallado</c> | 19 | 29 | 75 |
+| Segunda gema: Orlo | 1× <cÿ¥ >Orlo tallado</c> | 19 | 30 | 75 |
+| Segunda gema: Zafiro | 1× <cPPÿ>Zafiro tallado</c> | 19 | 30 | 76 |
+| Segunda gema: Zendalur | 1× <cËÝØ>Zendalur tallado</c> | 19 | 30 | 76 |
+| Segunda gema: Amarazha | 1× <c¦ÿ©>Amarazha tallado</c> | 19 | 30 | 77 |
+| Segunda gema: Barra lunar | 1× <cuÆó>Barra lunar tallada</c> | 19 | 31 | 77 |
+| Segunda gema: Esmeralda | 1× <c È >Esmeralda tallada</c> | 20 | 31 | 78 |
+| Segunda gema: Jacinto | 1× <cÿ¥ >Jacinto tallado</c> | 20 | 31 | 78 |
+| Segunda gema: Lágrima del rey | 1× <cËÝØ>Lágrima del rey tallada</c> | 20 | 31 | 79 |
+| Segunda gema: Rubí | 1× <c´$$>Rubí tallado</c> | 20 | 31 | 79 |
+| Segunda gema: Rubí estrella | 1× <c´$$>Rubí estrella tallado</c> | 20 | 32 | 80 |
+| Segunda gema: Zafiro estrella | 1× <cPPÿ>Zafiro estrella tallado</c> | 20 | 32 | 80 |
+| Segunda gema: Zafiro negro | 1× <c|||>Zafiro negro tallado</c> | 20 | 32 | 81 |

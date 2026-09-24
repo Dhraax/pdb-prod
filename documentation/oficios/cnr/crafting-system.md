@@ -801,7 +801,10 @@ spread over its band, and DC, gold and XP follow the position through
 4. `CnrCraft_Finish` releases the jewel first, even if the crafter logged out,
    and checks it is still on the bench with one gem. If it is not, nothing is
    set, no experience is paid and the gem is lost. On failure the jewel is
-   destroyed with the gem. On success the gem's properties are applied, the
+   destroyed by `CnrCraft_Attempt` together with the components, at roll time,
+   not after the animation: the player has already seen the roll, and
+   neither logging out nor taking the jewel off the bench may save it. On
+   success the gem's properties are applied, the
    count becomes 2, the name gains " y <gema>" inside its colour, and the jewel
    is copied to the crafter and the bench copy destroyed.
 

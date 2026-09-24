@@ -164,6 +164,23 @@ itself prove link propagation, save-game persistence beyond the native comment,
 or how a non-creature creator interacts with faction and dispelling. Record
 those only after a focused probe or a pinned implementation-source reading.
 
+## Which saving-throw item property a constructor creates
+
+`ItemPropertyBonusSavingThrowVsX` (save against an element or effect,
+`IP_CONST_SAVEVS_*`) creates `ITEM_PROPERTY_SAVING_THROW_BONUS` (40), and
+`ItemPropertyBonusSavingThrow` (Fortitude, Reflex, Will,
+`IP_CONST_SAVEBASETYPE_*`) creates `ITEM_PROPERTY_SAVING_THROW_BONUS_SPECIFIC`
+(41). The names suggest the opposite. `nwscript.nss` does not state the
+mapping; `itempropdef.2da` does: row 40 `ImprovedSavingThrows` takes its
+subtypes from `IPRP_SAVEELEMENT`, the table `IP_CONST_SAVEVS_*` indexes, and
+row 41 `ImprovedSavingThrowsSpecific` from `IPRP_SAVINGTHROW`.
+
+Evidence: the tracked `haks-2da/itempropdef.2da`, rows 40-41, and the
+constructor comments in `documentation/nwscript/reference/nwscript.nss`
+(lines 10507-10517), read on 2026-09-24. A check that walks item properties
+for "the same save" must compare against 40 for a `VsX` bonus, as
+`CnrCraft_SocketConflict` does.
+
 ## Caster-level ownership in PDB
 
 PDB currently has both an engine-facing and a module-facing path. The current
