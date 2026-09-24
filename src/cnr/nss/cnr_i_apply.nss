@@ -449,8 +449,7 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     if (iXPPercent < 100)
     {
         SendMessageToPC(oPC, "Esta propiedad es de tier " + IntToString(iTier)
-            + " y estás en el tramo " + IntToString(iXPBand) + " (niveles "
-            + CnrCraft_GetBandLevels(iXPBand) + "): da el "
+            + " y a tu nivel de arcano (" + IntToString(iLevel) + ") da el "
             + IntToString(iXPPercent) + "% de su experiencia.");
     }
 

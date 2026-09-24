@@ -246,11 +246,6 @@ int CnrCraft_GetXPBand(int nLevel, int nProfessionId);
 ///     25 in band 3, and in band 4 25 for tier 3 and 0 for tiers 1 and 2.
 int CnrCraft_GetXPPercent(int nBand, int nTier);
 
-/// @brief Levels covered by a band, for player messages.
-/// @param nBand 1 to 4.
-/// @returns "1-6", "7-11", "12-16" or "17-20".
-string CnrCraft_GetBandLevels(int nBand);
-
 /// @brief Complete a previously animated crafting attempt.
 /// @param oPC Player crafting.
 /// @param oStation Station whose animation script ran.
@@ -1115,17 +1110,6 @@ int CnrCraft_GetXPPercent(int nBand, int nTier)
     return (nTier == 3) ? 25 : 0;
 }
 
-string CnrCraft_GetBandLevels(int nBand)
-{
-    switch (nBand)
-    {
-        case 1: return "1-6";
-        case 2: return "7-11";
-        case 3: return "12-16";
-    }
-    return "17-20";
-}
-
 string CnrCraft_DescribeSelection(object oPC, object oStation)
 {
     int nRecipe = GetLocalInt(oPC, CNR_VAR_RECIPE);
@@ -1694,11 +1678,14 @@ int CnrCraft_Attempt(object oPC, object oStation)
     DeleteLocalInt(oPC, CNR_VAR_ROLL_LEVEL);
     DeleteLocalInt(oPC, CNR_VAR_ROLL_HELP);
 
+    // The crafter's level, not the band's range: the exceptions and the
+    // pending top-tier rule hold some professions at a lower band than their
+    // level, and naming that band's levels would contradict the player's own.
     if (nXPPercent < 100)
     {
         SendMessageToPC(oPC, "Esta receta es de tier " + IntToString(iTier)
-            + " y estás en el tramo " + IntToString(nXPBand) + " (niveles "
-            + CnrCraft_GetBandLevels(nXPBand) + "): da el "
+            + " y a tu nivel de oficio ("
+            + IntToString(CnrSkill_GetLevel(oPC, nSkillIx + 1)) + ") da el "
             + IntToString(nXPPercent) + "% de su experiencia.");
     }
 

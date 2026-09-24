@@ -379,7 +379,16 @@ in both catalogue generators. The percentage applies to `xp_award` (or the
 arcane step's XP), truncated, before the failure share, so a failure pays 12%
 of the reduced figure; the profession-limit check reads the reduced XP; the
 arcane window shows the reduced figure. When a reduction applies, the line
-after the roll names the recipe's tier, the band and its levels.
+after the roll names the recipe's tier, the crafter's level and the
+percentage; it does not name the band, because the exceptions below hold some
+professions in a band below their level.
+
+**The two-trade limit reads the stored level.** `CnrSkill_CanSetXP` counts
+trained professions from `cnr_tradeskill.skill_level`, which is not rewritten
+when the curve changes. A row stored at level 2 with 25-32 XP, level 1 on the
+current curve, still occupies a slot until its next experience gain or a manual
+correction. Rows out of step with the curve can be listed read-only by
+comparing `skill_xp` against the thresholds in the table above.
 
 This replaced, on 2026-09-24, the level-distance fall-off (100/50/25/12% by
 five-level gaps) and the level-17 top-tier rule of 2026-09-23, after players
