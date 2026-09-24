@@ -75,9 +75,17 @@ const string CNR_VAR_TYPED_ID  = "CNR_TYPED_ID";
 const string CNR_VAR_HAYMAS    = "CNR_HAY_MAS";   // la pagina actual no es la ultima
 const string CNR_VAR_ACTIVE    = "CNR_CRAFT_ACTIVE";
 
-// Set on an item that already holds a gem. A marked item is invisible to every
-// recipe: a stone is set once, and a set piece is never raw material again.
+// How many gems an item holds: 1 once set, 2 after a second-gem recipe. A
+// marked item is invisible to every recipe as a component: a set piece is never
+// raw material again. marks_socketed on the recipe is the same count.
 const string CNR_VAR_ENGARZADO = "CNR_ENGARZADO";
+// marks_socketed of a second-gem recipe, and the most gems a jewel can hold.
+const int CNR_SOCKET_SECOND = 2;
+// Only jewellery's own rings and necklaces take a second gem.
+const int CNR_JEWELLERY_PROFESSION = 5;
+// Set on a jewel while a second-gem attempt that targets it is animating, so a
+// second attempt, by anyone at the shared bench, cannot target it too.
+const string CNR_VAR_SOCKET_PENDING = "CNR_SOCKET_PENDING";
 
 // Stamped on a crafted piece with the profession that made it, so a later
 // enchanting table can tell one from anything else. Potions and materials do
@@ -279,8 +287,31 @@ void CnrCraft_Finish(
     int bMarksSocketed,
     int nOficio,
     int iRecipe,
-    int iTier
+    int iTier,
+    object oSocketJewel = OBJECT_INVALID,
+    string sSocketGem = ""
 );
+
+/// @brief Apply "type|subtype|value1|value2;" rows to an item.
+/// @param oItem Item receiving the properties.
+/// @param sPropertyRows Rows captured from cnr_recipe_property.
+void CnrCraft_ApplyPropertyRows(object oItem, string sPropertyRows);
+
+/// @brief The one jewel on a bench that can take a second gem.
+/// @param oPC Player told why, when there is none.
+/// @param oStation Jeweller's bench.
+/// @returns A jewellery ring or necklace holding one gem, identified, not
+///     enchanted and not already targeted; OBJECT_INVALID unless exactly one.
+object CnrCraft_FindSocketJewel(object oPC, object oStation);
+
+/// @brief Why a second-gem recipe cannot go into a jewel.
+/// @param oJewel Jewel from CnrCraft_FindSocketJewel.
+/// @param nRecipe Second-gem recipe.
+/// @returns "" when it can; otherwise the reason, for the player. The jewel's
+///     own properties are compared, not a list: armour class, spell resistance
+///     and regeneration go in once; a saving throw or an elemental immunity
+///     once per type; physical immunities once in all; spell slots always.
+string CnrCraft_SocketConflict(object oJewel, int nRecipe);
 
 /// @brief Resolve a craft attempt: roll, consume, award XP.
 /// @param oPC Player crafting.
@@ -1072,12 +1103,11 @@ int CnrCraft_GetXPBand(int nLevel, int nProfessionId)
         nBand = 3;
     }
 
-    // PENDING: a profession whose catalogue stops below the band - jewellery
-    // today, with no tier 4 - counts its own top tier as the current one, so
-    // its last levels are carried by what it has instead of paying nothing.
-    // When such a profession gains the missing tier, this stops applying on
-    // its own; see "Professions without a tier 4" in
-    // documentation/oficios/cnr/open-issues.md. Arcano has no cnr_recipe rows,
+    // A profession whose catalogue stops below the band counts its own top
+    // tier as the current one, so its last levels are carried by what it has
+    // instead of paying nothing. Since jewellery gained its second-gem tier 4
+    // (2026-09-24) no profession is in that case; the rule stays so that one
+    // added without a tier 4 is not stranded. Arcano has no cnr_recipe rows,
     // gets 0 here and is not clamped: its properties reach tier 4.
     if (nBand > 1)
     {
@@ -1120,7 +1150,7 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
 
     if (!NWNX_SQL_PrepareQuery(
         "SELECT r.display_name, r.dc, r.gold_value, r.output_qty,"
-        + "       IFNULL(r.extra_name, r.extra_resref), r.extra_qty"
+        + "       IFNULL(r.extra_name, r.extra_resref), r.extra_qty, r.marks_socketed"
         + " FROM cnr_recipe r"
         + " JOIN cnr_category c ON c.category_id = r.category_id"
         + " WHERE r.recipe_id = ? AND r.enabled = 1 AND c.station_id = ? LIMIT 1"))
@@ -1144,6 +1174,7 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
     // a row that forgot one, and a tag is never shown here.
     string sExtraNom = NWNX_SQL_ReadDataInActiveRow(4);
     int    nExtraQty = StringToInt(NWNX_SQL_ReadDataInActiveRow(5));
+    int    bSecondGem = StringToInt(NWNX_SQL_ReadDataInActiveRow(6)) == CNR_SOCKET_SECOND;
 
     string sV = CnrCraft_Verde();
     string sF = ColorTokenEnd();
@@ -1165,6 +1196,15 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
     string sOut = sName + "\n\n"
                 + sV + "Dificultad (DC): " + sF + sDC + "\n"
                 + sV + "Materiales necesarios:" + sF + "\n";
+    if (bSecondGem)
+    {
+        sOut = sName + "\n\n"
+             + sV + "Dificultad (DC): " + sF + sDC + "\n"
+             + "Deja en la mesa el anillo o amuleto con una gema, identificado y "
+             + "sin encantar, junto a la gema tallada. Si fallas, se rompen la "
+             + "gema y la joya.\n"
+             + sV + "Materiales necesarios:" + sF + "\n";
+    }
 
     if (!NWNX_SQL_PrepareQuery(
         "SELECT component_tag, qty, IFNULL(display_name, component_tag)"
@@ -1219,6 +1259,221 @@ string CnrCraft_DescribeSelection(object oPC, object oStation)
     return sOut;
 }
 
+/// @brief Apply "type|subtype|value1|value2;" rows to an item.
+void CnrCraft_ApplyPropertyRows(object oItem, string sPropertyRows)
+{
+    while (sPropertyRows != "")
+    {
+        int nEnd = FindSubString(sPropertyRows, ";");
+        if (nEnd < 0)
+        {
+            break;
+        }
+
+        string sRow = GetStringLeft(sPropertyRows, nEnd);
+        sPropertyRows = GetStringRight(
+            sPropertyRows,
+            GetStringLength(sPropertyRows) - nEnd - 1
+        );
+
+        int n1 = FindSubString(sRow, "|");
+        string sType = GetStringLeft(sRow, n1);
+        sRow = GetStringRight(sRow, GetStringLength(sRow) - n1 - 1);
+
+        int n2 = FindSubString(sRow, "|");
+        int nSubtype = StringToInt(GetStringLeft(sRow, n2));
+        sRow = GetStringRight(sRow, GetStringLength(sRow) - n2 - 1);
+
+        int n3 = FindSubString(sRow, "|");
+        int nValue1 = StringToInt(GetStringLeft(sRow, n3));
+        int nValue2 = StringToInt(
+            GetStringRight(sRow, GetStringLength(sRow) - n3 - 1)
+        );
+
+        CnrProp_Apply(oItem, sType, nSubtype, nValue1, nValue2);
+    }
+}
+
+object CnrCraft_FindSocketJewel(object oPC, object oStation)
+{
+    object oFound = OBJECT_INVALID;
+    int nFound = 0;
+    int nFull = 0;
+    int nEnchanted = 0;
+    int nUnknown = 0;
+
+    object oItem = GetFirstItemInInventory(oStation);
+    while (GetIsObjectValid(oItem))
+    {
+        int nGems = GetLocalInt(oItem, CNR_VAR_ENGARZADO);
+        int nBase = GetBaseItemType(oItem);
+        if (nGems > 0
+            && GetLocalInt(oItem, CNR_VAR_OFICIO) == CNR_JEWELLERY_PROFESSION
+            && (nBase == BASE_ITEM_RING || nBase == BASE_ITEM_AMULET))
+        {
+            if (nGems >= CNR_SOCKET_SECOND)
+            {
+                nFull++;
+            }
+            // Arcano is applied last. Its variable is CNR_ENCANTADO, owned by
+            // cnr_i_arcane, which this include does not pull in.
+            else if (GetLocalInt(oItem, "CNR_ENCANTADO"))
+            {
+                nEnchanted++;
+            }
+            else if (!GetIdentified(oItem))
+            {
+                nUnknown++;
+            }
+            else if (!GetLocalInt(oItem, CNR_VAR_SOCKET_PENDING))
+            {
+                nFound++;
+                oFound = oItem;
+            }
+        }
+        oItem = GetNextItemInInventory(oStation);
+    }
+
+    if (nFound == 1)
+    {
+        return oFound;
+    }
+    if (nFound > 1)
+    {
+        SendMessageToPC(oPC, "Deja en la mesa una sola joya con una gema: "
+            + "hay varias y no sé a cuál añadir la segunda.");
+    }
+    else if (nFull > 0)
+    {
+        SendMessageToPC(oPC, "Esa joya ya tiene dos gemas: no admite más.");
+    }
+    else if (nEnchanted > 0)
+    {
+        SendMessageToPC(oPC, "Una joya encantada ya no admite otra gema.");
+    }
+    else if (nUnknown > 0)
+    {
+        SendMessageToPC(oPC, "Identifica antes la joya.");
+    }
+    else
+    {
+        SendMessageToPC(oPC, "Pon en la mesa el anillo o amuleto con una gema "
+            + "al que quieres añadir la segunda.");
+    }
+    return OBJECT_INVALID;
+}
+
+string CnrCraft_SocketConflict(object oJewel, int nRecipe)
+{
+    if (!NWNX_SQL_PrepareQuery(
+        "SELECT property_type, subtype FROM cnr_recipe_property"
+        + " WHERE recipe_id = ? ORDER BY sort_order"))
+    {
+        return "No se pudo comprobar la gema. Avisa a un DM.";
+    }
+    NWNX_SQL_PreparedInt(0, nRecipe);
+    if (!NWNX_SQL_ExecutePreparedQuery())
+    {
+        return "No se pudo comprobar la gema. Avisa a un DM.";
+    }
+
+    // Read out first: the result set cannot stay open across the item walk.
+    string sRows = "";
+    while (NWNX_SQL_ReadyToReadNextRow())
+    {
+        NWNX_SQL_ReadNextRow();
+        sRows += NWNX_SQL_ReadDataInActiveRow(0) + "|"
+               + NWNX_SQL_ReadDataInActiveRow(1) + ";";
+    }
+    if (sRows == "")
+    {
+        return "Esa gema no tiene propiedades que engarzar. Avisa a un DM.";
+    }
+
+    while (sRows != "")
+    {
+        int nEnd = FindSubString(sRows, ";");
+        string sRow = GetStringLeft(sRows, nEnd);
+        sRows = GetStringRight(sRows, GetStringLength(sRows) - nEnd - 1);
+        int nBar = FindSubString(sRow, "|");
+        string sType = GetStringLeft(sRow, nBar);
+        int nSub = StringToInt(GetStringRight(sRow, GetStringLength(sRow) - nBar - 1));
+
+        // Spell slots add up with anything, the same gem included.
+        if (sType == "BonusLevelSpell")
+        {
+            continue;
+        }
+
+        int nIpType = -1;
+        int bAnySubtype = FALSE;
+        int bPhysical = FALSE;
+        string sReason = "";
+        if (sType == "ACBonus")
+        {
+            nIpType = ITEM_PROPERTY_AC_BONUS;
+            bAnySubtype = TRUE;
+            sReason = "La joya ya da armadura: dos gemas de CA no se suman.";
+        }
+        else if (sType == "SpellResistance")
+        {
+            nIpType = ITEM_PROPERTY_SPELL_RESISTANCE;
+            bAnySubtype = TRUE;
+            sReason = "La joya ya da resistencia a conjuros.";
+        }
+        else if (sType == "Regeneration")
+        {
+            nIpType = ITEM_PROPERTY_REGENERATION;
+            bAnySubtype = TRUE;
+            sReason = "La joya ya da regeneración.";
+        }
+        else if (sType == "SavingThrowBonusVs")
+        {
+            nIpType = ITEM_PROPERTY_SAVING_THROW_BONUS;
+            sReason = "La joya ya da esa misma salvación.";
+        }
+        else if (sType == "DamageImmunity")
+        {
+            nIpType = ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE;
+            // Physical immunities are capped far below the elemental ones:
+            // two in one jewel would break the cap, so one physical in all.
+            bPhysical = (nSub == IP_CONST_DAMAGETYPE_BLUDGEONING
+                || nSub == IP_CONST_DAMAGETYPE_PIERCING
+                || nSub == IP_CONST_DAMAGETYPE_SLASHING);
+            sReason = bPhysical
+                ? "La joya ya da una inmunidad física: no admite otra."
+                : "La joya ya da esa misma inmunidad.";
+        }
+        else
+        {
+            // A property this check does not know is refused rather than let
+            // through: a catalogue edit must not open a stacking hole.
+            PrintString("[CNR] Second gem property not covered: " + sType);
+            return "Esa gema no se puede engarzar como segunda. Avisa a un DM.";
+        }
+
+        itemproperty ip = GetFirstItemProperty(oJewel);
+        while (GetIsItemPropertyValid(ip))
+        {
+            if (GetItemPropertyType(ip) == nIpType)
+            {
+                int nIpSub = GetItemPropertySubType(ip);
+                int bPhysicalIp = (nIpSub == IP_CONST_DAMAGETYPE_BLUDGEONING
+                    || nIpSub == IP_CONST_DAMAGETYPE_PIERCING
+                    || nIpSub == IP_CONST_DAMAGETYPE_SLASHING);
+                if (bAnySubtype
+                    || (bPhysical && bPhysicalIp)
+                    || (!bPhysical && nIpSub == nSub))
+                {
+                    return sReason;
+                }
+            }
+            ip = GetNextItemProperty(oJewel);
+        }
+    }
+    return "";
+}
+
 void CnrCraft_Finish(
     object oPC,
     object oStation,
@@ -1235,7 +1490,9 @@ void CnrCraft_Finish(
     int bMarksSocketed,
     int nOficio,
     int iRecipe,
-    int iTier
+    int iTier,
+    object oSocketJewel,
+    string sSocketGem
 )
 {
     DeleteLocalInt(oPC, CNR_VAR_ACTIVE);
@@ -1243,8 +1500,29 @@ void CnrCraft_Finish(
     DeleteLocalFloat(oPC, "fCnrAnimationDelay");
     DeleteLocalObject(oStation, "oCnrCraftingPC");
 
+    // A second gem is set into the jewel that was on the bench when the attempt
+    // began. It is released first, whatever happens next, so a crafter who
+    // logged out mid-animation does not leave it untargetable for good.
+    int bSecondGem = (bMarksSocketed == CNR_SOCKET_SECOND);
+    int bJewelHere = FALSE;
+    if (bSecondGem && GetIsObjectValid(oSocketJewel))
+    {
+        DeleteLocalInt(oSocketJewel, CNR_VAR_SOCKET_PENDING);
+        bJewelHere = GetItemPossessor(oSocketJewel) == oStation
+            && GetLocalInt(oSocketJewel, CNR_VAR_ENGARZADO) == 1;
+    }
+
     if (!GetIsObjectValid(oPC))
     {
+        return;
+    }
+
+    // Taken off the bench, or changed, during the animation: nothing is set,
+    // no experience is paid, and the gem, already spent, is lost.
+    if (bSecondGem && !bJewelHere)
+    {
+        SendMessageToPC(oPC, "La joya ya no está en la mesa: el engarce se "
+            + "pierde, y la gema con él.");
         return;
     }
 
@@ -1273,7 +1551,53 @@ void CnrCraft_Finish(
             : (bXPStored
                 ? " Ganas " + IntToString(nGain) + " de experiencia."
                 : " No se pudo guardar la experiencia.");
+        // A failed second setting breaks the jewel as well as the gem.
+        if (bSecondGem)
+        {
+            DestroyObject(oSocketJewel);
+            SendMessageToPC(oPC, "Has fallado: se rompen la gema y la joya."
+                + sFailureXP);
+            return;
+        }
         SendMessageToPC(oPC, "Has fallado." + sFailureXP);
+        return;
+    }
+
+    // A second gem modifies the jewel instead of creating a piece. Its recipe
+    // stamp stays that of its first setting, so the recycler returns the first
+    // gem's materials only, as decided.
+    if (bSecondGem)
+    {
+        CnrCraft_ApplyPropertyRows(oSocketJewel, sPropertyRows);
+        SetLocalInt(oSocketJewel, CNR_VAR_ENGARZADO, CNR_SOCKET_SECOND);
+
+        // "... de amatista" becomes "... de amatista y topacio", inside the
+        // colour the first setting gave it.
+        string sOld = GetName(oSocketJewel);
+        string sAdd = " y " + sSocketGem;
+        string sNew = (GetStringRight(sOld, 4) == "</c>")
+            ? GetStringLeft(sOld, GetStringLength(sOld) - 4) + sAdd + "</c>"
+            : sOld + sAdd;
+        SetName(oSocketJewel, sNew);
+
+        object oSet = CopyItem(oSocketJewel, oPC, TRUE);
+        if (!GetIsObjectValid(oSet))
+        {
+            // Nothing is destroyed: the modified jewel stays on the bench.
+            PrintString("[CNR] Second gem set but the jewel could not be handed over");
+            SendMessageToPC(oPC, "La joya está engarzada pero no se pudo "
+                + "entregar: sigue en la mesa.");
+            return;
+        }
+        DestroyObject(oSocketJewel);
+
+        string sSocketXP = bMaxLevel
+            ? ". Ya dominas este oficio: no ganas mas experiencia."
+            : (bXPStored
+                ? ". Ganas " + IntToString(nGain) + " de experiencia."
+                : ". No se pudo guardar la experiencia.");
+        SendMessageToPC(oPC, "Has engarzado la segunda gema: " + GetName(oSet)
+            + sSocketXP);
         return;
     }
 
@@ -1328,36 +1652,7 @@ void CnrCraft_Finish(
         SetLocalInt(oItem, CNR_VAR_ENGARZADO, TRUE);
     }
 
-    while (sPropertyRows != "")
-    {
-        int nEnd = FindSubString(sPropertyRows, ";");
-        if (nEnd < 0)
-        {
-            break;
-        }
-
-        string sRow = GetStringLeft(sPropertyRows, nEnd);
-        sPropertyRows = GetStringRight(
-            sPropertyRows,
-            GetStringLength(sPropertyRows) - nEnd - 1
-        );
-
-        int n1 = FindSubString(sRow, "|");
-        string sType = GetStringLeft(sRow, n1);
-        sRow = GetStringRight(sRow, GetStringLength(sRow) - n1 - 1);
-
-        int n2 = FindSubString(sRow, "|");
-        int nSubtype = StringToInt(GetStringLeft(sRow, n2));
-        sRow = GetStringRight(sRow, GetStringLength(sRow) - n2 - 1);
-
-        int n3 = FindSubString(sRow, "|");
-        int nValue1 = StringToInt(GetStringLeft(sRow, n3));
-        int nValue2 = StringToInt(
-            GetStringRight(sRow, GetStringLength(sRow) - n3 - 1)
-        );
-
-        CnrProp_Apply(oItem, sType, nSubtype, nValue1, nValue2);
-    }
+    CnrCraft_ApplyPropertyRows(oItem, sPropertyRows);
 
     // Finished: hand it over. The copy carries the name, the tag, the flags,
     // the properties and the local variables, so what the crafter is told they
@@ -1427,7 +1722,8 @@ int CnrCraft_Attempt(object oPC, object oStation)
         "SELECT r.dc, r.xp_award, r.base_resref, r.output_tag,"
         + "       r.output_qty, r.display_name, s.profession_id, p.skill_index,"
         + "       s.anim_script, IFNULL(r.extra_resref, ''), r.extra_qty,"
-        + "       r.marks_socketed, r.gold_value, r.crafted_by, r.tier, r.min_level"
+        + "       r.marks_socketed, r.gold_value, r.crafted_by, r.tier, r.min_level,"
+        + "       IFNULL(r.extra_name, '')"
         + " FROM cnr_recipe r"
         + " JOIN cnr_category c ON c.category_id = r.category_id"
         + " JOIN cnr_station  s ON s.station_id  = c.station_id"
@@ -1488,6 +1784,8 @@ int CnrCraft_Attempt(object oPC, object oStation)
     int    iTier        = StringToInt(NWNX_SQL_ReadDataInActiveRow(14));
 
     int    iMinLevel    = StringToInt(NWNX_SQL_ReadDataInActiveRow(15));
+    // For a second-gem recipe, the gem as it reads inside a jewel's name.
+    string sSocketGem   = NWNX_SQL_ReadDataInActiveRow(16);
 
     // Recheck the current catalogue requirement before any roll or cost.
     if (CnrSkill_GetLevel(oPC, nSkillIx + 1) < iMinLevel)
@@ -1512,6 +1810,24 @@ int CnrCraft_Attempt(object oPC, object oStation)
     int nXPBand = CnrCraft_GetXPBand(CnrSkill_GetLevel(oPC, nSkillIx + 1), nProf);
     int nXPPercent = CnrCraft_GetXPPercent(nXPBand, iTier);
     nXP = (nXP * nXPPercent) / 100;
+
+    // A second gem needs its jewel on the bench, and a gem the jewel can take.
+    // Both are settled here, before any material, tool or roll.
+    object oSocketJewel = OBJECT_INVALID;
+    if (bMarks == CNR_SOCKET_SECOND)
+    {
+        oSocketJewel = CnrCraft_FindSocketJewel(oPC, oStation);
+        if (!GetIsObjectValid(oSocketJewel))
+        {
+            return FALSE;
+        }
+        string sConflict = CnrCraft_SocketConflict(oSocketJewel, nRecipe);
+        if (sConflict != "")
+        {
+            SendMessageToPC(oPC, sConflict);
+            return FALSE;
+        }
+    }
 
     // Recipe ownership is checked before inspecting or consuming components.
     if (!CnrCraft_HasMaterials(oPC, oStation))
@@ -1559,29 +1875,34 @@ int CnrCraft_Attempt(object oPC, object oStation)
     // the steel and the 168 gold were spent, and then the item could not be
     // created because the recipe named a blueprint that was not in the module.
     // The crafter paid for nothing and the only trace was a line in the log.
-    object oProbe = CreateItemOnObject(sResRef, oStation, 1);
-    if (!GetIsObjectValid(oProbe))
+    // A second-gem recipe creates nothing, so there is no blueprint to probe.
+    if (bMarks != CNR_SOCKET_SECOND)
     {
-        PrintString("[CNR] Recipe " + IntToString(nRecipe)
-            + " names a blueprint that is not in the module: " + sResRef);
-        SendMessageToPC(oPC, "Esa receta apunta a un objeto que no existe en el "
-            + "módulo. No se ha gastado nada. Avisa a un DM.");
-        return FALSE;
-    }
+        object oProbe = CreateItemOnObject(sResRef, oStation, 1);
+        if (!GetIsObjectValid(oProbe))
+        {
+            PrintString("[CNR] Recipe " + IntToString(nRecipe)
+                + " names a blueprint that is not in the module: " + sResRef);
+            SendMessageToPC(oPC, "Esa receta apunta a un objeto que no existe en el "
+                + "módulo. No se ha gastado nada. Avisa a un DM.");
+            return FALSE;
+        }
 
-    // Taking the probe back out is not a DestroyObject. If the station already
-    // held that same item, the probe merged into its pile and destroying the
-    // object would destroy the whole pile: a jeweller with ten cut gems on the
-    // table lost all ten the moment a recipe was checked. Shrink the pile
-    // instead, and only destroy what was created alone.
-    int nProbeStack = GetItemStackSize(oProbe);
-    if (nProbeStack > 1)
-    {
-        SetItemStackSize(oProbe, nProbeStack - 1);
-    }
-    else
-    {
-        DestroyObject(oProbe);
+        // Taking the probe back out is not a DestroyObject. If the station
+        // already held that same item, the probe merged into its pile and
+        // destroying the object would destroy the whole pile: a jeweller with
+        // ten cut gems on the table lost all ten the moment a recipe was
+        // checked. Shrink the pile instead, and only destroy what was created
+        // alone.
+        int nProbeStack = GetItemStackSize(oProbe);
+        if (nProbeStack > 1)
+        {
+            SetItemStackSize(oProbe, nProbeStack - 1);
+        }
+        else
+        {
+            DestroyObject(oProbe);
+        }
     }
 
     int nSkill = nSkillIx + 1;
@@ -1657,15 +1978,22 @@ int CnrCraft_Attempt(object oPC, object oStation)
     DeleteLocalInt(oPC, CNR_VAR_ROLL_LEVEL);
     DeleteLocalInt(oPC, CNR_VAR_ROLL_HELP);
 
-    // The crafter's level, not the band's range: the exceptions and the
-    // pending top-tier rule hold some professions at a lower band than their
-    // level, and naming that band's levels would contradict the player's own.
+    // The crafter's level, not the band's range: the exceptions hold some
+    // professions at a lower band than their level, and naming that band's
+    // levels would contradict the player's own.
     if (nXPPercent < 100)
     {
         SendMessageToPC(oPC, "Esta receta es de tier " + IntToString(iTier)
             + " y a tu nivel de oficio ("
             + IntToString(CnrSkill_GetLevel(oPC, nSkillIx + 1)) + ") da el "
             + IntToString(nXPPercent) + "% de su experiencia.");
+    }
+
+    // From here the jewel is committed to this attempt: nobody else may target
+    // it until CnrCraft_Finish releases it.
+    if (GetIsObjectValid(oSocketJewel))
+    {
+        SetLocalInt(oSocketJewel, CNR_VAR_SOCKET_PENDING, TRUE);
     }
 
     // Consume the components. retain_on_fail survives a failure, which is how
@@ -1736,7 +2064,9 @@ int CnrCraft_Attempt(object oPC, object oStation)
             bMarks,
             nOficio,
             nRecipe,
-            iTier
+            iTier,
+            oSocketJewel,
+            sSocketGem
         ));
     }
     else
@@ -1757,7 +2087,9 @@ int CnrCraft_Attempt(object oPC, object oStation)
             bMarks,
             nOficio,
             nRecipe,
-            iTier
+            iTier,
+            oSocketJewel,
+            sSocketGem
         );
     }
 

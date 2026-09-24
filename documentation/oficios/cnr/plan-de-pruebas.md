@@ -138,8 +138,7 @@ Prueba las dos ramas por separado y **cuenta el inventario antes y después**.
 
   Tras la tirada aparece un aviso con el tier, tu tramo y el porcentaje. El
   12% de un fallo se calcula sobre la cifra ya reducida. Peletería y Sastrería
-  se quedan en el tramo 3 aunque pasen del 17 (no hay pieles de dragón), y
-  Joyería, que no tiene tier 4, cuenta su tier 3 como el actual en el tramo 4.
+  se quedan en el tramo 3 aunque pasen del 17 (no hay pieles de dragón).
   Arcano sigue la misma tabla.
 - En cada oficio hay recetas de tu tramo desde su primer nivel: comprueba que
   al llegar a 7, 12 y 17 tienes algo que da el 100%.
@@ -280,10 +279,10 @@ pueden fabricar. Que no estén las demás no es un fallo.
 
 ## 3. Joyería
 
-**Mesa:** Mesa de joyero (90 recetas). No depende de ningún otro oficio: todo se
+**Mesa:** Mesa de joyero (118 recetas). No depende de ningún otro oficio: todo se
 hace en la misma mesa.
 
-Son tres pasos, en este orden:
+Son cuatro pasos, en este orden:
 
 1. **Aros y cadenas** (6 recetas). Un cilindro tratado más su molde. Hay de
    cobre, oro y platino.
@@ -292,6 +291,8 @@ Son tres pasos, en este orden:
    comprueba que te llegan **los dos objetos**, no sólo la gema.
 3. **Engarce** (56 recetas). Un aro o una cadena más una gema tallada te dan la
    pieza terminada.
+4. **Segundo engarce** (28 recetas, tier 4, desde el nivel 17). Una joya con
+   una gema más otra gema tallada distinta: la misma joya gana la segunda gema.
 
 Mira con lupa estas cuatro cosas:
 
@@ -305,6 +306,21 @@ Mira con lupa estas cuatro cosas:
   (cortante).
 - **Una pieza ya engarzada no puede usarse como material.** Prueba a meter un
   anillo terminado en otra receta: no debe aceptarlo.
+- **Segundo engarce:**
+  - Con una joya de una gema y otra gema distinta en la mesa: si aciertas, la
+    misma joya vuelve a tu inventario con las dos propiedades y su nombre dice
+    las dos gemas, con el mismo color. Si fallas, **se rompen la gema y la
+    joya**.
+  - Debe negarse, sin gastar nada: con dos joyas en la mesa, sin joya, con una
+    joya de dos gemas, con una joya encantada o sin identificar, y con gemas
+    que chocan (dos de CA, la misma salvación, la misma inmunidad elemental, un
+    rubí sobre otra inmunidad física, resistencia a conjuros o regeneración
+    repetidas).
+  - Dos gemas de espacios de conjuro sí se suman, incluso la misma dos veces.
+  - Saca la joya de la mesa durante la animación: no se engarza nada, no ganas
+    experiencia y la gema se pierde.
+  - Una joya de dos gemas se puede encantar en Arcano; al reciclarla devuelve
+    solo lo de su primera gema.
 
 ### Las diez gemas de conjuros
 

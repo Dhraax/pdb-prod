@@ -99,6 +99,17 @@ TIER4_DC_RELIEF = 3
 # brings each tier's first recipes down to its band's first level. Keep in step
 # with CNR_XP_BAND_* in cnr_i_craft.nss and TIER_BANDS in build_arcane.py.
 TIER_BANDS = {1: (1, 6), 2: (7, 11), 3: (12, 16), 4: (17, 20)}
+# Jewellery's tier 4: one recipe per gem that sets a second, different gem into
+# a ring or necklace already holding one (cnr_i_craft.nss, CnrCraft_Attempt).
+# marks_socketed holds how many gems the result carries, so these recipes carry
+# 2 and ordinary setting recipes 1. They are appended after every station's own
+# recipes: recipe ids are stamped on crafted items and read back by the
+# recycler, so inserting them in the jeweller's block would renumber every
+# recipe of the stations after it.
+SECOND_SOCKET_CATEGORY = "Segundo engarce"
+SECOND_SOCKET_MARK = 2
+SECOND_SOCKET_RECIPES = 28
+SECOND_SOCKET_PROPERTY_ROWS = 29
 
 PROFESSIONS = (
     (1, "Herreria", "Herrería", 0, 0, 2, 1000),
@@ -1328,6 +1339,36 @@ def align_tier_starts(recipe_rows: Sequence[Recipe]) -> List[Recipe]:
     return moved
 
 
+def rebalance_jewellery(recipe_rows: Sequence[Recipe]) -> None:
+    """Give jewellery the level, DC and XP shape of the other trades.
+
+    Its gems used to spread over tiers 1 to 3 across levels 1 to 20, so its
+    tier 3 carried the DC and XP every other trade gives its tier 4. With the
+    second-gem recipes as its tier 4, every jewellery recipe is placed again:
+    ordered by tier and then by its current level, DC and id, each tier is
+    spread over its level band, and DC, gold and XP follow the position in that
+    order exactly as progression_value gives them to every other trade, tier 4
+    keeping its DC relief with gold on the unrelieved DC.
+    """
+    rows = [recipe for recipe in recipe_rows
+            if recipe.source.station.profession_id == 5 and recipe.enabled]
+    order = sorted(rows, key=lambda recipe: (recipe.tier, recipe.min_level,
+                                             recipe.dc, recipe.recipe_id))
+    for tier, (low, high) in TIER_BANDS.items():
+        in_tier = [recipe for recipe in order if recipe.tier == tier]
+        width = high - low + 1
+        for index, recipe in enumerate(in_tier):
+            recipe.min_level = low + (index * width) // len(in_tier)
+    total = len(order)
+    for position, recipe in enumerate(order, 1):
+        dc = progression_value(position, total, DC_MIN, DC_MAX)
+        recipe.gold = dc * GOLD_PER_DC
+        recipe.dc = dc - (TIER4_DC_RELIEF if recipe.tier == 4 else 0)
+        base_xp = progression_value(position, total, XP_MIN, XP_MAX)
+        factor = MATERIAL_XP_FACTOR if recipe.source.station.output_kind == "material" else 1.0
+        recipe.xp = max(1, int(base_xp * factor + 0.5))
+
+
 def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
     """Refuse a tree that breaks the CNR naming contract.
 
@@ -2189,6 +2230,102 @@ def main() -> int:
     # armour class and the material's own second property.
     if len(property_sql) != 647:
         raise ValueError(f"Generated {len(property_sql)} property rows instead of 647")
+
+    # --- second gem (jewellery tier 4) --------------------------------------
+    # One recipe per gem, appended after every station's recipes so no existing
+    # recipe id moves. Each consumes one cut gem, carries the properties of that
+    # gem's ring, and names the gem in extra_name as it reads inside a
+    # jewel's name, which is what the engine appends ("... y topacio").
+    jeweller = next(station for station in STATIONS if station.tag == "cnrJewelersBench")
+    socket_category_id = len(category_sql) + 1
+    socket_sort = 1 + sum(1 for line in category_sql if "tag='cnrJewelersBench'" in line)
+    category_sql.append(
+        "INSERT INTO cnr_category "
+        "(category_id,station_id,parent_id,display_name,sort_order) "
+        f"SELECT {socket_category_id},station_id,NULL,{sql_value(SECOND_SOCKET_CATEGORY)},"
+        f"{socket_sort} FROM cnr_station WHERE tag={sql_value(jeweller.tag)};"
+    )
+    rings_by_resref = {recipe.base_resref: recipe for recipe in recipe_rows
+                       if recipe.source.station.profession_id == 5
+                       and recipe.marks_socketed == 1}
+    socket_gems = sorted(enumerate(jewelry_json), key=lambda pair: (pair[1]["tier"], pair[0]))
+    socket_rows = 0
+    for _, gem in socket_gems:
+        ring = rings_by_resref.get(gem["anillo"])
+        if ring is None:
+            raise ValueError(f"Gem {gem['tag']!r} has no ring recipe to take properties from")
+        match = re.match(
+            r"^Anillo (?:cobrizo|de oro|de platino) de (.+)$",
+            re.sub(r"<c[^>]*>|</c>", "", ring.display_name).strip(),
+        )
+        if match is None:
+            raise ValueError(f"Cannot read the gem out of ring name {ring.display_name!r}")
+        gem_phrase = match.group(1)
+        colour = re.match(r"^(<c[^>]*>)", ring.display_name)
+        label = "Segunda gema: " + gem_phrase[0].upper() + gem_phrase[1:]
+        display_name = (colour.group(1) + label + "</c>") if colour else label
+        property_rows = properties.get(("Gem", "Anillo", gem["tag"]), [])
+        if not property_rows:
+            raise ValueError(f"Gem {gem['tag']!r} has no properties for its second setting")
+        recipe_id = len(recipe_rows) + 1
+        public_id_by_station[jeweller.source] = public_id_by_station.get(
+            jeweller.source, PUBLIC_ID_BASES[jeweller.source]
+        ) + 1
+        source = RecipeSource(
+            station=jeweller,
+            category_id=socket_category_id,
+            category_name=SECOND_SOCKET_CATEGORY,
+            display_name=display_name,
+            legacy_code="second_gem_" + gem["tag"][len("cnr_g_"):],
+            output_quantity=1,
+            components=[Component(gem["tallada"], 1, 0, 0)],
+            legacy_level=17,
+            pre_craft_script=None,
+            literal_resref=gem["tallada"],
+        )
+        recipe_rows.append(Recipe(
+            recipe_id=recipe_id,
+            public_id=public_id_by_station[jeweller.source],
+            source=source,
+            material_code=gem["tag"],
+            tier=4,
+            min_level=17,
+            crafted_by=0,
+            display_name=display_name,
+            base_resref=gem["tallada"],
+            output_tag=None,
+            dc=DC_MAX,
+            xp=XP_MAX,
+            gold=DC_MAX * GOLD_PER_DC,
+            enabled=1,
+            extra_name=gem_phrase,
+            marks_socketed=SECOND_SOCKET_MARK,
+        ))
+        blueprint = blueprints_by_tag.get(normalize(gem["tallada"]))
+        component_sql.append(
+            "INSERT INTO cnr_recipe_component "
+            "(recipe_id,component_tag,display_name,qty,retain_on_fail,"
+            "retain_on_success,sort_order) VALUES "
+            f"({recipe_id},{sql_value(gem['tallada'])},"
+            f"{sql_value(blueprint.name if blueprint else None)},1,0,0,0);"
+        )
+        for sort_order, (property_type, subtype, value1, value2) in enumerate(property_rows):
+            property_id += 1
+            socket_rows += 1
+            property_sql.append(
+                "INSERT INTO cnr_recipe_property "
+                "(recipe_property_id,recipe_id,property_type,subtype,value1,value2,sort_order) "
+                f"VALUES ({property_id},{recipe_id},{sql_value(property_type)},"
+                f"{subtype},{value1},{value2},{sort_order});"
+            )
+    socket_count = sum(1 for recipe in recipe_rows if recipe.marks_socketed == SECOND_SOCKET_MARK)
+    if socket_count != SECOND_SOCKET_RECIPES or socket_rows != SECOND_SOCKET_PROPERTY_ROWS:
+        raise ValueError(
+            f"Generated {socket_count} second-gem recipes and {socket_rows} property rows "
+            f"instead of {SECOND_SOCKET_RECIPES} and {SECOND_SOCKET_PROPERTY_ROWS}"
+        )
+    rebalance_jewellery(recipe_rows)
+    print(f"second-gem recipes                    : {socket_count}")
     # A base blueprint shared by several recipes must be one of the trade's own.
     #
     # The rule exists because the opposite was believed to be true for six days
@@ -2241,6 +2378,11 @@ def main() -> int:
     SHARED_CONSUMABLE_BASE_ITEMS = {49, 81}   # potions, grenade
     shared_bases: Dict[str, int] = defaultdict(int)
     for recipe in recipe_rows:
+        # A second-gem recipe creates nothing: it modifies the jewel on the
+        # bench. Its base_resref is the cut gem only because the column cannot
+        # be empty, so it shares no blueprint in the sense this rule guards.
+        if recipe.marks_socketed == SECOND_SOCKET_MARK:
+            continue
         shared_bases[recipe.base_resref] += 1
     variants_doc_for_check = json.loads(
         (ROOT / "migration" / "catalogue" / "variants.json").read_text(encoding="utf-8")

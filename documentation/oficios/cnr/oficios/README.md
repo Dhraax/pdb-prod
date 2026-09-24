@@ -90,8 +90,7 @@ La experiencia va por tramos de nivel. Lo que es de tu tramo o superior da el
 | 4 | 17-20 | 0% | 0% | 25% | 100% |
 
 Peletería y Sastrería se quedan en el tramo 3 mientras no haya pieles de
-dragón, y Joyería, que no tiene tier 4, cuenta su tier 3 como el actual en el
-tramo 4. Para progresar conviene fabricar lo de tu tramo.
+dragón. Para progresar conviene fabricar lo de tu tramo.
 
 El progreso es independiente para cada oficio. Un personaje puede desarrollar
 dos oficios de fabricación por encima del nivel inicial; Alquimia no ocupa una

@@ -157,24 +157,6 @@ exemption.
    `oficios/README.md`, which name the exempt professions, and add the
    changelog entry.
 
-### F11. Professions without a tier 4 (pending)
-
-**Coupled to code.** `CnrCraft_GetXPBand` in `src/cnr/nss/cnr_i_craft.nss`
-counts a profession's own top tier as the current one when its catalogue
-stops below the crafter's band (`CnrCraft_GetTopTier`). Today that is
-jewellery alone: it has tiers 1 to 3, its tier 3 runs to level 20, and in
-band 4 (levels 17-20) tier 3 pays in full instead of 25%.
-
-It is deliberately generic and needs no change when jewellery gains a tier 4:
-the query then returns 4 and the profession follows the table like the rest.
-What such an expansion does need:
-
-1. Tier-4 recipes in the design sources and the generator, opening at level 17
-   at the latest (`align_tier_starts` enforces the band start).
-2. A decision on where the existing tier-3 recipes above level 16 go, since
-   they would then pay 25% in band 4.
-3. The guide, `crafting-system.md` section 4c and the changelog.
-
 ---
 
 ## Technical debt

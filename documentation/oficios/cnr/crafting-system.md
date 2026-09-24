@@ -401,8 +401,10 @@ pay nothing in full: a smith at 11 with tier 3 opening at 12 needed about 42
 attempts for that level instead of 9. The bands were placed where the crafting
 catalogue's tiers already open (smithing 5/12/17, carpentry 6/12/17, alchemy
 6/11/15, leatherworking and tailoring 5/9/14); `align_tier_starts` in
-`build_catalogue.py` brings a late tier's first recipes down to its band - only
-jewellery moved, amethyst to 7 and amarazha to 12, six recipes. Arcane was
+`build_catalogue.py` brings a late tier's first recipes down to its band.
+Jewellery, which had no tier 4 and a tier 3 with every other trade's tier-4
+numbers, is laid out again by `rebalance_jewellery` (see "Second gem" below).
+Arcane was
 realigned in `arcano.json`: each tier's properties are spread over their band in
 their authored order (tier 1 levels 1-6, nine per level; tier 2 7-11; tier 3
 12-16; tier 4 17-20), 96 of 105 changed level, DC and XP unchanged, and
@@ -412,10 +414,10 @@ their authored order (tier 1 levels 1-6, nine per level; tier 2 7-11; tier 3
 - Leatherworking and tailoring are held at band 3 (`CNR_XP_TOP_TIER_EXEMPT_1`
   and `_2`) because their tier 4 is made from dragon hides the world barely
   provides: see F10 in `open-issues.md`.
-- **Pending:** a profession without a tier 4 - jewellery - counts its own top
-  tier as the current one in band 4, so tier 3 pays in full there. It is found
-  by a query on the catalogue and stops applying by itself when the profession
-  gains a tier 4. See "Professions without a tier 4" in `open-issues.md`.
+- A profession whose catalogue stops below the band counts its own top tier
+  as the current one (`CnrCraft_GetTopTier`). Since jewellery gained its tier 4
+  on 2026-09-24 no profession is in that case; the rule stays so that one added
+  without a tier 4 is not stranded.
 
 ### Expected attempts
 
@@ -429,7 +431,7 @@ expected XP per attempt:
 | Carpentry | 180 | 169 | 588 |
 | Leatherworking | 170 | 161 | 277 |
 | Alchemy | 171 | 161 | 494 |
-| Jewellery | 196 | 182 | 426 |
+| Jewellery | 172 | 162 | 551 |
 | Tailoring | 170 | 161 | 277 |
 | Arcane | 170 | 156 | 472 |
 
@@ -752,6 +754,61 @@ arcane work does not have to reopen every recipe to decide what it may touch.
 
 `CNR_ENGARZADO`, above, is a separate mark with a separate job: it stops a
 finished piece being counted as material. An item can carry both.
+
+### Second gem (jewellery tier 4, since 2026-09-24)
+
+`CNR_ENGARZADO` is a count: 1 once a gem is set, 2 after a second one, never
+more. `cnr_recipe.marks_socketed` is the same count, so the 56 setting recipes
+carry 1 and the 28 second-gem recipes, one per gem in the "Segundo engarce"
+category of the jeweller's bench, carry 2. Nothing else marks a second-gem
+recipe: no schema change, and the control panel, which validates
+`output_kind`, is untouched.
+
+**Catalogue.** `build_catalogue.py` appends the 28 recipes after every station's
+own, so no existing recipe id moves: ids are stamped on crafted items and read
+back by the recycler. Each consumes one cut gem, carries the properties of that
+gem's ring recipe, and names the gem in `extra_name` as it reads inside a
+jewel's name. `base_resref` is the cut gem only because the column cannot be
+empty; nothing is created, the blueprint probe is skipped and the shared-base
+rule does not count it. `rebalance_jewellery` then places all 118 jewellery
+recipes like any other trade: ordered by tier and current level, each tier is
+spread over its band, and DC, gold and XP follow the position through
+`progression_value`, tier 4 keeping the DC relief.
+
+| Tier | Recipes | Levels | DC | XP |
+|--:|--:|---|---|---|
+| 1 | 36 | 1-6 | 10-17 | 21-39 |
+| 2 | 27 | 7-11 | 18-23 | 39-53 |
+| 3 | 27 | 12-16 | 23-29 | 53-67 |
+| 4 | 28 | 17-20 | 26-32 | 67-81 |
+
+**Engine** (`CnrCraft_Attempt`, `CnrCraft_Finish`):
+
+1. Before any material, tool or roll, `CnrCraft_FindSocketJewel` needs exactly
+   one jewel on the bench: a ring or necklace with `CNR_OFICIO` = jewellery and
+   one gem, identified, without `CNR_ENCANTADO` and not already targeted.
+   Otherwise the attempt is refused with the reason.
+2. `CnrCraft_SocketConflict` compares the recipe's properties with the jewel's
+   own item properties, not with a list: armour class, spell resistance and
+   regeneration at most once; a saving throw or an elemental damage immunity
+   once per subtype; the three physical immunities once in all, because their
+   cap is far below the elemental one; spell slots always, the same gem
+   included. A property type it does not know is refused and logged, so a
+   catalogue edit cannot open a stacking hole.
+3. Once the roll is committed the jewel carries `CNR_SOCKET_PENDING`, which
+   keeps any other attempt at the shared bench from targeting it. The cut gem is
+   consumed as a normal component; the jewel, being marked, never is.
+4. `CnrCraft_Finish` releases the jewel first, even if the crafter logged out,
+   and checks it is still on the bench with one gem. If it is not, nothing is
+   set, no experience is paid and the gem is lost. On failure the jewel is
+   destroyed with the gem. On success the gem's properties are applied, the
+   count becomes 2, the name gains " y <gema>" inside its colour, and the jewel
+   is copied to the crafter and the bench copy destroyed.
+
+The recipe stamp is left as the first setting's, so the recycler returns that
+gem's materials only; a jewel with two gems can still be enchanted. The bench is
+shared, as every station is: a jewel left on it can be targeted by another
+player's attempt.
 
 ### Crafted potion activation
 
