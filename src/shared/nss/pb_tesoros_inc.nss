@@ -10,6 +10,7 @@
 #include "pb_constantes"
 
 #include "cnr_i_loot"
+#include "cnr_i_prop"
 // Esta funcion debera ir en el OnSpawn de la criatura
 // Crea objetos a la criatura. Porcentages configurables en la funcion
 // El tipo de tesoro viene determinado por el VD de la criatura (rango 1-5)
@@ -1801,6 +1802,11 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       if(GetGoldPieceValue(oObjeto) > 200 && iTienda == FALSE) SetIdentified(oObjeto, FALSE);
 
       if(iCalidad > 3) SetLocalInt(oObjeto, "masNivel15", TRUE);
+      // iCalidad counts attempts, and IPSafeAddItemProperty replaces a
+      // property of the same type and subtype, so the item can end with
+      // fewer: a staff that rolls the same spell twice. Once the additions
+      // queued at 0.2 seconds have landed, the item's own count decides.
+      DelayCommand(0.5, CnrProp_UpdateHighLevel(oObjeto));
       DelayCommand(0.2, IPSafeAddItemProperty(oObjeto, ItemPropertyQuality(ipCalidad)));
       if (iTienda==TRUE) {SetIdentified(oObjeto, TRUE);}
   }

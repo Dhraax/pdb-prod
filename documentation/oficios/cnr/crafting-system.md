@@ -823,7 +823,11 @@ player's attempt.
 level 16 or lower: such a character may wear three properties at most. The
 loot generators `pb_tesoro_sorteo` and `pb_tesoros_inc` set it on loot
 generated with more than three (`pb_tesoros_inc` asked for more than four,
-`iCalidad > 4`, until 2026-09-24), and Sr. Ponpaipa's antimagic machine (`use_antimagia`) clears it when a removal brings the item back to
+`iCalidad > 4`, until 2026-09-24). `iCalidad` counts attempted additions, and
+`IPSafeAddItemProperty` replaces a property of the same type and subtype, so
+`FinalizarObjetoCreado` also calls `CnrProp_UpdateHighLevel` half a second
+later, once the additions queued at 0.2 seconds have landed, and the item's
+own count sets or clears the mark. Sr. Ponpaipa's antimagic machine (`use_antimagia`) clears it when a removal brings the item back to
 three. No recipe carries more than three property rows (22 bows,
 crossbows and ammunition carry three), but an arcane enchantment adds one, so a
 three-property piece became a four-property piece anyone could wear.

@@ -72,6 +72,12 @@ void CnrProp_MarkHighLevel(object oItem);
 /// @param oItem Item that lost a property.
 void CnrProp_ClearHighLevel(object oItem);
 
+/// @brief Set or clear the level-17 mark from the item's own count: set above
+///     CNR_HIGH_LEVEL_FREE_PROPERTIES, cleared at or below it. For a generator
+///     whose own tally may not match what the item ended up carrying.
+/// @param oItem Item whose properties are final.
+void CnrProp_UpdateHighLevel(object oItem);
+
 /// @brief Apply one property row to an item.
 /// @param oItem Item to modify.
 /// @param sType propertyType column.
@@ -241,6 +247,22 @@ void CnrProp_ClearHighLevel(object oItem)
 {
     if (GetIsObjectValid(oItem)
         && CnrProp_CountLimitedProperties(oItem) <= CNR_HIGH_LEVEL_FREE_PROPERTIES)
+    {
+        DeleteLocalInt(oItem, CNR_VAR_HIGH_LEVEL);
+    }
+}
+
+void CnrProp_UpdateHighLevel(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+    {
+        return;
+    }
+    if (CnrProp_CountLimitedProperties(oItem) > CNR_HIGH_LEVEL_FREE_PROPERTIES)
+    {
+        SetLocalInt(oItem, CNR_VAR_HIGH_LEVEL, TRUE);
+    }
+    else
     {
         DeleteLocalInt(oItem, CNR_VAR_HIGH_LEVEL);
     }
