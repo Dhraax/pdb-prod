@@ -92,6 +92,13 @@ GOLD_PER_DC = 12
 # that tier 3 paid as much experience per attempt, and the top tier was never
 # needed to level. The gold cost stays on the unrelieved DC.
 TIER4_DC_RELIEF = 3
+# Trade experience is paid by level band (cnr_i_craft.nss, CnrCraft_GetXPPercent):
+# levels 1-6 are band 1, 7-11 band 2, 12-16 band 3 and 17-20 band 4, and a
+# recipe below the crafter's band pays less. A tier that opened after its band
+# began would leave levels where nothing pays in full, so align_tier_starts
+# brings each tier's first recipes down to its band's first level. Keep in step
+# with CNR_XP_BAND_* in cnr_i_craft.nss and TIER_BANDS in build_arcane.py.
+TIER_BANDS = {1: (1, 6), 2: (7, 11), 3: (12, 16), 4: (17, 20)}
 
 PROFESSIONS = (
     (1, "Herreria", "Herrería", 0, 0, 2, 1000),
@@ -1298,6 +1305,29 @@ _TEMPLATE_RESREF = re.compile(r'"TemplateResRef":\s*\{\s*"type":\s*"resref",\s*"
 _PALETTE_RESREF = re.compile(r'"RESREF":\s*\{\s*"type":\s*"resref",\s*"value":\s*"([^"]+)"')
 
 
+def align_tier_starts(recipe_rows: Sequence[Recipe]) -> List[Recipe]:
+    """Open every tier of every profession no later than its level band.
+
+    Only the recipes at a late tier's first level move, down to the band's
+    first level; the rest of the progression is untouched. Today this is
+    jewellery alone, whose tier 2 opened at 8 and tier 3 at 14.
+    """
+    groups: Dict[Tuple[int, int], List[Recipe]] = defaultdict(list)
+    for recipe in recipe_rows:
+        if recipe.enabled:
+            groups[(recipe.source.station.profession_id, recipe.tier)].append(recipe)
+    moved: List[Recipe] = []
+    for (_, tier), rows in sorted(groups.items()):
+        start = TIER_BANDS[tier][0]
+        first = min(recipe.min_level for recipe in rows)
+        if tier > 1 and first > start:
+            for recipe in rows:
+                if recipe.min_level == first:
+                    recipe.min_level = start
+                    moved.append(recipe)
+    return moved
+
+
 def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
     """Refuse a tree that breaks the CNR naming contract.
 
@@ -2130,6 +2160,8 @@ def main() -> int:
         raise ValueError(
             f"Generated {len(recipe_rows)} recipes instead of {expected_total}"
         )
+    tier_moves = align_tier_starts(recipe_rows)
+    print(f"tier start moves                      : {len(tier_moves)}")
     if mapping_counts["alchemy_json"] != EXPECTED_RECIPE_COUNTS["cnralchemytable"]:
         raise ValueError("Not every alchemy recipe was mapped through alquimia.json")
     if mapping_counts["leather_json"] != 100:

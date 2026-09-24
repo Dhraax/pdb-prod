@@ -112,13 +112,15 @@ so `OBJECT_SELF` is the module. Case 104 calls bare `ClearAllActions()` at line
 `AssignCommand(oPC, ClearAllActions())`. The comment says this prevents an
 exploit, but the current call does not clear the player's queue.
 
-### F10. Tier-4 hides barely exist, so leatherworking and tailoring are exempt from the top-tier rule
+### F10. Tier-4 hides barely exist, so leatherworking and tailoring are held at band 3
 
 **Coupled to code.** `CNR_XP_TOP_TIER_EXEMPT_1` (3, Peletería) and
 `CNR_XP_TOP_TIER_EXEMPT_2` (7, Sastrería) in `src/cnr/nss/cnr_i_craft.nss`
 exist only because of this entry. Whoever fixes the supply removes them in the
 same change; whoever removes them without fixing the supply stalls both
-professions at level 17.
+professions at level 17. Since 2026-09-24 they hold both professions at
+experience band 3 in `CnrCraft_GetXPBand`; without it, from level 17 their
+tier 3 would pay 25% and tiers 1 and 2 nothing.
 
 Every tier-4 recipe of both professions is made from dragon leather, and every
 dragon leather is tanned from one dragon hide (`PIEL` 7-10 on the creature,
@@ -141,18 +143,37 @@ leather one hide. Levels 17 to 20 take about 40 attempts with tier 4, which is
 of the order of 150-300 hides. A corpse gives three deliveries of 3d4, about 22
 hides, shared between players: 7 to 13 dragon kills per crafter.
 
-With the top-tier rule applied, a leatherworker or tailor without tier 4 needs
-about 186 attempts from 17 to 20 instead of 49; hence the exemption.
+Without the hold, a leatherworker or tailor without tier 4 would earn a
+quarter from tier 3 and nothing from tiers 1 and 2 from level 17; hence the
+exemption.
 
 **To close it:**
 
 1. Put creatures that give dragon hides in the world, fire first, at a rate
    that supports the demand above.
 2. Remove the two exemption constants and their condition in
-   `CnrCraft_GetXPPercent`.
+   `CnrCraft_GetXPBand`.
 3. Update `crafting-system.md` section 4c, `plan-de-pruebas.md` and
    `oficios/README.md`, which name the exempt professions, and add the
    changelog entry.
+
+### F11. Professions without a tier 4 (pending)
+
+**Coupled to code.** `CnrCraft_GetXPBand` in `src/cnr/nss/cnr_i_craft.nss`
+counts a profession's own top tier as the current one when its catalogue
+stops below the crafter's band (`CnrCraft_GetTopTier`). Today that is
+jewellery alone: it has tiers 1 to 3, its tier 3 runs to level 20, and in
+band 4 (levels 17-20) tier 3 pays in full instead of 25%.
+
+It is deliberately generic and needs no change when jewellery gains a tier 4:
+the query then returns 4 and the profession follows the table like the rest.
+What such an expansion does need:
+
+1. Tier-4 recipes in the design sources and the generator, opening at level 17
+   at the latest (`align_tier_starts` enforces the band start).
+2. A decision on where the existing tier-3 recipes above level 16 go, since
+   they would then pay 25% in band 4.
+3. The guide, `crafting-system.md` section 4c and the changelog.
 
 ---
 

@@ -79,11 +79,19 @@ Al acertar, el producto llega identificado y con las propiedades definidas por
 la receta. Al fallar, no se crea el producto: se conservan sólo los
 componentes marcados con `*`, y se recibe una parte de la experiencia indicada.
 
-Las recetas muy por debajo de tu nivel dan menos experiencia: el 100% hasta 4
-niveles por encima de su nivel mínimo, el 50% de 5 a 9, el 25% de 10 a 14 y el
-12% a partir de 15. Además, desde nivel 17 las recetas que no son de tier 4
-dan la mitad en Herrería, Carpintería y Alquimia. Para progresar conviene fabricar
-lo más alto que puedas.
+La experiencia va por tramos de nivel. Lo que es de tu tramo o superior da el
+100%; lo de tiers anteriores da menos:
+
+| Tu tramo | Niveles | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
+|--:|---|--:|--:|--:|--:|
+| 1 | 1-6 | 100% | 100% | 100% | 100% |
+| 2 | 7-11 | 50% | 100% | 100% | 100% |
+| 3 | 12-16 | 25% | 25% | 100% | 100% |
+| 4 | 17-20 | 0% | 0% | 25% | 100% |
+
+Peletería y Sastrería se quedan en el tramo 3 mientras no haya pieles de
+dragón, y Joyería, que no tiene tier 4, cuenta su tier 3 como el actual en el
+tramo 4. Para progresar conviene fabricar lo de tu tramo.
 
 El progreso es independiente para cada oficio. Un personaje puede desarrollar
 dos oficios de fabricación por encima del nivel inicial; Alquimia no ocupa una

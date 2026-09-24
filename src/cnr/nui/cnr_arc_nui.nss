@@ -360,9 +360,11 @@ void CnrArcN_DrawDetail(object oPC, int iToken, object oTable)
     {
         iDC   = StringToInt(CnrArc_Field(sStep, 5));
         // The experience this enchanter would actually earn, after the
-        // fall-off for properties far below their level.
+        // reduction for properties of a tier below their band.
         int iXP = (StringToInt(CnrArc_Field(sStep, 3))
-            * CnrCraft_GetXPPercent(CnrArc_GetLevel(oPC), iLevel)) / 100;
+            * CnrCraft_GetXPPercent(
+                CnrCraft_GetXPBand(CnrArc_GetLevel(oPC), CNR_ARC_PROFESSION),
+                StringToInt(sTier))) / 100;
         sGain = IntToString(iXP) + " xp   -   tier " + sTier;
     }
 

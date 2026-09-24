@@ -337,6 +337,16 @@ checks, the tradeskill book and administrative level helpers, and
 panel. The curve is the 2026-09-18 5000-XP curve with every threshold raised
 by 30%, rounded half up; recipe XP and DC are unchanged.
 
+**The level is derived, never trusted from storage.** `CnrSkill_GetLevel`
+applies the curve to the cached experience, and `CnrSkill_Load` caches the
+same derived level, so a curve change takes effect at the next bench. The
+stored `cnr_tradeskill.skill_level` is not rewritten on load; the next
+experience gain writes the right value, and the owner corrects rows by hand
+until then. The profession-limit query still reads that column. Until 2026-09-24 the
+stored column was cached as is, which left characters at a mastered level 20
+that the new curve put at 17 and that, being mastered, could never earn the
+experience that would have corrected it.
+
 | Level | Cumulative XP | Level | Cumulative XP |
 |--:|--:|--:|--:|
 | 1 | 0 | 11 | 1495 |
@@ -350,108 +360,88 @@ by 30%, rounded half up; recipe XP and DC are unchanged.
 | 9 | 943 | 19 | 5720 |
 | 10 | 1203 | 20 | 6500 |
 
-### XP fall-off for low recipes
+### Experience by level band (since 2026-09-24)
 
-A recipe pays less the further the crafter's level is above its minimum
-level, in bands of `CNR_XP_FALLOFF_LEVELS` (5), through
-`CnrCraft_GetXPPercent`:
+A crafter is in a **band** by profession level, and a recipe or arcane property
+of a tier below that band pays less, through `CnrCraft_GetXPBand` and
+`CnrCraft_GetXPPercent` in `cnr_i_craft.nss`:
 
-| Crafter level - recipe minimum level | XP paid |
-|--:|--:|
-| 0-4 | 100% |
-| 5-9 | 50% |
-| 10-14 | 25% |
-| 15 or more | 12% |
+| Band | Levels | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
+|--:|---|--:|--:|--:|--:|
+| 1 | 1-6 | 100% | 100% | 100% | 100% |
+| 2 | 7-11 | 50% | 100% | 100% | 100% |
+| 3 | 12-16 | 25% | 25% | 100% | 100% |
+| 4 | 17-20 | 0% | 0% | 25% | 100% |
 
-**The top tier carries the last levels.** From level
-`CNR_XP_TOP_TIER_LEVEL` (17), a recipe below tier `CNR_XP_TOP_TIER` (4) pays
-half of the percentage above, when the profession has enabled tier-4 recipes;
-jewellery has none, so its tier 3 is unaffected. Arcane is not subject to this
-rule. The check is one query, run only when both conditions hold.
+A tier at or above the band always pays in full. The band limits are
+`CNR_XP_BAND_2_LEVEL` (7), `_3_` (12) and `_4_` (17), mirrored by `TIER_BANDS`
+in both catalogue generators. The percentage applies to `xp_award` (or the
+arcane step's XP), truncated, before the failure share, so a failure pays 12%
+of the reduced figure; the profession-limit check reads the reduced XP; the
+arcane window shows the reduced figure. When a reduction applies, the line
+after the roll names the recipe's tier, the band and its levels.
 
-**Leatherworking and tailoring are exempt**, through
-`CNR_XP_TOP_TIER_EXEMPT_1` and `_2`, because their tier 4 is made from dragon
-hides that the world barely provides: see F10 in `open-issues.md`. The
-exemption is removed in the same change that fixes that supply.
+This replaced, on 2026-09-24, the level-distance fall-off (100/50/25/12% by
+five-level gaps) and the level-17 top-tier rule of 2026-09-23, after players
+kept levelling on old recipes. Tier-4 recipes still roll against a DC 3 lower
+than their progression position (`TIER4_DC_RELIEF`), gold on the unrelieved
+DC.
 
-Together with it, tier-4 recipes roll against a DC 3 lower than their
-progression position (`TIER4_DC_RELIEF` in `migration/build_catalogue.py`), so
-tier 4 runs from DC 24 to 32 instead of 27 to 35; gold stays on the unrelieved
-DC. Before both changes, a level 17-20 crafter failed tier 4 so often that tier
-3 paid as much per attempt, and the top tier was never needed to level.
-Attempts from 17 to 20, help +2, best recipe chosen by expected XP per attempt:
+**Every tier opens inside its band.** A band whose tier had no recipe yet would
+pay nothing in full: a smith at 11 with tier 3 opening at 12 needed about 42
+attempts for that level instead of 9. The bands were placed where the crafting
+catalogue's tiers already open (smithing 5/12/17, carpentry 6/12/17, alchemy
+6/11/15, leatherworking and tailoring 5/9/14); `align_tier_starts` in
+`build_catalogue.py` brings a late tier's first recipes down to its band - only
+jewellery moved, amethyst to 7 and amarazha to 12, six recipes. Arcane was
+realigned in `arcano.json`: each tier's properties are spread over their band in
+their authored order (tier 1 levels 1-6, nine per level; tier 2 7-11; tier 3
+12-16; tier 4 17-20), 96 of 105 changed level, DC and XP unchanged, and
+`build_arcane.py` fails if a property falls outside its tier's band.
 
-| Profession | Before, with or without tier 4 | Now, with tier 4 | Now, without tier 4 |
-|---|--:|--:|--:|
-| Smithing | 48 | 44 | 96 |
-| Carpentry | 49 | 44 | 98 |
-| Alchemy | 46 | 41 | 94 |
-| Leatherworking, Tailoring (if the rule applied) | 49 (92 without) | 40 | 186 |
-
-The percentage applies to the recipe's `xp_award`, truncated, before the
-failure share, so a failure pays 12% of the reduced figure. Arcane applies the
-same rule with the property's minimum level, and the arcane window shows the
-reduced figure. When a reduction applies, the roll message is followed by a
-line naming the percentage and which rule reduced it: the level bands, the
-top-tier rule below, or both. The profession-limit check reads the reduced XP.
-
-The purpose is to make the newest reachable tier the way to progress. Before
-it, repeating one mid-curve recipe reached level 20 almost as fast as working
-the newest tier. Spamming a single potion from its minimum level to level 20,
-perfect successes only:
-
-| Recipe | Min. level | Before (5000 curve, no fall-off) | Now |
-|---|--:|--:|--:|
-| Poción Acústica | 6 | 125 | 456 |
-| Poción Grumosa | 8 | 99 | 295 |
-| Poción de Atracción | 10 | 80 | 173 |
-| Poción Carmesí | 12 | 64 | 121 |
+**Exceptions.**
+- Leatherworking and tailoring are held at band 3 (`CNR_XP_TOP_TIER_EXEMPT_1`
+  and `_2`) because their tier 4 is made from dragon hides the world barely
+  provides: see F10 in `open-issues.md`.
+- **Pending:** a profession without a tier 4 - jewellery - counts its own top
+  tier as the current one in band 4, so tier 3 pays in full there. It is found
+  by a query on the catalogue and stops applying by itself when the profession
+  gains a tier 4. See "Professions without a tier 4" in `open-issues.md`.
 
 ### Expected attempts
 
-Source-model estimates from zero, with prepared components available and the
-enabled recipe with the highest effective XP, after fall-off, whose minimum
-level is reached:
+Source-model estimates from zero to level 20, with prepared components
+available and, at each level, the reachable recipe or arcane step with the best
+expected XP per attempt:
 
-| Profession | Perfect successes | Expected attempts, final help +2 | Expected attempts, final help +3 |
+| Profession | Attempts, help +2 | Attempts, help +3 | Always 5 levels behind, help +2 |
 |---|--:|--:|--:|
-| Smithing | 117 | 188 | 176 |
-| Carpentry | 122 | 184 | 173 |
-| Leatherworking | 119 | 176 | 165 |
-| Alchemy | 112 | 185 | 172 |
-| Jewellery | 114 | 204 | 189 |
-| Tailoring | 119 | 176 | 165 |
-| Arcane | 86 | 217 | 195 |
+| Smithing | 179 | 168 | 567 |
+| Carpentry | 180 | 169 | 588 |
+| Leatherworking | 170 | 161 | 277 |
+| Alchemy | 171 | 161 | 494 |
+| Jewellery | 196 | 182 | 426 |
+| Tailoring | 170 | 161 | 277 |
+| Arcane | 170 | 156 | 472 |
 
+No level of any profession is without a recipe or property that pays in full.
 The leatherworking and tailoring rows assume dragon hides are available, which
-today they are not: see F10 in `open-issues.md`.
+today they are not (F10); their "behind" column is low because they are held at
+band 3.
 
-These are attempts, not output units or measured player runs. Select by highest
-effective XP, then lowest gold, lowest DC and lowest recipe ID; Arcane uses
-lowest computed step DC and property ID for ties. Carry XP overshoot across
-levels. Natural 1 fails, natural 20 succeeds, and failed attempts pay truncated
-12% XP. The final help contribution is the capped ability part plus the capped
-Artesania part (section 5). Materials, tools, travel, node availability and
-preparing one's own inputs add separate costs.
+These are attempts, not output units or measured player runs. Natural 1 fails,
+natural 20 succeeds, and failed attempts pay truncated 12% XP. The final help
+contribution is the capped ability part plus the capped Artesania part
+(section 5). Materials, tools, travel, node availability and preparing one's
+own inputs add separate costs. The two non-Alchemy-profession limit and the
+Alchemy exemption are unchanged.
 
-On the 5000-XP curve, before the fall-off, the top-tier rule and the tier-4 DC
-relief, the same column read 154/150/151/159/158/151/168. The 30% curve raise
-adds about 30%; the lower tier-4 DC takes part of it back in the five
-professions that have a tier 4. Copper ingots
-pay six XP per success: five successes give 30 XP and level 1; six give 36 XP
-and level 2. The two non-Alchemy-profession limit and Alchemy exemption remain
-unchanged. Harvesting and skinning yields, DC, cooldowns, refill and wear are
-unchanged.
-
-The estimates use the tracked September catalogue: 559 recipes and 484 Arcane
-steps. For each XP state x, let A be the effective success XP, F =
-floor(0.12*A), p the actual success probability and T remaining expected
-attempts. With T(x >= 6500) = 0, solve downward: T(x) = 1 + p*T(x+A) +
-(1-p)*T(x+F) when F > 0, or T(x) = 1/p + T(x+A) when F = 0. The same model
-reproduces the previous table exactly on the 5000-XP curve. It records the
-numerical model; host behavior and persistence still need the authorized
-runtime acceptance listed in the September changelog. The change introduces no
-character-data migration.
+For each XP state x, let A be the effective success XP, F = floor(0.12*A), p
+the actual success probability and T remaining expected attempts. With
+T(x >= 6500) = 0, solve downward: T(x) = 1 + p*T(x+A) + (1-p)*T(x+F) when
+F > 0, or T(x) = 1/p + T(x+A) when F = 0. The model records the numbers; host
+behavior still needs the runtime acceptance listed in the September changelog.
+The change introduces no character-data migration.
 
 ---
 
@@ -518,7 +508,7 @@ trade. Any future edit to this function checks `skills.2da` before trusting a
 Failure pays `CNR_XP_FAILURE_PERCENT` (12%) of the recipe's XP, truncated by
 the integer division: a recipe worth 21 pays 2, not 3. Success pays it
 in full and creates the item after the station animation finishes. Both read
-the XP after the fall-off of section 4c.
+the XP after the band reduction of section 4c.
 
 **Experience stops at level 20.** `PersistDetermineTradeskillLevel` counts down
 from 20, so past its threshold experience only accumulated and the level never

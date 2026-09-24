@@ -123,13 +123,23 @@ Prueba las dos ramas por separado y **cuenta el inventario antes y después**.
 - Acertar te da la experiencia completa de la receta. Fallar te da el **12%**,
   y la cuenta se queda con la parte entera: una receta de 21 paga 2 al fallar
   (21 × 12 / 100 = 2,52), no 3. Es lo previsto, no un fallo.
-- **Las recetas muy por debajo de tu nivel dan menos.** Hasta 4 niveles por
-  encima del mínimo de la receta, el 100%; de 5 a 9, el 50%; de 10 a 14, el
-  25%; de 15 en adelante, el 12%. Tras la tirada aparece un aviso con el
-  porcentaje. El 12% de un fallo se calcula sobre la cifra ya reducida.
-- **Desde nivel 17, lo que no sea tier 4 paga la mitad** de lo anterior, en
-  Herrería, Carpintería y Alquimia. No se aplica en Joyería (no tiene tier 4),
-  Arcano, ni, por ahora, Peletería y Sastrería.
+- **La experiencia va por tramos de nivel.** Lo de tu tramo o superior da el
+  100%; lo de tiers anteriores da menos:
+
+  | Tu tramo | Niveles | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
+  |--:|---|--:|--:|--:|--:|
+  | 1 | 1-6 | 100% | 100% | 100% | 100% |
+  | 2 | 7-11 | 50% | 100% | 100% | 100% |
+  | 3 | 12-16 | 25% | 25% | 100% | 100% |
+  | 4 | 17-20 | 0% | 0% | 25% | 100% |
+
+  Tras la tirada aparece un aviso con el tier, tu tramo y el porcentaje. El
+  12% de un fallo se calcula sobre la cifra ya reducida. Peletería y Sastrería
+  se quedan en el tramo 3 aunque pasen del 17 (no hay pieles de dragón), y
+  Joyería, que no tiene tier 4, cuenta su tier 3 como el actual en el tramo 4.
+  Arcano sigue la misma tabla.
+- En cada oficio hay recetas de tu tramo desde su primer nivel: comprueba que
+  al llegar a 7, 12 y 17 tienes algo que da el 100%.
 - Las recetas de **tier 4 tienen la DC 3 puntos más baja** que antes; el oro
   no cambia.
 - El nivel 20 se alcanza con **6500** de experiencia (antes 5000).

@@ -441,13 +441,17 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     CnrArcA_Consume(oTable, sCrystal, iCrystals);
 
     // --- experience ----------------------------------------------------------
-    // A property far below the enchanter's level pays less, as a recipe does.
-    int iXPPercent = CnrCraft_GetXPPercent(iLevel, iMinLvl);
+    // A property of a tier below the enchanter's band pays less, as a recipe
+    // does.
+    int iXPBand = CnrCraft_GetXPBand(iLevel, CNR_ARC_PROFESSION);
+    int iXPPercent = CnrCraft_GetXPPercent(iXPBand, iTier);
     iXP = (iXP * iXPPercent) / 100;
     if (iXPPercent < 100)
     {
-        SendMessageToPC(oPC, "Esta propiedad está muy por debajo de tu nivel: "
-            + "sólo da el " + IntToString(iXPPercent) + "% de su experiencia.");
+        SendMessageToPC(oPC, "Esta propiedad es de tier " + IntToString(iTier)
+            + " y estás en el tramo " + IntToString(iXPBand) + " (niveles "
+            + CnrCraft_GetBandLevels(iXPBand) + "): da el "
+            + IntToString(iXPPercent) + "% de su experiencia.");
     }
 
     int iGain = bOk ? iXP : (iXP * CNR_ARC_XP_FAILURE_PERCENT) / 100;

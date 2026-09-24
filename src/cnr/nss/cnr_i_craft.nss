@@ -23,11 +23,17 @@ const int CNR_LEVEL_CAP            = 20;
 const int CNR_CRAFT_RANKS_PER_BONUS = 8;   // +1 per N base ranks of Artesania
 const int CNR_HELP_PART_CAP        = 2;   // cap of each help part
 const int CNR_XP_FAILURE_PERCENT   = 12;   // failure pays this share
-const int CNR_XP_FALLOFF_LEVELS    = 5;    // XP drops every N levels above
-const int CNR_XP_TOP_TIER          = 4;    // tier that must carry the last levels
-const int CNR_XP_TOP_TIER_LEVEL    = 17;   // from here lower tiers pay half
-// Exempt from the top-tier rule until tier-4 hides can be obtained. Remove
-// both when dragons that give hides are placed in the world; see F10 in
+// Experience is paid by level band. Levels 1-6 are band 1, 7-11 band 2,
+// 12-16 band 3 and 17-20 band 4; a recipe or property of a tier below the
+// crafter's band pays less (CnrCraft_GetXPPercent). The catalogue generators
+// open every tier inside its band so no level is left without something that
+// pays in full: keep these in step with TIER_BANDS in
+// migration/build_catalogue.py and migration/build_arcane.py.
+const int CNR_XP_BAND_2_LEVEL      = 7;
+const int CNR_XP_BAND_3_LEVEL      = 12;
+const int CNR_XP_BAND_4_LEVEL      = 17;
+// Held at band 3 until tier-4 hides can be obtained. Remove both when dragons
+// that give hides are placed in the world; see F10 in
 // documentation/oficios/cnr/open-issues.md.
 const int CNR_XP_TOP_TIER_EXEMPT_1 = 3;    // Peleteria
 const int CNR_XP_TOP_TIER_EXEMPT_2 = 7;    // Sastreria
@@ -221,18 +227,29 @@ int CnrCraft_FloorDivide(int nDividend, int nDivisor);
 ///     CNR_CRAFT_RANKS_PER_BONUS base Artesania ranks, 0..2.
 int CnrCraft_GetRollBonus(object oPC, int nProfessionId);
 
-/// @brief Share of a recipe's XP a crafter still earns from it.
+/// @brief Highest tier of the enabled recipes of a profession.
+/// @param nProfessionId Profession to inspect.
+/// @returns 1 to 4, or 0 when it has no recipes (Arcano) or the query fails.
+int CnrCraft_GetTopTier(int nProfessionId);
+
+/// @brief Experience band a crafter is in for one profession.
 /// @param nLevel Crafter's level in the profession.
-/// @param nMinLevel Minimum level of the recipe or arcane property.
-/// @param nTier Recipe tier, or 0 to skip the top-tier rule.
-/// @param nProfessionId Profession of the recipe, for the top-tier rule.
-/// @returns 100 within CNR_XP_FALLOFF_LEVELS levels of the minimum, then 50,
-///     25, and 12 from three bands above it onwards. From
-///     CNR_XP_TOP_TIER_LEVEL, a recipe below CNR_XP_TOP_TIER pays half of
-///     that again when the profession has recipes of that tier, except in the
-///     professions listed as CNR_XP_TOP_TIER_EXEMPT_*.
-int CnrCraft_GetXPPercent(int nLevel, int nMinLevel, int nTier = 0,
-                          int nProfessionId = 0);
+/// @param nProfessionId Profession, or 0 for none.
+/// @returns 1 to 4 from the level, held at 3 for the professions listed as
+///     CNR_XP_TOP_TIER_EXEMPT_*, and never above the profession's top tier.
+int CnrCraft_GetXPBand(int nLevel, int nProfessionId);
+
+/// @brief Share of a recipe's or property's XP paid in a band.
+/// @param nBand Band from CnrCraft_GetXPBand.
+/// @param nTier Tier of the recipe or property.
+/// @returns 100 for a tier at or above the band; below it, 50 in band 2,
+///     25 in band 3, and in band 4 25 for tier 3 and 0 for tiers 1 and 2.
+int CnrCraft_GetXPPercent(int nBand, int nTier);
+
+/// @brief Levels covered by a band, for player messages.
+/// @param nBand 1 to 4.
+/// @returns "1-6", "7-11", "12-16" or "17-20".
+string CnrCraft_GetBandLevels(int nBand);
 
 /// @brief Complete a previously animated crafting attempt.
 /// @param oPC Player crafting.
@@ -1015,54 +1032,98 @@ int CnrCraft_GetRollBonus(object oPC, int nProfessionId)
     return nProfessionLevel + nHelpBonus;
 }
 
-int CnrCraft_GetXPPercent(int nLevel, int nMinLevel, int nTier,
-                          int nProfessionId)
+int CnrCraft_GetTopTier(int nProfessionId)
 {
-    // Every band of levels between the crafter and the recipe halves what it
-    // pays, so progress comes from the newest tier rather than from repeating
-    // a cheap recipe from the middle of the curve.
-    int nPercent = 12;
-    int nGap = nLevel - nMinLevel;
-    if (nGap < CNR_XP_FALLOFF_LEVELS)
+    if (nProfessionId <= 0 || !NWNX_SQL_PrepareQuery(
+        "SELECT IFNULL(MAX(r.tier), 0) FROM cnr_recipe r"
+        + " JOIN cnr_category c ON c.category_id = r.category_id"
+        + " JOIN cnr_station  s ON s.station_id  = c.station_id"
+        + " WHERE s.profession_id = ? AND r.enabled = 1"))
     {
-        nPercent = 100;
+        return 0;
     }
-    else if (nGap < CNR_XP_FALLOFF_LEVELS * 2)
+    NWNX_SQL_PreparedInt(0, nProfessionId);
+    if (!NWNX_SQL_ExecutePreparedQuery() || !NWNX_SQL_ReadyToReadNextRow())
     {
-        nPercent = 50;
+        return 0;
     }
-    else if (nGap < CNR_XP_FALLOFF_LEVELS * 3)
+    NWNX_SQL_ReadNextRow();
+    return StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
+}
+
+int CnrCraft_GetXPBand(int nLevel, int nProfessionId)
+{
+    int nBand = 1;
+    if (nLevel >= CNR_XP_BAND_4_LEVEL)
     {
-        nPercent = 25;
+        nBand = 4;
+    }
+    else if (nLevel >= CNR_XP_BAND_3_LEVEL)
+    {
+        nBand = 3;
+    }
+    else if (nLevel >= CNR_XP_BAND_2_LEVEL)
+    {
+        nBand = 2;
     }
 
-    // The bands alone leave tier 3 within reach of the last levels, and it
-    // paid as much per attempt as tier 4, so the top tier was never needed.
-    // A profession without a tier 4, jewellery today, is left alone: its own
-    // top tier already carries its last levels. Leatherworking and tailoring
-    // are left alone too, for now: all their tier-4 recipes are made from
-    // dragon hides, and the world has almost no dragon that gives one. Halving
-    // their tier 3 would stall both at level 17.
-    if (nTier > 0 && nTier < CNR_XP_TOP_TIER
-        && nLevel >= CNR_XP_TOP_TIER_LEVEL && nProfessionId > 0
-        && nProfessionId != CNR_XP_TOP_TIER_EXEMPT_1
-        && nProfessionId != CNR_XP_TOP_TIER_EXEMPT_2
-        && NWNX_SQL_PrepareQuery(
-            "SELECT 1 FROM cnr_recipe r"
-            + " JOIN cnr_category c ON c.category_id = r.category_id"
-            + " JOIN cnr_station  s ON s.station_id  = c.station_id"
-            + " WHERE s.profession_id = ? AND r.tier = ? AND r.enabled = 1"
-            + " LIMIT 1"))
+    // Leatherworking and tailoring make their whole tier 4 from dragon hides,
+    // which the world barely provides; in band 4 their tier 3 would pay a
+    // quarter and stall them. Held at band 3 until F10 is closed.
+    if (nBand == 4
+        && (nProfessionId == CNR_XP_TOP_TIER_EXEMPT_1
+            || nProfessionId == CNR_XP_TOP_TIER_EXEMPT_2))
     {
-        NWNX_SQL_PreparedInt(0, nProfessionId);
-        NWNX_SQL_PreparedInt(1, CNR_XP_TOP_TIER);
-        if (NWNX_SQL_ExecutePreparedQuery() && NWNX_SQL_ReadyToReadNextRow())
+        nBand = 3;
+    }
+
+    // PENDING: a profession whose catalogue stops below the band - jewellery
+    // today, with no tier 4 - counts its own top tier as the current one, so
+    // its last levels are carried by what it has instead of paying nothing.
+    // When such a profession gains the missing tier, this stops applying on
+    // its own; see "Professions without a tier 4" in
+    // documentation/oficios/cnr/open-issues.md. Arcano has no cnr_recipe rows,
+    // gets 0 here and is not clamped: its properties reach tier 4.
+    if (nBand > 1)
+    {
+        int nTop = CnrCraft_GetTopTier(nProfessionId);
+        if (nTop > 0 && nTop < nBand)
         {
-            nPercent = nPercent / 2;
+            nBand = nTop;
         }
     }
+    return nBand;
+}
 
-    return nPercent;
+int CnrCraft_GetXPPercent(int nBand, int nTier)
+{
+    // The tier of the crafter's band pays in full, and so does anything above
+    // it; each band pays less for what it has left behind, so progress comes
+    // from the current tier rather than from repeating an old one.
+    if (nTier <= 0 || nTier >= nBand)
+    {
+        return 100;
+    }
+    if (nBand == 2)
+    {
+        return 50;
+    }
+    if (nBand == 3)
+    {
+        return 25;
+    }
+    return (nTier == 3) ? 25 : 0;
+}
+
+string CnrCraft_GetBandLevels(int nBand)
+{
+    switch (nBand)
+    {
+        case 1: return "1-6";
+        case 2: return "7-11";
+        case 3: return "12-16";
+    }
+    return "17-20";
 }
 
 string CnrCraft_DescribeSelection(object oPC, object oStation)
@@ -1464,14 +1525,11 @@ int CnrCraft_Attempt(object oPC, object oStation)
         return FALSE;
     }
 
-    // A recipe far below the crafter's level pays less. Scaled here, before
-    // the profession-limit check below, so both read the XP actually awarded.
-    int nXPPercent = CnrCraft_GetXPPercent(
-        CnrSkill_GetLevel(oPC, nSkillIx + 1), iMinLevel, iTier, nProf);
-    // The same without the top-tier rule, so the message can say which rule
-    // reduced the experience.
-    int nBandPercent = CnrCraft_GetXPPercent(
-        CnrSkill_GetLevel(oPC, nSkillIx + 1), iMinLevel);
+    // A recipe of a tier below the crafter's band pays less. Scaled here,
+    // before the profession-limit check below, so both read the XP actually
+    // awarded.
+    int nXPBand = CnrCraft_GetXPBand(CnrSkill_GetLevel(oPC, nSkillIx + 1), nProf);
+    int nXPPercent = CnrCraft_GetXPPercent(nXPBand, iTier);
     nXP = (nXP * nXPPercent) / 100;
 
     // Recipe ownership is checked before inspecting or consuming components.
@@ -1636,22 +1694,12 @@ int CnrCraft_Attempt(object oPC, object oStation)
     DeleteLocalInt(oPC, CNR_VAR_ROLL_LEVEL);
     DeleteLocalInt(oPC, CNR_VAR_ROLL_HELP);
 
-    // Two rules can reduce the experience; name the ones that did.
     if (nXPPercent < 100)
     {
-        string sWhy = "";
-        if (nBandPercent < 100)
-        {
-            sWhy = " Está muy por debajo de tu nivel.";
-        }
-        if (nXPPercent < nBandPercent)
-        {
-            sWhy += " Desde el nivel " + IntToString(CNR_XP_TOP_TIER_LEVEL)
-                + ", lo que no es tier " + IntToString(CNR_XP_TOP_TIER)
-                + " da la mitad.";
-        }
-        SendMessageToPC(oPC, "Esta receta sólo da el "
-            + IntToString(nXPPercent) + "% de su experiencia." + sWhy);
+        SendMessageToPC(oPC, "Esta receta es de tier " + IntToString(iTier)
+            + " y estás en el tramo " + IntToString(nXPBand) + " (niveles "
+            + CnrCraft_GetBandLevels(nXPBand) + "): da el "
+            + IntToString(nXPPercent) + "% de su experiencia.");
     }
 
     // Consume the components. retain_on_fail survives a failure, which is how

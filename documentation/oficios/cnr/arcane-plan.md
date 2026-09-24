@@ -201,10 +201,10 @@ cada nivel abra variedad en vez de veinte habilidades seguidas. Resultado:
 
 | Tier | Filas | Niveles | DC | XP |
 |---:|---:|---|---|---|
-| 1 | 54 | 1–11 | 10–23 | 20–52 |
-| 2 | 21 | 11–15 | 23–28 | 52–64 |
-| 3 | 18 | 15–18 | 28–32 | 65–75 |
-| 4 | 12 | 18–20 | 32–35 | 75–82 |
+| 1 | 54 | 1–6 | 10–23 | 20–52 |
+| 2 | 21 | 7–11 | 23–28 | 52–64 |
+| 3 | 18 | 12–16 | 28–32 | 65–75 |
+| 4 | 12 | 17–20 | 32–35 | 75–82 |
 
 Contra la curva de `cnr_trade_init.nss`, que pide **43.000 XP para el nivel
 20**, eso son **764 encantamientos acertados** usando siempre la mejor receta
@@ -217,6 +217,15 @@ familias de ese tier se agotan antes.
 
 `arcano.json` lleva los cuatro campos calculados: `orden`, `dc`, `min_level` y
 `xp`.
+
+**Niveles realineados el 2026-09-24.** La experiencia de los oficios pasó a ir
+por tramos de nivel (1–6, 7–11, 12–16 y 17–20; ver `crafting-system.md`,
+sección 4c), y cada tier tiene que abrir dentro de su tramo. Los niveles de la
+tabla de arriba son los nuevos: las propiedades de cada tier se repartieron por
+su tramo conservando el `orden`, 96 de 105 cambiaron de nivel y la DC y la XP no
+cambiaron. El tier 1 abre ahora 9 propiedades por nivel entre el 1 y el 6, en
+lugar de 5–6 por nivel hasta el 11. `build_arcane.py` rechaza una propiedad
+fuera del tramo de su tier.
 
 La mitad del oficio vive en tier 1, y eso es lo que hay: las 28 habilidades,
 los 12 huecos de conjuro y 12 salvaciones caen todas ahí. El equilibrio de los

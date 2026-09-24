@@ -237,6 +237,15 @@ DAMAGE_LADDER = [
 ]
 
 
+# Trade experience is paid by level band (cnr_i_craft.nss, CnrCraft_GetXPPercent):
+# levels 1-6 are band 1, 7-11 band 2, 12-16 band 3 and 17-20 band 4, and a
+# recipe or property below the crafter's band pays less. Every tier therefore
+# has to open inside its own band, or a level would exist with nothing that
+# pays in full. Keep in step with CNR_XP_BAND_* in cnr_i_craft.nss and
+# TIER_BANDS in build_catalogue.py.
+TIER_BANDS = {1: (1, 6), 2: (7, 11), 3: (12, 16), 4: (17, 20)}
+
+
 def fail(message: str) -> None:
     print(f"ERROR: {message}", file=sys.stderr)
     raise SystemExit(1)
@@ -342,6 +351,14 @@ def main() -> None:
                 f" VALUES ({index},{base},{cost});"
             )
     lines.append("")
+
+    for arcane_id, row in enumerate(design, start=1):
+        band = TIER_BANDS.get(row["tier"])
+        if band is None or not band[0] <= row["min_level"] <= band[1]:
+            fail(
+                f"row {arcane_id} ({row['producto']!r}) is tier {row['tier']} at"
+                f" level {row['min_level']}, outside its band {band}"
+            )
 
     unknown_groups = set()
     total_steps = 0

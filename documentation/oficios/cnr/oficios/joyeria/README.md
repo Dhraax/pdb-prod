@@ -82,7 +82,7 @@ Las marcas de las tablas se explican en
 | Ópalo común tallado | 1× Ópalo común en bruto | 6 | 16 | 37 | 192 |
 | Ópalo de agua tallado | 1× Ópalo de agua en bruto | 7 | 17 | 39 | 204 |
 | Ópalo de fuego tallado | 1× Ópalo de fuego en bruto | 7 | 18 | 41 | 216 |
-| Amatista tallada + Arenilla de amatista | 1× Amatista en bruto | 8 | 19 | 43 | 228 |
+| Amatista tallada + Arenilla de amatista | 1× Amatista en bruto | 7 | 19 | 43 | 228 |
 | Azabache tallado + Arenilla de cristal de azabache | 1× Cristal de azabache en bruto | 9 | 20 | 45 | 240 |
 | Beljuril tallado | 1× Beljuril en bruto | 9 | 21 | 48 | 252 |
 | Diamante tallado + Arenilla de diamante | 1× Diamante en bruto | 10 | 22 | 50 | 264 |
@@ -91,7 +91,7 @@ Las marcas de las tablas se explican en
 | Orlo tallado | 1× Orlo en bruto | 12 | 25 | 57 | 300 |
 | Zafiro tallado + Arenilla de zafiro | 1× Zafiro en bruto | 13 | 26 | 59 | 312 |
 | Zendalur tallado | 1× Zendalur en bruto | 14 | 27 | 61 | 324 |
-| Amarazha tallado | 1× Amarazha en bruto | 14 | 28 | 63 | 336 |
+| Amarazha tallado | 1× Amarazha en bruto | 12 | 28 | 63 | 336 |
 | Barra lunar tallada | 1× Barra lunar en bruto | 15 | 29 | 65 | 348 |
 | Esmeralda tallada | 1× Esmeralda en bruto | 16 | 29 | 68 | 348 |
 | Jacinto tallado | 1× Jacinto en bruto | 16 | 30 | 70 | 360 |
@@ -115,7 +115,7 @@ Las marcas de las tablas se explican en
 | Anillo cobrizo de ópalo | 1× Aro de cobre, 1× Ópalo común tallado | 6 | 16 | 37 | 192 |
 | Anillo cobrizo de ópalo de agua | 1× Aro de cobre, 1× Ópalo de agua tallado | 7 | 17 | 39 | 204 |
 | Anillo cobrizo de ópalo de fuego | 1× Aro de cobre, 1× Ópalo de fuego tallado | 7 | 18 | 41 | 216 |
-| Anillo de oro de amatista | 1× Aro de oro, 1× Amatista tallada | 8 | 19 | 43 | 228 |
+| Anillo de oro de amatista | 1× Aro de oro, 1× Amatista tallada | 7 | 19 | 43 | 228 |
 | Anillo de oro de azabache | 1× Aro de oro, 1× Azabache tallado | 9 | 20 | 45 | 240 |
 | Anillo de oro de beljuril | 1× Aro de oro, 1× Beljuril tallado | 9 | 21 | 48 | 252 |
 | Anillo de oro de diamante | 1× Aro de oro, 1× Diamante tallado | 10 | 22 | 50 | 264 |
@@ -124,7 +124,7 @@ Las marcas de las tablas se explican en
 | Anillo de oro de orlo | 1× Aro de oro, 1× Orlo tallado | 12 | 25 | 57 | 300 |
 | Anillo de oro de zafiro | 1× Aro de oro, 1× Zafiro tallado | 13 | 26 | 59 | 312 |
 | Anillo de oro de zendalur | 1× Aro de oro, 1× Zendalur tallado | 14 | 27 | 61 | 324 |
-| Anillo de platino de amarazha | 1× Aro de platino, 1× Amarazha tallado | 14 | 28 | 63 | 336 |
+| Anillo de platino de amarazha | 1× Aro de platino, 1× Amarazha tallado | 12 | 28 | 63 | 336 |
 | Anillo de platino de barra lunar | 1× Aro de platino, 1× Barra lunar tallada | 15 | 29 | 65 | 348 |
 | Anillo de platino de esmeralda | 1× Aro de platino, 1× Esmeralda tallada | 16 | 29 | 68 | 348 |
 | Anillo de platino de jacinto | 1× Aro de platino, 1× Jacinto tallado | 16 | 30 | 70 | 360 |
@@ -148,7 +148,7 @@ Las marcas de las tablas se explican en
 | Amuleto de cobre de ópalo | 1× Cadena de cobre, 1× Ópalo común tallado | 6 | 16 | 37 | 192 |
 | Amuleto de cobre de ópalo de agua | 1× Cadena de cobre, 1× Ópalo de agua tallado | 7 | 17 | 39 | 204 |
 | Amuleto de cobre de ópalo de fuego | 1× Cadena de cobre, 1× Ópalo de fuego tallado | 7 | 18 | 41 | 216 |
-| Amuleto de oro de amatista | 1× Cadena de oro, 1× Amatista tallada | 8 | 19 | 43 | 228 |
+| Amuleto de oro de amatista | 1× Cadena de oro, 1× Amatista tallada | 7 | 19 | 43 | 228 |
 | Amuleto de oro de azabache | 1× Cadena de oro, 1× Azabache tallado | 9 | 20 | 45 | 240 |
 | Amuleto de oro de beljuril | 1× Cadena de oro, 1× Beljuril tallado | 9 | 21 | 48 | 252 |
 | Amuleto de oro de diamante | 1× Cadena de oro, 1× Diamante tallado | 10 | 22 | 50 | 264 |
@@ -157,7 +157,7 @@ Las marcas de las tablas se explican en
 | Amuleto de oro de orlo | 1× Cadena de oro, 1× Orlo tallado | 12 | 25 | 57 | 300 |
 | Amuleto de oro de zafiro | 1× Cadena de oro, 1× Zafiro tallado | 13 | 26 | 59 | 312 |
 | Amuleto de oro de zendalur | 1× Cadena de oro, 1× Zendalur tallado | 14 | 27 | 61 | 324 |
-| Amuleto de platino de amarazha | 1× Cadena de platino, 1× Amarazha tallado | 14 | 28 | 63 | 336 |
+| Amuleto de platino de amarazha | 1× Cadena de platino, 1× Amarazha tallado | 12 | 28 | 63 | 336 |
 | Amuleto de platino de barra lunar | 1× Cadena de platino, 1× Barra lunar tallada | 15 | 29 | 65 | 348 |
 | Amuleto de platino de esmeralda | 1× Cadena de platino, 1× Esmeralda tallada | 16 | 29 | 68 | 348 |
 | Amuleto de platino de jacinto | 1× Cadena de platino, 1× Jacinto tallado | 16 | 30 | 70 | 360 |

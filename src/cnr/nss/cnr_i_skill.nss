@@ -51,7 +51,8 @@ int CnrSkill_Load(object oPC);
 /// @returns XP, or 0 when unknown.
 int CnrSkill_GetXP(object oPC, int nSkill);
 
-/// @brief Read cached tradeskill level. Does not query the database.
+/// @brief Tradeskill level from the cached XP and the current curve.
+///     Does not query the database.
 /// @param oPC Player character to read.
 /// @param nSkill Skill index, 1-based.
 /// @returns Level, or 1 when unknown.
@@ -170,10 +171,16 @@ int CnrSkill_Load(object oPC)
 
         NWNX_SQL_ReadNextRow();
 
-        SetLocalInt(oContainer, CNR_VAR_XP + IntToString(nSkill),
-                    StringToInt(NWNX_SQL_ReadDataInActiveRow(0)));
-        SetLocalInt(oContainer, CNR_VAR_LEVEL + IntToString(nSkill),
-                    StringToInt(NWNX_SQL_ReadDataInActiveRow(1)));
+        // The level is the curve applied to the experience, never the stored
+        // column. The column went stale when the curve was raised on
+        // 2026-09-23: 5007 XP kept a stored 20 while the curve says 17. The
+        // row itself is not rewritten here; the next experience gain writes
+        // the right level, and the owner corrects rows by hand.
+        int nXP = StringToInt(NWNX_SQL_ReadDataInActiveRow(0));
+        int nLevel = PersistDetermineTradeskillLevel(nXP);
+
+        SetLocalInt(oContainer, CNR_VAR_XP + IntToString(nSkill), nXP);
+        SetLocalInt(oContainer, CNR_VAR_LEVEL + IntToString(nSkill), nLevel);
     }
 
     return TRUE;
@@ -198,8 +205,11 @@ int CnrSkill_GetLevel(object oPC, int nSkill)
         return 1;
     }
 
-    int nLevel = GetLocalInt(oContainer, CNR_VAR_LEVEL + IntToString(nSkill));
-    return nLevel > 0 ? nLevel : 1;
+    // Derived from the cached experience with the current curve, so a level
+    // cached before a curve change cannot outlive it: a character already
+    // online gets the right level at the next bench without logging out.
+    return PersistDetermineTradeskillLevel(
+        GetLocalInt(oContainer, CNR_VAR_XP + IntToString(nSkill)));
 }
 
 int CnrSkill_IsMaxLevel(object oPC, int nSkill)
