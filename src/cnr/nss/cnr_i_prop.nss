@@ -7,6 +7,19 @@
 /// ----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
+//                                  Constants
+// -----------------------------------------------------------------------------
+
+/// Local variable that wrap_on_equip_it reads to refuse an item to a character
+/// of level 16 or lower. The loot generators (pb_tesoro_sorteo,
+/// pb_tesoros_inc) set it on an item with more than three properties and
+/// use_antimagia clears it when one is removed.
+const string CNR_VAR_HIGH_LEVEL = "masNivel15";
+
+/// Properties an item may carry and still be worn below level 17.
+const int CNR_HIGH_LEVEL_FREE_PROPERTIES = 3;
+
+// -----------------------------------------------------------------------------
 //                              Function Prototypes
 // -----------------------------------------------------------------------------
 
@@ -39,6 +52,25 @@ int CnrProp_DamageAmount(int iVal1, int iVal2);
 /// @param oItem Item to count.
 /// @returns The number of item properties on it, zero included.
 int CnrProp_CountProperties(object oItem);
+
+/// @brief How many properties count towards the level-17 limit: the
+///     permanent ones, except use limitations, light and quality, which
+///     use_antimagia leaves out of the same count.
+/// @param oItem Item to count.
+/// @returns The number of counted properties.
+int CnrProp_CountLimitedProperties(object oItem);
+
+/// @brief Reserve an item for level 17 and above when it carries more than
+///     CNR_HIGH_LEVEL_FREE_PROPERTIES counted properties, as the loot
+///     generators do. Never clears the mark.
+/// @param oItem Item just crafted or enchanted.
+void CnrProp_MarkHighLevel(object oItem);
+
+/// @brief Release an item for any level when it is back to
+///     CNR_HIGH_LEVEL_FREE_PROPERTIES counted properties or fewer. Used after a
+///     property is removed; run it once the removal has taken effect.
+/// @param oItem Item that lost a property.
+void CnrProp_ClearHighLevel(object oItem);
 
 /// @brief Apply one property row to an item.
 /// @param oItem Item to modify.
@@ -172,6 +204,46 @@ int CnrProp_CountProperties(object oItem)
         ip = GetNextItemProperty(oItem);
     }
     return iCount;
+}
+
+int CnrProp_CountLimitedProperties(object oItem)
+{
+    int iCount = 0;
+    itemproperty ip = GetFirstItemProperty(oItem);
+    while (GetIsItemPropertyValid(ip))
+    {
+        int iType = GetItemPropertyType(ip);
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+            && iType != ITEM_PROPERTY_USE_LIMITATION_ALIGNMENT_GROUP
+            && iType != ITEM_PROPERTY_USE_LIMITATION_CLASS
+            && iType != ITEM_PROPERTY_USE_LIMITATION_RACIAL_TYPE
+            && iType != ITEM_PROPERTY_USE_LIMITATION_SPECIFIC_ALIGNMENT
+            && iType != 150     // UseLimitationGender, itempropdef.2da
+            && iType != ITEM_PROPERTY_QUALITY
+            && iType != ITEM_PROPERTY_LIGHT)
+        {
+            iCount++;
+        }
+        ip = GetNextItemProperty(oItem);
+    }
+    return iCount;
+}
+
+void CnrProp_MarkHighLevel(object oItem)
+{
+    if (CnrProp_CountLimitedProperties(oItem) > CNR_HIGH_LEVEL_FREE_PROPERTIES)
+    {
+        SetLocalInt(oItem, CNR_VAR_HIGH_LEVEL, TRUE);
+    }
+}
+
+void CnrProp_ClearHighLevel(object oItem)
+{
+    if (GetIsObjectValid(oItem)
+        && CnrProp_CountLimitedProperties(oItem) <= CNR_HIGH_LEVEL_FREE_PROPERTIES)
+    {
+        DeleteLocalInt(oItem, CNR_VAR_HIGH_LEVEL);
+    }
 }
 
 int CnrProp_Apply(object oItem, string sType, int iSubtype, int iVal1, int iVal2)

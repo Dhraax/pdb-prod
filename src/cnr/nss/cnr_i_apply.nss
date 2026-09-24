@@ -509,6 +509,10 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     SetLocalInt(oTarget, CNR_ARC_VAR_DONE, TRUE);
     SetIdentified(oTarget, TRUE);
 
+    // The enchantment can be a piece's fourth property, which reserves it for
+    // level 17 and above like generated loot.
+    CnrProp_MarkHighLevel(oTarget);
+
     SendMessageToPC(oPC, GetName(oTarget) + " queda encantado con "
         + sName + " " + sValue + ".");
     return CNR_ARC_RESULT_DONE;

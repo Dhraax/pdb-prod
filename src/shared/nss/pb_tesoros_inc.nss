@@ -1800,7 +1800,7 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetIdentified(oObjeto, TRUE);
       if(GetGoldPieceValue(oObjeto) > 200 && iTienda == FALSE) SetIdentified(oObjeto, FALSE);
 
-      if(iCalidad > 4) SetLocalInt(oObjeto, "masNivel15", TRUE);
+      if(iCalidad > 3) SetLocalInt(oObjeto, "masNivel15", TRUE);
       DelayCommand(0.2, IPSafeAddItemProperty(oObjeto, ItemPropertyQuality(ipCalidad)));
       if (iTienda==TRUE) {SetIdentified(oObjeto, TRUE);}
   }
@@ -3673,7 +3673,7 @@ void CrearArmadura(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 
@@ -3776,7 +3776,7 @@ void CrearArmaCuerpo(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 
@@ -3869,7 +3869,7 @@ void CrearArmaDistancia(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 
@@ -3929,7 +3929,7 @@ void CrearMunicion(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 
@@ -4012,7 +4012,7 @@ void CrearBastonesMagicos(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 
@@ -4105,7 +4105,7 @@ void CrearGuanteletesMonje(object oObjetivo, int iRango, int iTienda = FALSE)
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de rango:"+IntToString(iRango));
   if(iDebugMess == 1) SendMessageToAllDMs("Creadas propiedades magicas de calidad/num prop:"+IntToString(iCalidad));
 
-  if (iCalidad > 4) SetLocalInt(oObjetoCreado, "masNivel15", 1);
+  if (iCalidad > 3) SetLocalInt(oObjetoCreado, "masNivel15", 1);
   FinalizarObjetoCreado(oObjetoCreado, oObjetivo, iCalidad, iRango, iTienda);
 }
 

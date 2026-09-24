@@ -155,6 +155,10 @@ Prueba las dos ramas por separado y **cuenta el inventario antes y después**.
 - **Arcano es sólo para lanzadores**: al menos 3 niveles de bardo, brujo,
   clérigo, druida, hechicero, mago, alma predilecta o artífice. Un personaje sin
   ellos no puede encantar: la mesa se niega con un aviso y sin gastar nada.
+- **Más de tres propiedades, solo para nivel 17 o más.** Encanta en Arcano un
+  arco o una ballesta de tres propiedades, o una joya de dos gemas que ya sume
+  tres: con cuatro, un personaje de nivel 16 o menos no puede equiparla y uno
+  de 17 sí. Una pieza que se queda en tres o menos se equipa a cualquier nivel.
 
 ### 1.5 Qué recetas ves en el menú
 
@@ -426,7 +430,9 @@ y qué objeto** era.
 Alquimia es la excepción del sistema: **no ocupa plaza de oficio**, así que
 cualquiera puede subirla aunque ya tenga otros dos.
 
-1. **Caldero.** Ocho hierbas base a partir de los ingredientes recogidos.
+1. **Caldero.** Ocho hierbas base a partir de los ingredientes recogidos. Las
+   ocho se pueden hacer desde el nivel 1: comprueba que un alquimista de nivel
+   1 ve las ocho en el caldero.
 2. **Mesa.** Tiene 110 recetas: 79 pociones con efecto, 27 venenos y 4
    alimentos o bebidas sin efecto de poción. Las recetas que incluyen una
    **botella** la conservan si fallas y la consumen si aciertas.

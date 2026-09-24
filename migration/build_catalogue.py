@@ -110,6 +110,16 @@ SECOND_SOCKET_CATEGORY = "Segundo engarce"
 SECOND_SOCKET_MARK = 2
 SECOND_SOCKET_RECIPES = 28
 SECOND_SOCKET_PROPERTY_ROWS = 29
+# The herb cauldron's eight reagents are basic ingredients, not a ladder: the
+# alchemy table mixes every one of them into potions from level 1 to 3 on
+# (Limo Putrefacto into 59 potions, the first at level 1). Spread over 1..20
+# like any material station they opened at 1, 4, 6, 9, 12, 15, 17 and 20, so
+# most low-level potions asked for a reagent the alchemist could not make yet
+# (tester report, 2026-09-24). They all open at level 1 now, tier 1, with DC and
+# XP rising in their authored order up to what level HERB_REAGENT_SPAN has in
+# the common progression; how rare a reagent is stays with its plant node.
+HERB_REAGENT_STATION = "cnrhebcauldron"
+HERB_REAGENT_SPAN = 3
 
 PROFESSIONS = (
     (1, "Herreria", "Herrería", 0, 0, 2, 1000),
@@ -1369,6 +1379,31 @@ def rebalance_jewellery(recipe_rows: Sequence[Recipe]) -> None:
         recipe.xp = max(1, int(base_xp * factor + 0.5))
 
 
+def open_herb_reagents(recipe_rows: Sequence[Recipe]) -> None:
+    """Make every herb-cauldron reagent available from the first levels.
+
+    Every reagent opens at level 1, tier 1. Kept in authored order (Zumo
+    Acuoso first, Esencia Invisible last, which is also the order of their
+    plants' node tiers), DC and XP run from the common progression's level 1
+    to its level HERB_REAGENT_SPAN, and gold follows the DC.
+    """
+    rows = sorted((recipe for recipe in recipe_rows
+                   if recipe.source.station.source == HERB_REAGENT_STATION
+                   and recipe.enabled),
+                  key=lambda recipe: recipe.recipe_id)
+    dc_high = progression_value(HERB_REAGENT_SPAN, LEVEL_MAX, DC_MIN, DC_MAX)
+    xp_high = progression_value(HERB_REAGENT_SPAN, LEVEL_MAX, XP_MIN, XP_MAX)
+    total = len(rows)
+    for index, recipe in enumerate(rows):
+        recipe.tier = 1
+        recipe.min_level = LEVEL_MIN
+        dc = progression_value(index + 1, total, DC_MIN, dc_high)
+        recipe.dc = dc
+        recipe.gold = dc * GOLD_PER_DC
+        base_xp = progression_value(index + 1, total, XP_MIN, xp_high)
+        recipe.xp = max(1, int(base_xp * MATERIAL_XP_FACTOR + 0.5))
+
+
 def verify_naming_contract(recipe_rows: Sequence[Recipe]) -> None:
     """Refuse a tree that breaks the CNR naming contract.
 
@@ -2201,6 +2236,7 @@ def main() -> int:
         raise ValueError(
             f"Generated {len(recipe_rows)} recipes instead of {expected_total}"
         )
+    open_herb_reagents(recipe_rows)
     tier_moves = align_tier_starts(recipe_rows)
     print(f"tier start moves                      : {len(tier_moves)}")
     if mapping_counts["alchemy_json"] != EXPECTED_RECIPE_COUNTS["cnralchemytable"]:

@@ -404,6 +404,10 @@ catalogue's tiers already open (smithing 5/12/17, carpentry 6/12/17, alchemy
 `build_catalogue.py` brings a late tier's first recipes down to its band.
 Jewellery, which had no tier 4 and a tier 3 with every other trade's tier-4
 numbers, is laid out again by `rebalance_jewellery` (see "Second gem" below).
+The herb cauldron's eight reagents are all tier 1 and open at level 1
+(`open_herb_reagents`, since 2026-09-24): the alchemy table mixes each of them
+into potions from level 1 to 3, so a spread over 1..20 left most low-level
+potions asking for a reagent the alchemist could not make.
 Arcane was
 realigned in `arcano.json`: each tier's properties are spread over their band in
 their authored order (tier 1 levels 1-6, nine per level; tier 2 7-11; tier 3
@@ -812,6 +816,33 @@ The recipe stamp is left as the first setting's, so the recycler returns that
 gem's materials only; a jewel with two gems can still be enchanted. The bench is
 shared, as every station is: a jewel left on it can be targeted by another
 player's attempt.
+
+### More than three properties: level 17 and above (since 2026-09-24)
+
+`wrap_on_equip_it` unequips an item carrying `masNivel15` from a character of
+level 16 or lower: such a character may wear three properties at most. The
+loot generators `pb_tesoro_sorteo` and `pb_tesoros_inc` set it on loot
+generated with more than three (`pb_tesoros_inc` asked for more than four,
+`iCalidad > 4`, until 2026-09-24), and Sr. Ponpaipa's antimagic machine (`use_antimagia`) clears it when a removal brings the item back to
+three. No recipe carries more than three property rows (22 bows,
+crossbows and ammunition carry three), but an arcane enchantment adds one, so a
+three-property piece became a four-property piece anyone could wear.
+
+`CnrProp_MarkHighLevel` (`cnr_i_prop.nss`) now sets the mark after every
+crafted product, every second gem and every arcane enchantment when
+`CnrProp_CountLimitedProperties` exceeds three. It counts permanent properties
+except the use limitations (alignment group, class, racial type, specific
+alignment, gender - row 150 of `itempropdef.2da`), light and quality, the
+same exclusions `use_antimagia` intended. It never clears the mark. Pieces
+enchanted before this change are not marked retroactively.
+
+`CnrProp_ClearHighLevel` clears it by the same count, and `use_antimagia`
+calls it half a second after removing a property. Until 2026-09-24 the machine
+counted inline: its exclusions were written `iTotLimit+1;`, which discards the
+sum, so use limitations, light and quality were counted after all; and it
+counted in the same script that called `RemoveItemProperty`. Whether a
+removal is visible to the same script is not stated by `nwscript.nss`; running
+the count after the script makes the answer irrelevant.
 
 ### Crafted potion activation
 

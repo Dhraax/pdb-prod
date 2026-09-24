@@ -1,4 +1,6 @@
+// modified by: Dhraax
 #include "x2_inc_itemprop"
+#include "cnr_i_prop"
 
 void main()
 {
@@ -141,16 +143,12 @@ void main()
                   AssignCommand(oPC, TakeGoldFromCreature(iPrecio, oPC, TRUE));
                   RemoveItemProperty(oItem1, ipPropiedadElegida);
 
-                  //Comprobamos las limitaciones y otras propiedades que no contamos para el limite
-                  int iTotLimit = 0;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_USE_LIMITATION_ALIGNMENT_GROUP) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_USE_LIMITATION_CLASS) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_USE_LIMITATION_RACIAL_TYPE) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_USE_LIMITATION_SPECIFIC_ALIGNMENT) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , 150) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_QUALITY) ) iTotLimit+1;
-                  if (GetItemHasItemProperty(oItem1 , ITEM_PROPERTY_LIGHT) ) iTotLimit+1;
-                  if(GetLocalInt(oItem1, "masNivel15") == 1 && (IPGetNumberOfItemProperties(oItem1)-iTotLimit) < 4) DeleteLocalInt(oItem1, "masNivel15");
+                  // Back to three properties or fewer, the item is no longer
+                  // reserved for level 17. Counted by the rule crafting and
+                  // Arcano use to set the mark, which leaves out use
+                  // limitations, light and quality, and counted after this
+                  // script so the removal has certainly taken effect.
+                  DelayCommand(0.5, CnrProp_ClearHighLevel(oItem1));
               }
 
               iBuclePropiedades = 5000;

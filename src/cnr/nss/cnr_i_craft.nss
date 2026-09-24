@@ -1569,6 +1569,7 @@ void CnrCraft_Finish(
     if (bSecondGem)
     {
         CnrCraft_ApplyPropertyRows(oSocketJewel, sPropertyRows);
+        CnrProp_MarkHighLevel(oSocketJewel);
         SetLocalInt(oSocketJewel, CNR_VAR_ENGARZADO, CNR_SOCKET_SECOND);
 
         // "... de amatista" becomes "... de amatista y topacio", inside the
@@ -1653,6 +1654,7 @@ void CnrCraft_Finish(
     }
 
     CnrCraft_ApplyPropertyRows(oItem, sPropertyRows);
+    CnrProp_MarkHighLevel(oItem);
 
     // Finished: hand it over. The copy carries the name, the tag, the flags,
     // the properties and the local variables, so what the crafter is told they
