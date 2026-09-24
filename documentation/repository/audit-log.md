@@ -74,6 +74,16 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`ae9e0886` - herb reagents at level 1, level-17 mark for four properties,
+2026-09-24.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one
+blocker, closed by `f0bfd9f5`.
+
+- **F-133, fixed.** The main loot generator marked by its tally of attempted
+  additions; `IPSafeAddItemProperty` replaces a property of the same type and
+  subtype, so a staff rolling the same spell twice was reserved for level 17
+  with three real properties. The item's own count now decides once the
+  queued additions have landed.
+
 **`4f6d1ac1` - jewellery second gem as tier 4, 2026-09-24.** Reviewed with
 `gpt-6-sol` at high reasoning, verdict BLOCKED, two blockers and one advisory,
 closed by `77b80f56`.
