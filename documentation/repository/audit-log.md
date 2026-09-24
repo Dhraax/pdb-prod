@@ -74,6 +74,20 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`4f6d1ac1` - jewellery second gem as tier 4, 2026-09-24.** Reviewed with
+`gpt-6-sol` at high reasoning, verdict BLOCKED, two blockers and one advisory,
+closed by `77b80f56`.
+
+- **F-147, fixed.** A failed roll broke the jewel only when the delayed finish
+  ran, so logging out, or taking the jewel off the bench, during the animation
+  saved it. It is now destroyed with the components at roll time.
+- **F-247, rejected.** It assumed `ItemPropertyBonusSavingThrowVsX` creates
+  type 41; `itempropdef.2da` row 40 owns the `IPRP_SAVEELEMENT` subtypes, so
+  the check comparing against 40 was right. The mapping is now in
+  `documentation/nwscript/engine-behavior.md`.
+- **F-347, fixed.** The second-gem guide table showed a recycle value the
+  recycler never pays; a two-gem jewel recycles as its first gem.
+
 **`3900cce0`, `63858ca3`, `d66fa726` - three audits in a row, 2026-09-24.**
 All with `gpt-6-sol` at high reasoning, all PASS, four advisories, closed.
 `3900cce0` (recycler 40% or recipe gold, extractor crystals, Murann doors)
