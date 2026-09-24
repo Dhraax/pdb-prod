@@ -173,7 +173,9 @@ string CnrRec_Describe(string sPlan)
         return "Ningun material: todas las cantidades se redondean a cero.";
     }
     string sText = "Materiales devueltos ("
-        + IntToString(CNR_REC_REFUND_PERCENT) + "%, redondeado hacia abajo):";
+        + IntToString(CNR_REC_REFUND_PERCENT) + "%, redondeado hacia abajo; "
+        + "al menos 1 de lo que se usaron "
+        + IntToString(CNR_REC_MIN_ONE_FROM) + " o mas):";
     while (sRest != "")
     {
         int iEnd = FindSubString(sRest, ";");
