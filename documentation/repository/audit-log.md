@@ -74,6 +74,15 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`43d03705` - panel accepts any portrait the game reports, 2026-09-25.**
+Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one blocker and
+one advisory, both fixed in `0b97d2b5`.
+
+- **F-168, fixed.** The changelog test named the reporting player's character
+  and id; it now describes the case.
+- **F-267, fixed.** The save handler stripped the portrait, so a value with
+  surrounding spaces was rewritten by an unrelated save; it is stored as sent.
+
 **`ae9e0886` - herb reagents at level 1, level-17 mark for four properties,
 2026-09-24.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one
 blocker, closed by `f0bfd9f5`.
