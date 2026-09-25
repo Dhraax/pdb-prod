@@ -247,6 +247,25 @@ def test_character_status_accepts_current_policy(status: str) -> None:
     assert CharacterUpdate.model_validate(payload).status == status
 
 
+@pytest.mark.parametrize(
+    "portrait",
+    ["po_test", "miria port_", "po-elf.f", "retrato_ñ", "¡(raro)!", "x" * 16],
+)
+def test_character_update_accepts_any_portrait_the_game_stores(portrait: str) -> None:
+    payload = _character_payload()
+    payload["portrait_resref"] = portrait
+
+    assert CharacterUpdate.model_validate(payload).portrait_resref == portrait
+
+
+def test_character_update_rejects_portrait_longer_than_its_column() -> None:
+    payload = _character_payload()
+    payload["portrait_resref"] = "x" * 17
+
+    with pytest.raises(ValidationError):
+        CharacterUpdate.model_validate(payload)
+
+
 def test_character_purge_requires_exact_confirmation() -> None:
     with pytest.raises(ValidationError):
         CharacterPurgeRequest(

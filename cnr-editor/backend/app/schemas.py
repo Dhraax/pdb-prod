@@ -769,11 +769,13 @@ class CharacterUpdate(BaseModel):
     race_id: int | None = Field(default=None, ge=0, le=65535)
     subrace: str | None = Field(default=None, max_length=32)
     gender_id: int | None = Field(default=None, ge=0, le=65535)
-    portrait_resref: str | None = Field(
-        default=None,
-        max_length=16,
-        pattern=r"^[A-Za-z0-9_]+$",
-    )
+    # Whatever the game reports, like subrace and deity: pwdb_i_db.nss stores
+    # GetPortraitResRef cut to the column's 16 characters and nothing else, and
+    # a player's custom portrait file can be named anything ("miria port_").
+    # The sheet sends the field back unchanged on every save, so a character
+    # pattern here refused every edit to such a character. The module never
+    # applies this value; it rewrites it from the game on the next snapshot.
+    portrait_resref: str | None = Field(default=None, max_length=16)
     deity: str | None = Field(default=None, max_length=64)
     admin_notes: str | None = Field(default=None, max_length=4000)
     tradeskills: list[TradeskillIn] | None = Field(default=None, min_length=7, max_length=7)
