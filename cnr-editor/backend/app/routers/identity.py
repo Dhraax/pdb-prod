@@ -964,7 +964,9 @@ def update_character(
         if "gender_id" in requested_fields:
             profile.gender_id = payload.gender_id
         if "portrait_resref" in requested_fields:
-            profile.portrait_resref = _clean(payload.portrait_resref)
+            # Kept exactly as the game reported it, spaces included: stripping
+            # would rewrite the stored portrait on any unrelated save.
+            profile.portrait_resref = payload.portrait_resref or None
         if "deity" in requested_fields:
             profile.deity = _clean(payload.deity)
         if "admin_notes" in requested_fields:

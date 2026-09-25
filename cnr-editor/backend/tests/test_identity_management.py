@@ -960,6 +960,22 @@ def test_adding_rebuilds_increments_the_stored_count_and_is_audited() -> None:
     assert revision.after_json["rebuilds_available"] == 2
 
 
+def test_saving_a_character_keeps_the_portrait_exactly_as_sent() -> None:
+    db = _rebuild_database(rebuilds_available=0)
+    context = _rebuild_context(
+        "view_accounts",
+        "view_characters",
+        "view_character_profile",
+        "edit_character_profile",
+    )
+
+    update_character(
+        5, CharacterUpdate(updated_at=None, portrait_resref=" po raro "), context, db
+    )
+
+    assert db.get(CharacterProfile, 5).portrait_resref == " po raro "
+
+
 def test_adding_rebuilds_requires_the_identity_edit_permission() -> None:
     db = _rebuild_database(rebuilds_available=1)
     context = _rebuild_context(
