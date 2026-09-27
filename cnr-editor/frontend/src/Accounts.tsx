@@ -1146,7 +1146,10 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
     </Dialog>
     <Dialog
       open={primaryCdKeyAction !== null}
-      onClose={() => setPrimaryCdKeyAction(null)}
+      onClose={() => {
+        setPrimaryCdKeyAction(null)
+        setPrimaryCdKey.reset()
+      }}
       maxWidth="sm"
       fullWidth
     >
@@ -1158,9 +1161,19 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
           guardada en el historial para poder restaurarla. Confirma antes la identidad del jugador
           por un canal de confianza.
         </DialogContentText>
+        {setPrimaryCdKey.error && (
+          <Alert severity="error" sx={{ mt: 2 }}>{setPrimaryCdKey.error.message}</Alert>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setPrimaryCdKeyAction(null)}>Cancelar</Button>
+        <Button
+          onClick={() => {
+            setPrimaryCdKeyAction(null)
+            setPrimaryCdKey.reset()
+          }}
+        >
+          Cancelar
+        </Button>
         <Button
           color="warning"
           variant="contained"

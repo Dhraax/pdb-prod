@@ -61,6 +61,7 @@ encima.
 | Tabla de serrería | Kit de herramientas del serrador; Sierra del serrador | inventario |
 | Mesa de joyero | Kit de herramientas de Orfebre | inventario; sólo al tallar gemas |
 | Tina de curtido | ninguna | - |
+| Curtidero de sastrería | ninguna | - |
 
 Las herramientas pueden romperse al comenzar un intento. Si ocurre, el
 intento se cancela antes de consumir componentes.

@@ -35,6 +35,7 @@ INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VA
 INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrSewingTable',7,'Mesa de sastrería','product','cnr_tailor_anim');
 INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrSawTable',2,'Tabla de serrería','material','cnr_carp_anim');
 INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrCarpsBench',2,'Banco de carpintero','product','cnr_carp_anim');
+INSERT INTO cnr_station (tag,profession_id,display_name,produces,anim_script) VALUES ('cnrSewingTub',7,'Curtidero de sastrería','material','cnr_curing_anim');
 
 INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_martligero','Martillo ligero de herrero','equipped',4.0,1 FROM cnr_station WHERE tag='cnrAnvilSmith';
 INSERT INTO cnr_station_tool (station_id,tool_tag,display_name,access_mode,breakage_chance,sort_order) SELECT station_id,'cnr_t_gu_fundid','Guantes de Fundidor','equipped',4.0,1 FROM cnr_station WHERE tag='cnrForgePublic';

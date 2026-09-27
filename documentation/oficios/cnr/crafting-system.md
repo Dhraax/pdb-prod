@@ -1126,6 +1126,7 @@ Per station:
 | Mesa de alquimia | 1 | 110 |
 | Forja | 1 | 15 |
 | Tina de curtido | 3 | 10 |
+| Curtidero de sastrería | 3 | 10 |
 | Caldero de hierbas | 1 | 8 |
 | Mesa de sastrería | 0 | 0 |
 | Tabla de serrería | 1 | 8 |

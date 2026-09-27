@@ -83,6 +83,7 @@ Cada mesa te pide llevar una herramienta, y hay dos formas de llevarla:
 | Tabla de serrería | **Kit de herramientas del serrador** + **Sierra del serrador** en el inventario |
 | Mesa de joyero | **Kit de herramientas de Orfebre** en el inventario, **sólo para tallar gemas** |
 | Tina de curtido | **ninguna** |
+| Curtidero de sastrería | **ninguna** |
 
 Prueba esto:
 
@@ -175,7 +176,8 @@ poco a poco según subes:
 | Mesa de sastrería | 3 | 9 | 30 |
 | Forja | 1 | 4 | 15 |
 | Tina de curtido | 1 | 3 | 10 |
-| Caldero | 1 | 2 | 8 |
+| Curtidero de sastrería | 1 | 3 | 10 |
+| Caldero | 8 | 8 | 8 |
 | Tabla de serrería | 1 | 2 | 8 |
 
 Hay un ajuste para ver **también** las recetas por encima de tu nivel:
@@ -383,7 +385,7 @@ mirar con más cuidado de todo el oficio.
 
 ## 5. Sastrería
 
-**Mesa:** Mesa de sastrería (30 recetas).
+**Mesas:** Curtidero de sastrería (10 recetas) y Mesa de sastrería (30).
 
 Sastrería usa las mismas pieles que Peletería pero **sube con su propio nivel**,
 y ése es el punto principal a verificar: subir Sastrería no debe subir
@@ -395,6 +397,10 @@ de fabricar unas cuantas piezas.
    siempre**, aciertes o falles.
 3. La aguja va **equipada** y el kit propio (**Kit de herramientas del Sastre**)
    en el inventario. Si la mesa te pide el kit de peletero, es un fallo.
+4. **Curtidero de sastrería.** Curte una piel: tiene que subir **Sastrería**,
+   no Peletería, y el cuero que sale sirve en las dos mesas. Con dos oficios a
+   nivel 2 o más y Peletería fuera de ellos, un sastre tiene que poder curtir
+   aquí aunque la Tina de curtido le quede cerrada.
 
 ---
 

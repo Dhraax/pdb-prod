@@ -1,3 +1,4 @@
+// modified by: Dhraax
 int StartingConditional()
 {
     object oPC = GetPCSpeaker();
@@ -9,7 +10,7 @@ int StartingConditional()
         {
             iRango = 35;
         }
-        SetCustomToken(500, IntToString(iRango));
+        SetCustomToken(93011, IntToString(iRango));
 
         return TRUE;
     }

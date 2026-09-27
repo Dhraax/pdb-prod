@@ -20,7 +20,7 @@ import sys
 import tokenize
 import unicodedata
 from collections import OrderedDict, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
@@ -119,6 +119,14 @@ SECOND_SOCKET_PROPERTY_ROWS = 29
 # XP rising in their authored order up to what level HERB_REAGENT_SPAN has in
 # the common progression; how rare a reagent is stays with its plant node.
 HERB_REAGENT_STATION = "cnrhebcauldron"
+# Sastreria sews cured leather but had no tub of its own: each tailoring recipe
+# of level N needs leather that only a leatherworker of level N could cure, and
+# a Peleteria closed by the two-trade limit could cure none (2026-09-27). The
+# curing tub's recipes are cloned onto this station, appended after every
+# other recipe so no recipe id moves, with the same levels, DC and XP but the
+# experience going to Sastreria.
+TAILOR_TUB_SOURCE = "cnrsewingtub"
+TAILOR_TUB_RECIPES = 10
 HERB_REAGENT_SPAN = 3
 
 PROFESSIONS = (
@@ -153,6 +161,8 @@ STATIONS: Sequence[Station] = (
     Station("cnrsewingtable", "cnrSewingTable", 7, "Mesa de sastrería", "product", "cnr_tailor_anim"),
     Station("cnrsawtable", "cnrSawTable", 2, "Tabla de serrería", "material", "cnr_carp_anim"),
     Station("cnrcarpsbench", "cnrCarpsBench", 2, "Banco de carpintero", "product", "cnr_carp_anim"),
+    # Last, so every station before it keeps its station_id.
+    Station("cnrsewingtub", "cnrSewingTub", 7, "Curtidero de sastrería", "material", "cnr_curing_anim"),
 )
 
 STATION_TOOLS = (
@@ -211,9 +221,13 @@ PUBLIC_ID_BASES = {
     "cnrhebcauldron": 4500,
     "cnrjewelersbench": 5000,
     "cnrsewingtable": 7000,
+    "cnrsewingtub": 7500,
 }
 
 EXPECTED_RECIPE_COUNTS = {
+    # Its recipes are clones of the curing tub's, added after the second gem;
+    # the frozen source file carries none (see TAILOR_TUB_SOURCE).
+    "cnrsewingtub": 0,
     # 65 while the catalogue only carried what the legacy cnrAlchemyTable.nss
     # had written down. alquimia.json authored 110 results and the script only
     # ever implemented 65, so forty-five potions - Blanca, Furiosa, de Agua and
@@ -1193,20 +1207,24 @@ def _sql_rows(text: str, table: str) -> List[Dict[str, str]]:
     return rows
 
 
-def catalogue_fingerprint(text: str) -> Dict[Tuple[str, str], dict]:
+def catalogue_fingerprint(text: str) -> Dict[Tuple[str, str, str], dict]:
     """Describe every recipe in a catalogue by what a player would recognise.
 
-    The key is the displayed name plus the blueprint it creates, which survives
-    any renumbering. Category ids move when a station gains a submenu, so the
-    category is carried by name.
+    The key is the station, the displayed name and the blueprint it creates,
+    which survives any renumbering. The station is part of it since the
+    tailoring curing tub makes the curing tub's leathers under the same names.
+    Category ids move when a station gains a submenu, so the category is
+    carried by name.
     """
     categories = {}
+    category_station = {}
     for match in re.finditer(
         r"INSERT INTO cnr_category \(category_id,[^)]*\) SELECT (\d+),[^,]*,[^,]*,"
-        r"('(?:[^']|'')*'),",
+        r"('(?:[^']|'')*'),[^;]*WHERE tag='([^']*)';",
         text,
     ):
         categories[match.group(1)] = match.group(2)
+        category_station[match.group(1)] = match.group(3)
 
     components = defaultdict(list)
     for row in _sql_rows(text, "cnr_recipe_component"):
@@ -1219,9 +1237,13 @@ def catalogue_fingerprint(text: str) -> Dict[Tuple[str, str], dict]:
             (row["property_type"], row["subtype"], row["value1"], row["value2"])
         )
 
-    fingerprint: Dict[Tuple[str, str], dict] = {}
+    fingerprint: Dict[Tuple[str, str, str], dict] = {}
     for row in _sql_rows(text, "cnr_recipe"):
-        key = (row["display_name"], row["base_resref"])
+        key = (
+            category_station.get(row["category_id"], ""),
+            row["display_name"],
+            row["base_resref"],
+        )
         if key in fingerprint:
             raise ValueError(
                 f"Two recipes share name and blueprint: {key}; the regression "
@@ -1263,17 +1285,17 @@ def verify_no_recipe_regression(catalogue_sql: str, accept: bool) -> None:
 
     problems: List[str] = []
     for key in sorted(set(old) - set(new)):
-        problems.append(f"lost recipe {key[0]!r} ({key[1]})")
+        problems.append(f"lost recipe {key[1]!r} ({key[2]}) at {key[0]}")
     for key in sorted(set(old) & set(new)):
         before, after = old[key], new[key]
         for field in IDENTITY_FIELDS:
             if before[field] != after[field]:
                 problems.append(
-                    f"{key[0]!r} changed {field}: {before[field]} -> {after[field]}"
+                    f"{key[1]!r} changed {field}: {before[field]} -> {after[field]}"
                 )
         if before["components"] != after["components"]:
             problems.append(
-                f"{key[0]!r} changed components: {before['components']} -> {after['components']}"
+                f"{key[1]!r} changed components: {before['components']} -> {after['components']}"
             )
         if before["properties"] != after["properties"]:
             # Row counts alone say nothing when a value moved rather than a row
@@ -1282,7 +1304,7 @@ def verify_no_recipe_regression(catalogue_sql: str, accept: bool) -> None:
             gone = [row for row in before["properties"] if row not in after["properties"]]
             new_rows = [row for row in after["properties"] if row not in before["properties"]]
             problems.append(
-                f"{key[0]!r} changed properties: {gone or 'nothing'} -> {new_rows or 'nothing'}"
+                f"{key[1]!r} changed properties: {gone or 'nothing'} -> {new_rows or 'nothing'}"
             )
 
     gained = len(set(new) - set(old))
@@ -2362,6 +2384,63 @@ def main() -> int:
         )
     rebalance_jewellery(recipe_rows)
     print(f"second-gem recipes                    : {socket_count}")
+
+    # --- tailoring curing tub ----------------------------------------------
+    # Clones of the curing tub's recipes on Sastreria's own station, appended
+    # after everything else so no recipe id moves. Same components, product,
+    # material, levels, DC and XP; only the station, and so the profession that
+    # earns the experience, differs.
+    tailor_tub = next(station for station in STATIONS if station.source == TAILOR_TUB_SOURCE)
+    tub_rows = sorted(
+        (recipe for recipe in recipe_rows
+         if recipe.source.station.source == "cnrcuringtub" and recipe.enabled),
+        key=lambda recipe: recipe.recipe_id,
+    )
+    tub_categories: Dict[str, int] = {}
+    for recipe in tub_rows:
+        if any(f",{recipe.recipe_id}," in line.split("VALUES (", 1)[1][:24]
+               for line in property_sql):
+            raise ValueError(f"Curing recipe {recipe.display_name!r} has properties to clone")
+        category_name = recipe.source.category_name
+        if category_name not in tub_categories:
+            tub_categories[category_name] = len(category_sql) + 1
+            category_sql.append(
+                "INSERT INTO cnr_category "
+                "(category_id,station_id,parent_id,display_name,sort_order) "
+                f"SELECT {tub_categories[category_name]},station_id,NULL,"
+                f"{sql_value(category_name)},{len(tub_categories)} "
+                f"FROM cnr_station WHERE tag={sql_value(tailor_tub.tag)};"
+            )
+        clone_id = len(recipe_rows) + 1
+        public_id_by_station[tailor_tub.source] = public_id_by_station.get(
+            tailor_tub.source, PUBLIC_ID_BASES[tailor_tub.source]
+        ) + 1
+        suffix = recipe.source.legacy_code.lower()
+        suffix = suffix[len("cnr_m_cu_"):] if suffix.startswith("cnr_m_cu_") else suffix
+        recipe_rows.append(replace(
+            recipe,
+            recipe_id=clone_id,
+            public_id=public_id_by_station[tailor_tub.source],
+            crafted_by=0,
+            source=replace(
+                recipe.source,
+                station=tailor_tub,
+                category_id=tub_categories[category_name],
+                legacy_code="tailor_cure_" + suffix,
+            ),
+        ))
+        prefix = f"VALUES ({recipe.recipe_id},"
+        cloned = [line for line in component_sql if prefix in line]
+        if not cloned:
+            raise ValueError(f"Curing recipe {recipe.display_name!r} has no components")
+        component_sql.extend(
+            line.replace(prefix, f"VALUES ({clone_id},", 1) for line in cloned
+        )
+    if len(tub_rows) != TAILOR_TUB_RECIPES:
+        raise ValueError(
+            f"Cloned {len(tub_rows)} curing recipes instead of {TAILOR_TUB_RECIPES}"
+        )
+    print(f"tailoring curing recipes              : {len(tub_rows)}")
     # A base blueprint shared by several recipes must be one of the trade's own.
     #
     # The rule exists because the opposite was believed to be true for six days
@@ -2418,6 +2497,10 @@ def main() -> int:
         # bench. Its base_resref is the cut gem only because the column cannot
         # be empty, so it shares no blueprint in the sense this rule guards.
         if recipe.marks_socketed == SECOND_SOCKET_MARK:
+            continue
+        # A tailoring curing recipe is the curing tub's own recipe on a second
+        # station: the same cured leather, not a borrowed blueprint.
+        if recipe.source.station.source == TAILOR_TUB_SOURCE:
             continue
         shared_bases[recipe.base_resref] += 1
     variants_doc_for_check = json.loads(
