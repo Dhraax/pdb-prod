@@ -976,6 +976,27 @@ def test_saving_a_character_keeps_the_portrait_exactly_as_sent() -> None:
     assert db.get(CharacterProfile, 5).portrait_resref == " po raro "
 
 
+def test_a_deleted_character_is_flagged_without_identity_permission() -> None:
+    db = _rebuild_database(rebuilds_available=0)
+    now = datetime.now(UTC).replace(tzinfo=None)
+    db.add(CharacterProfile(character_id=5, status="deleted", deleted_at=now))
+    db.commit()
+    viewer = _rebuild_context("view_accounts", "view_characters").user
+
+    detail = _character_detail(db.get(Character, 5), viewer)
+
+    assert detail.is_deleted is True
+    assert detail.status is None
+    assert detail.deleted_at is None
+
+
+def test_a_live_character_is_not_flagged_as_deleted() -> None:
+    db = _rebuild_database(rebuilds_available=0)
+    viewer = _rebuild_context("view_accounts", "view_characters").user
+
+    assert _character_detail(db.get(Character, 5), viewer).is_deleted is False
+
+
 def test_adding_rebuilds_requires_the_identity_edit_permission() -> None:
     db = _rebuild_database(rebuilds_available=1)
     context = _rebuild_context(

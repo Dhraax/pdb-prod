@@ -100,14 +100,17 @@ function formatDateTime(value: string | null): string {
 }
 
 
+// is_deleted reaches every viewer of the list; status and deleted_at only
+// those allowed to see character identity.
 function isDeletedCharacter(character: CharacterDetail): boolean {
-  return character.status === 'deleted' || character.deleted_at !== null
+  return character.is_deleted || character.status === 'deleted' || character.deleted_at !== null
 }
 
-// A deleted character is history, so the sheet opens on the first live one.
+// A deleted character is history, so the sheet opens on the first live one,
+// and on none when every character is deleted: the history stays collapsed
+// until someone opens it.
 function firstCharacterId(characters: CharacterDetail[]): number | null {
-  const first = characters.find((item) => !isDeletedCharacter(item)) ?? characters[0]
-  return first?.character_id ?? null
+  return characters.find((item) => !isDeletedCharacter(item))?.character_id ?? null
 }
 
 function abilityModifier(score: number | null): string {
@@ -591,6 +594,10 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
       return firstCharacterId(next.characters)
     })
   }, [open, account.data])
+  // Each account opens with its character history collapsed.
+  useEffect(() => {
+    setCharacterHistoryOpen(false)
+  }, [accountId, open])
 
   const acceptAccountUpdate = (updated: AccountDetail) => {
     setDraft(updated)

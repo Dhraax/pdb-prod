@@ -141,6 +141,9 @@ def _character_detail(
         charisma_score=profile.charisma_score if profile and can_view_abilities else None,
         admin_notes=profile.admin_notes if profile and can_view_profile else None,
         deleted_at=profile.deleted_at if profile and can_view_identity else None,
+        is_deleted=bool(
+            profile and (profile.status == "deleted" or profile.deleted_at is not None)
+        ),
         created_at=character.created_at if can_view_timestamps else None,
         last_login_at=character.last_login_at if can_view_timestamps else None,
         updated_at=profile.updated_at if profile else None,

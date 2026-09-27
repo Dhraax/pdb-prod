@@ -632,6 +632,10 @@ class CharacterDetail(BaseModel):
     charisma_score: int | None = Field(default=None, ge=0, le=255)
     admin_notes: str | None
     deleted_at: datetime | None = None
+    # Whether the character is deleted, for every viewer of the character list:
+    # status and deleted_at stay behind view_character_identity, but the list
+    # has to know which tab belongs under the character history.
+    is_deleted: bool = False
     created_at: datetime | None
     last_login_at: datetime | None
     updated_at: datetime | None

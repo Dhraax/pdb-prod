@@ -350,6 +350,7 @@ export interface CharacterDetail {
   charisma_score: number | null
   admin_notes: string | null
   deleted_at: string | null
+  is_deleted: boolean
   created_at: string | null
   last_login_at: string | null
   updated_at: string | null
