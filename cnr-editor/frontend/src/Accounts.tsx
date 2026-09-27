@@ -100,6 +100,16 @@ function formatDateTime(value: string | null): string {
 }
 
 
+function isDeletedCharacter(character: CharacterDetail): boolean {
+  return character.status === 'deleted' || character.deleted_at !== null
+}
+
+// A deleted character is history, so the sheet opens on the first live one.
+function firstCharacterId(characters: CharacterDetail[]): number | null {
+  const first = characters.find((item) => !isDeletedCharacter(item)) ?? characters[0]
+  return first?.character_id ?? null
+}
+
 function abilityModifier(score: number | null): string {
   if (score === null) return '—'
   const modifier = Math.floor((score - 10) / 2)
@@ -540,6 +550,7 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
   const client = useQueryClient()
   const [draft, setDraft] = useState<AccountDetail | null>(null)
   const [selectedCharacterId, setSelectedCharacterId] = useState<number | null>(null)
+  const [characterHistoryOpen, setCharacterHistoryOpen] = useState(false)
   const [confirmingCdKeyReset, setConfirmingCdKeyReset] = useState(false)
   const [cdKeyAction, setCdKeyAction] = useState<{ cdKey: string, banned: boolean } | null>(null)
   const [primaryCdKeyAction, setPrimaryCdKeyAction] = useState<string | null>(null)
@@ -577,7 +588,7 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
     setSelectedCharacterId((current) => {
       if (!next) return null
       if (next.characters.some((item) => item.character_id === current)) return current
-      return next.characters[0]?.character_id ?? null
+      return firstCharacterId(next.characters)
     })
   }, [open, account.data])
 
@@ -676,7 +687,7 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
     ),
     onSuccess: (updated) => {
       acceptAccountUpdate(updated)
-      setSelectedCharacterId(updated.characters[0]?.character_id ?? null)
+      setSelectedCharacterId(firstCharacterId(updated.characters))
       setPurgeAction(null)
       setPurgeConfirmation('')
       client.invalidateQueries({ queryKey: ['audit'] })
@@ -1026,30 +1037,15 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
                 </AccordionDetails>
               </Accordion>
             )}
-            {canViewCharacters && <>
-              <Typography variant="h5">Personajes ({draft.characters.length})</Typography>
-              {draft.characters.length === 0 ? (
-                <Alert severity="info">Esta cuenta todavía no tiene personajes.</Alert>
-              ) : (
-                <Tabs
-                  value={selectedCharacterId}
-                  onChange={(_, value: number) => setSelectedCharacterId(value)}
-                  variant="scrollable"
-                  scrollButtons="auto"
-                  aria-label="Seleccionar personaje"
-                >
-                  {draft.characters.map((character) => (
-                    <Tab
-                      key={character.character_id}
-                      value={character.character_id}
-                      label={character.display_name}
-                    />
-                  ))}
-                </Tabs>
-              )}
-              {draft.characters.filter(
+            {canViewCharacters && (() => {
+              const liveCharacters = draft.characters.filter(
+                (character) => !isDeletedCharacter(character),
+              )
+              const deletedCharacters = draft.characters.filter(isDeletedCharacter)
+              const selectedIsDeleted = deletedCharacters.some(
                 (character) => character.character_id === selectedCharacterId,
-              ).map((character) => (
+              )
+              const characterCard = (character: CharacterDetail) => (
                 <CharacterCard
                   key={character.character_id}
                   character={character}
@@ -1061,8 +1057,74 @@ function AccountEditor({ accountId, open, permissions, role, onClose }: {
                   onSave={(value) => saveCharacter.mutate(value)}
                   onPurge={setPurgeAction}
                 />
-              ))}
-            </>}
+              )
+              const characterTabs = (characters: CharacterDetail[], label: string) => (
+                <Tabs
+                  value={
+                    characters.some((character) => character.character_id === selectedCharacterId)
+                      ? selectedCharacterId
+                      : false
+                  }
+                  onChange={(_, value: number) => setSelectedCharacterId(value)}
+                  variant="scrollable"
+                  scrollButtons="auto"
+                  aria-label={label}
+                >
+                  {characters.map((character) => (
+                    <Tab
+                      key={character.character_id}
+                      value={character.character_id}
+                      label={character.display_name}
+                    />
+                  ))}
+                </Tabs>
+              )
+              return <>
+                <Typography variant="h5">Personajes ({liveCharacters.length})</Typography>
+                {liveCharacters.length === 0 ? (
+                  <Alert severity="info">
+                    {deletedCharacters.length === 0
+                      ? 'Esta cuenta todavía no tiene personajes.'
+                      : 'Esta cuenta no tiene personajes activos.'}
+                  </Alert>
+                ) : characterTabs(liveCharacters, 'Seleccionar personaje')}
+                {liveCharacters.filter(
+                  (character) => character.character_id === selectedCharacterId,
+                ).map(characterCard)}
+                {deletedCharacters.length > 0 && (
+                  <Accordion
+                    variant="outlined"
+                    expanded={characterHistoryOpen || selectedIsDeleted}
+                    onChange={(_, expanded) => {
+                      setCharacterHistoryOpen(expanded)
+                      if (!expanded && selectedIsDeleted) {
+                        setSelectedCharacterId(firstCharacterId(draft.characters))
+                      }
+                    }}
+                  >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Box>
+                        <Typography variant="h6">
+                          Historial de personajes ({deletedCharacters.length})
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Personajes eliminados de esta cuenta, conservados para revisar su
+                          historial.
+                        </Typography>
+                      </Box>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Stack spacing={2}>
+                        {characterTabs(deletedCharacters, 'Seleccionar personaje eliminado')}
+                        {deletedCharacters.filter(
+                          (character) => character.character_id === selectedCharacterId,
+                        ).map(characterCard)}
+                      </Stack>
+                    </AccordionDetails>
+                  </Accordion>
+                )}
+              </>
+            })()}
           </Stack>
         )}
       </DialogContent>
