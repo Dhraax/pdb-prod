@@ -74,6 +74,17 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`15edd504` - character history in the panel, 2026-09-27.** Reviewed with
+`gpt-6-sol` at high reasoning, verdict BLOCKED, two blockers and one advisory,
+all fixed in `814fe690`.
+
+- **F-123, fixed.** Deletion was read from identity fields a viewer with only
+  `view_characters` does not receive; `is_deleted` now reaches every viewer.
+- **F-245, fixed.** With only deleted characters the history reopened on
+  collapse; such an account now selects none.
+- **F-367, fixed.** The history's expanded state carried over between
+  accounts; it resets per account.
+
 **`dd684d47` - Sastrería curing tub, dialog tokens 93001/93011, primary-key
 error in the panel, 2026-09-27.** Reviewed with `gpt-6-sol` at high
 reasoning, verdict BLOCKED, one blocker, fixed in `2d8d4eaa`.
