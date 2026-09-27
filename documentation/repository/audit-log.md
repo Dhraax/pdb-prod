@@ -74,6 +74,15 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`dd684d47` - Sastrería curing tub, dialog tokens 93001/93011, primary-key
+error in the panel, 2026-09-27.** Reviewed with `gpt-6-sol` at high
+reasoning, verdict BLOCKED, one blocker, fixed in `2d8d4eaa`.
+
+- **F-001, fixed.** The recorded frontend typecheck used the root
+  `tsconfig.json`, which lists no files; the changelog now records
+  `tsc --noEmit -p tsconfig.app.json`, which covers `Accounts.tsx`, and it
+  passes. No functional defect was found in the change.
+
 **`43d03705` - panel accepts any portrait the game reports, 2026-09-25.**
 Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one blocker and
 one advisory, both fixed in `0b97d2b5`.
