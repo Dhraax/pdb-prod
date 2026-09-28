@@ -74,6 +74,17 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`c9313980` - every piece of treasure equipment marked by its colour,
+2026-09-28.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED,
+three blockers, fixed in `4f5c9f51`.
+
+- **F-101, fixed.** `CrearMiscelanea` was listed as non-equipment although it
+  makes wearable lanterns and holy symbols; it marks rank 1 now.
+- **F-102, fixed.** Ruined pieces returned before `FinalizarObjetoCreado`;
+  `IniciarObjetoCreado` marks them rank 1.
+- **F-103, fixed.** Set pieces carry set colours outside the colour table;
+  settled and documented as the rank of their hit-dice band.
+
 **`ae016dd6` - rebuild migration accepts both row counts, 2026-09-28.**
 Reviewed with `gpt-6-sol` at high reasoning, verdict PASS, no findings, closed
 by `b7c6f1f9` (commit id in the changelog only).
