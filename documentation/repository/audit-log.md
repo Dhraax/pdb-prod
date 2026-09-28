@@ -74,6 +74,18 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`f125422d` - daily server backup with retention, 2026-09-28.** Reviewed with
+`gpt-6-sol` at high reasoning, verdict BLOCKED, three blockers and one
+advisory, all fixed in `a3aff3f5`.
+
+- **F-197, fixed.** A week spanning two months pruned the earlier month's last
+  archive before monthly retention reached it.
+- **F-297, fixed.** Minute-precision names let a second run replace an archive
+  before its checksum existed.
+- **F-397, fixed.** The documented cron line logged into a directory the first
+  run had not created.
+- **F-497, fixed.** The script was committed without the executable bit.
+
 **`c9313980` - every piece of treasure equipment marked by its colour,
 2026-09-28.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED,
 three blockers, fixed in `4f5c9f51`.
