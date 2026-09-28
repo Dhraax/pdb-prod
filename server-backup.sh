@@ -7,6 +7,8 @@
 #
 #    0 6 * * * /home/baldurs/nwneeserver/server-backup.sh >> /home/baldurs/pdb-backups/cron.log 2>&1
 #
+#  Archives are named pdb-backup-YYYY-MM-DD_HHMMSS.tar.gz.
+#
 #  Settings, all optional, from the environment:
 #    STACK_DIR    Server stack directory: docker-compose.yml, servervault/.
 #                 Default: the directory this script is in.
@@ -18,6 +20,8 @@
 #    - the last 7 days: every archive;
 #    - 8 to 35 days old: the newest archive of each ISO week;
 #    - older: the newest archive of each month.
+#  The newest archive of a month is never pruned while it is in the weekly
+#  range either, so a week that spans two months keeps both months' last.
 #
 #  Usage:
 #    ./server-backup.sh               back up, then apply retention
@@ -48,14 +52,14 @@ fail() {
 }
 
 prune() {
-    local now_epoch name stamp day epoch age week month
+    local now_epoch name stamp day epoch age week month month_newest week_newest
     local -A newest_week=() newest_month=()
     local -a keep=() files=() months=()
     now_epoch="$(date +%s)"
 
     # Newest first, so the first file seen for a week or month is its newest.
     mapfile -t files < <(find "$BACKUP_DIR" -maxdepth 1 -type f \
-        -name "${PREFIX}????-??-??_????${SUFFIX}" -printf '%f\n' | sort -r)
+        -name "${PREFIX}????-??-??_??????${SUFFIX}" -printf '%f\n' | sort -r)
 
     for name in "${files[@]}"; do
         stamp="${name#"$PREFIX"}"
@@ -66,15 +70,26 @@ prune() {
         week="$(date -d "$day" +%G-%V)"
         month="${day:0:7}"
 
+        # Files come newest first, so the first one seen for a month or a
+        # week is its newest, whatever range it falls in.
+        month_newest=0
+        if [[ -z "${newest_month[$month]:-}" ]]; then
+            newest_month[$month]="$name"
+            month_newest=1
+        fi
+        week_newest=0
+        if [[ -z "${newest_week[$week]:-}" ]]; then
+            newest_week[$week]="$name"
+            week_newest=1
+        fi
+
         if (( age <= 7 )); then
             keep+=("$name")
         elif (( age <= 35 )); then
-            if [[ -z "${newest_week[$week]:-}" ]]; then
-                newest_week[$week]="$name"
+            if (( week_newest || month_newest )); then
                 keep+=("$name")
             fi
-        elif [[ -z "${newest_month[$month]:-}" ]]; then
-            newest_month[$month]="$name"
+        elif (( month_newest )); then
             months+=("$month")
             if (( KEEP_MONTHS == 0 || ${#months[@]} <= KEEP_MONTHS )); then
                 keep+=("$name")
@@ -121,11 +136,13 @@ cd "$STACK_DIR"
 [[ -n "$("${compose[@]}" ps -q --status running mysql)" ]] \
     || fail "the MySQL service of $STACK_DIR is not running"
 
-name="${PREFIX}$(date +%Y-%m-%d_%H%M)${SUFFIX}"
+name="${PREFIX}$(date +%Y-%m-%d_%H%M%S)${SUFFIX}"
+[[ ! -e "$BACKUP_DIR/$name" ]] || fail "$BACKUP_DIR/$name already exists"
 work="$(mktemp -d "$BACKUP_DIR/.work.XXXXXX")"
 partial="$BACKUP_DIR/.${name}.partial"
+partial_sum="$partial.sha256"
 cleanup() {
-    rm -rf -- "$work" "$partial"
+    rm -rf -- "$work" "$partial" "$partial_sum"
 }
 trap cleanup EXIT
 
@@ -154,8 +171,14 @@ set -e
 (( status <= 1 )) || fail "tar failed with status $status"
 tar -tzf "$partial" >/dev/null || fail "the archive does not read back"
 
-mv -f -- "$partial" "$BACKUP_DIR/$name"
-(cd "$BACKUP_DIR" && sha256sum "$name" > "$name.sha256")
+# The checksum is made before anything is published, under the final name,
+# and nothing existing is replaced.
+hash="$(sha256sum "$partial" | cut -d' ' -f1)"
+[[ "$hash" =~ ^[0-9a-f]{64}$ ]] || fail "could not checksum the archive"
+printf '%s  %s\n' "$hash" "$name" > "$partial_sum"
+mv -n -- "$partial_sum" "$BACKUP_DIR/$name.sha256"
+mv -n -- "$partial" "$BACKUP_DIR/$name"
+[[ ! -e "$partial" ]] || fail "$BACKUP_DIR/$name appeared while writing; left untouched"
 log "Wrote $BACKUP_DIR/$name ($(du -h "$BACKUP_DIR/$name" | cut -f1))"
 
 prune
