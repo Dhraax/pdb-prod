@@ -74,6 +74,10 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`ae016dd6` - rebuild migration accepts both row counts, 2026-09-28.**
+Reviewed with `gpt-6-sol` at high reasoning, verdict PASS, no findings, closed
+by `b7c6f1f9` (commit id in the changelog only).
+
 **`15edd504` - character history in the panel, 2026-09-27.** Reviewed with
 `gpt-6-sol` at high reasoning, verdict BLOCKED, two blockers and one advisory,
 all fixed in `814fe690`.
