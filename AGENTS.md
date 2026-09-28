@@ -455,6 +455,7 @@ explicitly asks.
 | `nwsync.sh` | Publish the packed module to NWSync | Writes `/var/www/nwsync`, the nginx root of `nwsync.puertadebaldur.com`, from `server/modules/Puerta de Baldur 5E.mod` beside the script, or `modules/Puerta de Baldur 5E.mod` when the script sits in the server directory itself. Player-visible the moment it runs |
 | `linux_apply_sql.sh` | Apply one or more `.sql` files to the running MySQL | Reads credentials from `server/config/mysql.env`, falling back to `config/mysql.env`. Never echo those values |
 | `db-backup.sh` | Create a private full-MySQL transfer package under ignored `server/db-transfer/` | Read-only against the running source database; captures live editor changes, identity and CNR progress as well as recipes |
+| `server-backup.sh` | Daily archive of the MySQL database and the servervault, for cron on the host, with daily/weekly/monthly retention | Read-only against the database; writes and prunes only `pdb-backup-*` archives in `BACKUP_DIR` (default `~/pdb-backups`). See `documentation/database/scheduled-backups.md` |
 | `db-restore.sh` | Restore the transferred MySQL package on a new host | Destructive by nature but refuses any non-empty target database; validates checksum and recipe presence before handoff |
 | `db-apply.sh` | Apply `migration/*.sql` in order to a **live** database | Rebuilds the catalogue tables only. Dumps to `<stack>/db-backups/pre-apply-<timestamp>.sql.gz` first, and aborts if the character, tradeskill or setting counts drop. Finds the stack itself: `dev-server/` on the dev host, `server/` locally, and prints both it and the migration directory before asking to confirm |
 
@@ -521,7 +522,7 @@ environment file.
   files. No separate user request is required for that check.
 - Except for that focused check, do not run Nasher install/unpack, an NWScript
   compiler, module packaging, Docker Compose start/stop, `host-sync.sh`,
-  `server.sh`, `db-reset-players.sh`, `server-restart.sh`, `web-restart.sh`, `nwsync.sh`, `linux_apply_sql.sh`, `db-backup.sh`,
+  `server.sh`, `db-reset-players.sh`, `server-restart.sh`, `web-restart.sh`, `nwsync.sh`, `linux_apply_sql.sh`, `db-backup.sh`, `server-backup.sh`,
   `db-restore.sh`, `db-apply.sh`, or in-game validation unless the user
   explicitly requests it. This is the live module: several of those are visible
   to players the moment they run.

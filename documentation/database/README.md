@@ -7,6 +7,7 @@ model, CNR character state, and the completed DEV SQLite-to-MySQL migration.
 
 | Document | Contents |
 |----------|----------|
+| [`scheduled-backups.md`](scheduled-backups.md) | Daily cron backup of the database and servervault, and its weekly and monthly retention |
 | [`host-migration.md`](host-migration.md) | Canonical full-MySQL host transfer: private dump staging, rsync transport, empty-target restore, service startup and validation |
 | [`data-model.md`](data-model.md) | **The model.** Four layers, the DDL, the login sequence, what is cached where, and the failure policy. Prescriptive — read before writing any persistence code |
 | [`pwdb-cnr-production-port.md`](pwdb-cnr-production-port.md) | **Start here for DEV to PROD.** Source boundaries, persistent schemas, hooks, build routing, deployment order, verification and rollback |
