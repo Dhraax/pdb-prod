@@ -1784,15 +1784,10 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "CALIDAD_GUARDADA", ipCalidad);
       SetLocalInt(oObjeto, "PCItem", 1);
 
-      // Marked through cnr_i_loot, the same call the boss-chest libraries make,
-      // so the two generators cannot drift apart again. Shop stock and quest
-      // rewards stay outside: they are not loot. A quest reward reaches this
-      // with the player as its target, and the player carries no
-      // CNR_LOOT_SOURCE.
-      if(iTienda == FALSE && GetLocalInt(oObjetivo, "CNR_LOOT_SOURCE") == TRUE)
-      {
-          CnrLoot_Mark(oObjeto, iRango);
-      }
+      // Marked with the rank of the colour just given to the name: every
+      // piece this generator makes is loot, quest rewards included, except
+      // shop stock (cnr_i_loot, CnrLoot_MarkGenerated).
+      CnrLoot_MarkGenerated(oObjeto, oObjetivo, iRango, iTienda);
 
       if(GetObjectType(oObjetivo) == OBJECT_TYPE_CREATURE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que lo rescataste de las garras de "+GetName(OBJECT_SELF)+". A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
       else if(iTienda == TRUE) SetDescription(oObjeto, "Puedes notar cómo este objeto contiene encantamientos, pero no lleva el sello de ningún fabricante. Su historia y leyenda son aparentemente desconocidas, sólo conoces que un comerciante te lo vendió. A partir de ahora tú serás su nuevo propietario, el amo y señor de los relatos venideros de este objeto mágico.");
@@ -1820,6 +1815,8 @@ void FinalizarObjetoCreado(object oObjeto, object oObjetivo, int iCalidad, int i
       SetLocalInt(oObjeto, "PCItem", 1);
       if (iTienda==TRUE) {SetIdentified(oObjeto, TRUE);}
       DelayCommand(0.2, IPSafeAddItemProperty(oObjeto, ItemPropertyQuality(IP_CONST_QUALITY_AVERAGE)));
+      // No enchantment and no colour: the grey piece, rank 1.
+      CnrLoot_MarkGenerated(oObjeto, oObjetivo, 1, iTienda);
   }
 
 }
@@ -4156,10 +4153,6 @@ void Crear1ObjetoAleatorio(object oDestino, int iRango, int iMejoraTesoro=1)
 
 void GenerarTesoroEnCriaturas()
 {
-  // Everything this container is about to receive is loot, and only loot
-  // may be broken down in the arcane extractor. The creature carries it.
-  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
-
   int iDebugMess = 0;
   int iRango, iTirada;
 
@@ -4341,10 +4334,6 @@ void GenerarTesoroEnCriaturas()
 
 void GenerarTesoroEnUbicados(object oPC, int iCalidad=1)
 {
-  // Everything this container is about to receive is loot, and only loot
-  // may be broken down in the arcane extractor. The chest carries it.
-  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
-
   // Anti spam
   if(GetLocalInt(OBJECT_SELF, "TESOROGENERADO") == TRUE) return;
 
@@ -4388,10 +4377,6 @@ void GenerarTesoroEnUbicados(object oPC, int iCalidad=1)
 
 void GenerarTesoroEnUbicadosBoss(object oPC, int iCalidad)
 {
-  // Everything this container is about to receive is loot, and only loot
-  // may be broken down in the arcane extractor. The boss chest carries it.
-  SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
-
   // Anti spam
   if(GetLocalInt(OBJECT_SELF, "TESOROGENERADO") == TRUE) return;
 

@@ -14,10 +14,48 @@ magic rods, magic wands, potions, scrolls, gems and ordinary miscellaneous
 items have zero slot masks. Ammunition declares its ammunition slots.
 The runtime reads the server table, so testing must use the corresponding hak.
 
-The remaining producer conditions are unchanged: the target must have
-`CNR_LOOT_SOURCE`, the item must not be shop stock, and loot rank must be at
-least 2. Ranks 2 through 5 receive extraction tiers 1 through 4. Grey rank 1
-receives no extraction mark.
+## Colour and tier are one decision (since 2026-09-28)
+
+A piece of equipment the treasure system creates carries `CNR_LOOT_TIER` equal
+to the rank of the colour its name was given, set by
+`CnrLoot_MarkGenerated` (`cnr_i_loot.nss`) in the same place the name is
+coloured:
+
+| Colour | Rank | Named by |
+|---|--:|---|
+| No colour, no enchantment | 1 | `FinalizarObjetoCreado`, plain branch |
+| Grey-blue, "superior" | 1 | `FinalizarObjetoCreado` rank 1; `nombrarObjeto` up to 9 HD |
+| Cyan, "encantado/a" | 2 | rank 2; 10-19 HD |
+| Blue, "poderoso/a" | 3 | rank 3; 20-29 HD |
+| Gold, "legendario/a" | 4 | rank 4; 30-39 HD |
+| Magenta, "titánico/a" | 5 | rank 5; 40+ HD |
+
+`FinalizarObjetoCreado` (`pb_tesoros_inc`) marks both of its branches; every
+creator of the `pb_tesoro_*` libraries marks next to its `nombrarObjeto`.
+What the extractor yields per rank is in `cnr_i_extract.nss` and
+`arcane-plan.md` section 7.
+
+**Everything the treasure system creates is loot**: creature and boss drops,
+ordinary and boss chests, quest rewards (Doyle's `qa_recompensa`,
+`quest_addai3_1`, `quest_selune3_1`, `quest_viuda3_1`, `quest_reliquia6`) and
+treasure pouches (`pb_mod_activate`). The only exclusion is shop stock:
+`iTienda` set, or a store as the target. Gold, scrolls, gems, potions, junk and
+miscellany are not equipment and are never marked.
+
+Until 2026-09-28 a piece was marked only when its target carried
+`CNR_LOOT_SOURCE`, which corpses and chests set and players do not, so quest
+rewards were never extractable; and `FinalizarObjetoCreado` marked only its
+enchanted branch, so plain chest equipment was not either. The flag is gone.
+The change is not retroactive: pieces created before it keep whatever they
+had.
+
+**The rule is enforced before compiling.** `scripts/check_loot_marks.py`, run
+by `linux_build.sh` in `--check` and in a build, fails when a library creator
+does not both name and mark its item, when a `pb_tesoros_inc` piece started by
+`IniciarObjetoCreado` is not finished by `FinalizarObjetoCreado`, when that
+function does not mark both branches, when a new creator there makes items
+outside that pair without being listed as non-equipment, or when any script
+but `cnr_i_loot` calls `CnrLoot_Mark` directly.
 
 `cnr_i_extract.nss` trusts this mark for equipment classification. Its common
 `CnrExt_Tier` predicate also requires identification and refuses
@@ -27,12 +65,9 @@ extractor does not repeat the equipment classifier.
 
 ## Fresh creature loot
 
-The normal creature branch currently passes loot rank 1 for every challenge
-rating. Consequently, ordinary newly generated creature loot is grey and has
-no extraction mark. Boss and container generation can produce higher ranks.
-This is a separate loot-rank policy from equipment eligibility; this slice
-changes neither rarity nor essence yields. A test reporting rejection must
-record the source, rank and identification state of its item.
+The normal creature branch passes loot rank 1 for every challenge rating, so
+ordinary creature loot is rank 1: grey, and minimal at the extractor. Bosses
+(`JEFAZO`) and boss chests produce higher ranks from their hit dice.
 
 ## Verification
 
@@ -41,8 +76,9 @@ not establish runtime equipment or conversation behavior. Test freshly
 created, identified equipment of each marked rarity, and repeat before
 identification: the unidentified item must remain intact. Check a magic staff
 and several worn equipment types, then non-equipment loot including magic
-rods and wands: the latter must have no extraction mark. Verify shop stock,
-quest rewards, grey loot and Arcane-enchanted items remain refused. Exercise
+rods and wands: the latter must have no extraction mark. Verify that quest
+rewards and plain chest equipment are extractable, and that shop stock and
+Arcane-enchanted items remain refused. Exercise
 single and mixed batch extraction, confirming refused items remain inside.
 
 ## Provenance

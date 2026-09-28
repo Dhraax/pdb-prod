@@ -28,10 +28,6 @@
 /// zero from a name that was never set.
 const string CNR_LOOT_VAR_TIER = "CNR_LOOT_TIER";
 
-/// Set to TRUE on a container before a generator fills it: a corpse, a chest
-/// or a boss chest. Only what lands in one is loot. Shop stock is created with
-/// iTienda and quest rewards are created on the player, so neither is marked.
-const string CNR_LOOT_VAR_SOURCE = "CNR_LOOT_SOURCE";
 
 // -----------------------------------------------------------------------------
 //                             Function Prototypes
@@ -55,6 +51,20 @@ int CnrLoot_RankFromDG(int nDG);
 /// essence and are left alone, so the extractor says so rather than eating
 /// them.
 void CnrLoot_Mark(object oItem, int iRank);
+
+/// @brief Mark a piece the treasure generators just named and coloured, with
+///     the rank of that colour. The generators call it next to the naming, so
+///     colour and extraction tier cannot disagree (since 2026-09-28).
+/// @param oItem The piece just created.
+/// @param oTarget Where it was created: a corpse, a chest, a player receiving
+///     a quest reward or a treasure pouch, or a store.
+/// @param iRank The rank its name was coloured with; 1 for a piece with no
+///     enchantment at all.
+/// @param iShop TRUE when the piece is shop stock.
+///
+/// Everything the treasure system creates is loot, quest rewards included.
+/// Only shop stock is left unmarked: iShop, or a store as the target.
+void CnrLoot_MarkGenerated(object oItem, object oTarget, int iRank, int iShop);
 
 // -----------------------------------------------------------------------------
 //                             Function Definitions
@@ -98,6 +108,15 @@ int CnrLoot_RankFromDG(int nDG)
     if (nDG <= 29) { return 3; }
     if (nDG <= 39) { return 4; }
     return 5;
+}
+
+void CnrLoot_MarkGenerated(object oItem, object oTarget, int iRank, int iShop)
+{
+    if (iShop || GetObjectType(oTarget) == OBJECT_TYPE_STORE)
+    {
+        return;
+    }
+    CnrLoot_Mark(oItem, iRank);
 }
 
 void CnrLoot_Mark(object oItem, int iRank)

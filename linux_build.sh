@@ -37,6 +37,11 @@ DIRS=$(echo "$SRC_NSS" | tr ' ' ',')
 
 [ -x "$COMP" ] || { echo "ERROR: no existe $COMP"; exit 1; }
 
+# Treasure equipment has to leave the generators marked for the essence
+# extractor (documentation/oficios/cnr/loot-extraction.md). Checked before any
+# compilation, in --check and in a build alike.
+python3 "$RAIZ/scripts/check_loot_marks.py" || exit 1
+
 # ---------------------------------------------------------------- --check ----
 if [ "${1:-}" = "--check" ]; then
     shift

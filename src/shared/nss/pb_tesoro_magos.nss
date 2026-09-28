@@ -3,6 +3,7 @@
 //  monti.
 //  Creado por: cerril
 //  Creado el: 10/01/2017
+//  modified by: Dhraax
 //..............................................................................
 
 #include "pb_tesoro_sorteo"
@@ -77,14 +78,10 @@ void crearBastonMago(object oTarget, int nDG, int iTienda=FALSE) {
     sorteoBastones(oCreado, nDG);
     if (iTienda==TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
     SetLocalInt(oCreado, "PCItem", 1);
-    // Boss-chest loot is marked like every other piece: the rank the
-    // extractor reads is the same band that named and coloured it. Only what
-    // lands in a flagged loot container is loot: shop stock and quest
-    // rewards, which these same functions create on the player, stay unmarked.
-    if (iTienda == FALSE && GetLocalInt(oTarget, CNR_LOOT_VAR_SOURCE) == TRUE)
-    {
-        CnrLoot_Mark(oCreado, CnrLoot_RankFromDG(nDG));
-    }
+    // Marked with the rank of the colour nombrarObjeto gave it: every piece
+    // these functions create is loot, quest rewards included, except shop
+    // stock (cnr_i_loot, CnrLoot_MarkGenerated).
+    CnrLoot_MarkGenerated(oCreado, oTarget, CnrLoot_RankFromDG(nDG), iTienda);
 }
 
 void crearCetrosVaras(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE, int iVal=0){
@@ -158,14 +155,10 @@ void crearCetrosVaras(object oTarget, int nDG, int iTienda=FALSE, int iAle=TRUE,
     sorteoCetros(oCreado, nDG);
     if (iTienda==TRUE){SetIdentified(oCreado, TRUE);} else {SetIdentified(oCreado, FALSE);}
     SetLocalInt(oCreado, "PCItem", 1);
-    // Boss-chest loot is marked like every other piece: the rank the
-    // extractor reads is the same band that named and coloured it. Only what
-    // lands in a flagged loot container is loot: shop stock and quest
-    // rewards, which these same functions create on the player, stay unmarked.
-    if (iTienda == FALSE && GetLocalInt(oTarget, CNR_LOOT_VAR_SOURCE) == TRUE)
-    {
-        CnrLoot_Mark(oCreado, CnrLoot_RankFromDG(nDG));
-    }
+    // Marked with the rank of the colour nombrarObjeto gave it: every piece
+    // these functions create is loot, quest rewards included, except shop
+    // stock (cnr_i_loot, CnrLoot_MarkGenerated).
+    CnrLoot_MarkGenerated(oCreado, oTarget, CnrLoot_RankFromDG(nDG), iTienda);
 }
 
 //void main(){}

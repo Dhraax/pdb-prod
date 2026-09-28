@@ -260,6 +260,22 @@ conjuros cuentan, y la ayuda nunca resta. No lo reportes.
 
 ---
 
+### 1.8 Botín para el extractor de esencias
+
+Todo el equipo que sale del sistema de tesoros se puede romper en la
+**Máquina de extracción de esencias**, y lo que da depende del **color** de su
+nombre: sin color o gris (lo mínimo), cian, azul, legendario y titánico (lo que
+más). Prueba con objetos **nuevos**, sacados después de este cambio:
+
+- Equipo de un cofre normal, con magia y **sin magia**: los dos se extraen.
+- Botín de un jefe y de un cofre de jefe: se extrae.
+- **Premio de misión** (Doyle y el resto de misiones): se extrae.
+- **Objeto comprado en una tienda**: la máquina lo rechaza y lo deja dentro.
+- Pociones, pergaminos, gemas, varitas y cetros: la máquina los rechaza.
+
+Lo que ya tenías de antes del 28/09 no cambia: si no se podía extraer, sigue
+sin poderse. No lo reportes.
+
 ## 2. Herrería
 
 **Mesas:** Forja (15 recetas) y Yunque (120).

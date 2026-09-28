@@ -65,10 +65,6 @@ void main()
     DelayCommand(2.0,addScroll(OBJECT_SELF, nDG));
     DelayCommand(2.0,addPotion(OBJECT_SELF, nDG));
 
-    // A boss chest is a loot container like a corpse or an ordinary chest:
-    // what the libraries below create in it is marked for the extractor.
-    SetLocalInt(OBJECT_SELF, "CNR_LOOT_SOURCE", TRUE);
-
     //Otorgamos objetos.
     DelayCommand(2.0,crearArmaCC(OBJECT_SELF, nDG));
     DelayCommand(2.0,crearArmadura(OBJECT_SELF, nDG));
