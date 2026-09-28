@@ -813,10 +813,18 @@ int PWDB_DB_MigrateRebuiltCharacter(object oPC, int iCharacterId)
                 + IntToString(iCharacterId) + ": " + NWNX_SQL_GetLastError());
             return FALSE;
         }
-        if (NWNX_SQL_GetAffectedRows() != 1)
+        // One UPDATE over two tables: MySQL counts the changed rows of both, so
+        // the character row makes 1 and its profile, when it has a snapshot to
+        // clear, makes 2. The WHERE names a single character_id, so no count
+        // can mean two uses; the verification below proves the binding. Until
+        // 2026-09-28 only 1 was accepted, which reported the ordinary case as
+        // a failure after MySQL had already committed it.
+        int nAffected = NWNX_SQL_GetAffectedRows();
+        if (nAffected < 1 || nAffected > 2)
         {
             PrintString("[PWDB:DB] Rebuild migration did not consume exactly one use"
-                + " character_id=" + IntToString(iCharacterId));
+                + " character_id=" + IntToString(iCharacterId)
+                + " affected=" + IntToString(nAffected));
             return FALSE;
         }
     }
