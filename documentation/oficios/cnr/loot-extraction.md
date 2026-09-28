@@ -32,6 +32,19 @@ coloured:
 
 `FinalizarObjetoCreado` (`pb_tesoros_inc`) marks both of its branches; every
 creator of the `pb_tesoro_*` libraries marks next to its `nombrarObjeto`.
+
+Three kinds of piece carry no loot colour and are settled explicitly:
+
+- A **ruined** piece (red "destrozado/a", quality destroyed) is marked rank 1
+  by `IniciarObjetoCreado`, because its creator returns before
+  `FinalizarObjetoCreado`.
+- **Miscellany** from `CrearMiscelanea` (rank-5 sources only: ioun stones,
+  books, relics, a lantern, holy symbols) is marked rank 1 when it can be
+  worn, like any uncoloured piece; the rest is not equipment.
+- **Set pieces** (Celestial, Infernal, del Loco and the other sets, only from
+  30 HD up) keep their set colours and are marked with the rank of the hit-dice
+  band they were generated in, legendary or titanic: the owner's colour rule
+  has no set colour, and a set piece is at least legendary loot.
 What the extractor yields per rank is in `cnr_i_extract.nss` and
 `arcane-plan.md` section 7.
 

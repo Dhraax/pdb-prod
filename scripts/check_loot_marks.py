@@ -14,8 +14,10 @@ Rules:
      with nombrarObjeto and marks it with CnrLoot_MarkGenerated.
   2. In pb_tesoros_inc, every function that starts a piece with
      IniciarObjetoCreado finishes it with FinalizarObjetoCreado, which marks
-     both the enchanted and the plain branch. The other creators there make
-     gold, scrolls, gems, junk, potions and miscellany, never equipment.
+     both the enchanted and the plain branch; IniciarObjetoCreado marks the
+     ruined ("DESTROZADO") piece its callers return with early; the
+     miscellany creator marks what it makes. The other creators there make
+     gold, scrolls, gems, junk and potions, never equipment.
   3. Nothing outside cnr_i_loot calls CnrLoot_Mark directly, so no path can
      mark by a rule of its own.
 
@@ -39,7 +41,7 @@ LIBRARIES = (
 # Creators in pb_tesoros_inc that make no equipment.
 NON_EQUIPMENT = {
     "CrearOro", "CrearPergamino", "CrearGemas", "CrearBasura", "CrearPocion",
-    "CrearMiscelanea", "IniciarObjetoCreado",
+    "IniciarObjetoCreado",
 }
 FUNCTION = re.compile(r"^(?:void|int|object|string|float)\s+(\w+)\s*\([^;{]*\)\s*\{", re.M)
 
@@ -87,12 +89,17 @@ def main() -> int:
     if finalize.count("CnrLoot_MarkGenerated(") < 2:
         errors.append("pb_tesoros_inc.nss: FinalizarObjetoCreado must mark both "
                       "the enchanted and the plain branch")
+    start = inc.get("IniciarObjetoCreado", "")
+    if "DESTROZADO" in start and "CnrLoot_MarkGenerated(" not in start:
+        errors.append("pb_tesoros_inc.nss: IniciarObjetoCreado ruins pieces that its "
+                      "callers return early with, without marking them")
     for function, body in inc.items():
         if "IniciarObjetoCreado(" in body and function != "IniciarObjetoCreado":
             if "FinalizarObjetoCreado(" not in body:
                 errors.append(f"pb_tesoros_inc.nss: {function} starts a piece "
                               "without FinalizarObjetoCreado")
-        elif "CreateItemOnObject" in body and function not in NON_EQUIPMENT:
+        elif ("CreateItemOnObject" in body and function not in NON_EQUIPMENT
+              and "CnrLoot_MarkGenerated(" not in body):
             errors.append(f"pb_tesoros_inc.nss: {function} creates an item outside "
                           "IniciarObjetoCreado/FinalizarObjetoCreado; mark it or list "
                           "it as non-equipment in scripts/check_loot_marks.py")

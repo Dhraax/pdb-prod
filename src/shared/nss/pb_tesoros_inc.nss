@@ -1015,6 +1015,9 @@ void CrearMiscelanea(object oObjetivo, int iRango, int iTienda = FALSE)
       if (iTienda==TRUE) {SetIdentified(oMiscelanea, TRUE);}
       // Debug: ver si el objeto se ha creado correctamente...
       if(oMiscelanea == OBJECT_INVALID) WriteTimestampedLogEntry("[SISTEMA DE TESOROS] Error de creación de objeto (miscelanea). La resref "+sResref+" no se ha creado exitosamente.");
+      // A lantern or a holy symbol can be worn. Its name has no loot colour,
+      // so it is rank 1; CnrLoot_Mark leaves anything else unmarked.
+      CnrLoot_MarkGenerated(oMiscelanea, oObjetivo, 1, iTienda);
   }
 }
 
@@ -3572,6 +3575,9 @@ object IniciarObjetoCreado(object oObjetivo, int iTipoObjeto, int iTienda = FALS
       SetIdentified(oObjetoCreado, TRUE);
       SetLocalInt(oObjetoCreado, "DESTROZADO", TRUE);
       SetLocalInt(oObjetoCreado, "PCItem", 1);
+      // Its creator returns before FinalizarObjetoCreado, so the ruined piece
+      // is marked here: red means ruined, no loot colour, rank 1.
+      CnrLoot_MarkGenerated(oObjetoCreado, oObjetivo, 1, iTienda);
       if(iDebugMess == 1) SendMessageToAllDMs("El objeto creado esta roto."+sNombre);
   }
   if (iTienda=TRUE){SetIdentified(oObjetoCreado, TRUE);} else {SetIdentified(oObjetoCreado, FALSE);}
