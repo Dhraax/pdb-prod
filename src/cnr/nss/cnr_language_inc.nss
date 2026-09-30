@@ -12,6 +12,18 @@
 //  modified by: Dhraax
 /////////////////////////////////////////////////////////
 
+// -----------------------------------------------------------------------------
+//                              Function Prototypes
+// -----------------------------------------------------------------------------
+
+/// @brief The name of a trade as a player reads it, with its accent. Trade
+///     names are stored without accents because they are database keys
+///     (cnr_tradeskill.skill_name).
+/// @param sTradeName Stored trade name, for example "Herreria".
+/// @returns The display name, or sTradeName unchanged when it has no accent
+///     or is not a known trade.
+string CnrTextTradeName(string sTradeName);
+
 // cnr_tree_osca
 string CNR_TEXT_MINABLE_TREES_ARE_RESISTANT = "Los árboles talables resisten los ataques mágicos.";
 // cnr_tree_opa
@@ -107,8 +119,6 @@ string CNR_TEXT_YOU_ACQUIRED_SOME_MEAT = "Has obtenido carne del cadáver.";
 //cnr_tinker_ou
 string CNR_TEXT_YOU_NEED_TO_BE_MORE_CAREFUL = "¡Tienes que tener más cuidado!";
 
-// The trade names are stored without accents because they are database keys
-// (cnr_tradeskill.skill_name). This is what a player reads.
 string CnrTextTradeName(string sTradeName)
 {
     if (sTradeName == "Herreria")    { return "Herrería"; }
