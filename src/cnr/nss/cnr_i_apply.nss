@@ -316,7 +316,7 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     // the window is the client's and this is the boundary.
     if (GetDistanceBetween(oPC, oTable) > 5.0f)
     {
-        SendMessageToPC(oPC, "Estas demasiado lejos de la mesa.");
+        SendMessageToPC(oPC, "Estás demasiado lejos de la mesa.");
         return CNR_ARC_RESULT_REFUSED;
     }
 
@@ -325,7 +325,7 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     // crafting engine guards the same way.
     if (PWDB_GetCharacterId(oPC) <= 0)
     {
-        SendMessageToPC(oPC, "Tu progreso no se esta guardando; no puedes "
+        SendMessageToPC(oPC, "Tu progreso no se está guardando; no puedes "
             + "encantar. Avisa a un DM.");
         return CNR_ARC_RESULT_REFUSED;
     }
@@ -340,7 +340,7 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
     string sStep = CnrArc_ReadStep(iArcaneId, iEssences);
     if (sStep == "")
     {
-        SendMessageToPC(oPC, "Esa cantidad de esencias no compra ningun valor.");
+        SendMessageToPC(oPC, "Esa cantidad de esencias no compra ningún valor.");
         return CNR_ARC_RESULT_REFUSED;
     }
 
@@ -491,7 +491,7 @@ int CnrArcA_Attempt(object oPC, object oTable, int iArcaneId, int iEssences,
             + ", base item " + IntToString(GetBaseItemType(oTarget)));
         SendMessageToPC(oPC, "La urdimbre no prende en este objeto. Ha quedado "
             + "intacto y se puede volver a intentar, pero el material se ha "
-            + "perdido. Avisa a un DM: esto no deberia ocurrir.");
+            + "perdido. Avisa a un DM: esto no debería ocurrir.");
         return CNR_ARC_RESULT_FAILED;
     }
 

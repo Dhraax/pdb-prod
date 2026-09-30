@@ -133,7 +133,7 @@ and `CnrCraft_SetButtonTokens` fills it already coloured.
 Thirteen replies, thirteen tokens, even where two of them read the same word.
 
 They used to share by label, eight tokens for thirteen replies, and the three
-labels that appear on more than one screen — `[Atras]`, `Abrir inventario` and
+labels that appear on more than one screen — `[Atrás]`, `Abrir inventario` and
 `Terminar` — were the ones that intermittently came up blank. The shared
 numbering was the only difference between the two groups, so it is gone. Five
 extra tokens is the whole cost.
@@ -166,7 +166,7 @@ the controls.
 
 ## 3b. Pagination
 
-`[Pagina siguiente]` must be hidden on the last page, and the only honest way to
+`[Página siguiente]` must be hidden on the last page, and the only honest way to
 know a page is the last one is to look past it. `CnrCraft_ListRecipes` and
 `CnrCraft_ListCategories` therefore ask the database for **one row more** than
 they can display:
@@ -216,7 +216,7 @@ for certain, so it is the only place allowed to say.
 
 It replaced `CNR_IN_PRODUCTS` and `CNR_AT_MENU`, which between them could not
 describe the third screen. The variant list is entered **from** the recipe list,
-so "browsing recipes" stayed true while it was up: `[Pagina siguiente]` refilled
+so "browsing recipes" stayed true while it was up: `[Página siguiente]` refilled
 the slots with recipes while the screen still asked which product to make, and
 picking a line then stored a **recipe** id as the chosen variant.
 `CnrCraft_ResolveProduct` rejected it, unless a numeric collision happened to
@@ -234,7 +234,7 @@ Each screen now reads the mode:
 | 3 | variants | variants of the same group | choose that product |
 
 Choosing a product sets the mode back to none, because the detail screen is not
-a list. `[Atras]` climbs by mode: variants to the recipe list, detail to the
+a list. `[Atrás]` climbs by mode: variants to the recipe list, detail to the
 recipe list it was picked from, recipes to categories, categories out to the
 action menu.
 

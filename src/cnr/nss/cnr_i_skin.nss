@@ -159,7 +159,7 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     if (oKnife != GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC)
         && oKnife != GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC))
     {
-        SendMessageToPC(oPC, "Equipa el cuchillo de desollar que estas activando.");
+        SendMessageToPC(oPC, "Equipa el cuchillo de desollar que estás activando.");
         return;
     }
 
@@ -171,12 +171,12 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     if (!GetIsObjectValid(oCorpse)
         || GetObjectType(oCorpse) != OBJECT_TYPE_CREATURE || !GetIsDead(oCorpse))
     {
-        SendMessageToPC(oPC, "Selecciona el cadaver de una criatura.");
+        SendMessageToPC(oPC, "Selecciona el cadáver de una criatura.");
         return;
     }
     if (GetArea(oPC) != GetArea(oCorpse) || GetDistanceBetween(oPC, oCorpse) > 3.0)
     {
-        SendMessageToPC(oPC, "Acercate al cadaver para desollarlo.");
+        SendMessageToPC(oPC, "Acércate al cadáver para desollarlo.");
         return;
     }
 
@@ -195,12 +195,12 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     int iLeft = GetLocalInt(oCorpse, CNR_SKIN_LEFT);
     if (iLeft <= 0)
     {
-        SendMessageToPC(oPC, "Ya no queda nada aprovechable en el cadaver.");
+        SendMessageToPC(oPC, "Ya no queda nada aprovechable en el cadáver.");
         return;
     }
     if (GetLocalInt(oCorpse, CNR_SKIN_BUSY))
     {
-        SendMessageToPC(oPC, "Debes esperar diez segundos entre entregas de este cadaver.");
+        SendMessageToPC(oPC, "Debes esperar diez segundos entre entregas de este cadáver.");
         return;
     }
 
@@ -210,7 +210,7 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     if (!CnrSkin_GiveHides(oPC, sMaterial, CnrSkin_Amount(iTier)))
     {
         DeleteLocalInt(oCorpse, CNR_SKIN_BUSY);
-        SendMessageToPC(oPC, "No te cabe nada mas.");
+        SendMessageToPC(oPC, "No te cabe nada más.");
         return;
     }
     SetLocalInt(oCorpse, CNR_SKIN_LEFT, iLeft - 1);
@@ -218,7 +218,7 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 1.5));
     if (iLeft == 1)
     {
-        SendMessageToPC(oPC, "Has aprovechado todo lo que este cadaver daba.");
+        SendMessageToPC(oPC, "Has aprovechado todo lo que este cadáver daba.");
     }
 
     int iUses = GetLocalInt(oKnife, CNR_SKIN_USES);

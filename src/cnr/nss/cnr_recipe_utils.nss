@@ -230,7 +230,7 @@ int CnrGetTradeskillCount()
 string CnrGetTradeskillNameByType(int nTradeskillType)
 {
   object oModule = GetModule();
-  string sName = "Unknown Tradeskill";
+  string sName = "Oficio desconocido";
 
   string sKeyToTradeskillIndex = "CnrTradeskillIndex_" + IntToString(nTradeskillType);
   int nTradeskillIndex = GetLocalInt(oModule, sKeyToTradeskillIndex);
@@ -249,7 +249,7 @@ string CnrGetTradeskillNameByType(int nTradeskillType)
 string CnrGetTradeskillNameByIndex(int nTradeskillIndex)
 {
   object oModule = GetModule();
-  string sName = "Unknown Tradeskill";
+  string sName = "Oficio desconocido";
 
   int nTradeskillCount = GetLocalInt(oModule, "CnrTradeskillCount");
   if ((nTradeskillIndex > 0) && (nTradeskillIndex <= nTradeskillCount))
@@ -1445,7 +1445,7 @@ string CnrRecipeBuildRecipeString(object oDevice, int nRecipeIndex)
 {
   if (!GetIsObjectValid(oDevice))
   {
-    return "Invalid Container specified in code - notify the module builder.";
+    return "Contenedor no válido en el código. Avisa a un DM.";
   }
 
   string sDeviceTag = GetTag(oDevice);
@@ -1768,7 +1768,7 @@ void CnrRecipeDisplayCraftingResult(object oPC, object oDevice, string sKeyToRec
       return;
     }
 
-    sResult = "You successfully made " + IntToString(nBatchCount*nRecipeQty);
+    sResult = "Has fabricado con éxito " + IntToString(nBatchCount*nRecipeQty);
     if ((nBatchCount*nRecipeQty) > 1)
     {
       sResult += " items.";
@@ -2007,7 +2007,7 @@ int CnrRecipeAttemptToCraft(object oPC, object oDevice, int nRecipeIndex, int bW
   if (nEffDC > 20)
   {
     int nMinPcLevel = CnrRecipeCalculateMinimumPcLevel(oPC, sDeviceTag, sKeyToRecipe);
-    sResult += "Failure." + "\n\n" + CNR_TEXT_GIVEN_YOUR;
+    sResult += CNR_TEXT_FAILURE + "\n\n" + CNR_TEXT_GIVEN_YOUR;
     string sAbilityString = CnrRecipeGetAbilityString(sKeyToRecipe, FALSE);
     sResult += sAbilityString;
     sResult += CNR_TEXT_THIS_RECIPE_IS_IMPOSSIBLE + " ";
@@ -2488,7 +2488,7 @@ string CnrRecipeBookBuildRecipeString(object oPC, int nRecipeIndex)
 {
   if (!GetIsObjectValid(oPC) || !GetIsPC(oPC))
   {
-    return ("Invalid PC used in code. Notify module builder");
+    return ("Personaje no válido en el código. Avisa a un DM.");
   }
 
   string sDeviceTag = GetLocalString(oPC, "cnrRecipeBookDevice");
@@ -2513,7 +2513,7 @@ string CnrRecipeBookBuildRecipeString(object oPC, int nRecipeIndex)
   int nEffDC = CnrRecipeCalculateEffectiveDC(oPC, sDeviceTag, sKeyToRecipe);
   if (nEffDC < 2)
   {
-    sRecipe = sRecipe + "\nThis recipe is trivial for you to make.";
+    sRecipe = sRecipe + "\nEsta receta es trivial para ti.";
   }
   else if (nEffDC > 20)
   {
@@ -2781,7 +2781,7 @@ int CnrJournalIsTradeVisible(int nOffset)
       nNextLevelXP = GetLocalInt(oModule, "CnrTradeXPLevel" + IntToString(nLevel+1));
     }
 
-    string sReview = sTradeName + ", " + CNR_TEXT_XP_EQUALS + IntToString(nXP);
+    string sReview = CnrTextTradeName(sTradeName) + ": " + CNR_TEXT_XP_EQUALS + IntToString(nXP);
     sReview += "/" + IntToString(nNextLevelXP) + ", " + CNR_TEXT_LEVEL_EQUALS + IntToString(nLevel);
 
     int nLevelCap = CnrGetTradeskillLevelCapByIndex(oTarget, nTrade);
@@ -2817,7 +2817,7 @@ int CnrJournalBuildTopTenList(int nOffset)
   if ((nTrade >= nFirst) && (nTrade <= nLast))
   {
     string sTradeName = CnrGetTradeskillNameByIndex(nTrade);
-    SetCustomToken(22300, CNR_TEXT_TOP_TEN_CRAFTERS_IN + sTradeName);
+    SetCustomToken(22300, CNR_TEXT_TOP_TEN_CRAFTERS_IN + CnrTextTradeName(sTradeName));
 
     int n;
     for (n=1; n<11; n++)
@@ -2880,7 +2880,7 @@ int CnrJournalBuildXpAdjustMenu(int nOffset)
     string sTradeName = CnrGetTradeskillNameByIndex(nTrade);
     int nXP = CnrGetTradeskillXPByIndex(oTarget, nTrade);
     int nLevel = CnrDetermineTradeskillLevel(nXP);
-    SetCustomToken(22300, GetName(oPC) + "\n" + sTradeName + ", " + CNR_TEXT_XP_EQUALS + IntToString(nXP) + ", " + CNR_TEXT_LEVEL_EQUALS + IntToString(nLevel));
+    SetCustomToken(22300, GetName(oPC) + "\n" + CnrTextTradeName(sTradeName) + ": " + CNR_TEXT_XP_EQUALS + IntToString(nXP) + ", " + CNR_TEXT_LEVEL_EQUALS + IntToString(nLevel));
 
     int nJournalXpPage = GetLocalInt(oPC, "nCnrXpMenuPage");
     if (nJournalXpPage == 0)

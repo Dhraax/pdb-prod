@@ -289,7 +289,7 @@ int CnrSkill_CanSetXP(object oPC, int nSkill, int nXP)
     {
         PrintString("[CNR] Profession limit query preparation failed: "
             + NWNX_SQL_GetLastError());
-        SendMessageToPC(oPC, "No se pudo comprobar tu limite de oficios. Avisa a un DM.");
+        SendMessageToPC(oPC, "No se pudo comprobar tu límite de oficios. Avisa a un DM.");
         return FALSE;
     }
 
@@ -300,7 +300,7 @@ int CnrSkill_CanSetXP(object oPC, int nSkill, int nXP)
     {
         PrintString("[CNR] Profession limit query failed: "
             + NWNX_SQL_GetLastError());
-        SendMessageToPC(oPC, "No se pudo comprobar tu limite de oficios. Avisa a un DM.");
+        SendMessageToPC(oPC, "No se pudo comprobar tu límite de oficios. Avisa a un DM.");
         return FALSE;
     }
 

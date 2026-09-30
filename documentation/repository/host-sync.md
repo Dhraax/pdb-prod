@@ -21,7 +21,7 @@ connection, so a password is asked once.
 | Local source | On the host | Mode | Removed files |
 |--------------|-------------|------|---------------|
 | `docker-compose.yml` | `docker-compose.yml` | 644 | - |
-| `run-server.sh`, `server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `db-reset-players.sh`, `nwsync.sh` | same names | 755 | - |
+| `run-server.sh`, `server.sh`, `server-restart.sh`, `web-restart.sh`, `db-apply.sh`, `db-reset-players.sh`, `nwsync.sh`, `server-backup.sh` | same names | 755 | - |
 | `migration/` | `migration/` | 644 | deleted on the host |
 | `cnr-editor/`, without `node_modules/`, `dist/`, caches or `*.env` | `cnr-editor/` | 644 | deleted on the host, except its `.env` |
 | `modules/Puerta de Baldur 5E.mod` | `modules/` | 644 | - |

@@ -677,7 +677,7 @@ void CnrArcN_Open(object oPC, object oTable)
             NuiLabel(JsonString("Nombre de la pieza"), JsonInt(NUI_HALIGN_LEFT),
                      JsonInt(NUI_VALIGN_BOTTOM)), jDim), 20.0f));
     jRight = JsonArrayInsert(jRight, NuiHeight(
-        NuiId(NuiTextEdit(JsonString("Lo que ya trae, si lo dejas vacio"),
+        NuiId(NuiTextEdit(JsonString("Lo que ya trae, si lo dejas vacío"),
                           NuiBind(CNR_ARCN_B_NAME),
                           CNR_ARCN_NAME_MAX, FALSE), "txt_name"), 28.0f));
 

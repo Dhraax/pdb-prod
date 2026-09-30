@@ -46,7 +46,7 @@ void main()
             SetLocalInt(oPC, CNR_REC_QUANTITY, GetItemStackSize(oItem));
             sText = "Reciclar " + IntToString(GetItemStackSize(oItem)) + " x "
                   + GetName(oItem) + ".\n\n" + CnrRec_Describe(sPlan)
-                  + "\n\nSe destruira toda la pila. Confirma solo si quieres continuar.";
+                  + "\n\nSe destruirá toda la pila. Confirma solo si quieres continuar.";
         }
     }
     SetCustomToken(CNR_REC_TOKEN, sText);

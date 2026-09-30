@@ -345,12 +345,12 @@ void CnrNode_Strike(object oPC, object oNode)
     {
         if (sFamily == "arbol")
         {
-            SendMessageToPC(oPC, "Necesitas un hacha de lenador en la mano.");
+            SendMessageToPC(oPC, "Necesitas un hacha de leñador en la mano.");
         }
         else if (sFamily == "planta")
         {
             SendMessageToPC(oPC, "Necesitas un cuchillo o una hoz de "
-                + "recoleccion en la mano.");
+                + "recolección en la mano.");
         }
         else if (sFamily == "gema")
         {
@@ -368,7 +368,7 @@ void CnrNode_Strike(object oPC, object oNode)
     string sCond = GetLocalString(oNode, CNR_NODE_COND);
     if (sCond == "dia" && !CnrNode_IsDay())
     {
-        SendMessageToPC(oPC, "Esta planta solo se recoge de dia.");
+        SendMessageToPC(oPC, "Esta planta solo se recoge de día.");
         return;
     }
     if (sCond == "noche" && CnrNode_IsDay())
@@ -378,7 +378,7 @@ void CnrNode_Strike(object oPC, object oNode)
     }
     if (sCond == "verinvisible" && !CnrNode_SeesInvisible(oPC))
     {
-        SendMessageToPC(oPC, "No ves lo que crece aqui. Necesitas ver lo "
+        SendMessageToPC(oPC, "No ves lo que crece aquí. Necesitas ver lo "
             + "invisible.");
         return;
     }

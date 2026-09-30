@@ -25,7 +25,7 @@ void main()
     {
         DeleteLocalObject(oPC, CNR_VAR_PENDING_STATION);
         SendMessageToPC(oPC,
-            "Esta estacion no esta registrada en el sistema de oficios: "
+            "Esta estación no está registrada en el sistema de oficios: "
             + GetTag(oStation));
         return;
     }

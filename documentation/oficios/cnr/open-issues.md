@@ -273,7 +273,7 @@ about, but nothing is broken by it now.
 ### D5. A reply in the station menu renders without its label
 
 Testers keep reporting that a reply in the crafting menu loses its text, most
-often `[Atras]`. On 2026-08-23 one of them established the decisive fact: **the
+often `[Atrás]`. On 2026-08-23 one of them established the decisive fact: **the
 reply is still there.** Pressing its number works -- 6 pages forward, 7 goes
 back -- and only the label is missing. An earlier screenshot showed the fifth
 line cut in the middle of a word with nothing after it.
@@ -330,10 +330,10 @@ token is involved. The plugin is enabled -- `NWNX_DIALOG_SKIP=n` in
 
 - It only works from a starting conditional, and **eleven of the thirteen fixed
   button replies have none**: `Crear nueva produccion`, `Crear por ID`, `Abrir
-  inventario` and `Terminar` on the root; `[Atras]`, `Abrir inventario` and
-  `Terminar` on the three list screens; and `Fabricar`, `[Atras]`, `Abrir
-  inventario` and `Terminar` on the detail screen. Only `[Pagina siguiente]` and
-  `[Pagina anterior]` are conditional today. `build_station_dlg.py` would have
+  inventario` and `Terminar` on the root; `[Atrás]`, `Abrir inventario` and
+  `Terminar` on the three list screens; and `Fabricar`, `[Atrás]`, `Abrir
+  inventario` and `Terminar` on the detail screen. Only `[Página siguiente]` and
+  `[Página anterior]` are conditional today. `build_station_dlg.py` would have
   to give every reply a condition script, parameterised the way `cnr_c_slot`
   already is.
 - Whether a colour code survives text injected at runtime is **unknown**.

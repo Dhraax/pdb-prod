@@ -286,8 +286,8 @@ int CnrLegacy_Convert(object oPC, int nSkill)
         SendMessageToPC(oPC, "Tu " + sSkill + " antigua era nivel "
             + IntToString(nLegacy) + " de " + IntToString(CNR_LEGACY_MAX)
             + ", que en el oficio nuevo son " + IntToString(nLevel) + " de "
-            + IntToString(CNR_MAX_TRADESKILL_LEVEL) + ". Ya tienes eso o mas, "
-            + "asi que se queda como esta.");
+            + IntToString(CNR_MAX_TRADESKILL_LEVEL) + ". Ya tienes eso o más, "
+            + "así que se queda como está.");
     }
 
     GuardarIntPersistente(oPC, CNR_LEGACY_FLAG + sSkill, 1);

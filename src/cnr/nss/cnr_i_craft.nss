@@ -881,7 +881,7 @@ int CnrCraft_CheckStationTools(object oPC, object oStation, int nRecipe)
         {
             string sAction = (sMode == "equipped") ? "equipar" : "llevar";
             SendMessageToPC(oPC, "Necesitas " + sAction + " "
-                + sToolName + " para fabricar aqui.");
+                + sToolName + " para fabricar aquí.");
             return FALSE;
         }
     }
@@ -1548,7 +1548,7 @@ void CnrCraft_Finish(
     if (!bSuccess)
     {
         string sFailureXP = bMaxLevel
-            ? " Ya dominas este oficio: no ganas mas experiencia."
+            ? " Ya dominas este oficio: no ganas más experiencia."
             : (bXPStored
                 ? " Ganas " + IntToString(nGain) + " de experiencia."
                 : " No se pudo guardar la experiencia.");
@@ -1593,7 +1593,7 @@ void CnrCraft_Finish(
         DestroyObject(oSocketJewel);
 
         string sSocketXP = bMaxLevel
-            ? ". Ya dominas este oficio: no ganas mas experiencia."
+            ? ". Ya dominas este oficio: no ganas más experiencia."
             : (bXPStored
                 ? ". Ganas " + IntToString(nGain) + " de experiencia."
                 : ". No se pudo guardar la experiencia.");
@@ -1679,7 +1679,7 @@ void CnrCraft_Finish(
         if (GetIsObjectValid(oExtra))
         {
             CnrProduct_Stamp(oExtra, iRecipe, iTier);
-            sExtra = " Ademas obtienes " + IntToString(nExtraQty) + " x "
+            sExtra = " Además obtienes " + IntToString(nExtraQty) + " x "
                    + GetName(oExtra) + ".";
         }
         else
@@ -1691,7 +1691,7 @@ void CnrCraft_Finish(
     }
 
     string sSuccessXP = bMaxLevel
-        ? ". Ya dominas este oficio: no ganas mas experiencia."
+        ? ". Ya dominas este oficio: no ganas más experiencia."
         : (bXPStored
             ? ". Ganas " + IntToString(nGain) + " de experiencia."
             : ". No se pudo guardar la experiencia.");
@@ -1716,7 +1716,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
     // otherwise the item exists but the XP write is refused downstream.
     if (PWDB_GetCharacterId(oPC) <= 0)
     {
-        SendMessageToPC(oPC, "Tu progreso no se esta guardando; no puedes fabricar. Avisa a un DM.");
+        SendMessageToPC(oPC, "Tu progreso no se está guardando; no puedes fabricar. Avisa a un DM.");
         return FALSE;
     }
 
@@ -1751,7 +1751,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
         PrintString("[CNR] Recipe lookup failed for " + IntToString(nRecipe)
             + ": " + NWNX_SQL_GetLastError());
         DeleteLocalInt(oPC, CNR_VAR_RECIPE);
-        SendMessageToPC(oPC, "Esa receta ya no esta disponible. Vuelve a elegirla.");
+        SendMessageToPC(oPC, "Esa receta ya no está disponible. Vuelve a elegirla.");
         return FALSE;
     }
 
@@ -1761,7 +1761,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
         PrintString("[CNR] Recipe " + IntToString(nRecipe)
             + " no longer resolves: disabled, deleted or renumbered.");
         DeleteLocalInt(oPC, CNR_VAR_RECIPE);
-        SendMessageToPC(oPC, "Esa receta ya no esta disponible. Vuelve a elegirla.");
+        SendMessageToPC(oPC, "Esa receta ya no está disponible. Vuelve a elegirla.");
         return FALSE;
     }
 
@@ -1841,7 +1841,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
     if (sResRef == "")
     {
         PrintString("[CNR] Recipe has no base resref: " + IntToString(nRecipe));
-        SendMessageToPC(oPC, "Error de configuracion de receta. Avisa a un DM.");
+        SendMessageToPC(oPC, "Error de configuración de receta. Avisa a un DM.");
         return FALSE;
     }
 
@@ -1854,7 +1854,7 @@ int CnrCraft_Attempt(object oPC, object oStation)
         string sProduct = CnrCraft_ResolveProduct(oPC, nRecipe);
         if (sProduct == "")
         {
-            SendMessageToPC(oPC, "Elige primero que quieres fabricar.");
+            SendMessageToPC(oPC, "Elige primero qué quieres fabricar.");
             return FALSE;
         }
 
@@ -2162,13 +2162,13 @@ void CnrCraft_SetButtonTokens()
     SetCustomToken(CNR_TOKEN_BUTTON +  1, sV + "Crear por ID (escribe el ID antes)" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON +  2, sV + "Abrir inventario" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON +  3, sV + "Terminar" + sF);
-    SetCustomToken(CNR_TOKEN_BUTTON +  4, sV + "[Pagina siguiente]" + sF);
-    SetCustomToken(CNR_TOKEN_BUTTON +  5, sV + "[Pagina anterior]" + sF);
-    SetCustomToken(CNR_TOKEN_BUTTON +  6, sV + "[Atras]" + sF);
+    SetCustomToken(CNR_TOKEN_BUTTON +  4, sV + "[Página siguiente]" + sF);
+    SetCustomToken(CNR_TOKEN_BUTTON +  5, sV + "[Página anterior]" + sF);
+    SetCustomToken(CNR_TOKEN_BUTTON +  6, sV + "[Atrás]" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON +  7, sV + "Abrir inventario" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON +  8, sV + "Terminar" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON +  9, sV + "Fabricar" + sF);
-    SetCustomToken(CNR_TOKEN_BUTTON + 10, sV + "[Atras]" + sF);
+    SetCustomToken(CNR_TOKEN_BUTTON + 10, sV + "[Atrás]" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON + 11, sV + "Abrir inventario" + sF);
     SetCustomToken(CNR_TOKEN_BUTTON + 12, sV + "Terminar" + sF);
 }

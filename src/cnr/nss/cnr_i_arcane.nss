@@ -498,7 +498,7 @@ string CnrArc_Missing(object oPC, object oTable, int iArcaneId, int iEssences)
 
     if (CnrArc_ReadStep(iArcaneId, iEssences) == "")
     {
-        return "Esa cantidad de esencias no compra ningun valor.";
+        return "Esa cantidad de esencias no compra ningún valor.";
     }
 
     int    iGroup       = StringToInt(CnrArc_Field(sProperty, 2));

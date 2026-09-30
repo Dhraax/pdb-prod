@@ -6,15 +6,15 @@ retention. It is meant for cron on the server host.
 
 ## Install
 
-Copy `server-backup.sh` into the server stack directory on the host (the one
-holding `docker-compose.yml` and `servervault/`, `~/nwneeserver` on the
-production host), make it executable, create the backup directory (cron opens
-the log file before the script runs, so the directory must already exist), run
-it once by hand, and add one line with `crontab -e` as the user that runs
-Docker:
+`host-sync.sh` sends `server-backup.sh`, executable, to the server stack
+directory on the host (the one holding `docker-compose.yml` and
+`servervault/`, `~/nwneeserver` on the production host) with the other helper
+scripts. It only sends it: cron is set up once, by hand. Create the backup
+directory (cron opens the log file before the script runs, so the directory
+must already exist), run it once by hand, and add one line with `crontab -e`
+as the user that runs Docker:
 
 ```bash
-chmod +x ~/nwneeserver/server-backup.sh
 mkdir -p ~/pdb-backups && chmod 700 ~/pdb-backups
 ~/nwneeserver/server-backup.sh
 ```
