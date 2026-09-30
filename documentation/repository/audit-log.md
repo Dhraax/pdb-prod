@@ -74,6 +74,13 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`31be2dfd` - trade system texts in Spanish, backup script in the sync,
+2026-09-30.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one
+blocker, fixed in `c8033730`.
+
+- **F-124, fixed.** The new `CnrTextTradeName` had no documented prototype
+  before its definition.
+
 **`f125422d` - daily server backup with retention, 2026-09-28.** Reviewed with
 `gpt-6-sol` at high reasoning, verdict BLOCKED, three blockers and one
 advisory, all fixed in `a3aff3f5`.
