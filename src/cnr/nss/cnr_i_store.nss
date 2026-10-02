@@ -204,17 +204,32 @@ int AlmMoveUnits(object oChest, object oSource, object oTarget,
                     DestroyObject(oSplit);
                     return iMoved;
                 }
-                NWNX_Item_MoveTo(oSplit, oTarget, TRUE);
+                // Remove the split units from the source before delivery.
+                // A successful move followed by an unexpected count must not
+                // leave both the original units and the delivered split.
+                SetItemStackSize(oItem, iStack - iTake);
+                if (GetItemStackSize(oItem) != iStack - iTake)
+                {
+                    SetUseableFlag(oSplit, FALSE);
+                    DestroyObject(oSplit);
+                    return iMoved;
+                }
+                int iDelivered = NWNX_Item_MoveTo(oSplit, oTarget, TRUE);
+                if (!iDelivered && GetIsObjectValid(oSplit)
+                    && GetItemPossessor(oSplit) == OBJECT_INVALID)
+                {
+                    // Restore the source only when the split never left the
+                    // ground. A merged/invalid split may already be delivered.
+                    SetUseableFlag(oSplit, FALSE);
+                    DestroyObject(oSplit);
+                    SetItemStackSize(oItem, iStack);
+                    return iMoved;
+                }
                 int iAdded = AlmCount(oChest, oTarget, iIndex) - iBefore;
                 if (iAdded != iTake)
                 {
-                    if (GetItemPossessor(oSplit) == OBJECT_INVALID)
-                    {
-                        DestroyObject(oSplit);
-                    }
                     return iMoved;
                 }
-                SetItemStackSize(oItem, iStack - iTake);
             }
             int iActual = AlmCount(oChest, oTarget, iIndex) - iBefore;
             if (iActual != iTake)
@@ -417,6 +432,16 @@ void AlmClose(object oChest)
     if (GetLocalObject(oPC, ALM_SESSION) == oChest)
     {
         DeleteLocalObject(oPC, ALM_SESSION);
+    }
+    // These are virtual representations of already-accounted holdings.
+    // Remove them explicitly before destroying the chest, independently of
+    // the engine's container-destruction behavior.
+    object oItem = GetFirstItemInInventory(oChest);
+    while (GetIsObjectValid(oItem))
+    {
+        object oNext = GetNextItemInInventory(oChest);
+        DestroyObject(oItem);
+        oItem = oNext;
     }
     DestroyObject(oChest);
 }

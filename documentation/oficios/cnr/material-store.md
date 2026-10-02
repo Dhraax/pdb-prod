@@ -19,14 +19,18 @@ is shown only when no units of that material remain in the chest, bounded by
 ten and the remaining balance. Actual creation counts are verified; an engine
 stack limit of one is accounted as one. Repeated notifications without a
 physical difference do nothing. Closing reconciles pending movements without
-refilling. Opening validates all rows in one inventory pass.
+refilling, then explicitly destroys all remaining display objects before
+destroying the chest. Opening validates all rows in one inventory pass.
 
 Withdrawal fees remain five gold per unit actually moved. Insufficient gold
 returns exactly those units, including units merged into existing stacks or
 bags. Whole objects are moved with `NWNX_Item_MoveTo`; partial returns split only
-the required units and reduce the source after the destination count confirms
-the transfer. Unsupported objects and bags return intact, without copying or
-unpacking their contents.
+the required units and reduce the source before delivering that split. Source
+units are restored only when a failed move leaves the split on the ground,
+where it is made unusable and destroyed. An unexpected count after delivery
+quarantines the session without restoring already-delivered source units.
+Unsupported objects and bags return intact, without copying or unpacking their
+contents.
 
 ## Session safety and failure handling
 
@@ -66,10 +70,16 @@ Focused compilation command: `./linux_build.sh --check cnr_i_store.nss
 sapo_alma_abri.nss sapo_alma_abr2.nss sapo_alma_dist.nss sapo_alma_cerr.nss
 sapo_alma_beat.nss`. The include is skipped and its five executable consumers
 must compile. Offline checks compile the unchanged accounting/opening function
-bodies with mocked native operations: 20 groups and 6,000 randomized movements
+bodies with mocked native operations: 22 groups and 6,000 randomized movements
 passed, including 89 stored units plus one carried, all partial quantities,
 merged deposits, fee rollback in bags, duplicate events, failed writes,
 concurrent sessions, overflow and a full 282-material opening. This is not an
 NWN runtime test. Temporary check artifacts live outside the repository.
 
 Packaging, deployment, in-game acceptance and independent review remain pending.
+
+A subsequent logic review reinforced the partial rollback failure path and
+explicit display cleanup. Additional offline checks cover a destination-count
+failure after successful split delivery and display cleanup when destroying a
+container does not automatically destroy its contents. Both checks passed;
+runtime acceptance is still pending.
