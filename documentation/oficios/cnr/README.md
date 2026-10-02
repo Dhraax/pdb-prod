@@ -63,6 +63,7 @@ which owns the order, backups, validation and rollback.
 | [`arcane-fix-plan.md`](arcane-fix-plan.md) | Historical implementation record for the 2026-08-23 Arcane corrections; in-game regression remains tracked in the active build log and changelog |
 | [`arcane-unused-blueprints.md`](arcane-unused-blueprints.md) | The 36 `cnr_e_*` / `cnr_c_*` blueprints no arcane material claims. A list to delete from once the profession is built and played, not before |
 | [`material-properties-reference.md`](material-properties-reference.md) | Numeric item-property contracts used to audit and generate recipe properties |
+| [`material-store.md`](material-store.md) | Material quantity conservation, owner sessions, exact rollback and quarantine recovery |
 | [`material-store-migration.md`](material-store-migration.md) | Current material-store conversion: preserved legacy Arcane quantities, source correspondence and testing boundary |
 | [`loot-extraction.md`](loot-extraction.md) | Generated equipment eligibility, identification checks and the current loot-rank boundary |
 | [`recycling.md`](recycling.md) | New crafted recipe/tier locals, component refunds, gold fallback and dedicated recycler configuration |

@@ -2,103 +2,100 @@
 /// @system  CNR Almacen
 /// @file    sapo_alma_abri
 /// @author  Monti
-/// @brief   OnUsed of the material store. Builds the player's holdings inside an
-///          invisible chest and makes them open it.
-///
-///          Nothing is really kept in the chest: every quantity lives as a
-///          persistent key on the player's own variable container, and what you
-///          see is created from that when you open it and destroyed when you
-///          close it.
-///
-///          Materials come out in stacks of ten, which is what the engine
-///          allows for these base items. One stack is shown at a time; taking it
-///          puts the next one back, so a hundred logs do not fill the chest.
+/// @brief   Open one owner-bound material session with verified display counts.
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
-#include "sapo_cons_alma"
+#include "cnr_i_store"
 #include "sapo_alma_migr"
-#include "mti_libreria"
-
-/// The most the engine will stack for these base items.
-const int ALM_PILA = 10;
-
-int RecorreIngredientes(object oUbicado, object oPC, int iCrea);
-int Ngru;
 
 void main()
 {
-    object oPJ = GetLastUsedBy();
-    object oUbicado = OBJECT_SELF;
-
-    if (GetLocalInt(oUbicado, "abierto") == 1)
+    object oPC = GetLastUsedBy();
+    object oVisible = OBJECT_SELF;
+    object oVariables = GetItemPossessedBy(oPC, CONTENEDOR_VARIABLES);
+    if (!GetIsPC(oPC) || !GetIsObjectValid(oVariables))
     {
-        FloatingTextStringOnCreature("*El almacen lo está usando alguien. Intentalo de nuevo cuando acabe*", oPJ);
         return;
     }
-
-    // Convert what this character stored under the old trade's materials before
-    // anything is listed, so the totals shown are the ones that survive.
-    AlmMigrar(oPJ);
-
-    object oCofre = CreateObject(OBJECT_TYPE_PLACEABLE, "cnr_almacen_u", GetLocation(oUbicado));
-    SetLocalObject(oCofre, "chest_use", oUbicado);
-    SetLocalObject(oCofre, "user", oPJ);
-
-    CargaArray(oCofre);
-
-    Ngru = 0;
-    int iIng = RecorreIngredientes(oCofre, oPJ, 0);
-    if (iIng == 0)
+    if (GetLocalInt(oPC, ALM_FAULT) || GetLocalInt(oVariables, ALM_FAULT))
     {
-        SendMessageToPC(oPJ, "¡No tienes nada guardado");
+        SendMessageToPC(oPC, "El almacen se ha bloqueado por seguridad. Avisa a un DM.");
+        return;
     }
-    else
+    if (GetIsObjectValid(GetLocalObject(oPC, ALM_SESSION))
+        || GetIsObjectValid(GetLocalObject(oVisible, ALM_SESSION)))
     {
-        int iI = RecorreIngredientes(oCofre, oPJ, 1);
+        SendMessageToPC(oPC, "Cierra la sesion del almacen antes de abrir otra.");
+        return;
     }
-
-    AssignCommand(oPJ, ActionInteractObject(oCofre));
-}
-
-int RecorreIngredientes(object oUbicado, object oPC, int iCrea)
-{
-    int nTotal = 0;
-    int iTipos = 0;
-    int nCount;
-    for (nCount = 1; nCount <= NUM_DIST_INGRED; nCount++)
+    AlmMigrar(oPC);
+    object oChest = CreateObject(OBJECT_TYPE_PLACEABLE, "cnr_almacen_u", GetLocation(oVisible));
+    if (!GetIsObjectValid(oChest))
     {
-        string sVar = GetLocalArrayString(oUbicado, "sVarIngOficio", nCount);
-        string sTag = GetLocalArrayString(oUbicado, "sTagIngOficio", nCount);
-        if (sVar == "" || sTag == "")
+        return;
+    }
+    SetLocalObject(oChest, "chest_use", oVisible);
+    SetLocalObject(oChest, "user", oPC);
+    SetLocalObject(oPC, ALM_SESSION, oChest);
+    SetLocalObject(oVisible, ALM_SESSION, oChest);
+    SetLocalInt(oVisible, "abierto", TRUE);
+    SetLocalInt(oChest, ALM_BUSY, TRUE);
+    CargaArray(oChest);
+    int iIndex;
+    // Complete the lookup before creating any item or accepting an event.
+    for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
+    {
+        string sResref = GetStringLowerCase(GetLocalArrayString(oChest, "sTagIngOficio", iIndex));
+        SetLocalInt(oChest, "alm_res_" + sResref, iIndex);
+    }
+    for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
+    {
+        string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
+        int iBalance = ObtenerIntPersistente(oPC, sVariable);
+        if (iBalance < 0)
         {
-            continue;
+            DeleteLocalInt(oChest, ALM_BUSY);
+            AlmBlock(oChest, "opening-balance");
+            return;
         }
-
-        int i = ObtenerIntPersistente(oPC, sVar);
-        if (i > 0)
+        string sSuffix = IntToString(iIndex);
+        SetLocalInt(oChest, "alm_balance_" + sSuffix, iBalance);
+        if (iBalance > 0)
         {
-            iTipos = iTipos + 1;
-            nTotal = nTotal + i;
-            if (iCrea == 0)
+            int iWanted = iBalance;
+            if (iWanted > ALM_STACK)
             {
-                string sNom = GetLocalArrayString(oUbicado, "sNomIngOficio", nCount);
-                SendMessageToPC(oPC, sNom + IntToString(i));
+                iWanted = ALM_STACK;
             }
-        }
-
-        if (iCrea == 1 && i > 0)
-        {
-            // One stack at a time. sapo_alma_dist puts the next one back when
-            // this one is taken.
-            int nPila = i;
-            if (nPila > ALM_PILA)
-            {
-                nPila = ALM_PILA;
-            }
-            CreateItemOnObject(sTag, oUbicado, nPila);
+            CreateItemOnObject(GetLocalArrayString(oChest, "sTagIngOficio", iIndex),
+                oChest, iWanted);
+            SendMessageToPC(oPC, GetLocalArrayString(oChest, "sNomIngOficio", iIndex)
+                + IntToString(iBalance));
         }
     }
-
-    return nTotal;
+    // Validate all created rows with one inventory pass, not one full scan
+    // per material. A full catalogue must remain within the script budget.
+    if (!AlmScan(oChest))
+    {
+        DeleteLocalInt(oChest, ALM_BUSY);
+        AlmBlock(oChest, "opening-count");
+        return;
+    }
+    for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
+    {
+        string sSuffix = IntToString(iIndex);
+        int iActual = GetLocalInt(oChest, "alm_now_" + sSuffix);
+        int iBalance = GetLocalInt(oChest, "alm_balance_" + sSuffix);
+        if (iActual > iBalance || iActual > ALM_STACK)
+        {
+            DeleteLocalInt(oChest, ALM_BUSY);
+            AlmBlock(oChest, "opening-count");
+            return;
+        }
+        SetLocalInt(oChest, "alm_seen_" + sSuffix, iActual);
+    }
+    DeleteLocalInt(oChest, ALM_BUSY);
+    SetLocalInt(oChest, ALM_READY, TRUE);
+    AssignCommand(oPC, ActionInteractObject(oChest));
 }

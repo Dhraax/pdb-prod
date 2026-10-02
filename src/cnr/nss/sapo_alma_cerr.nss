@@ -1,22 +1,13 @@
-#include "sapo_cons_alma"
-#include "mti_libreria"
+/// ----------------------------------------------------------------------------
+/// @system  CNR Almacen
+/// @file    sapo_alma_cerr
+/// @brief   Close a consistent material session after reconciling pending moves.
+/// modified by: Dhraax
+/// ----------------------------------------------------------------------------
+
+#include "cnr_i_store"
 
 void main()
 {
-  object oUbicado=OBJECT_SELF;
-  object oItem = GetFirstItemInInventory();
-
-  while(GetIsObjectValid(oItem))
-  {
-      DestroyObject(oItem, 0.0);
-
-      oItem = GetNextItemInInventory();
-  }
-
-  // Marca el baul visible para poder ser usado
-  object oChest = GetLocalObject(OBJECT_SELF, "chest_use");
-  SetLocalInt(oChest, "abierto", 0);
-
-  // Destruye el objeto invisible
-  DestroyObject(OBJECT_SELF, 0.0);
+    AlmClose(OBJECT_SELF);
 }
