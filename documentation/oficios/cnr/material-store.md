@@ -156,13 +156,23 @@ window closure must still be tested on the server.
 ## Retired persistent lock (2026-10-03)
 
 The active fault key is now CNR_ALM_BLOCKED_V2. Existing CNR_ALM_BLOCKED
-values on characters and variable items are ignored; affected players do not
-need individual DM edits after loading the updated module. This explicitly
+values on characters and variable items are deleted automatically on store use,
+before checking the new fault flag. A character without its variable item still
+has its own retired flag removed. Affected players do not need individual DM
+edits after loading the updated module. Cleanup is disabled if ALM_FAULT later
+returns to the original key, so the cleanup cannot erase that active control. This explicitly
 retires the previous quarantine decision, not the material ledger. Material
 keys, stored amounts, delta accounting, duplicate-event guards and the new
 fault checks are unchanged. A newly detected discrepancy still stops output.
 
-Verification includes opening with both legacy flags set and confirming that
-saved material quantities are unchanged. New character/item fault flags must
+Verification includes opening with both legacy flags set, confirming that both
+are removed and saved material quantities are unchanged. New character/item fault flags must
 still prevent opening. Compilation and mocked accounting checks passed;
 packaging and the reported player case require server validation.
+
+The remaining permanent access lock is CNR_ALM_BLOCKED_V2 on the character and
+variable item. A new fault can still prevent that character using every store
+until reconciled; retiring and cleaning the old key does not fix the original
+runtime trigger. CNR_ALM_SESSION identifies the transient chest. CNR_ALM_BUSY,
+CNR_ALM_READY and alm_closed live on that chest and control re-entry/lifecycle;
+they are not additional persistent character-ban flags.

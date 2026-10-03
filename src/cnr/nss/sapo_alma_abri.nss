@@ -14,7 +14,21 @@ void main()
     object oPC = GetLastUsedBy();
     object oVisible = OBJECT_SELF;
     object oVariables = GetItemPossessedBy(oPC, CONTENEDOR_VARIABLES);
-    if (!GetIsPC(oPC) || !GetIsObjectValid(oVariables))
+    if (!GetIsPC(oPC))
+    {
+        return;
+    }
+    // Remove the retired lock automatically, even before a new fault denies use.
+    // Stop this cleanup if the original key becomes the active control again.
+    if (ALM_FAULT != "CNR_ALM_BLOCKED")
+    {
+        DeleteLocalInt(oPC, "CNR_ALM_BLOCKED");
+        if (GetIsObjectValid(oVariables))
+        {
+            DeleteLocalInt(oVariables, "CNR_ALM_BLOCKED");
+        }
+    }
+    if (!GetIsObjectValid(oVariables))
     {
         return;
     }
