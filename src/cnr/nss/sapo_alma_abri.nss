@@ -18,25 +18,23 @@ void main()
     {
         return;
     }
-    // Remove the retired lock automatically, even before a new fault denies use.
-    // Stop this cleanup if the original key becomes the active control again.
-    if (ALM_FAULT != "CNR_ALM_BLOCKED")
+    // Neither historical key is an access control anymore.
+    DeleteLocalInt(oPC, "CNR_ALM_BLOCKED");
+    DeleteLocalInt(oPC, "CNR_ALM_BLOCKED_V2");
+    if (!GetIsObjectValid(oVariables))
     {
-        DeleteLocalInt(oPC, "CNR_ALM_BLOCKED");
-        if (GetIsObjectValid(oVariables))
+        object oPreviousVariables = GetLocalObject(oPC, ALM_SESSION);
+        if (GetLocalObject(oPreviousVariables, "user") == oPC)
         {
-            DeleteLocalInt(oVariables, "CNR_ALM_BLOCKED");
+            oVariables = AlmVariables(oPreviousVariables);
         }
     }
     if (!GetIsObjectValid(oVariables))
     {
         return;
     }
-    if (GetLocalInt(oPC, ALM_FAULT) || GetLocalInt(oVariables, ALM_FAULT))
-    {
-        SendMessageToPC(oPC, "El almacen se ha bloqueado por seguridad. Avisa a un DM.");
-        return;
-    }
+    DeleteLocalInt(oVariables, "CNR_ALM_BLOCKED");
+    DeleteLocalInt(oVariables, "CNR_ALM_BLOCKED_V2");
     // Close the caller's old inventory explicitly. A cancelled/missed close
     // must not strand the character behind a valid but abandoned chest object.
     object oPrevious = GetLocalObject(oPC, ALM_SESSION);
@@ -45,6 +43,7 @@ void main()
     {
         if (!AlmRecoverSession(oPrevious))
         {
+            SendMessageToPC(oPC, "Hay una operacion u objeto pendiente de recuperar. Vuelve a intentarlo tras liberar espacio.");
             return;
         }
     }
@@ -62,7 +61,7 @@ void main()
         }
         if (!AlmRecoverSession(oPrevious))
         {
-            SendMessageToPC(oPC, "Esta sesion del almacen requiere revision de un DM.");
+            SendMessageToPC(oPC, "No se pudo completar la operacion anterior del almacen. Reintenta su apertura.");
             return;
         }
     }
@@ -74,6 +73,7 @@ void main()
     }
     SetLocalObject(oChest, "chest_use", oVisible);
     SetLocalObject(oChest, "user", oPC);
+    SetLocalObject(oChest, "alm_variables", oVariables);
     // Initialization is inaccessible and does not publish session locks until
     // all display counts have been validated.
     SetLocked(oChest, TRUE);
@@ -90,12 +90,11 @@ void main()
     for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
     {
         string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
-        int iBalance = ObtenerIntPersistente(oPC, sVariable);
+        int iBalance = GetLocalInt(oVariables, sVariable);
         if (iBalance < 0)
         {
-            DeleteLocalInt(oChest, ALM_BUSY);
-            AlmBlock(oChest, "opening-balance");
-            return;
+            // A corrupt row is unavailable, not a ban on every other material.
+            WriteTimestampedLogEntry("CNR material store skipped a negative balance");
         }
         string sSuffix = IntToString(iIndex);
         SetLocalInt(oChest, "alm_balance_" + sSuffix, iBalance);
@@ -117,7 +116,7 @@ void main()
     if (!AlmScan(oChest))
     {
         DeleteLocalInt(oChest, ALM_BUSY);
-        AlmBlock(oChest, "opening-count");
+        AlmClose(oChest);
         return;
     }
     for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
@@ -125,10 +124,10 @@ void main()
         string sSuffix = IntToString(iIndex);
         int iActual = GetLocalInt(oChest, "alm_now_" + sSuffix);
         int iBalance = GetLocalInt(oChest, "alm_balance_" + sSuffix);
-        if (iActual > iBalance || iActual > ALM_STACK)
+        if ((iBalance >= 0 && iActual > iBalance) || iActual > ALM_STACK)
         {
             DeleteLocalInt(oChest, ALM_BUSY);
-            AlmBlock(oChest, "opening-count");
+            AlmClose(oChest);
             return;
         }
         SetLocalInt(oChest, "alm_seen_" + sSuffix, iActual);

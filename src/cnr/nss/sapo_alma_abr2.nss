@@ -19,6 +19,7 @@ void main()
         return;
     }
     SetLocalInt(OBJECT_SELF, "alm_opened", TRUE);
+    DeleteLocalInt(OBJECT_SELF, "alm_gui_closed");
     object oVisible = GetLocalObject(OBJECT_SELF, "chest_use");
     SetLocalString(oVisible, "abridor", GetName(oPC, TRUE));
 }

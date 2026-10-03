@@ -2,7 +2,8 @@
 /// @system  CNR Material Store
 /// @file    cnr_i_store
 /// @author  Dhraax
-/// @brief   Account real chest deltas instead of post-merge event item sizes.
+/// @brief   Account real chest deltas without persistent character lockouts.
+/// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
 #include "sapo_cons_alma"
@@ -15,8 +16,8 @@ const int ALM_FEE = 5;
 const int ALM_INT_MAX = 2147483647;
 const string ALM_SESSION = "CNR_ALM_SESSION";
 const string ALM_BUSY = "CNR_ALM_BUSY";
-// Retire the legacy persistent lock without changing any material balances.
-const string ALM_FAULT = "CNR_ALM_BLOCKED_V2";
+// Only the transient chest may pause; neither character nor variable item does.
+const string ALM_FAULT = "CNR_ALM_PAUSED";
 const string ALM_READY = "CNR_ALM_READY";
 
 // -----------------------------------------------------------------------------
@@ -59,7 +60,7 @@ int AlmShow(object oChest, int iIndex, int iBalance);
 int AlmMoveUnits(object oChest, object oSource, object oTarget,
     int iIndex, int iAmount, int iDepth = 16);
 
-/// @brief Quarantine inconsistent state without supplying further stacks.
+/// @brief Pause only an unfinished chest operation without banning its owner.
 /// @param oChest Material chest to retain for inspection.
 /// @param sReason Non-sensitive diagnostic code.
 /// @param oActor Optional other character whose chest window must also close.
@@ -82,9 +83,45 @@ int AlmSessionActive(object oChest);
 
 /// @brief Reconcile and release an old session from a fresh use or heartbeat.
 /// @param oChest Existing session, possibly abandoned or interrupted.
-/// @returns TRUE after cleanup, FALSE when quantity state requires quarantine.
+/// @returns TRUE after cleanup, FALSE while the chest still has pending work.
 /// Never call this from an inventory callback or a nested close callback.
 int AlmRecoverSession(object oChest);
+
+/// @brief Resolve the original variable item, including a temporarily moved item.
+/// @param oChest Owner-bound material chest.
+/// @returns Original variable item, or OBJECT_INVALID if unavailable.
+object AlmVariables(object oChest);
+
+/// @brief Reclaim a bounded quantity from one rejected material object.
+/// @param oChest Catalogue source.
+/// @param oItem Rejected item, in an inventory or on the ground.
+/// @param iIndex Material index.
+/// @param iAmount Maximum units to reclaim.
+/// @returns Actual reclaimed units, with whole deletion marked before scheduling.
+int AlmReclaimItem(object oChest, object oItem, int iIndex, int iAmount);
+
+/// @brief Remove only rejected material units when physical return cannot fit.
+/// @param oChest Material catalogue source.
+/// @param oSource Source inventory, including nested bags.
+/// @param iIndex Material index.
+/// @param iAmount Maximum units to reclaim into the unchanged stored balance.
+/// @param iDepth Remaining container depth.
+/// @returns Actual reclaimed units; no replacement objects are created.
+int AlmReclaim(object oChest, object oSource, int iIndex, int iAmount, int iDepth = 16);
+
+/// @brief Complete one recorded saldo write exactly once after an interruption.
+/// @param oChest Material chest carrying the pending operation.
+/// @returns TRUE when the write, fee and snapshot are confirmed.
+int AlmFinish(object oChest);
+
+/// @brief Record a balance/snapshot transition before writing the variable item.
+/// @param oChest Material chest.
+/// @param iIndex Material index.
+/// @param iBalance New balance derived from actual net transferred units.
+/// @param iSeen Current physical chest quantity.
+/// @param iFee Withdrawal fee, zero for a rejected or deposited movement.
+/// @returns TRUE after confirmation, FALSE with retryable chest-local state.
+int AlmCommit(object oChest, int iIndex, int iBalance, int iSeen, int iFee = 0);
 
 // -----------------------------------------------------------------------------
 //                             Function Definitions
@@ -92,7 +129,7 @@ int AlmRecoverSession(object oChest);
 
 int AlmIndex(object oChest, object oItem)
 {
-    if (!GetIsObjectValid(oItem)
+    if (!GetIsObjectValid(oItem) || GetLocalInt(oItem, "CNR_ALM_DISCARD")
         || GetIsObjectValid(GetFirstItemInInventory(oItem)))
     {
         return 0;
@@ -163,11 +200,19 @@ int AlmShow(object oChest, int iIndex, int iBalance)
         iWanted = ALM_STACK;
     }
     string sResref = GetLocalArrayString(oChest, "sTagIngOficio", iIndex);
+    SetLocalInt(oChest, "alm_refill_limit", iWanted);
+    SetLocalInt(oChest, "alm_refill_count", -1);
+    SetLocalInt(oChest, "alm_refill_index", iIndex);
     CreateItemOnObject(sResref, oChest, iWanted);
-    // The creation result can be a merged object. Only the inventory count
-    // establishes how many units were created, including base-item clamping.
     int iActual = AlmCount(oChest, oChest, iIndex);
-    return iActual >= 0 && iActual <= iWanted;
+    SetLocalInt(oChest, "alm_refill_count", iActual);
+    if (iActual < 0 || iActual > iWanted)
+    {
+        return FALSE;
+    }
+    SetLocalInt(oChest, "alm_seen_" + IntToString(iIndex), iActual);
+    DeleteLocalInt(oChest, "alm_refill_index");
+    return TRUE;
 }
 
 int AlmMoveUnits(object oChest, object oSource, object oTarget,
@@ -230,17 +275,20 @@ int AlmMoveUnits(object oChest, object oSource, object oTarget,
                     return iMoved;
                 }
                 NWNX_Item_MoveTo(oSplit, oTarget, TRUE);
+                int iAdded = AlmCount(oChest, oTarget, iIndex) - iBefore;
                 if (GetIsObjectValid(oSplit)
                     && GetItemPossessor(oSplit) == OBJECT_INVALID)
                 {
-                    // Restore the source only when the split never left the
-                    // ground. A merged/invalid split may already be delivered.
                     SetUseableFlag(oSplit, FALSE);
                     DestroyObject(oSplit);
-                    SetItemStackSize(oItem, iStack);
+                    if (iAdded >= 0 && iAdded <= iTake)
+                    {
+                        // Restore only undelivered units, even after partial delivery.
+                        SetItemStackSize(oItem, iStack - iAdded);
+                        return iMoved + iAdded;
+                    }
                     return iMoved;
                 }
-                int iAdded = AlmCount(oChest, oTarget, iIndex) - iBefore;
                 if (iAdded != iTake)
                 {
                     return iMoved;
@@ -263,37 +311,154 @@ int AlmMoveUnits(object oChest, object oSource, object oTarget,
     return iMoved;
 }
 
+object AlmVariables(object oChest)
+{
+    object oVariables = GetLocalObject(oChest, "alm_variables");
+    if (!GetIsObjectValid(oVariables))
+    {
+        oVariables = GetItemPossessedBy(GetLocalObject(oChest, "user"), CONTENEDOR_VARIABLES);
+    }
+    return oVariables;
+}
+
+int AlmReclaimItem(object oChest, object oItem, int iIndex, int iAmount)
+{
+    if (iAmount < 1 || AlmIndex(oChest, oItem) != iIndex)
+    {
+        return 0;
+    }
+    int iStack = GetItemStackSize(oItem);
+    if (iStack < 1)
+    {
+        return 0;
+    }
+    if (iAmount >= iStack)
+    {
+        SetLocalInt(oItem, "CNR_ALM_DISCARD", TRUE);
+        SetUseableFlag(oItem, FALSE);
+        DestroyObject(oItem);
+        return iStack;
+    }
+    SetItemStackSize(oItem, iStack - iAmount);
+    int iActual = iStack - GetItemStackSize(oItem);
+    if (iActual < 0 || iActual > iAmount)
+    {
+        return 0;
+    }
+    return iActual;
+}
+
+int AlmReclaim(object oChest, object oSource, int iIndex, int iAmount, int iDepth)
+{
+    if (!GetIsObjectValid(oSource) || iAmount < 1 || iDepth < 1)
+    {
+        return 0;
+    }
+    int iRemoved = 0;
+    object oItem = GetFirstItemInInventory(oSource);
+    while (GetIsObjectValid(oItem) && iRemoved < iAmount)
+    {
+        object oNext = GetNextItemInInventory(oSource);
+        if (AlmIndex(oChest, oItem) == iIndex)
+        {
+            iRemoved += AlmReclaimItem(oChest, oItem, iIndex, iAmount - iRemoved);
+        }
+        else if (GetIsObjectValid(GetFirstItemInInventory(oItem)))
+        {
+            iRemoved += AlmReclaim(oChest, oItem, iIndex, iAmount - iRemoved, iDepth - 1);
+        }
+        oItem = oNext;
+    }
+    return iRemoved;
+}
+
+int AlmFinish(object oChest)
+{
+    int iIndex = GetLocalInt(oChest, "alm_tx_index");
+    if (iIndex == 0)
+    {
+        return TRUE;
+    }
+    object oVariables = AlmVariables(oChest);
+    if (!GetIsObjectValid(oVariables))
+    {
+        return FALSE;
+    }
+    string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
+    int iOld = GetLocalInt(oChest, "alm_tx_old");
+    int iNew = GetLocalInt(oChest, "alm_tx_new");
+    int iLive = GetLocalInt(oVariables, sVariable);
+    if (iLive != iOld && iLive != iNew)
+    {
+        return FALSE;
+    }
+    if (iLive != iNew)
+    {
+        SetLocalInt(oVariables, sVariable, iNew);
+        if (GetLocalInt(oVariables, sVariable) != iNew)
+        {
+            return FALSE;
+        }
+    }
+    object oOwner = GetLocalObject(oChest, "user");
+    int iFee = GetLocalInt(oChest, "alm_tx_fee");
+    if (iFee > 0)
+    {
+        int iGold = GetLocalInt(oChest, "alm_tx_gold");
+        if (GetGold(oOwner) == iGold)
+        {
+            if (iGold < iFee)
+            {
+                return FALSE;
+            }
+            TakeGoldFromCreature(iFee, oOwner, TRUE);
+        }
+        else if (GetGold(oOwner) != iGold - iFee)
+        {
+            return FALSE;
+        }
+    }
+    string sSuffix = IntToString(iIndex);
+    SetLocalInt(oChest, "alm_balance_" + sSuffix, iNew);
+    SetLocalInt(oChest, "alm_seen_" + sSuffix, GetLocalInt(oChest, "alm_tx_seen"));
+    DeleteLocalInt(oChest, "alm_tx_index");
+    return TRUE;
+}
+
+int AlmCommit(object oChest, int iIndex, int iBalance, int iSeen, int iFee)
+{
+    object oVariables = AlmVariables(oChest);
+    if (!GetIsObjectValid(oVariables) || iBalance < 0 || iSeen < 0)
+    {
+        return FALSE;
+    }
+    string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
+    SetLocalInt(oChest, "alm_tx_old", GetLocalInt(oVariables, sVariable));
+    SetLocalInt(oChest, "alm_tx_new", iBalance);
+    SetLocalInt(oChest, "alm_tx_seen", iSeen);
+    SetLocalInt(oChest, "alm_tx_fee", iFee);
+    SetLocalInt(oChest, "alm_tx_gold", GetGold(GetLocalObject(oChest, "user")));
+    // Publish after all transition fields exist, before writing the saldo.
+    SetLocalInt(oChest, "alm_tx_index", iIndex);
+    return AlmFinish(oChest);
+}
+
 void AlmBlock(object oChest, string sReason, object oActor)
 {
     SetLocalInt(oChest, ALM_FAULT, TRUE);
-    object oPC = GetLocalObject(oChest, "user");
-    SetLocalInt(oPC, ALM_FAULT, TRUE);
-    object oVariables = GetItemPossessedBy(oPC, CONTENEDOR_VARIABLES);
-    if (GetIsObjectValid(oVariables))
-    {
-        SetLocalInt(oVariables, ALM_FAULT, TRUE);
-    }
     SetLocked(oChest, TRUE);
     SetUseableFlag(oChest, FALSE);
-    // A persisted owner quarantine must not deny the shared store to others.
-    object oVisible = GetLocalObject(oChest, "chest_use");
-    if (GetIsPC(oPC) && GetIsObjectValid(oVariables)
-        && GetLocalInt(oVariables, ALM_FAULT)
-        && GetLocalObject(oVisible, ALM_SESSION) == oChest)
+    object oOwner = GetLocalObject(oChest, "user");
+    if (GetIsPC(oOwner))
     {
-        DeleteLocalInt(oVisible, "abierto");
-        DeleteLocalObject(oVisible, ALM_SESSION);
+        NWNX_Player_OpenInventory(oOwner, oChest, FALSE);
     }
-    if (GetIsPC(oPC))
-    {
-        NWNX_Player_OpenInventory(oPC, oChest, FALSE);
-    }
-    if (GetIsPC(oActor) && oActor != oPC)
+    if (GetIsPC(oActor) && oActor != oOwner)
     {
         NWNX_Player_OpenInventory(oActor, oChest, FALSE);
     }
-    WriteTimestampedLogEntry("CNR material store quarantined: " + sReason);
-    SendMessageToPC(oPC, "El almacen se ha bloqueado por seguridad. Avisa a un DM.");
+    WriteTimestampedLogEntry("CNR material store operation paused: " + sReason);
+    SendMessageToPC(oOwner, "La operacion no se ha completado. Vuelve a abrir el almacen para reintentar.");
 }
 
 void AlmProcess(object oChest, object oActor, int iRefill)
@@ -304,34 +469,11 @@ void AlmProcess(object oChest, object oActor, int iRefill)
     }
     SetLocalInt(oChest, ALM_BUSY, TRUE);
     object oPC = GetLocalObject(oChest, "user");
-    // Unsupported objects and bags are moved intact, never copied or emptied.
-    object oItem = GetFirstItemInInventory(oChest);
-    while (GetIsObjectValid(oItem))
+    object oVariables = AlmVariables(oChest);
+    if (!GetIsPC(oPC) || !GetIsObjectValid(oVariables) || !AlmFinish(oChest)
+        || !AlmScan(oChest))
     {
-        object oNext = GetNextItemInInventory(oChest);
-        if (AlmIndex(oChest, oItem) == 0)
-        {
-            // Existing rejected objects must never be handed to another user.
-            if (oActor != oPC)
-            {
-                AlmBlock(oChest, "foreign-unsupported", oActor);
-                DeleteLocalInt(oChest, ALM_BUSY);
-                return;
-            }
-            NWNX_Item_MoveTo(oItem, oActor, TRUE);
-            if (GetIsObjectValid(oItem) && GetItemPossessor(oItem) != oActor)
-            {
-                AlmBlock(oChest, "unsupported-return", oActor);
-                DeleteLocalInt(oChest, ALM_BUSY);
-                return;
-            }
-            SendMessageToPC(oActor, "No puedes guardar ese objeto en el almacen.");
-        }
-        oItem = oNext;
-    }
-    if (!AlmScan(oChest))
-    {
-        AlmBlock(oChest, "invalid-count", oActor);
+        AlmBlock(oChest, "pending-write-or-count", oActor);
         DeleteLocalInt(oChest, ALM_BUSY);
         return;
     }
@@ -347,106 +489,134 @@ void AlmProcess(object oChest, object oActor, int iRefill)
             continue;
         }
         string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
-        int iBalance = ObtenerIntPersistente(oPC, sVariable);
-        object oVariables = GetItemPossessedBy(oPC, CONTENEDOR_VARIABLES);
-        int iValid = GetIsPC(oPC) && oActor == oPC
-            && GetLocalObject(oPC, ALM_SESSION) == oChest
-            && GetIsObjectValid(oVariables)
-            && !GetLocalInt(oChest, ALM_FAULT)
-            && !GetLocalInt(oPC, ALM_FAULT)
-            && !GetLocalInt(oVariables, ALM_FAULT)
-            && iBalance >= 0
-            && iBalance == GetLocalInt(oChest, "alm_balance_" + sSuffix);
-        int iAffordable = TRUE;
+        int iBalance = GetLocalInt(oVariables, sVariable);
+        int iValid = oActor == oPC && GetLocalObject(oPC, ALM_SESSION) == oChest
+            && iBalance >= 0;
         if (iDelta < 0)
         {
-            int iTaken = -iDelta;
-            iValid = iValid && iTaken <= iBalance && iTaken <= ALM_INT_MAX / ALM_FEE;
-            if (iValid)
-            {
-                iAffordable = GetGold(oPC) >= iTaken * ALM_FEE;
-            }
+            iValid = iValid && -iDelta <= iBalance && -iDelta <= ALM_INT_MAX / ALM_FEE;
         }
         else
         {
             iValid = iValid && iDelta <= ALM_INT_MAX - iBalance;
         }
+        int iAffordable = iDelta >= 0 || (iValid && GetGold(oPC) >= -iDelta * ALM_FEE);
+        int iFee = 0;
         if (!iValid || !iAffordable)
         {
-            int iReturned;
-            int iNeeded;
+            int iReclaimed = 0;
             if (iDelta > 0)
-            {
-                iNeeded = iDelta;
-                iReturned = AlmMoveUnits(oChest, oChest, oActor, iIndex, iNeeded);
-            }
-            else
-            {
-                iNeeded = -iDelta;
-                iReturned = AlmMoveUnits(oChest, oActor, oChest, iIndex, iNeeded);
-            }
-            if (iReturned != iNeeded || !iValid)
-            {
-                AlmBlock(oChest, "rollback-or-state", oActor);
-                DeleteLocalInt(oChest, ALM_BUSY);
-                return;
-            }
-            SendMessageToPC(oPC, "Necesitas " + IntToString(iNeeded * ALM_FEE)
-                + " po para sacar " + IntToString(iNeeded) + ".");
-            SetLocalInt(oChest, "alm_seen_" + sSuffix, AlmCount(oChest, oChest, iIndex));
-            continue;
-        }
-        // Persist exactly the physical delta before any new display is made.
-        int iNewBalance = iBalance + iDelta;
-        GuardarIntPersistente(oPC, sVariable, iNewBalance);
-        if (!GetIsObjectValid(GetItemPossessedBy(oPC, CONTENEDOR_VARIABLES))
-            || ObtenerIntPersistente(oPC, sVariable) != iNewBalance)
-        {
-            if (iDelta < 0)
-            {
-                AlmMoveUnits(oChest, oActor, oChest, iIndex, -iDelta);
-            }
-            else
             {
                 AlmMoveUnits(oChest, oChest, oActor, iIndex, iDelta);
             }
-            AlmBlock(oChest, "persistence-readback", oActor);
-            DeleteLocalInt(oChest, ALM_BUSY);
-            return;
-        }
-        SetLocalInt(oChest, "alm_balance_" + sSuffix, iNewBalance);
-        string sName = GetLocalArrayString(oChest, "sNomIngOficio", iIndex);
-        if (iDelta < 0)
-        {
-            TakeGoldFromCreature(-iDelta * ALM_FEE, oPC, TRUE);
-            SendMessageToPC(oPC, "Sacado: " + sName + " x" + IntToString(-iDelta));
-            // A partial withdrawal leaves its remaining units in place.
-            if (iRefill && iAfter == 0 && !AlmShow(oChest, iIndex, iNewBalance))
+            else
             {
-                AlmBlock(oChest, "refill-count", oActor);
+                // Reclaim a dropped event item before considering original
+                // units already carried by the player.
+                object oDropped = GetInventoryDisturbItem(oChest);
+                if (GetLastDisturbed(oChest) == oActor
+                    && GetIsObjectValid(oDropped)
+                    && GetItemPossessor(oDropped) == OBJECT_INVALID)
+                {
+                    iReclaimed = AlmReclaimItem(oChest, oDropped, iIndex, -iDelta);
+                }
+                AlmMoveUnits(oChest, oActor, oChest, iIndex, -iDelta - iReclaimed);
+            }
+            iAfter = AlmCount(oChest, oChest, iIndex);
+            if (iAfter < 0)
+            {
+                AlmBlock(oChest, "return-count", oActor);
                 DeleteLocalInt(oChest, ALM_BUSY);
                 return;
             }
+            iDelta = iAfter - iBefore + iReclaimed;
+            if (iDelta < 0)
+            {
+                // If the return cannot fit, reclaim only the borrowed units.
+                // Their balance stays stored; no copied replacement is given.
+                iDelta += AlmReclaim(oChest, oActor, iIndex, -iDelta);
+            }
+            if (iDelta == 0)
+            {
+                SetLocalInt(oChest, "alm_seen_" + sSuffix, iAfter);
+                SendMessageToPC(oActor, "No se ha realizado el movimiento. Comprueba el oro y el objeto.");
+                if (iRefill && iAfter == 0 && iBalance > 0
+                    && !AlmShow(oChest, iIndex, iBalance))
+                {
+                    AlmBlock(oChest, "return-refill", oActor);
+                    DeleteLocalInt(oChest, ALM_BUSY);
+                    return;
+                }
+                continue;
+            }
+            // An incomplete return is not a full refund: account its actual
+            // remaining transfer before any later refill or reopening.
+            WriteTimestampedLogEntry("CNR material store accounted residual return units");
         }
-        else
+        else if (iDelta < 0)
         {
-            // Retain the deposited units as the display. Destroying a merged
-            // object would remove previously displayed units as well.
-            SendMessageToPC(oPC, "Almacenado: " + sName + " x" + IntToString(iDelta));
+            iFee = -iDelta * ALM_FEE;
         }
-        SetLocalInt(oChest, "alm_seen_" + sSuffix, AlmCount(oChest, oChest, iIndex));
+        if (iBalance < 0 || (iDelta < 0 && -iDelta > iBalance)
+            || (iDelta > 0 && iDelta > ALM_INT_MAX - iBalance))
+        {
+            AlmBlock(oChest, "unsettled-limit", oActor);
+            DeleteLocalInt(oChest, ALM_BUSY);
+            return;
+        }
+        int iNewBalance = iBalance + iDelta;
+        if (!AlmCommit(oChest, iIndex, iNewBalance, iAfter, iFee))
+        {
+            AlmBlock(oChest, "pending-write", oActor);
+            DeleteLocalInt(oChest, ALM_BUSY);
+            return;
+        }
+        string sName = GetLocalArrayString(oChest, "sNomIngOficio", iIndex);
+        SendMessageToPC(oPC, sName + IntToString(iNewBalance));
+        if (iRefill && iAfter == 0 && !AlmShow(oChest, iIndex, iNewBalance))
+        {
+            AlmBlock(oChest, "refill-count", oActor);
+            DeleteLocalInt(oChest, ALM_BUSY);
+            return;
+        }
     }
+    // Rejected real objects are returned after accepted material deltas settle.
+    // Failure to fit an object is not a character ban and cannot skip a debit.
+    object oItem = GetFirstItemInInventory(oChest);
+    while (GetIsObjectValid(oItem))
+    {
+        object oNext = GetNextItemInInventory(oChest);
+        if (AlmIndex(oChest, oItem) == 0 && !GetLocalInt(oItem, "CNR_ALM_DISCARD"))
+        {
+            object oRecipient = GetLocalObject(oItem, "CNR_ALM_RETURN_TO");
+            if (!GetIsObjectValid(oRecipient))
+            {
+                oRecipient = oPC;
+                if (oActor != oPC && GetLastDisturbed(oChest) == oActor
+                    && GetInventoryDisturbItem(oChest) == oItem)
+                {
+                    oRecipient = oActor;
+                    SetLocalObject(oItem, "CNR_ALM_RETURN_TO", oActor);
+                }
+            }
+            NWNX_Item_MoveTo(oItem, oRecipient, TRUE);
+            SendMessageToPC(oRecipient, "No puedes guardar ese objeto. Si sigue en el cajon, retiralo o libera espacio.");
+        }
+        oItem = oNext;
+    }
+    DeleteLocalInt(oChest, ALM_FAULT);
     DeleteLocalInt(oChest, ALM_BUSY);
 }
 
 void AlmClose(object oChest)
 {
-    if (!GetIsObjectValid(oChest))
+    if (!GetIsObjectValid(oChest) || GetLocalInt(oChest, ALM_BUSY))
     {
         return;
     }
     object oPC = GetLocalObject(oChest, "user");
-    if (!GetLocalInt(oChest, "alm_closed"))
+    int iInitializing = !GetLocalInt(oChest, ALM_READY) && !GetLocalInt(oChest, "alm_closed");
+    if (!GetLocalInt(oChest, "alm_closed") && !iInitializing)
     {
         AlmProcess(oChest, oPC, FALSE);
         if (GetLocalInt(oChest, ALM_FAULT) || GetLocalInt(oChest, ALM_BUSY))
@@ -454,6 +624,7 @@ void AlmClose(object oChest)
             return;
         }
     }
+    SetLocalInt(oChest, ALM_BUSY, TRUE);
     SetLocalInt(oChest, "alm_closed", TRUE);
     SetLocked(oChest, TRUE);
     SetUseableFlag(oChest, FALSE);
@@ -469,19 +640,44 @@ void AlmClose(object oChest)
         DeleteLocalInt(oVisible, "abierto");
         DeleteLocalObject(oVisible, ALM_SESSION);
     }
-    if (GetLocalObject(oPC, ALM_SESSION) == oChest)
-    {
-        DeleteLocalObject(oPC, ALM_SESSION);
-    }
-    // These are virtual representations of already-accounted holdings.
-    // Remove them explicitly before destroying the chest, independently of
-    // the engine's container-destruction behavior.
+    int iPending = FALSE;
     object oItem = GetFirstItemInInventory(oChest);
     while (GetIsObjectValid(oItem))
     {
         object oNext = GetNextItemInInventory(oChest);
-        DestroyObject(oItem);
+        if (!GetLocalInt(oItem, "CNR_ALM_DISCARD"))
+        {
+            if (iInitializing || AlmIndex(oChest, oItem) > 0)
+            {
+                SetLocalInt(oItem, "CNR_ALM_DISCARD", TRUE);
+                DestroyObject(oItem);
+            }
+            else
+            {
+                object oRecipient = GetLocalObject(oItem, "CNR_ALM_RETURN_TO");
+                if (!GetIsObjectValid(oRecipient))
+                {
+                    oRecipient = oPC;
+                }
+                NWNX_Item_MoveTo(oItem, oRecipient, TRUE);
+                if (GetIsObjectValid(oItem) && GetItemPossessor(oItem) == oChest)
+                {
+                    iPending = TRUE;
+                }
+            }
+        }
         oItem = oNext;
+    }
+    SetLocalInt(oChest, "alm_returns", iPending);
+    DeleteLocalInt(oChest, ALM_BUSY);
+    if (iPending)
+    {
+        SendMessageToPC(oPC, "Libera espacio y vuelve a usar un almacen para recuperar el objeto rechazado.");
+        return;
+    }
+    if (GetLocalObject(oPC, ALM_SESSION) == oChest)
+    {
+        DeleteLocalObject(oPC, ALM_SESSION);
     }
     DestroyObject(oChest);
 }
@@ -489,6 +685,7 @@ void AlmClose(object oChest)
 int AlmSessionActive(object oChest)
 {
     if (!GetIsObjectValid(oChest) || GetLocalInt(oChest, "alm_closed")
+        || GetLocalInt(oChest, "alm_gui_closed")
         || !GetLocalInt(oChest, ALM_READY) || GetLocalInt(oChest, ALM_FAULT))
     {
         return FALSE;
@@ -500,8 +697,6 @@ int AlmSessionActive(object oChest)
     {
         return FALSE;
     }
-    // Physical door/placeable open state is not proof of an inventory GUI.
-    // A valid creature reference alone does not establish player membership.
     object oPC = GetFirstPC();
     while (GetIsObjectValid(oPC))
     {
@@ -520,48 +715,28 @@ int AlmRecoverSession(object oChest)
     {
         return TRUE;
     }
-    if (GetLocalInt(oChest, ALM_FAULT))
+    // Fresh use/heartbeat can resume a recorded write, never a second debit.
+    SetLocalInt(oChest, ALM_BUSY, TRUE);
+    if (!AlmFinish(oChest))
     {
+        AlmBlock(oChest, "retry-write");
         return FALSE;
     }
-    // A fresh player-use/heartbeat runs after the earlier event has ended.
-    // Check interrupted accounting before clearing its leftover re-entry flag.
-    if (GetLocalInt(oChest, ALM_BUSY) && GetLocalInt(oChest, ALM_READY)
-        && !GetLocalInt(oChest, "alm_closed"))
+    int iRefill = GetLocalInt(oChest, "alm_refill_index");
+    if (iRefill > 0)
     {
-        if (!AlmScan(oChest))
+        int iCreated = GetLocalInt(oChest, "alm_refill_count");
+        if (iCreated < 0 || iCreated > GetLocalInt(oChest, "alm_refill_limit"))
         {
-            AlmBlock(oChest, "recovery-count");
+            AlmBlock(oChest, "retry-refill");
             return FALSE;
         }
-        object oOwner = GetLocalObject(oChest, "user");
-        object oVariables = GetItemPossessedBy(oOwner, CONTENEDOR_VARIABLES);
-        int iIndex;
-        for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
-        {
-            string sSuffix = IntToString(iIndex);
-            // An interrupted write may have updated its balance before its
-            // physical snapshot. Never account that uncertain delta twice.
-            if (GetLocalInt(oChest, "alm_now_" + sSuffix)
-                != GetLocalInt(oChest, "alm_seen_" + sSuffix))
-            {
-                AlmBlock(oChest, "recovery-pending");
-                return FALSE;
-            }
-            if (GetIsPC(oOwner))
-            {
-                string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
-                if (!GetIsObjectValid(oVariables)
-                    || ObtenerIntPersistente(oOwner, sVariable)
-                        != GetLocalInt(oChest, "alm_balance_" + sSuffix))
-                {
-                    AlmBlock(oChest, "recovery-balance");
-                    return FALSE;
-                }
-            }
-        }
+        // Keep the captured creation count: any later withdrawal is a delta.
+        SetLocalInt(oChest, "alm_seen_" + IntToString(iRefill), iCreated);
+        DeleteLocalInt(oChest, "alm_refill_index");
     }
     DeleteLocalInt(oChest, ALM_BUSY);
+    DeleteLocalInt(oChest, ALM_FAULT);
     AlmClose(oChest);
-    return GetLocalInt(oChest, "alm_closed");
+    return GetLocalInt(oChest, "alm_closed") && !GetLocalInt(oChest, "alm_returns");
 }
