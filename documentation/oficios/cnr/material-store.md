@@ -132,6 +132,50 @@ Packaging, deployment, in-game acceptance and independent review remain pending.
 After deployment, retest affected players, the 89-unit withdrawal, partial
 movements, closing/reopening, moving away, reconnecting and shared-store access.
 
+
+## Complete opening review (2026-10-03)
+
+The later report describes 376 Zumos acuosos becoming visible on opening, with
+no deposit or withdrawal. That observation does not establish the pre-opening
+value of its current stored key. The current opening path runs the converter
+before displaying quantities; OnOpen only checks ownership and sets GUI state.
+
+An additional temporary check executes the actual PROD 282-row catalogue,
+complete converter, accounting include and all five event-handler bodies with
+mocked natives. The previous 28 accounting/lifecycle groups did not execute the
+converter or full catalogue bodies; their test fixtures supplied substitutes.
+The additional coupled check closes that coverage gap for source logic.
+
+Twelve groups passed. Current-only zumo balances 1, 89, 120, 130, 157 and 376
+survive forty opening/reopening rounds each, with repeated disturb callbacks
+and no player transfer. A legacy-only 130 migrates to 130 and stays 130 even
+when the conversion flag is removed between openings. A synthetic fixture with
+157 current and 219 legacy units becomes 376 once, then stays 376; this is a
+conservation test, not a claim about the reporting player's historical values.
+A completed migration leaves a subsequently present old key untouched. One
+merged deposited unit credits one unit. Withdrawing a stored 130 delivers
+exactly 130 plus the original carried unit and leaves zero on reopening.
+All 282 current material keys and case-normalized resrefs are unique; all 282
+balances survive fifteen repeated openings with duplicate notifications.
+
+The temporary executable was compiled and run as follows:
+
+```bash
+g++ -std=c++17 -O0 -isystem /usr/include/c++/12 -isystem /usr/include/x86_64-linux-gnu/c++/12 -L/usr/lib/gcc/x86_64-linux-gnu/12 /tmp/pdb-store-session-check/full_open_check.cpp -o /tmp/pdb-store-session-check/full_open_check
+stdbuf -oL /tmp/pdb-store-session-check/full_open_check
+```
+
+The locally compiled five script consumers in both the Nasher cache and
+unpacked working module contain the current transient-pause marker. The four
+accounting consumers also contain the residual-return settlement marker and
+none contains the retired quarantine diagnostic. This establishes local
+compiled-resource currency, not what a remote server has loaded.
+
+No source defect causing current-only 130 to become 376 during opening was
+reproduced. These checks do not establish native callback timing or diagnose
+the player's historical balance. No player amounts, migration policy or source
+behavior were changed on the strength of that unconfirmed explanation.
+
 ## Superseded decisions
 
 The initial quantity correction and subsequent lifecycle/failed-transfer fixes

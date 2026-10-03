@@ -73,3 +73,16 @@ Verify an unused school powder is retired with its message. Close, reopen and
 relog: no quantity may duplicate or disappear. Also exercise zero quantities,
 unrelated material holdings and the existing CNR rename passes. Packaging and
 in-game testing remain the owner's next validation steps.
+
+## Coupled opening verification (2026-10-03)
+
+The full converter and 282-row catalogue were exercised together with the
+actual current opening, accounting and lifecycle source bodies. Twelve offline
+mocked-native groups passed, including current-only and legacy-only zumos,
+mixed old/new quantities, repeated opening, loss of the one-shot flag after
+source-key deletion, exact merged transfers and preservation of all 282
+balances. The previous 28 accounting groups used a converter substitute and do
+not establish conversion coverage. Commands, boundaries and the player-report
+distinction are recorded in
+[material-store.md](material-store.md#complete-opening-review-2026-10-03).
+This verification did not change the conversion policy or any material amount.
