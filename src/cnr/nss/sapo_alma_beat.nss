@@ -9,9 +9,8 @@
 
 void main()
 {
-    object oPC = GetLocalObject(OBJECT_SELF, "user");
-    if (!GetIsObjectValid(oPC) || GetArea(OBJECT_SELF) != GetArea(oPC))
+    if (!AlmSessionActive(OBJECT_SELF))
     {
-        AlmClose(OBJECT_SELF);
+        AlmRecoverSession(OBJECT_SELF);
     }
 }

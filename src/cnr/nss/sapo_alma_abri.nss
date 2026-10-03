@@ -23,11 +23,34 @@ void main()
         SendMessageToPC(oPC, "El almacen se ha bloqueado por seguridad. Avisa a un DM.");
         return;
     }
-    if (GetIsObjectValid(GetLocalObject(oPC, ALM_SESSION))
-        || GetIsObjectValid(GetLocalObject(oVisible, ALM_SESSION)))
+    // Close the caller's old inventory explicitly. A cancelled/missed close
+    // must not strand the character behind a valid but abandoned chest object.
+    object oPrevious = GetLocalObject(oPC, ALM_SESSION);
+    if (GetIsObjectValid(oPrevious)
+        && GetLocalObject(oPrevious, "user") == oPC)
     {
-        SendMessageToPC(oPC, "Cierra la sesion del almacen antes de abrir otra.");
-        return;
+        if (!AlmRecoverSession(oPrevious))
+        {
+            return;
+        }
+    }
+    else
+    {
+        DeleteLocalObject(oPC, ALM_SESSION);
+    }
+    oPrevious = GetLocalObject(oVisible, ALM_SESSION);
+    if (GetIsObjectValid(oPrevious))
+    {
+        if (AlmSessionActive(oPrevious))
+        {
+            SendMessageToPC(oPC, "El almacen esta siendo utilizado por otro jugador.");
+            return;
+        }
+        if (!AlmRecoverSession(oPrevious))
+        {
+            SendMessageToPC(oPC, "Esta sesion del almacen requiere revision de un DM.");
+            return;
+        }
     }
     AlmMigrar(oPC);
     object oChest = CreateObject(OBJECT_TYPE_PLACEABLE, "cnr_almacen_u", GetLocation(oVisible));
@@ -37,9 +60,10 @@ void main()
     }
     SetLocalObject(oChest, "chest_use", oVisible);
     SetLocalObject(oChest, "user", oPC);
-    SetLocalObject(oPC, ALM_SESSION, oChest);
-    SetLocalObject(oVisible, ALM_SESSION, oChest);
-    SetLocalInt(oVisible, "abierto", TRUE);
+    // Initialization is inaccessible and does not publish session locks until
+    // all display counts have been validated.
+    SetLocked(oChest, TRUE);
+    SetUseableFlag(oChest, FALSE);
     SetLocalInt(oChest, ALM_BUSY, TRUE);
     CargaArray(oChest);
     int iIndex;
@@ -96,6 +120,11 @@ void main()
         SetLocalInt(oChest, "alm_seen_" + sSuffix, iActual);
     }
     DeleteLocalInt(oChest, ALM_BUSY);
+    SetLocalObject(oPC, ALM_SESSION, oChest);
+    SetLocalObject(oVisible, ALM_SESSION, oChest);
+    SetLocalInt(oVisible, "abierto", TRUE);
     SetLocalInt(oChest, ALM_READY, TRUE);
+    SetLocked(oChest, FALSE);
+    SetUseableFlag(oChest, TRUE);
     AssignCommand(oPC, ActionInteractObject(oChest));
 }

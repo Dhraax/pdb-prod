@@ -74,6 +74,17 @@ void AlmProcess(object oChest, object oActor, int iRefill);
 /// @param oChest Material chest.
 void AlmClose(object oChest);
 
+/// @brief Determine whether an initialized chest still has an active owner.
+/// @param oChest Material session chest.
+/// @returns TRUE only for an attached player nearby with an open session.
+int AlmSessionActive(object oChest);
+
+/// @brief Reconcile and release an old session from a fresh use or heartbeat.
+/// @param oChest Existing session, possibly abandoned or interrupted.
+/// @returns TRUE after cleanup, FALSE when quantity state requires quarantine.
+/// Never call this from an inventory callback or a nested close callback.
+int AlmRecoverSession(object oChest);
+
 // -----------------------------------------------------------------------------
 //                             Function Definitions
 // -----------------------------------------------------------------------------
@@ -409,20 +420,28 @@ void AlmProcess(object oChest, object oActor, int iRefill)
 
 void AlmClose(object oChest)
 {
-    if (GetLocalInt(oChest, "alm_closed"))
+    if (!GetIsObjectValid(oChest))
     {
         return;
     }
     object oPC = GetLocalObject(oChest, "user");
-    AlmProcess(oChest, oPC, FALSE);
-    if (GetLocalInt(oChest, ALM_FAULT) || GetLocalInt(oChest, ALM_BUSY))
+    if (!GetLocalInt(oChest, "alm_closed"))
     {
-        return;
+        AlmProcess(oChest, oPC, FALSE);
+        if (GetLocalInt(oChest, ALM_FAULT) || GetLocalInt(oChest, ALM_BUSY))
+        {
+            return;
+        }
     }
     SetLocalInt(oChest, "alm_closed", TRUE);
     SetLocked(oChest, TRUE);
     SetUseableFlag(oChest, FALSE);
     SetLocalInt(oChest, ALM_READY, FALSE);
+    if (GetIsPC(oPC) && !GetLocalInt(oChest, "alm_gui_closed"))
+    {
+        SetLocalInt(oChest, "alm_gui_closed", TRUE);
+        NWNX_Player_OpenInventory(oPC, oChest, FALSE);
+    }
     object oVisible = GetLocalObject(oChest, "chest_use");
     if (GetLocalObject(oVisible, ALM_SESSION) == oChest)
     {
@@ -444,4 +463,87 @@ void AlmClose(object oChest)
         oItem = oNext;
     }
     DestroyObject(oChest);
+}
+
+int AlmSessionActive(object oChest)
+{
+    if (!GetIsObjectValid(oChest) || GetLocalInt(oChest, "alm_closed")
+        || !GetLocalInt(oChest, ALM_READY) || GetLocalInt(oChest, ALM_FAULT))
+    {
+        return FALSE;
+    }
+    object oOwner = GetLocalObject(oChest, "user");
+    if (!GetIsPC(oOwner) || GetArea(oOwner) != GetArea(oChest)
+        || GetDistanceBetween(oOwner, oChest) > 5.0f
+        || GetLocalObject(oOwner, ALM_SESSION) != oChest)
+    {
+        return FALSE;
+    }
+    if (GetLocalInt(oChest, "alm_opened") && !GetIsOpen(oChest))
+    {
+        return FALSE;
+    }
+    // A valid creature reference alone does not establish player membership.
+    object oPC = GetFirstPC();
+    while (GetIsObjectValid(oPC))
+    {
+        if (oPC == oOwner)
+        {
+            return TRUE;
+        }
+        oPC = GetNextPC();
+    }
+    return FALSE;
+}
+
+int AlmRecoverSession(object oChest)
+{
+    if (!GetIsObjectValid(oChest))
+    {
+        return TRUE;
+    }
+    if (GetLocalInt(oChest, ALM_FAULT))
+    {
+        return FALSE;
+    }
+    // A fresh player-use/heartbeat runs after the earlier event has ended.
+    // Check interrupted accounting before clearing its leftover re-entry flag.
+    if (GetLocalInt(oChest, ALM_BUSY) && GetLocalInt(oChest, ALM_READY)
+        && !GetLocalInt(oChest, "alm_closed"))
+    {
+        if (!AlmScan(oChest))
+        {
+            AlmBlock(oChest, "recovery-count");
+            return FALSE;
+        }
+        object oOwner = GetLocalObject(oChest, "user");
+        object oVariables = GetItemPossessedBy(oOwner, CONTENEDOR_VARIABLES);
+        int iIndex;
+        for (iIndex = 1; iIndex <= NUM_DIST_INGRED; iIndex++)
+        {
+            string sSuffix = IntToString(iIndex);
+            // An interrupted write may have updated its balance before its
+            // physical snapshot. Never account that uncertain delta twice.
+            if (GetLocalInt(oChest, "alm_now_" + sSuffix)
+                != GetLocalInt(oChest, "alm_seen_" + sSuffix))
+            {
+                AlmBlock(oChest, "recovery-pending");
+                return FALSE;
+            }
+            if (GetIsPC(oOwner))
+            {
+                string sVariable = GetLocalArrayString(oChest, "sVarIngOficio", iIndex);
+                if (!GetIsObjectValid(oVariables)
+                    || ObtenerIntPersistente(oOwner, sVariable)
+                        != GetLocalInt(oChest, "alm_balance_" + sSuffix))
+                {
+                    AlmBlock(oChest, "recovery-balance");
+                    return FALSE;
+                }
+            }
+        }
+    }
+    DeleteLocalInt(oChest, ALM_BUSY);
+    AlmClose(oChest);
+    return GetLocalInt(oChest, "alm_closed");
 }

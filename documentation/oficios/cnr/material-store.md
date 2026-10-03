@@ -34,8 +34,10 @@ contents.
 
 ## Session safety and failure handling
 
-One character can have one session, and each visible chest is reserved before
-the inventory opens. The transient chest stores its owner and its exact visible
+One character can have one session. Reusing a store reconciles and closes the
+caller's previous session before creating a replacement. A visible chest is
+reserved only after its inaccessible display has finished initialization; an
+interrupted initialization cannot publish a permanent visible-store lock. The transient chest stores its owner and its exact visible
 chest reference. Scripted inventory changes use a re-entry guard. Character
 variable-container presence, unchanged cached balances, nonnegative counts,
 integer limits and sufficient balances are checked before credit/debit.
@@ -83,3 +85,43 @@ explicit display cleanup. Additional offline checks cover a destination-count
 failure after successful split delivery and display cleanup when destroying a
 container does not automatically destroy its contents. Both checks passed;
 runtime acceptance is still pending.
+
+## Abandoned-session recovery (2026-10-03)
+
+The original session guard tested only whether the old chest object existed.
+A missed/cancelled close or a leftover busy flag could therefore leave a valid
+chest reference rejecting every subsequent use, including after reconnection
+through the visible chest reference. Object validity is not session liveness.
+
+Fresh OnUsed and heartbeat events recover old sessions by reconciling and
+closing them; they never create a second display before release. An interrupted
+busy flag is cleared only when every physical snapshot is unchanged and any
+available owner's cached balances match live state. A pending uncertain delta
+is quarantined instead of being credited or debited a second time. Divergent
+state remains quarantined. Closing is idempotent even if a previous cleanup
+stopped after setting its closed flag. It explicitly closes the inventory GUI.
+
+Active ownership additionally requires membership in the native player list,
+the same area, distance at most five metres and a matching character-session
+reference. After an opening event, the physical placeable must still be open.
+The existing chest heartbeat performs abandonment cleanup; there is no global
+heartbeat. Quarantine flags are never automatically removed by this recovery.
+
+Native player-list, open-state and distance contracts come from the tracked
+NWScript reference. The pinned NWNX Player header also documents that a
+placeable-inventory close action can be cancelled while walking to the chest;
+that is a documented lifecycle risk, not proof of the exact cause on the
+reported server. The report establishes the stuck session message; an engine
+instruction-limit abort has not been observed or asserted as its cause.
+
+Verification for this lifecycle correction: 17 offline groups executed the
+actual AlmClose, AlmSessionActive and AlmRecoverSession function bodies with
+mocked native operations. They cover missed and repeated closure, nested GUI
+closure, inactive but valid owner references, distance/area changes, a lost
+character attachment, interrupted initialization and cleanup, matching versus
+uncertain busy state, invalid counts and retained quarantine. Static checks
+confirm locks are published after display validation and initialization starts
+locked/unusable. Focused compilation of the include and its five executable
+consumers passed: five successful, one skipped include, zero errors. The
+documentation checker passed. These checks do not establish NWN runtime
+callback order; the reported server case still requires an in-game retest.

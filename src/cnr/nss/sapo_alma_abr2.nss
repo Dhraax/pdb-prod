@@ -5,16 +5,20 @@
 /// modified by: Dhraax
 /// ----------------------------------------------------------------------------
 
-#include "nwnx_player"
+#include "cnr_i_store"
 
 void main()
 {
     object oPC = GetLastOpenedBy();
-    if (oPC != GetLocalObject(OBJECT_SELF, "user"))
+    if (oPC != GetLocalObject(OBJECT_SELF, "user")
+        || !GetLocalInt(OBJECT_SELF, ALM_READY)
+        || GetLocalInt(OBJECT_SELF, ALM_FAULT)
+        || GetLocalInt(OBJECT_SELF, "alm_closed"))
     {
         NWNX_Player_OpenInventory(oPC, OBJECT_SELF, FALSE);
         return;
     }
+    SetLocalInt(OBJECT_SELF, "alm_opened", TRUE);
     object oVisible = GetLocalObject(OBJECT_SELF, "chest_use");
     SetLocalString(oVisible, "abridor", GetName(oPC, TRUE));
 }
