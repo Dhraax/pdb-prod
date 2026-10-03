@@ -9,5 +9,11 @@
 
 void main()
 {
+    object oActor = GetLastClosedBy();
+    if (GetIsObjectValid(oActor)
+        && oActor != GetLocalObject(OBJECT_SELF, "user"))
+    {
+        return;
+    }
     AlmClose(OBJECT_SELF);
 }

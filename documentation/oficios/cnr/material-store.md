@@ -26,11 +26,14 @@ Withdrawal fees remain five gold per unit actually moved. Insufficient gold
 returns exactly those units, including units merged into existing stacks or
 bags. Whole objects are moved with `NWNX_Item_MoveTo`; partial returns split only
 the required units and reduce the source before delivering that split. Source
-units are restored only when a failed move leaves the split on the ground,
-where it is made unusable and destroyed. An unexpected count after delivery
+units are restored only when the split remains on the ground, regardless of
+MoveTo's return value. The split is made unusable immediately after creation,
+before any transfer, and is destroyed before restoring those source units. An
+unexpected count after delivery
 quarantines the session without restoring already-delivered source units.
 Unsupported objects and bags return intact, without copying or unpacking their
-contents.
+contents. Return success is checked against the actual possessor, not just the
+MoveTo result. A foreign actor cannot receive pre-existing rejected objects.
 
 ## Session safety and failure handling
 
@@ -47,7 +50,10 @@ rollback stops replenishment, closes the relevant inventory windows and locks
 the chest. `CNR_ALM_BLOCKED` is set on the session, character and variable item.
 The last flag survives reconnection and prevents opening another store. The
 quarantined chest is retained rather than destroyed, preserving objects for DM
-inspection. Automatic cleanup does not release a quarantined session. A DM must
+inspection. When the owner quarantine is persisted, only the shared visible
+store reservation is released so other characters can continue using their own
+holdings. The owner remains blocked and the quarantined chest is retained.
+Automatic cleanup does not release a quarantined session. A DM must
 reconcile physical objects, persisted balances and session snapshots before
 clearing the flag and disposing of the quarantined display; blindly clearing it
 is not recovery. No historical material quantities are repaired by this change.
@@ -103,9 +109,10 @@ stopped after setting its closed flag. It explicitly closes the inventory GUI.
 
 Active ownership additionally requires membership in the native player list,
 the same area, distance at most five metres and a matching character-session
-reference. After an opening event, the physical placeable must still be open.
-The existing chest heartbeat performs abandonment cleanup; there is no global
-heartbeat. Quarantine flags are never automatically removed by this recovery.
+reference. Physical placeable open state is not used as proof that an inventory
+GUI is active. A foreign character's close notification cannot close the owner's
+session. The existing chest heartbeat performs abandonment cleanup; there is no
+global heartbeat. Quarantine flags are never automatically removed by this recovery.
 
 Native player-list, open-state and distance contracts come from the tracked
 NWScript reference. The pinned NWNX Player header also documents that a
@@ -125,3 +132,23 @@ locked/unusable. Focused compilation of the include and its five executable
 consumers passed: five successful, one skipped include, zero errors. The
 documentation checker passed. These checks do not establish NWN runtime
 callback order; the reported server case still requires an in-game retest.
+
+## Additional failure-path review (2026-10-03)
+
+Pinned `nwnxee/Plugins/Item/Item.cpp`, `MoveTo`, calls engine AcquireItem
+without checking its result before returning success. Quantity rollback and
+unsupported-item return therefore verify actual possession/counts; an optimistic
+return is insufficient. The tracked native reference establishes that
+SetUseableFlag prevents ground interaction without affecting inventory use.
+Staged rollback objects are unusable from creation, including when delivery
+fails or verification cannot establish a successful move. The GetIsOpen contract
+only describes physical placeable/door state; it does not establish GUI ownership.
+
+Additional offline checks execute the current include's actual function bodies
+with mocked natives. They cover optimistic failed moves, partial and merged
+rollback, unsupported-item preservation, foreign closure, quarantine isolation,
+the 89-unit regression, duplicate events and recovery. Seventeen security groups,
+6,000 randomized transfers and the 17 lifecycle groups passed. The focused check
+compiled all five executable consumers with zero errors; the include was skipped.
+The documentation checker passed. Compilation and runtime acceptance are separate: engine callback order, full inventories, reconnects and
+window closure must still be tested on the server.

@@ -209,6 +209,9 @@ int AlmMoveUnits(object oChest, object oSource, object oTarget,
                 {
                     return iMoved;
                 }
+                // Ground staging must never be collectible, even if delivery
+                // reports success without actually acquiring the item.
+                SetUseableFlag(oSplit, FALSE);
                 SetItemStackSize(oSplit, iTake);
                 if (GetItemStackSize(oSplit) != iTake)
                 {
@@ -225,8 +228,8 @@ int AlmMoveUnits(object oChest, object oSource, object oTarget,
                     DestroyObject(oSplit);
                     return iMoved;
                 }
-                int iDelivered = NWNX_Item_MoveTo(oSplit, oTarget, TRUE);
-                if (!iDelivered && GetIsObjectValid(oSplit)
+                NWNX_Item_MoveTo(oSplit, oTarget, TRUE);
+                if (GetIsObjectValid(oSplit)
                     && GetItemPossessor(oSplit) == OBJECT_INVALID)
                 {
                     // Restore the source only when the split never left the
@@ -271,6 +274,15 @@ void AlmBlock(object oChest, string sReason, object oActor)
     }
     SetLocked(oChest, TRUE);
     SetUseableFlag(oChest, FALSE);
+    // A persisted owner quarantine must not deny the shared store to others.
+    object oVisible = GetLocalObject(oChest, "chest_use");
+    if (GetIsPC(oPC) && GetIsObjectValid(oVariables)
+        && GetLocalInt(oVariables, ALM_FAULT)
+        && GetLocalObject(oVisible, ALM_SESSION) == oChest)
+    {
+        DeleteLocalInt(oVisible, "abierto");
+        DeleteLocalObject(oVisible, ALM_SESSION);
+    }
     if (GetIsPC(oPC))
     {
         NWNX_Player_OpenInventory(oPC, oChest, FALSE);
@@ -298,7 +310,15 @@ void AlmProcess(object oChest, object oActor, int iRefill)
         object oNext = GetNextItemInInventory(oChest);
         if (AlmIndex(oChest, oItem) == 0)
         {
-            if (!NWNX_Item_MoveTo(oItem, oActor, TRUE))
+            // Existing rejected objects must never be handed to another user.
+            if (oActor != oPC)
+            {
+                AlmBlock(oChest, "foreign-unsupported", oActor);
+                DeleteLocalInt(oChest, ALM_BUSY);
+                return;
+            }
+            NWNX_Item_MoveTo(oItem, oActor, TRUE);
+            if (GetIsObjectValid(oItem) && GetItemPossessor(oItem) != oActor)
             {
                 AlmBlock(oChest, "unsupported-return", oActor);
                 DeleteLocalInt(oChest, ALM_BUSY);
@@ -479,10 +499,7 @@ int AlmSessionActive(object oChest)
     {
         return FALSE;
     }
-    if (GetLocalInt(oChest, "alm_opened") && !GetIsOpen(oChest))
-    {
-        return FALSE;
-    }
+    // Physical door/placeable open state is not proof of an inventory GUI.
     // A valid creature reference alone does not establish player membership.
     object oPC = GetFirstPC();
     while (GetIsObjectValid(oPC))
