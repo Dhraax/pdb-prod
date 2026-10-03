@@ -47,7 +47,7 @@ integer limits and sufficient balances are checked before credit/debit.
 
 An inconsistent count, changed balance, failed persistent write or failed
 rollback stops replenishment, closes the relevant inventory windows and locks
-the chest. `CNR_ALM_BLOCKED` is set on the session, character and variable item.
+the chest. `CNR_ALM_BLOCKED_V2` is set on the session, character and variable item.
 The last flag survives reconnection and prevents opening another store. The
 quarantined chest is retained rather than destroyed, preserving objects for DM
 inspection. When the owner quarantine is persisted, only the shared visible
@@ -152,3 +152,17 @@ the 89-unit regression, duplicate events and recovery. Seventeen security groups
 compiled all five executable consumers with zero errors; the include was skipped.
 The documentation checker passed. Compilation and runtime acceptance are separate: engine callback order, full inventories, reconnects and
 window closure must still be tested on the server.
+
+## Retired persistent lock (2026-10-03)
+
+The active fault key is now CNR_ALM_BLOCKED_V2. Existing CNR_ALM_BLOCKED
+values on characters and variable items are ignored; affected players do not
+need individual DM edits after loading the updated module. This explicitly
+retires the previous quarantine decision, not the material ledger. Material
+keys, stored amounts, delta accounting, duplicate-event guards and the new
+fault checks are unchanged. A newly detected discrepancy still stops output.
+
+Verification includes opening with both legacy flags set and confirming that
+saved material quantities are unchanged. New character/item fault flags must
+still prevent opening. Compilation and mocked accounting checks passed;
+packaging and the reported player case require server validation.

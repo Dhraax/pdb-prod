@@ -15,7 +15,8 @@ const int ALM_FEE = 5;
 const int ALM_INT_MAX = 2147483647;
 const string ALM_SESSION = "CNR_ALM_SESSION";
 const string ALM_BUSY = "CNR_ALM_BUSY";
-const string ALM_FAULT = "CNR_ALM_BLOCKED";
+// Retire the legacy persistent lock without changing any material balances.
+const string ALM_FAULT = "CNR_ALM_BLOCKED_V2";
 const string ALM_READY = "CNR_ALM_READY";
 
 // -----------------------------------------------------------------------------
