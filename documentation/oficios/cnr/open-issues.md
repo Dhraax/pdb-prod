@@ -158,9 +158,10 @@ the white wyrmling `dragnblancocr` (ice) and the black half-dragon `stinger009`
 (acid) as blueprints; in reptile encounters the wyrmlings and dragonkin of
 subtype 36 (ice), the half-dragon balors of subtype 40 (fire) and its young
 wyverns (acid). `CnrSkin_Amount` scales dragon hide by creature: 3d4 per
-delivery from a boss (`JEFAZO`), 2d4 from another creature of size large or
-bigger, 1d2 from a smaller one; once per corpse it also gives 1d6 (1 from a
-small creature) of another dragon element at random. By owner decision, Singht (`uri_singht`) and
+delivery from a boss (`JEFAZO`), 1d2 from a creature marked `CNR_SKIN_LESSER`
+(the encounter minions, whose wyvern and balor appearances are large or huge)
+or smaller than large, 2d4 from any other; once per corpse it also gives 1d6
+(1 from a lesser or small creature) of another dragon element at random. By owner decision, Singht (`uri_singht`) and
 Syzdothyx (`pb_imnculsyzdoth`), both shadow, give none; neither does the bone
 dragon. Whether this supply supports the demand
 below has not been measured; the exemption stays until it is.

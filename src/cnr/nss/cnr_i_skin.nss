@@ -13,6 +13,9 @@ const string CNR_SKIN_READY = "CNR_SKIN_READY";
 const string CNR_SKIN_LEFT = "CNR_SKIN_LEFT";
 const string CNR_SKIN_BUSY = "CNR_SKIN_BUSY";
 const string CNR_SKIN_USES = "CNR_USOS";
+/// Set by a spawner on a lesser creature that must yield few dragon hides
+/// whatever its appearance's size, such as an encounter's young wyverns.
+const string CNR_SKIN_LESSER = "CNR_SKIN_LESSER";
 /// Set on a dragon corpse once its extra hide of another element was given.
 const string CNR_SKIN_BONUS = "CNR_SKIN_BONUS";
 const int CNR_SKIN_DELIVERIES = 3;
@@ -36,9 +39,9 @@ int CnrSkin_Tier(int nPiel);
 /// @param nTier The hide tier.
 /// @param oCorpse The creature being skinned. Only read at tier 4.
 /// @returns 1d4 at tiers 1-2 and 2d4 at tier 3. Dragon hide, tier 4, depends
-///     on the creature since 2026-10-04: 3d4 from a boss (JEFAZO), 2d4 from
-///     any other large or bigger creature, 1d2 from a smaller one - a
-///     wyrmling, a dragonkin, a half-dragon or a young wyvern.
+///     on the creature since 2026-10-04: 3d4 from a boss (JEFAZO), 1d2 from a
+///     creature marked CNR_SKIN_LESSER or smaller than large - a wyrmling, a
+///     dragonkin, a half-dragon or a young wyvern - and 2d4 from any other.
 int CnrSkin_Amount(int nTier, object oCorpse);
 
 /// @brief A dragon hide of an element other than the creature's own.
@@ -125,8 +128,9 @@ int CnrSkin_Amount(int nTier, object oCorpse)
     if (nTier >= 4)
     {
         if (GetLocalInt(oCorpse, "JEFAZO") > 0) return d4(3);
-        if (GetCreatureSize(oCorpse) >= CREATURE_SIZE_LARGE) return d4(2);
-        return d2();
+        if (GetLocalInt(oCorpse, CNR_SKIN_LESSER)
+            || GetCreatureSize(oCorpse) < CREATURE_SIZE_LARGE) return d2();
+        return d4(2);
     }
     if (nTier == 3) return d4(2);
     return d4();
@@ -276,7 +280,8 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     {
         int iOther = CnrSkin_OtherDragon(iPiel);
         int iExtra = (GetLocalInt(oCorpse, "JEFAZO") > 0
-            || GetCreatureSize(oCorpse) >= CREATURE_SIZE_LARGE) ? d6() : 1;
+            || (!GetLocalInt(oCorpse, CNR_SKIN_LESSER)
+                && GetCreatureSize(oCorpse) >= CREATURE_SIZE_LARGE)) ? d6() : 1;
         if (CnrSkin_GiveHides(oPC, CnrSkin_Material(iOther), iExtra))
         {
             SetLocalInt(oCorpse, CNR_SKIN_BONUS, TRUE);

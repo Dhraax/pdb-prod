@@ -453,6 +453,8 @@ void AsignarApariencia(int nClass, object oCreature, object oArea)
                 // (cnr_i_skin.nss reads PIEL: 8 ice). The boss gives the most,
                 // the small ones a little (CnrSkin_Amount).
                 SetLocalInt(oCreature, "PIEL", 8);
+                // Its wyrmlings and dragonkin yield few, whatever their size.
+                if(GetLocalInt(oCreature, "JEFAZO") != 1) SetLocalInt(oCreature, "CNR_SKIN_LESSER", 1);
                 NWNX_Creature_SetRacialType(oCreature, RACIAL_TYPE_DRAGON);
                 SetLocalInt(oCreature, "Cromatico", 1);
                 AjustarEquipoGarras(oCreature);
@@ -517,6 +519,9 @@ void AsignarApariencia(int nClass, object oCreature, object oArea)
                 // (CnrSkin_Amount).
                 if(eApariencia == 457) SetLocalInt(oCreature, "PIEL", 9);
                 else SetLocalInt(oCreature, "PIEL", 7);
+                // The young wyverns and half-dragons yield few although their
+                // appearances are large or huge.
+                if(GetLocalInt(oCreature, "JEFAZO") != 1) SetLocalInt(oCreature, "CNR_SKIN_LESSER", 1);
                 NWNX_Creature_SetRacialType(oCreature, RACIAL_TYPE_DRAGON);
                 SetLocalInt(oCreature, "Cromatico", 1);
                 AjustarEquipoGarras(oCreature);
