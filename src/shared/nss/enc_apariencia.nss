@@ -2,6 +2,8 @@
 //
 // Script de Asignar apariencia según encuentro
 //
+// modified by: Dhraax
+//
 /////////////////////////////////////////////////////////////////
 
 #include "nwnx_creature"
@@ -447,6 +449,10 @@ void AsignarApariencia(int nClass, object oCreature, object oArea)
                 else if(nClass == CLASS_TYPE_DRUID)     eApariencia = 2042;
                 else if(nClass == CLASS_TYPE_RANGER)    eApariencia = 2042;
                 if(GetLocalInt(oCreature, "JEFAZO") == 1) eApariencia = 50;
+                // White dragon, wyrmlings and dragonkin: ice dragon hide
+                // (cnr_i_skin.nss reads PIEL: 8 ice). The boss gives the most,
+                // the small ones a little (CnrSkin_Amount).
+                SetLocalInt(oCreature, "PIEL", 8);
                 NWNX_Creature_SetRacialType(oCreature, RACIAL_TYPE_DRAGON);
                 SetLocalInt(oCreature, "Cromatico", 1);
                 AjustarEquipoGarras(oCreature);
@@ -505,6 +511,12 @@ void AsignarApariencia(int nClass, object oCreature, object oArea)
                 else if(nClass == CLASS_TYPE_DRUID)     eApariencia = 2319;
                 else if(nClass == CLASS_TYPE_RANGER)    eApariencia = 457;
                 if(GetLocalInt(oCreature, "JEFAZO") == 1) eApariencia = 4624;
+                // The old red dragon boss and its half-dragon balors give a
+                // fire dragon hide (PIEL 7); its young wyverns an acid one
+                // (PIEL 9), for their venom. Quantity follows the creature
+                // (CnrSkin_Amount).
+                if(eApariencia == 457) SetLocalInt(oCreature, "PIEL", 9);
+                else SetLocalInt(oCreature, "PIEL", 7);
                 NWNX_Creature_SetRacialType(oCreature, RACIAL_TYPE_DRAGON);
                 SetLocalInt(oCreature, "Cromatico", 1);
                 AjustarEquipoGarras(oCreature);

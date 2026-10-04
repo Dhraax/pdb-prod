@@ -13,6 +13,13 @@ experiencia al desollar. Las cantidades son 1d4 en tier 1 y 2, 2d4 en tier 3 y
 3d4 en tier 4. El cuchillo se desgasta con cada entrega y, al romperse, consume
 una unidad del paquete.
 
+Los dragones dan la piel de su color: los rojos, de fuego; los blancos, de
+hielo; los negros, de ácido, y los azules y de bronce, de rayo. Otras criaturas
+dracónicas, como crías, semidragones o wyverns, también dan algo. Cuanto más
+grande y poderosa es la criatura, más pieles da: un gran dragón mucho más que
+una cría. Además, cada dragón suelta una vez unas pocas pieles de otro elemento
+al azar.
+
 ## Uso
 
 1. Usa la **Tina de curtido** para obtener cuero. Es una estación de proceso y

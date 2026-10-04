@@ -138,6 +138,33 @@ dragon leather is tanned from one dragon hide (`PIEL` 7-10 on the creature,
 DM spawns are not visible to this search. Fire hides are unobtainable, and the
 other three come only from unique bosses.
 
+**Corrected on 2026-10-04.** The table above was wrong in two ways. The placed
+copies of `asy_dragonanegra` and `uri_iryklathagra`, and Arellaxerrontoal
+(`krejanharr`, bronze) in `ext_volc`, carried no `PIEL`: a placed instance keeps
+the variables it was placed with, and the blueprint value came later. And the
+random encounters were not counted: `enc_apariencia.nss` turns reptile
+encounters into dragons, subtype 36 with a white dragon boss and subtype 40 with
+an old red dragon boss, and set no `PIEL` either. Since then:
+
+| Hide | Source in the world |
+|---|---|
+| Fire (7) | The old red dragon boss of reptile encounters, subtype 40 |
+| Ice (8) | `uri_drgwhite004` (unchanged); the white dragon boss of reptile encounters, subtype 36 |
+| Acid (9) | `asy_dragonanegra` in `kro_dragonanegra` |
+| Lightning (10) | `uri_iryklathagra` in `kro_dragon`; `krejanharr` in `ext_volc` (blueprint too) |
+
+Since the same day the lesser dragon-kind give a little dragon hide as well:
+the white wyrmling `dragnblancocr` (ice) and the black half-dragon `stinger009`
+(acid) as blueprints; in reptile encounters the wyrmlings and dragonkin of
+subtype 36 (ice), the half-dragon balors of subtype 40 (fire) and its young
+wyverns (acid). `CnrSkin_Amount` scales dragon hide by creature: 3d4 per
+delivery from a boss (`JEFAZO`), 2d4 from another creature of size large or
+bigger, 1d2 from a smaller one; once per corpse it also gives 1d6 (1 from a
+small creature) of another dragon element at random. By owner decision, Singht (`uri_singht`) and
+Syzdothyx (`pb_imnculsyzdoth`), both shadow, give none; neither does the bone
+dragon. Whether this supply supports the demand
+below has not been measured; the exemption stays until it is.
+
 The demand: each tier-4 product spends four leathers, win or lose, and each
 leather one hide. Levels 17 to 20 take about 40 attempts with tier 4, which is
 of the order of 150-300 hides. A corpse gives three deliveries of 3d4, about 22

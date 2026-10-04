@@ -13,6 +13,8 @@ const string CNR_SKIN_READY = "CNR_SKIN_READY";
 const string CNR_SKIN_LEFT = "CNR_SKIN_LEFT";
 const string CNR_SKIN_BUSY = "CNR_SKIN_BUSY";
 const string CNR_SKIN_USES = "CNR_USOS";
+/// Set on a dragon corpse once its extra hide of another element was given.
+const string CNR_SKIN_BONUS = "CNR_SKIN_BONUS";
 const int CNR_SKIN_DELIVERIES = 3;
 const float CNR_SKIN_COOLDOWN = 10.0;
 
@@ -30,10 +32,24 @@ string CnrSkin_Material(int nPiel);
 /// @returns A tier from 1-4, otherwise zero.
 int CnrSkin_Tier(int nPiel);
 
-/// @brief Roll the existing hide quantity for one delivery.
+/// @brief Roll the hide quantity for one delivery.
 /// @param nTier The hide tier.
-/// @returns 1d4 at tiers 1-2, 2d4 at tier 3, or 3d4 at tier 4.
-int CnrSkin_Amount(int nTier);
+/// @param oCorpse The creature being skinned. Only read at tier 4.
+/// @returns 1d4 at tiers 1-2 and 2d4 at tier 3. Dragon hide, tier 4, depends
+///     on the creature since 2026-10-04: 3d4 from a boss (JEFAZO), 2d4 from
+///     any other large or bigger creature, 1d2 from a smaller one - a
+///     wyrmling, a dragonkin, a half-dragon or a young wyvern.
+int CnrSkin_Amount(int nTier, object oCorpse);
+
+/// @brief A dragon hide of an element other than the creature's own.
+/// @param nPiel The creature's PIEL value, 7-10.
+/// @returns One of the other three dragon PIEL values, chosen at random.
+int CnrSkin_OtherDragon(int nPiel);
+
+/// @brief Spanish name of a dragon hide's element.
+/// @param nPiel A dragon PIEL value, 7-10.
+/// @returns "fuego", "hielo", "ácido" or "rayo"; empty for anything else.
+string CnrSkin_DragonElement(int nPiel);
 
 /// @brief Deliver hides on one knife activation without changing corpse cleanup.
 /// @param oPC The activating player.
@@ -73,9 +89,45 @@ int CnrSkin_Tier(int nPiel)
     return 0;
 }
 
-int CnrSkin_Amount(int nTier)
+int CnrSkin_OtherDragon(int nPiel)
 {
-    if (nTier >= 4) return d4(3);
+    int iPick = Random(3);
+    int iCandidate;
+    for (iCandidate = 7; iCandidate <= 10; iCandidate++)
+    {
+        if (iCandidate == nPiel)
+        {
+            continue;
+        }
+        if (iPick == 0)
+        {
+            return iCandidate;
+        }
+        iPick--;
+    }
+    return 7;
+}
+
+string CnrSkin_DragonElement(int nPiel)
+{
+    switch (nPiel)
+    {
+        case 7:  return "fuego";
+        case 8:  return "hielo";
+        case 9:  return "ácido";
+        case 10: return "rayo";
+    }
+    return "";
+}
+
+int CnrSkin_Amount(int nTier, object oCorpse)
+{
+    if (nTier >= 4)
+    {
+        if (GetLocalInt(oCorpse, "JEFAZO") > 0) return d4(3);
+        if (GetCreatureSize(oCorpse) >= CREATURE_SIZE_LARGE) return d4(2);
+        return d2();
+    }
     if (nTier == 3) return d4(2);
     return d4();
 }
@@ -207,7 +259,7 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     int iTier = CnrSkin_Tier(iPiel);
     // Lock before granting items; failed deliveries spend no cooldown or wear.
     SetLocalInt(oCorpse, CNR_SKIN_BUSY, TRUE);
-    if (!CnrSkin_GiveHides(oPC, sMaterial, CnrSkin_Amount(iTier)))
+    if (!CnrSkin_GiveHides(oPC, sMaterial, CnrSkin_Amount(iTier, oCorpse)))
     {
         DeleteLocalInt(oCorpse, CNR_SKIN_BUSY);
         SendMessageToPC(oPC, "No te cabe nada más.");
@@ -215,6 +267,29 @@ void CnrSkin_Activate(object oPC, object oKnife, object oTarget)
     }
     SetLocalInt(oCorpse, CNR_SKIN_LEFT, iLeft - 1);
     DelayCommand(CNR_SKIN_COOLDOWN, DeleteLocalInt(oCorpse, CNR_SKIN_BUSY));
+
+    // Once per dragon corpse, a few hides of another element come too, so
+    // every element can be found on any dragon (since 2026-10-04): 1d6 from
+    // a boss or a large creature, 1 from a small one. It is tried on each
+    // delivery until it fits in the inventory.
+    if (iTier >= 4 && !GetLocalInt(oCorpse, CNR_SKIN_BONUS))
+    {
+        int iOther = CnrSkin_OtherDragon(iPiel);
+        int iExtra = (GetLocalInt(oCorpse, "JEFAZO") > 0
+            || GetCreatureSize(oCorpse) >= CREATURE_SIZE_LARGE) ? d6() : 1;
+        if (CnrSkin_GiveHides(oPC, CnrSkin_Material(iOther), iExtra))
+        {
+            SetLocalInt(oCorpse, CNR_SKIN_BONUS, TRUE);
+            SendMessageToPC(oPC, "Entre los restos encuentras también "
+                + IntToString(iExtra) + " de piel de dragón de "
+                + CnrSkin_DragonElement(iOther) + ".");
+        }
+        else if (iLeft > 1)
+        {
+            SendMessageToPC(oPC, "Hay piel de dragón de otro elemento, pero no "
+                + "te cabe: haz sitio y vuelve a desollar.");
+        }
+    }
     AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 1.5));
     if (iLeft == 1)
     {
