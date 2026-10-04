@@ -74,6 +74,15 @@ exist with nothing behind them at all; both groups are listed further down.
 
 ### Closed
 
+**`1c96def3` - every dragon hide obtainable, scaled by creature, 2026-10-04.**
+Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one blocker and
+one advisory, both fixed in `79700994`.
+
+- **F-107, fixed.** Young wyverns and half-dragon balors have large or huge
+  appearances, so the size rule gave them 2d4 and a 1d6 extra against the
+  owner's "few"; encounter minions are now marked `CNR_SKIN_LESSER`.
+- **F-208, fixed.** The Peletería guide still said tier 4 gives 3d4.
+
 **`31be2dfd` - trade system texts in Spanish, backup script in the sync,
 2026-09-30.** Reviewed with `gpt-6-sol` at high reasoning, verdict BLOCKED, one
 blocker, fixed in `c8033730`.
